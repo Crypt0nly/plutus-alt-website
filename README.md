@@ -34,9 +34,10 @@ site wording in `src/data/plutus.js` when ready.
 
 ## Tech
 
-- **Three.js** `0.169` — WebGL scene, emissive materials, `UnrealBloomPass` (the glow), additive sprites for halos/pulses, `FogExp2` for depth.
+- **Three.js** `0.169` — WebGL scene, emissive materials, `UnrealBloomPass` (the glow), additive sprites for halos/pulses/nebula, a two-layer starfield, `FogExp2` for depth.
+- **Lenis** — smooth-scroll inertia for the premium feel.
 - **Vite** — dev server + production bundle.
-- **Vanilla JS + CSS** — dark "glass" UI chrome, no framework.
+- **Vanilla JS + CSS** — dark "glass" UI chrome, word-by-word title reveals, scroll-progress bar, no framework.
 
 ## Run
 
@@ -65,11 +66,17 @@ src/
 
 ## How the scene is driven
 
-`camera-rig.js` anchors the camera to each section's real scroll position and
-interpolates between stations — so the copy card and the 3D moment always stay
-in sync. The active beat calls `world.setActive(i)`, which sets smoothed target
-"amounts" (core energy, thread activity, node brightness, context, work, team,
-deploy); `world.update()` animates the whole scene from those each frame.
+`camera-rig.js` anchors the camera to each section's real scroll position. Within
+a section it **holds** on the beat (so the set-piece can play), then travels to
+the next station, interpolating position, FOV and roll for cinematic motion. It
+exposes `{ index, localT, progress }`.
+
+`world.update(dt, t, { index, localT, … })` reads that scroll state and
+**choreographs to the scrollbar**: a `ramp(beat)` value drives sequential effects
+(tools firing one-by-one, output artifacts emitting), while a `presence(beat)`
+window fades transient set-pieces (plan graph, context particles, approval gate,
+team clones) in and out as their card passes through. So scrolling literally
+*causes* the animation rather than just moving the camera.
 
 ### Notes
 

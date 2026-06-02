@@ -1,7 +1,8 @@
 import { BRAND, BEATS, INTEGRATIONS } from '../data/plutus.js';
 
-// Builds the DOM chrome: nav, one scroll section per beat (in the same order as
-// the camera stations), a side dock and the footer.
+// DOM chrome: nav, one scroll section per beat (in camera-station order), a
+// scroll-progress bar, a side dock, footer — plus premium motion: word-by-word
+// title reveals and section entrances tied to scroll.
 
 const el = (tag, cls, html) => {
   const n = document.createElement(tag);
@@ -10,19 +11,38 @@ const el = (tag, cls, html) => {
   return n;
 };
 
-const navlink = (label, href) => `<a href="${href}">${label}</a>`;
+const splitWords = (text) =>
+  text
+    .split(' ')
+    .map((w, i) => `<span class="w" style="--i:${i}"><i>${w}</i></span>`)
+    .join(' ');
+
+function scrollToEl(target) {
+  if (!target) return;
+  if (window.__lenis) window.__lenis.scrollTo(target, { offset: 0, duration: 1.15 });
+  else target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
 export function createOverlay() {
+  document.body.classList.add('fx');
   const scroll = document.getElementById('scroll');
   const navLinks = document.getElementById('nav-links');
   const dock = document.getElementById('dock');
   const nav = document.getElementById('nav');
 
-  navLinks.innerHTML =
-    navlink('How it works', '#beat-ask') +
-    navlink('Integrations', '#beat-tools') +
-    navlink('Control', '#beat-approve') +
-    navlink('Run it', '#beat-deploy');
+  // progress bar
+  const progress = el('div');
+  progress.id = 'progress';
+  document.body.appendChild(progress);
+
+  navLinks.innerHTML = [
+    ['How it works', '#beat-ask'],
+    ['Integrations', '#beat-tools'],
+    ['Control', '#beat-approve'],
+    ['Run it', '#beat-deploy'],
+  ]
+    .map(([l, h]) => `<a href="${h}">${l}</a>`)
+    .join('');
 
   const ctaButtons = (ctas) =>
     (ctas || [])
@@ -36,18 +56,18 @@ export function createOverlay() {
     sec.id = `beat-${beat.id}`;
     sec.dataset.station = String(i);
 
-    // the "tools" beat lists the integrations under its copy
     const chips =
       beat.id === 'tools'
         ? `<ul class="chips">${INTEGRATIONS.map(
-            (it) => `<li><span class="dot" style="background:${it.color}"></span>${it.label}</li>`
+            (it, k) => `<li style="--i:${k}"><span class="dot" style="background:${it.color}"></span>${it.label}</li>`
           ).join('')}</ul>`
         : '';
 
+    const Tag = beat.id === 'hero' ? 'h1' : 'h2';
     sec.innerHTML = `
       <div class="card ${isEnd ? 'card-center' : ''}">
         <span class="kicker">${beat.kicker}</span>
-        <h${beat.id === 'hero' ? 1 : 2} class="title">${beat.title}</h${beat.id === 'hero' ? 1 : 2}>
+        <${Tag} class="title">${splitWords(beat.title)}</${Tag}>
         <p class="body">${beat.body}</p>
         ${chips}
         ${beat.ctas ? `<div class="cta-row">${ctaButtons(beat.ctas)}</div>` : ''}
@@ -57,7 +77,6 @@ export function createOverlay() {
     scroll.appendChild(sec);
   });
 
-  // footer
   const foot = el('footer', 'site-foot');
   foot.innerHTML = `
     <span>© ${new Date().getFullYear()} ${BRAND.name} — ${BRAND.tagline}</span>
@@ -71,18 +90,38 @@ export function createOverlay() {
     b.dataset.idx = String(i);
     b.innerHTML = `<span class="dock-label">${beat.kicker.replace(/^\d+\s·\s/, '')}</span>`;
     b.setAttribute('aria-label', `Go to ${beat.title}`);
-    b.addEventListener('click', () => scrollToStation(i));
+    b.addEventListener('click', () => scrollToEl(document.querySelector(`[data-station="${i}"]`)));
     dock.appendChild(b);
     return b;
   });
 
-  function scrollToStation(i) {
-    document.querySelector(`[data-station="${i}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // reveal sections as they enter the viewport (replays on re-entry)
+  const secEls = Array.from(document.querySelectorAll('.beat'));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.target.classList.toggle('in', e.isIntersecting)),
+      { threshold: 0.32 }
+    );
+    secEls.forEach((s) => io.observe(s));
+  } else {
+    secEls.forEach((s) => s.classList.add('in'));
   }
+
+  // route in-page anchor links through smooth scroll
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#beat-"]');
+    if (!a) return;
+    e.preventDefault();
+    scrollToEl(document.getElementById(a.getAttribute('href').slice(1)));
+  });
 
   const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  document.getElementById('nav-aisles').addEventListener('click', () =>
+    scrollToEl(document.querySelector('[data-station="1"]'))
+  );
 
   let last = -1;
   function setActive(index) {
@@ -91,7 +130,5 @@ export function createOverlay() {
     dots.forEach((b, i) => b.setAttribute('data-active', String(i === index)));
   }
 
-  document.getElementById('nav-aisles').addEventListener('click', () => scrollToStation(1));
-
-  return { setActive, scrollToStation };
+  return { setActive };
 }
