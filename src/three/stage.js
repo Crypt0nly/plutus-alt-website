@@ -58,9 +58,9 @@ export function createStage(canvas) {
   composer.addPass(new RenderPass(scene, camera));
   const bloom = new UnrealBloomPass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
-    0.8, // strength
+    0.62, // strength
     0.7, // radius
-    0.18 // threshold
+    0.26 // threshold
   );
   composer.addPass(bloom);
   composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { INTEGRATIONS, BEATS } from '../data/plutus.js';
 import { glowTexture, nodeTexture } from './textures.js';
+import { createCore } from './core.js';
 
 // The persistent agent world. Scroll position drives the choreography: as you
 // move through a section the matching set-piece *plays* (the plan graph draws
@@ -62,34 +63,11 @@ export function createWorld(scene) {
   const starsFar = starLayer(1100, 30, 70, 0.18, new THREE.Color('#9fb0ff'), 0.7);
   const starsNear = starLayer(280, 14, 34, 0.3, new THREE.Color('#dfe7ff'), 0.85);
 
-  // ---- core --------------------------------------------------------------
+  // ---- core (shader-driven energy form, morphs with scroll) -------------
   const core = new THREE.Group();
   root.add(core);
-  const coreInner = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(1.05, 4),
-    new THREE.MeshStandardMaterial({ color: 0x0e1030, emissive: VIOLET, emissiveIntensity: 1.4, roughness: 0.3, metalness: 0.2 })
-  );
-  core.add(coreInner);
-  const coreWire = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(1.55, 2),
-    new THREE.MeshBasicMaterial({ color: CYAN, wireframe: true, transparent: true, opacity: 0.25, blending: THREE.AdditiveBlending, depthWrite: false })
-  );
-  core.add(coreWire);
-  const coreWire2 = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(1.95, 1),
-    new THREE.MeshBasicMaterial({ color: VIOLET, wireframe: true, transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending, depthWrite: false })
-  );
-  core.add(coreWire2);
-  const coreHalo = sprite(glow, VIOLET.clone().lerp(CYAN, 0.3), 0.9, 7);
-  core.add(coreHalo);
-
-  // orbiting electrons
-  const electrons = [];
-  for (let i = 0; i < 3; i++) {
-    const e = sprite(glow, CYAN, 0.9, 0.5);
-    core.add(e);
-    electrons.push({ s: e, r: 2.1 + i * 0.25, a: (i / 3) * Math.PI * 2, tilt: i * 0.7, speed: 0.8 + i * 0.25 });
-  }
+  const agent = createCore();
+  core.add(agent.group);
 
   // ---- plan graph (understand) ------------------------------------------
   const plan = new THREE.Group();
@@ -219,7 +197,7 @@ export function createWorld(scene) {
     S(-3.1, 1.2, 6.8, 0, 0.1, 0, 48),
     S(0, 3.0, 15.6, 0, 0, 0, 40, -0.02),
     S(2.5, 0.4, 6.4, 0.3, 0.2, 0, 44),
-    S(-0.4, -0.9, 5.7, 0, 0.2, 0, 54, 0.03),
+    S(-0.4, -0.5, 6.9, 0, 0.3, 0, 46, 0.03),
     S(2.3, 1.4, 8.6, 0.4, 0.3, 0, 44),
     S(0, 2.3, 12.6, 0, 0, 0, 46),
     S(6.1, 1.2, 9.0, 0.6, 0.2, 0, 42, -0.04),
@@ -252,25 +230,9 @@ export function createWorld(scene) {
     starsNear.rotation.y -= dt * 0.012;
     starsNear.rotation.x = Math.sin(t * 0.05) * 0.05;
 
-    // core
-    core.rotation.y += dt * 0.16;
-    coreWire.rotation.y -= dt * 0.22;
-    coreWire.rotation.x += dt * 0.13;
-    coreWire2.rotation.y += dt * 0.16;
-    const breathe = 1 + Math.sin(t * 1.7) * 0.04;
-    coreInner.material.emissiveIntensity = 0.8 + amt.core * 1.9 * breathe;
-    coreInner.scale.setScalar(breathe);
-    coreHalo.material.opacity = 0.32 + amt.core * 0.7;
-    coreHalo.scale.setScalar(6 + amt.core * 2.6 + Math.sin(t * 1.7) * 0.25);
-    coreWire.material.opacity = 0.12 + amt.core * 0.28;
-    coreWire2.material.opacity = 0.08 + amt.core * 0.16;
-
-    for (const e of electrons) {
-      const a = e.a + t * e.speed;
-      e.s.position.set(Math.cos(a) * e.r, Math.sin(a + e.tilt) * e.r * 0.5, Math.sin(a) * e.r * 0.7);
-      e.s.material.opacity = 0.5 + amt.core * 0.5;
-      e.s.scale.setScalar(0.4 + amt.core * 0.25);
-    }
+    // core — morph shape/colour/spread with the active beat + scroll
+    core.rotation.y += dt * 0.1;
+    agent.update(dt, t, { state: BEATS[nearest].state, energy: amt.core, progress: ctx ? ctx.progress : 0 });
 
     // plan graph (understand) draws in with ramp, fades with presence
     const planP = ramp(B.understand);
