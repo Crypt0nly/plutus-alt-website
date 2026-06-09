@@ -9,6 +9,8 @@ const VARIANTS = [
   { id: 'convert', num: '03', label: 'Converter', href: './convert.html' },
   { id: 'system', num: '04', label: 'System', href: './system.html' },
   { id: 'editorial', num: '05', label: 'Editorial', href: './editorial.html' },
+  { id: 'coworker', num: '06', label: 'Coworker', href: './coworker.html' },
+  { id: 'magic', num: '07', label: 'Magic', href: './magic.html' },
 ];
 
 export function mountSwitcher(current) {

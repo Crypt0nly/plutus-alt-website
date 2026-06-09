@@ -16,6 +16,8 @@ export default defineConfig({
         convert: fileURLToPath(new URL('./convert.html', import.meta.url)),
         system: fileURLToPath(new URL('./system.html', import.meta.url)),
         editorial: fileURLToPath(new URL('./editorial.html', import.meta.url)),
+        coworker: fileURLToPath(new URL('./coworker.html', import.meta.url)),
+        magic: fileURLToPath(new URL('./magic.html', import.meta.url)),
       },
     },
   },
