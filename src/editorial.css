@@ -1,0 +1,501 @@
+/* Plutus — variant 05 "EDITORIAL". A printed-matter manifesto: warm paper,
+   Fraunces display serif, Source Serif body, hairline rules, roman-numeral
+   chapters, a pull quote, a specimen ledger, and a colophon CTA. */
+
+:root {
+  --e-paper: #faf6ef;
+  --e-paper-deep: #f3ecdf;
+  --e-ink: #1a1611;
+  --e-ink-soft: #575044;
+  --e-rule: #d9d0bf;
+  --e-accent: #a33b10;
+  --e-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --e-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--switch-h, 0px) + 24px);
+}
+
+body.ed {
+  font-family: var(--e-body);
+  font-size: 18px;
+  line-height: 1.65;
+  background: var(--e-paper);
+  color: var(--e-ink);
+  padding-top: var(--switch-h, 0px);
+  -webkit-font-smoothing: antialiased;
+}
+
+body.ed ::selection {
+  background: rgba(163, 59, 16, 0.18);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ------------------------------------------------------------ masthead */
+
+.ed-masthead {
+  text-align: center;
+  padding: 44px 24px 0;
+  border-bottom: 1px solid var(--e-ink);
+}
+
+.ed-dateline {
+  font-size: 12.5px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--e-ink-soft);
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--e-rule);
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.ed-nameplate {
+  display: block;
+  font-family: var(--e-display);
+  font-weight: 900;
+  font-size: clamp(64px, 11vw, 132px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  padding: 22px 0 10px;
+}
+
+.ed-issue {
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--e-ink-soft);
+  padding-bottom: 18px;
+}
+
+.ed-navrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 14px 0;
+  border-top: 1px solid var(--e-ink);
+}
+
+.ed-navrow a {
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--e-ink-soft);
+  transition: color 0.2s ease;
+}
+
+.ed-navrow a:hover {
+  color: var(--e-accent);
+}
+
+.ed-navrow-cta {
+  color: var(--e-accent) !important;
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------- hero */
+
+.ed-hero {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 84px 24px 72px;
+  text-align: center;
+}
+
+.ed-hero h1 {
+  font-family: var(--e-display);
+  font-weight: 800;
+  font-size: clamp(36px, 5.6vw, 64px);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin-bottom: 30px;
+}
+
+.ed-hero h1 em {
+  display: block;
+  margin-top: 14px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--e-accent);
+}
+
+.ed-standfirst {
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.6;
+  color: var(--e-ink-soft);
+  max-width: 660px;
+  margin: 0 auto 38px;
+}
+
+.ed-fnref {
+  font-size: 0.6em;
+  vertical-align: super;
+  color: var(--e-accent);
+}
+
+.ed-hero-ctas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  flex-wrap: wrap;
+}
+
+.ed-btn {
+  display: inline-block;
+  background: var(--e-ink);
+  color: var(--e-paper);
+  font-family: var(--e-body);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 30px;
+  border: 1px solid var(--e-ink);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.ed-btn:hover {
+  background: var(--e-accent);
+  border-color: var(--e-accent);
+  color: #fff;
+}
+
+.ed-link {
+  font-style: italic;
+  font-size: 17px;
+  color: var(--e-ink-soft);
+  border-bottom: 1px solid var(--e-rule);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.ed-link:hover {
+  color: var(--e-accent);
+  border-color: var(--e-accent);
+}
+
+/* rules */
+
+.ed-rule-double {
+  max-width: 880px;
+  margin: 0 auto;
+  border-top: 3px double var(--e-ink);
+}
+
+/* ------------------------------------------------------------ article */
+
+.ed-article {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 26px 24px 0;
+}
+
+.ed-chapter-block {
+  padding: 58px 0 26px;
+}
+
+.ed-chapter {
+  text-align: center;
+  margin-bottom: 34px;
+}
+
+.ed-chapter span {
+  display: block;
+  font-size: 12.5px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--e-accent);
+  margin-bottom: 10px;
+}
+
+.ed-chapter h2 {
+  font-family: var(--e-display);
+  font-weight: 800;
+  font-size: clamp(30px, 4vw, 42px);
+  letter-spacing: -0.01em;
+}
+
+.ed-chapter::after {
+  content: '';
+  display: block;
+  width: 56px;
+  margin: 22px auto 0;
+  border-top: 1px solid var(--e-ink);
+}
+
+.ed-prose p {
+  margin-bottom: 22px;
+}
+
+.ed-prose p:last-child {
+  margin-bottom: 0;
+}
+
+.ed-prose em {
+  font-style: italic;
+}
+
+/* drop cap on the first paragraph of chapter I */
+#problem .ed-prose > p:first-of-type::first-letter {
+  font-family: var(--e-display);
+  font-weight: 900;
+  font-size: 64px;
+  line-height: 0.82;
+  float: left;
+  padding: 6px 10px 0 0;
+  color: var(--e-accent);
+}
+
+/* pull quote */
+
+.ed-pullquote {
+  max-width: 880px;
+  margin: 48px auto;
+  padding: 54px 24px;
+  border-top: 1px solid var(--e-ink);
+  border-bottom: 1px solid var(--e-ink);
+  text-align: center;
+}
+
+.ed-pullquote p {
+  position: relative;
+  font-family: var(--e-display);
+  font-weight: 600;
+  font-size: clamp(24px, 3.6vw, 38px);
+  line-height: 1.3;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.ed-pullquote p::before {
+  content: '“';
+  display: block;
+  font-size: 1.9em;
+  line-height: 0.6;
+  color: var(--e-accent);
+  margin-bottom: 14px;
+}
+
+.ed-pullquote em {
+  font-style: italic;
+  color: var(--e-accent);
+}
+
+/* principles */
+
+.ed-principles {
+  list-style: none;
+  counter-reset: principle;
+  display: flex;
+  flex-direction: column;
+}
+
+.ed-principles li {
+  counter-increment: principle;
+  position: relative;
+  padding: 24px 0 24px 76px;
+  border-top: 1px solid var(--e-rule);
+}
+
+.ed-principles li:last-child {
+  border-bottom: 1px solid var(--e-rule);
+}
+
+.ed-principles li::before {
+  content: counter(principle);
+  position: absolute;
+  left: 6px;
+  top: 18px;
+  font-family: var(--e-display);
+  font-weight: 900;
+  font-size: 44px;
+  line-height: 1;
+  color: var(--e-accent);
+}
+
+.ed-principles h3 {
+  font-family: var(--e-display);
+  font-weight: 600;
+  font-size: 21px;
+  margin-bottom: 5px;
+}
+
+.ed-principles p {
+  font-size: 16.5px;
+  color: var(--e-ink-soft);
+}
+
+/* ledger */
+
+.ed-ledger {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.ed-ledger th {
+  text-align: left;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--e-ink-soft);
+  padding: 0 16px 12px 0;
+  border-bottom: 2px solid var(--e-ink);
+}
+
+.ed-ledger td {
+  vertical-align: top;
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid var(--e-rule);
+}
+
+.ed-ledger td:first-child {
+  font-style: italic;
+}
+
+.ed-ledger td:nth-child(2) {
+  white-space: nowrap;
+  color: var(--e-ink-soft);
+}
+
+.ed-ledger-note {
+  margin-top: 16px;
+  font-size: 14.5px;
+  font-style: italic;
+  color: var(--e-ink-soft);
+}
+
+/* ------------------------------------------------------------ colophon */
+
+.ed-colophon {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 64px 24px 30px;
+  text-align: center;
+}
+
+.ed-colophon-box {
+  border: 1px solid var(--e-ink);
+  outline: 1px solid var(--e-ink);
+  outline-offset: 4px;
+  background: var(--e-paper-deep);
+  padding: 52px 34px;
+}
+
+.ed-colophon h2 {
+  font-family: var(--e-display);
+  font-weight: 900;
+  font-size: clamp(40px, 6vw, 60px);
+  margin-bottom: 12px;
+}
+
+.ed-colophon-box > p {
+  color: var(--e-ink-soft);
+  margin-bottom: 28px;
+}
+
+.ed-mini {
+  font-size: 13px !important;
+  letter-spacing: 0.06em;
+  margin: 18px 0 0 !important;
+}
+
+.ed-footnote {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 40px 24px 56px;
+  font-size: 14px;
+  color: var(--e-ink-soft);
+  border-top: 0;
+}
+
+/* -------------------------------------------------------------- footer */
+
+.ed-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 22px 24px 40px;
+  border-top: 1px solid var(--e-ink);
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--e-ink-soft);
+}
+
+/* -------------------------------------------------------------- motion */
+
+.reveal {
+  opacity: 0;
+  transition: opacity 1s ease;
+  transition-delay: var(--d, 0s);
+}
+
+.reveal.in {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------- responsive */
+
+@media (max-width: 640px) {
+  .ed-navrow {
+    gap: 16px;
+  }
+
+  .ed-hero {
+    padding: 60px 22px 56px;
+  }
+
+  .ed-principles li {
+    padding-left: 56px;
+  }
+
+  .ed-principles li::before {
+    font-size: 34px;
+    left: 2px;
+  }
+
+  .ed-ledger {
+    font-size: 14px;
+  }
+
+  .ed-ledger td:nth-child(2) {
+    white-space: normal;
+  }
+
+  .ed-colophon-box {
+    padding: 40px 22px;
+  }
+}

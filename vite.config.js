@@ -14,6 +14,8 @@ export default defineConfig({
         minimal: fileURLToPath(new URL('./index.html', import.meta.url)),
         neon: fileURLToPath(new URL('./neon.html', import.meta.url)),
         convert: fileURLToPath(new URL('./convert.html', import.meta.url)),
+        system: fileURLToPath(new URL('./system.html', import.meta.url)),
+        editorial: fileURLToPath(new URL('./editorial.html', import.meta.url)),
       },
     },
   },
