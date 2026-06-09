@@ -1,4 +1,4 @@
-# Plutus — the AI assistant that does the work
+# Plutus — the AI operating system for companies
 
 The Plutus marketing site: cinematic and calm, written for non-technical
 readers. A midnight canvas with drifting aurora light, Instrument Serif
@@ -7,45 +7,47 @@ that clears itself** in the hero, and a **draggable before/after "same
 Monday"** comparison. No frameworks, no runtime dependencies — just Vite,
 vanilla JS and CSS.
 
-> The product: *Plutus — the AI assistant that does the work.* It connects
-> the platforms a person or team already runs on (email, calendar, files,
+> The product: *Plutus — the AI operating system for companies.* It plugs
+> into the platforms a company already runs on (email, calendar, files,
 > chat, documents, the web) and does the work inside them — always asking
 > before anything important, and reporting back after every run. Content on
 > this page is kept in sync with what the
 > [plutus-cloud](https://github.com/Crypt0nly/plutus-cloud) app actually
-> ships: connectors, voice, memory, scheduled automations, desktop control,
-> image generation, autonomous email replies, teams, and the
-> Free / Team ($149) / Business ($299) plans.
+> ships: connectors, voice, company memory, scheduled automations, parallel
+> workers, desktop control, image generation, autonomous email replies,
+> org/role guardrails, and the Free / Team ($149) / Business ($299) plans.
 
 ## Page tour
 
-1. **Hero** — "What if your to-do list *did itself?*" plus the self-clearing
-   notification pile: five everyday worries get a check and swoosh away,
-   ending on "✨ All handled. Enjoy your evening." Primary CTA is **Start
-   free**, with risk-removing microcopy (free plan · no credit card ·
-   nothing to install).
-2. **Your team's Monday** — a scrubber over one team to-do list (pointer,
+1. **Hero** — kicker "The AI operating system for companies", then "What if
+   your company *ran itself?*" plus the self-clearing notification pile:
+   five company worries (customer email, scheduling, invoices, investor
+   update, launch post) get a check and swoosh away, ending on "✨ All
+   handled." Primary CTA is **Start free**, with risk-removing microcopy
+   (free pilot · no credit card · no IT project).
+2. **Your company's Monday** — a scrubber over one team to-do list (pointer,
    touch and keyboard): each row flips ✗→✓ as the divider passes it, the
    card washes teal, the end line swaps (5:45 pm buried → 4:00 pm clear)
    and a "+team-hours" pill ticks with progress. On first view it plays one
    slow demonstration sweep, then settles halfway; any interaction cancels.
-3. **Three statements** — *You say it. It happens. You stay in charge* — a
-   pinned scroll story: the section holds for ~3 screens while scroll
-   progress dissolves each statement into the next (drift + blur crossfade).
-   Falls back to simple stacked blocks without JS or with reduced motion.
-4. **Everyday magic** — six plain-words cards: emails, meeting times, tidy
-   folders, first drafts, looking things up, follow-ups.
-5. **One assistant, everywhere** — a pill strip of real connectors (Gmail,
+3. **Three statements** — *Your team says it. It happens. You stay in
+   charge* — one coherent invoice-chasing story told as a pinned scroll
+   narrative: the section holds for ~3 screens while scroll progress
+   dissolves each statement into the next. Falls back to simple stacked
+   blocks without JS or with reduced motion.
+4. **One system, every department** — six department cards: Sales, Support,
+   Finance, Marketing, Operations, Company memory.
+5. **Plugged into everything** — a pill strip of real connectors (Gmail,
    Google Calendar, Drive, Notion, WhatsApp, Telegram, Slack, Discord,
-   GitHub, your computer) plus six differentiator cards: voice, memory,
-   scheduled automations, desktop control, image generation, team
-   workspace.
-6. **Pricing** — Free / Team ($149, "most popular") / Business ($299), each
-   mirroring the in-app plans and token allowances, with an Enterprise note.
-7. **FAQ** — six `<details>` accordions (no JS needed) answering the
+   GitHub, your computer) plus six system cards: voice, parallel workers,
+   scheduled rhythm, desktop control, image generation, admin guardrails.
+6. **Pricing** — Free ("for the pilot") / Team ($149, "most popular") /
+   Business ($299), each mirroring the in-app plans and token allowances,
+   with an Enterprise note.
+7. **FAQ** — seven `<details>` accordions (no JS needed) answering the
    classic objections: free?, install?, autonomy/approval, integrations,
-   privacy, teams.
-8. **Final CTA** — "Less busywork. *More life.*" → **Start free**.
+   privacy, company-wide use, rollout time.
+8. **Final CTA** — "Run the company. *Not the busywork.*" → **Start free**.
 
 ## Tech notes
 

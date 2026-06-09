@@ -6,13 +6,13 @@ initReveals();
 // ---------------------------------------------- self-clearing notifications
 
 const NOTES = [
-  { e: '✉️', t: '12 unread emails', s: 'answered or filed — 3 kept for you' },
-  { e: '📅', t: 'Team meeting to plan', s: 'Thursday 10:00 booked, invites out' },
-  { e: '📁', t: 'Shared folder chaos', s: 'tidied — files properly named' },
-  { e: '📝', t: 'Monthly report due', s: 'first draft ready for your edits' },
-  { e: '🔔', t: 'Two people owe you replies', s: 'friendly reminders sent' },
+  { e: '✉️', t: '23 customer emails overnight', s: 'answered — 3 escalated to a human' },
+  { e: '📅', t: 'Quarterly review to schedule', s: '11 calendars aligned, invites out' },
+  { e: '🧾', t: 'Four invoices overdue', s: 'reminders sent — one already paid' },
+  { e: '📝', t: 'Investor update due Friday', s: 'first draft waiting for your edits' },
+  { e: '📣', t: 'Launch post not written', s: 'drafted and queued across channels' },
 ];
-const FINAL = { e: '✨', t: 'All handled.', s: 'Two things waited for your OK. Enjoy your evening.' };
+const FINAL = { e: '✨', t: 'All handled.', s: 'Two things waited for your sign-off. The rest just ran.' };
 
 const stack = document.getElementById('mg-stack');
 
