@@ -1,132 +1,49 @@
 import './style.css';
-import { INTEGRATIONS, icon } from './icons.js';
 import { initReveals, reducedMotion } from './fx.js';
-import { mountSwitcher } from './switcher.js';
-
-mountSwitcher('minimal');
-
-// Hero demo scenarios: prompt → plan steps → result summary.
-const SCENARIOS = [
-  {
-    prompt: 'Research our top 3 competitors',
-    steps: ['Scan the market', 'Compare features and pricing', 'Write up a brief in Files'],
-    summary: 'Done — brief saved to Files, 3 competitors compared.',
-  },
-  {
-    prompt: 'Clean up the open PRs',
-    steps: ['Review 7 open pull requests', 'Merge the ones that pass CI', 'Nudge reviewers on Discord'],
-    summary: 'Done — 5 PRs merged, 2 reviewers pinged.',
-  },
-  {
-    prompt: 'Plan Thursday’s launch',
-    steps: ['Find a slot that works for everyone', 'Book the room on Calendar', 'Email the agenda to the team'],
-    summary: 'Done — Thursday 10:00 booked, agenda sent.',
-  },
-];
-
-// ------------------------------------------------------------------ nav
-
-const nav = document.getElementById('nav');
-const burger = document.getElementById('nav-burger');
-
-const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 24);
-window.addEventListener('scroll', onScroll, { passive: true });
-onScroll();
-
-burger.addEventListener('click', () => {
-  const open = nav.classList.toggle('menu-open');
-  burger.setAttribute('aria-expanded', String(open));
-  burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-});
-
-// close the mobile menu after navigating
-document.getElementById('nav-menu').addEventListener('click', (e) => {
-  if (e.target.closest('a')) {
-    nav.classList.remove('menu-open');
-    burger.setAttribute('aria-expanded', 'false');
-  }
-});
-
-// -------------------------------------------------- integrations render
-
-document.getElementById('logo-strip').innerHTML = INTEGRATIONS.map(
-  (it) => `<li>${icon(it.glyph)}<span>${it.label}</span></li>`
-).join('');
-
-document.getElementById('integration-tiles').innerHTML = INTEGRATIONS.map(
-  (it, i) => `
-    <li class="tile reveal" style="--d: ${(i % 4) * 0.06}s">
-      <span class="tile-icon" style="background:${it.color}1f">${icon(it.glyph, it.color)}</span>
-      <span class="tile-name">${it.label}</span>
-    </li>`
-).join('');
-
-// ---------------------------------------------------------- reveal-ins
 
 initReveals();
 
-// ------------------------------------------------------------ hero demo
+// ---------------------------------------------- self-clearing notifications
 
-const promptEl = document.getElementById('demo-prompt');
-const caretEl = document.getElementById('demo-caret');
-const planEl = document.getElementById('demo-plan');
-const stepsEl = document.getElementById('demo-steps');
-const doneEl = document.getElementById('demo-done');
-const summaryEl = document.getElementById('demo-summary');
+const NOTES = [
+  { e: '✉️', t: '12 unread emails', s: 'answered or filed — 3 kept for you' },
+  { e: '📅', t: 'Team meeting to plan', s: 'Thursday 10:00 booked, invites out' },
+  { e: '📁', t: 'Shared folder chaos', s: 'tidied — files properly named' },
+  { e: '📝', t: 'Monthly report due', s: 'first draft ready for your edits' },
+  { e: '🔔', t: 'Two people owe you replies', s: 'friendly reminders sent' },
+];
+const FINAL = { e: '✨', t: 'All handled.', s: 'Two things waited for your OK. Enjoy your evening.' };
 
-const tickSvg =
-  '<span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>';
+const stack = document.getElementById('mg-stack');
 
-function renderScenario(s, allDone) {
-  promptEl.textContent = s.prompt;
-  stepsEl.innerHTML = s.steps
-    .map((step) => `<li class="${allDone ? 'done' : ''}">${tickSvg}<span>${step}</span></li>`)
-    .join('');
-  summaryEl.textContent = s.summary;
-}
+const makeNote = (n, extra = '') => {
+  const div = document.createElement('div');
+  div.className = `mg-note ${extra}`;
+  div.innerHTML = `
+    <span class="mg-note-emoji" aria-hidden="true">${n.e}</span>
+    <span class="mg-note-text"><strong>${n.t}</strong><span>${n.s}</span></span>
+    <span class="mg-note-check" aria-hidden="true">✓</span>`;
+  return div;
+};
 
 if (reducedMotion) {
-  // static, fully completed first scenario
-  renderScenario(SCENARIOS[0], true);
-  caretEl.classList.add('off');
-  planEl.hidden = false;
-  doneEl.hidden = false;
+  const fin = makeNote(FINAL, 'mg-note-final handled');
+  fin.style.top = '110px';
+  stack.appendChild(fin);
 } else {
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  async function type(text) {
-    promptEl.textContent = '';
-    caretEl.classList.remove('off');
-    for (const ch of text) {
-      promptEl.textContent += ch;
-      await wait(34 + Math.random() * 40);
-    }
-    await wait(350);
-    caretEl.classList.add('off');
-  }
-
-  async function playScenario(s) {
-    planEl.hidden = true;
-    doneEl.hidden = true;
-    await type(s.prompt);
-
-    renderScenario(s, false);
-    planEl.hidden = false;
-    await wait(700);
-
-    for (const li of stepsEl.children) {
-      li.classList.add('done');
-      await wait(820);
-    }
-
-    await wait(250);
-    doneEl.hidden = false;
-    await wait(3400);
-  }
+  // pile layout: top 4 cards visible, fanned downwards
+  const layout = (order) => {
+    order.forEach((note, i) => {
+      const k = Math.min(i, 3);
+      note.style.zIndex = String(20 - i);
+      note.style.opacity = i > 3 ? '0' : String(1 - k * 0.16);
+      note.style.transform = `translateY(${36 + k * 18}px) scale(${1 - k * 0.035})`;
+    });
+  };
 
   (async function loop() {
-    let i = 0;
-    // start once the demo scrolls into view the first time
     await new Promise((resolve) => {
       if (!('IntersectionObserver' in window)) return resolve();
       const watch = new IntersectionObserver((entries) => {
@@ -135,16 +52,151 @@ if (reducedMotion) {
           resolve();
         }
       });
-      watch.observe(document.getElementById('demo'));
+      watch.observe(stack);
     });
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      await playScenario(SCENARIOS[i % SCENARIOS.length]);
-      i += 1;
+      stack.innerHTML = '';
+      const order = NOTES.map((n) => {
+        const note = makeNote(n);
+        stack.appendChild(note);
+        return note;
+      });
+      layout(order);
+      await wait(1300);
+
+      while (order.length) {
+        const top = order[0];
+        top.classList.add('handled');
+        await wait(950);
+        top.classList.add('gone');
+        await wait(420);
+        top.remove();
+        order.shift();
+        layout(order);
+        await wait(420);
+      }
+
+      const fin = makeNote(FINAL, 'mg-note-final handled');
+      fin.style.top = '0';
+      fin.style.transform = 'translateY(120px) scale(0.9)';
+      fin.style.opacity = '0';
+      stack.appendChild(fin);
+      await wait(60);
+      fin.style.transform = 'translateY(96px) scale(1)';
+      fin.style.opacity = '1';
+      await wait(4300);
+      fin.style.opacity = '0';
+      await wait(500);
     }
   })();
 }
 
-// ----------------------------------------------------------------- misc
+// --------------------------------------------------- before/after slider
+
+const compare = document.getElementById('mg-compare');
+const handle = document.getElementById('mg-handle');
+let x = 50;
+let interacted = false;
+
+const setX = (v) => {
+  x = Math.max(4, Math.min(96, v));
+  compare.style.setProperty('--x', `${x}%`);
+  handle.setAttribute('aria-valuenow', String(Math.round(x)));
+};
+setX(50);
+
+let dragging = false;
+const fromEvent = (e) => {
+  const r = compare.getBoundingClientRect();
+  return ((e.clientX - r.left) / r.width) * 100;
+};
+
+compare.addEventListener('pointerdown', (e) => {
+  dragging = true;
+  interacted = true;
+  compare.setPointerCapture(e.pointerId);
+  setX(fromEvent(e));
+});
+compare.addEventListener('pointermove', (e) => {
+  if (dragging) setX(fromEvent(e));
+});
+const stop = () => {
+  dragging = false;
+};
+compare.addEventListener('pointerup', stop);
+compare.addEventListener('pointercancel', stop);
+
+handle.addEventListener('keydown', (e) => {
+  interacted = true;
+  if (e.key === 'ArrowLeft') setX(x - 4);
+  else if (e.key === 'ArrowRight') setX(x + 4);
+  else if (e.key === 'Home') setX(4);
+  else if (e.key === 'End') setX(96);
+  else return;
+  e.preventDefault();
+});
+
+// ------------------------------------------- scroll-driven statements
+
+// The story section pins for ~3 screens; scroll progress drives each
+// statement through fade-in → hold → fade-out, with a soft drift and blur.
+const story = document.getElementById('mg-story');
+if (story && !reducedMotion) {
+  const steps = [...story.querySelectorAll('.mg-statement')];
+  const n = steps.length;
+  const clamp01 = (v) => Math.max(0, Math.min(1, v));
+
+  const update = () => {
+    const r = story.getBoundingClientRect();
+    const total = r.height - window.innerHeight;
+    if (total <= 0) return;
+    // progress through the story in "statement units", with half-step hold
+    // zones at both ends so the first and last hold while pinned
+    const fp = clamp01(-r.top / total) * n;
+    const fpc = Math.max(0.5, Math.min(n - 0.5, fp));
+    steps.forEach((s, i) => {
+      const d = fpc - (i + 0.5);
+      // hold at full opacity within ±0.2, then fade over 0.45 — wide enough
+      // that adjacent statements overlap and dissolve into each other
+      let o = 1 - clamp01((Math.abs(d) - 0.2) / 0.45);
+      o = o * o * (3 - 2 * o); // smoothstep
+      s.style.opacity = String(o);
+      s.style.transform = `translateY(${(-d * 46).toFixed(1)}px)`;
+      s.style.filter = o >= 0.999 ? 'none' : `blur(${((1 - o) * 7).toFixed(2)}px)`;
+      s.style.zIndex = o > 0.5 ? '2' : '1';
+    });
+  };
+
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      update();
+      ticking = false;
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+}
+
+// a gentle nudge the first time the slider scrolls into view
+if (!reducedMotion && 'IntersectionObserver' in window) {
+  const nudge = new IntersectionObserver((entries) => {
+    if (!entries.some((e) => e.isIntersecting)) return;
+    nudge.disconnect();
+    const t0 = performance.now();
+    (function wiggle(now) {
+      if (interacted) return;
+      const t = (now - t0) / 1600;
+      if (t >= 1) return setX(50);
+      setX(50 + Math.sin(t * Math.PI * 2) * 9);
+      requestAnimationFrame(wiggle);
+    })(t0);
+  });
+  nudge.observe(compare);
+}
 
 document.getElementById('year').textContent = String(new Date().getFullYear());

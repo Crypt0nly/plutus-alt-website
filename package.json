@@ -1,9 +1,9 @@
 {
   "name": "plutus-alt-website",
   "private": true,
-  "version": "2.0.0",
+  "version": "3.0.0",
   "type": "module",
-  "description": "PLUTUS — the AI agent that actually does your work. A clean, Apple-style single-page marketing site built with Vite and vanilla JS.",
+  "description": "PLUTUS — the AI operating system for companies. A cinematic single-page site: aurora light, serif statements, a self-clearing notification pile and a draggable before/after Monday. Vite + vanilla JS.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
