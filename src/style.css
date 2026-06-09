@@ -115,13 +115,26 @@ em {
   font-style: italic;
 }
 
-/* gradient italic accent inside headings */
+/* gradient italic accent inside headings — with a slow shimmer drifting
+   through the gradient */
 h1 em,
 h2 em {
-  background: linear-gradient(95deg, var(--m-lilac), var(--m-pink) 55%, var(--m-teal));
+  background: linear-gradient(95deg, var(--m-lilac), var(--m-pink) 40%, var(--m-teal) 75%, var(--m-lilac));
+  background-size: 220% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: mg-shimmer 6s ease-in-out infinite;
+}
+
+@keyframes mg-shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* ---------------------------------------------------------------- nav */
@@ -549,6 +562,12 @@ h2 em {
     align-items: center;
     justify-content: center;
     padding: 0 24px;
+    transition: none;
+    perspective: 900px;
+  }
+
+  /* the pieces animate individually (headline leads, blocks trail) */
+  html.js .mg-statement > * {
     opacity: 0;
     transition: none;
     will-change: opacity, transform;
@@ -738,7 +757,9 @@ html:not(.js) .mg-stack-wrap {
     transition: none;
   }
 
-  .mg-aurora {
+  .mg-aurora,
+  h1 em,
+  h2 em {
     animation: none;
   }
 
