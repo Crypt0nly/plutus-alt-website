@@ -73,11 +73,13 @@
   opacity: 0.45;
 }
 
-@media (max-width: 880px) {
+@media (max-width: 1240px) {
   .switcher-label {
     display: none;
   }
+}
 
+@media (max-width: 880px) {
   .switcher {
     padding: 0 10px;
   }

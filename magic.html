@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0b1a" />
+    <title>Plutus — What If Your To-Do List Did Itself?</title>
+    <meta
+      name="description"
+      content="Plutus is like a brilliant assistant inside your email, calendar and files. Say what you need — watch it get done. It always asks before anything important."
+    />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230b0b1a'/%3E%3Ctext x='16' y='23' font-family='Georgia, serif' font-style='italic' font-weight='700' font-size='20' fill='%23c4b5fd' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="mg">
+    <div class="mg-aurora mg-aurora-a" aria-hidden="true"></div>
+    <div class="mg-aurora mg-aurora-b" aria-hidden="true"></div>
+
+    <!-- Nav -->
+    <header class="mg-nav">
+      <a class="mg-brand" href="#top">Plutus <span aria-hidden="true">✦</span></a>
+      <nav class="mg-nav-links" aria-label="Primary">
+        <a href="#monday">The difference</a>
+        <a href="#everyday">Everyday magic</a>
+      </nav>
+      <a class="mg-btn mg-btn-small" href="#try">Try the magic</a>
+    </header>
+
+    <main id="top">
+      <!-- Hero -->
+      <section class="mg-hero">
+        <div class="mg-container">
+          <h1 class="reveal">
+            What if your to-do list<br /><em>did itself?</em>
+          </h1>
+          <p class="mg-sub reveal" style="--d: 0.1s">
+            Plutus is like a brilliant assistant living inside your email, calendar and
+            files. Say what you need, in your own words — then watch it get done.
+          </p>
+          <div class="mg-ctas reveal" style="--d: 0.18s">
+            <a class="mg-btn" href="#try">Try the magic</a>
+            <a class="mg-hint" href="#monday">See the difference ↓</a>
+          </div>
+
+          <!-- self-clearing notifications -->
+          <div class="mg-stack-wrap reveal" style="--d: 0.26s">
+            <div class="mg-stack" id="mg-stack" role="img" aria-label="A pile of notifications being handled one by one until everything is done"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Before / after slider -->
+      <section class="mg-section" id="monday">
+        <div class="mg-container">
+          <header class="mg-head">
+            <h2 class="reveal">Same Monday. <em>Drag to compare.</em></h2>
+          </header>
+
+          <div class="mg-compare reveal" style="--d: 0.1s" id="mg-compare">
+            <!-- without -->
+            <div class="mg-pane mg-pane-before">
+              <div class="mg-pane-inner">
+                <p class="mg-pane-title">Without Plutus</p>
+                <ul>
+                  <li><i>✗</i>Answer 14 emails</li>
+                  <li><i>✗</i>Find a meeting time for six people</li>
+                  <li><i>✗</i>Tidy the shared folder</li>
+                  <li><i>✗</i>Draft the monthly report</li>
+                  <li><i>✗</i>Chase two people for replies</li>
+                </ul>
+                <p class="mg-pane-end">5:45 pm — still at your desk.</p>
+              </div>
+            </div>
+            <!-- with -->
+            <div class="mg-pane mg-pane-after">
+              <div class="mg-pane-inner">
+                <p class="mg-pane-title">With Plutus</p>
+                <ul>
+                  <li><i>✓</i>Emails answered — 3 waited for your OK</li>
+                  <li><i>✓</i>Thursday 10:00 booked, invites out</li>
+                  <li><i>✓</i>Folder tidy, files properly named</li>
+                  <li><i>✓</i>Report drafted, ready for your edits</li>
+                  <li><i>✓</i>Both replies chased — one already in</li>
+                </ul>
+                <p class="mg-pane-end">4:00 pm — done. You went home.</p>
+              </div>
+            </div>
+            <!-- handle -->
+            <div class="mg-handle" id="mg-handle" role="slider" tabindex="0"
+                 aria-label="Comparison slider between Monday without Plutus and Monday with Plutus"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="mg-handle-knob">⟷</span>
+            </div>
+          </div>
+          <p class="mg-compare-note reveal" style="--d: 0.16s">You said one “OK”. Plutus did the rest.</p>
+        </div>
+      </section>
+
+      <!-- Statements -->
+      <section class="mg-statements">
+        <div class="mg-container">
+          <div class="mg-statement reveal">
+            <h2>You say it.</h2>
+            <p class="mg-said">“Find us a time next week and send the invites.”</p>
+          </div>
+          <div class="mg-statement reveal">
+            <h2>It <em>happens.</em></h2>
+            <ul class="mg-outcomes">
+              <li>✓ Calendars checked</li>
+              <li>✓ Tuesday 14:00 booked</li>
+              <li>✓ Invites sent to all six</li>
+            </ul>
+          </div>
+          <div class="mg-statement reveal">
+            <h2>You stay in charge.</h2>
+            <div class="mg-approve">
+              <p>Plutus asks: <strong>“Send the invite to the client too?”</strong></p>
+              <div class="mg-approve-btns"><span class="yes">Yes, send it</span><span>Not yet</span></div>
+            </div>
+            <p class="mg-statement-note">Anything important waits for your word. Always.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Everyday magic -->
+      <section class="mg-section" id="everyday">
+        <div class="mg-container">
+          <header class="mg-head">
+            <h2 class="reveal">Everyday <em>magic.</em></h2>
+            <p class="reveal" style="--d: 0.08s">No spells to learn. Just the stuff you didn’t want to do anyway.</p>
+          </header>
+          <div class="mg-grid">
+            <article class="mg-card reveal"><span>✉️</span><h3>Answers the routine emails</h3><p>And shows you the ones that actually need a human.</p></article>
+            <article class="mg-card reveal" style="--d: 0.05s"><span>📅</span><h3>Finds times that work</h3><p>Checks everyone’s calendar, books the slot, sends the invites.</p></article>
+            <article class="mg-card reveal" style="--d: 0.1s"><span>📁</span><h3>Keeps folders tidy</h3><p>Files named, sorted and where your team expects them.</p></article>
+            <article class="mg-card reveal" style="--d: 0.15s"><span>📝</span><h3>Writes the first draft</h3><p>Reports, summaries, replies — you just polish and send.</p></article>
+            <article class="mg-card reveal" style="--d: 0.2s"><span>🔎</span><h3>Does the looking-up</h3><p>Research, comparisons, “what did we decide last March?”</p></article>
+            <article class="mg-card reveal" style="--d: 0.25s"><span>🔔</span><h3>Never lets things slip</h3><p>Follows up, reminds the right people, reports back to you.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final CTA -->
+      <section class="mg-final" id="try">
+        <div class="mg-container">
+          <h2 class="reveal">Less busywork.<br /><em>More life.</em></h2>
+          <p class="reveal" style="--d: 0.08s">Works with the email, calendar and files you already use.<br />Asks before anything important.</p>
+          <div class="reveal" style="--d: 0.16s">
+            <a class="mg-btn mg-btn-big" href="#top">Try the magic</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mg-foot">
+      <div class="mg-container">
+        <span>Plutus © <span id="year">2026</span></span>
+        <span><em>Say it. It happens. You stay in charge.</em></span>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/magic.js"></script>
+  </body>
+</html>
