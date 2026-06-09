@@ -1,0 +1,80 @@
+/* Design-variant switcher — a slim fixed bar above every variant's own nav.
+   Neutral near-black so it reads as "preview chrome" on all three designs. */
+
+:root {
+  --switch-h: 44px;
+}
+
+.switcher {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--switch-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 0 16px;
+  background: #0a0a0e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
+}
+
+.switcher-label {
+  position: absolute;
+  left: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.switcher-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+}
+
+.switcher-tabs a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.switcher-tabs a .num {
+  font-size: 10px;
+  font-weight: 700;
+  opacity: 0.55;
+}
+
+.switcher-tabs a:hover {
+  color: #fff;
+}
+
+.switcher-tabs a.active {
+  background: #fff;
+  color: #0a0a0e;
+}
+
+.switcher-tabs a.active .num {
+  opacity: 0.45;
+}
+
+@media (max-width: 720px) {
+  .switcher-label {
+    display: none;
+  }
+}

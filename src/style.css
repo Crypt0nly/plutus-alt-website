@@ -28,7 +28,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--nav-h) + 16px);
+  scroll-padding-top: calc(var(--nav-h) + var(--switch-h, 0px) + 16px);
   -webkit-text-size-adjust: 100%;
 }
 
@@ -85,14 +85,14 @@ a {
 }
 
 .skip-link:focus {
-  top: 12px;
+  top: calc(var(--switch-h, 0px) + 8px);
 }
 
 /* ---------------------------------------------------------------- nav */
 
 .nav {
   position: fixed;
-  inset: 0 0 auto 0;
+  inset: var(--switch-h, 0px) 0 auto 0;
   z-index: 100;
   background: var(--bg-nav);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -263,7 +263,7 @@ a {
 /* --------------------------------------------------------------- hero */
 
 .hero {
-  padding: calc(var(--nav-h) + 88px) 0 96px;
+  padding: calc(var(--nav-h) + var(--switch-h, 0px) + 88px) 0 96px;
   text-align: center;
   background: var(--bg);
 }
@@ -862,7 +862,7 @@ a {
   }
 
   .hero {
-    padding-top: calc(var(--nav-h) + 56px);
+    padding-top: calc(var(--nav-h) + var(--switch-h, 0px) + 56px);
   }
 
   .hero-demo {
