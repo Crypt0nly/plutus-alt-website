@@ -232,6 +232,15 @@ h2 em {
   text-align: center;
 }
 
+.mg-kicker {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--m-lilac);
+  margin-bottom: 22px;
+}
+
 .mg-hero h1 {
   font-family: var(--m-serif);
   font-weight: 400;
