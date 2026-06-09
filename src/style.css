@@ -796,14 +796,6 @@ h2 em {
   border-style: dashed;
 }
 
-/* 2×2 card variant */
-
-.mg-grid-4 {
-  grid-template-columns: repeat(2, 1fr);
-  max-width: 760px;
-  margin: 0 auto;
-}
-
 /* ------------------------------------------------------------- pricing */
 
 .mg-prices {

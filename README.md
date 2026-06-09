@@ -13,7 +13,8 @@ vanilla JS and CSS.
 > before anything important, and reporting back after every run. Content on
 > this page is kept in sync with what the
 > [plutus-cloud](https://github.com/Crypt0nly/plutus-cloud) app actually
-> ships: connectors, voice, memory, scheduled automations, teams, and the
+> ships: connectors, voice, memory, scheduled automations, desktop control,
+> image generation, autonomous email replies, teams, and the
 > Free / Team ($149) / Business ($299) plans.
 
 ## Page tour
@@ -36,8 +37,9 @@ vanilla JS and CSS.
    folders, first drafts, looking things up, follow-ups.
 5. **One assistant, everywhere** — a pill strip of real connectors (Gmail,
    Google Calendar, Drive, Notion, WhatsApp, Telegram, Slack, Discord,
-   GitHub) plus four differentiator cards: voice, memory, scheduled
-   automations, team workspace.
+   GitHub, your computer) plus six differentiator cards: voice, memory,
+   scheduled automations, desktop control, image generation, team
+   workspace.
 6. **Pricing** — Free / Team ($149, "most popular") / Business ($299), each
    mirroring the in-app plans and token allowances, with an Enterprise note.
 7. **FAQ** — six `<details>` accordions (no JS needed) answering the
