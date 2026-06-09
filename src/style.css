@@ -511,7 +511,9 @@ h2 em {
   color: var(--m-dim);
 }
 
-/* statements */
+/* statements — static fallback (no JS / reduced motion): simple stacked
+   blocks. With JS + motion, the section becomes a pinned scroll story:
+   the stage sticks for ~3 screens while the statements crossfade. */
 
 .mg-statements {
   padding: 30px 0 60px;
@@ -519,7 +521,38 @@ h2 em {
 
 .mg-statement {
   text-align: center;
-  padding: 90px 0;
+  padding: 80px 24px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js .mg-statements {
+    padding: 0;
+  }
+
+  html.js .mg-story {
+    height: 330vh;
+  }
+
+  html.js .mg-story-stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  html.js .mg-statement {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    opacity: 0;
+    transition: none;
+    will-change: opacity, transform, filter;
+  }
 }
 
 .mg-said {

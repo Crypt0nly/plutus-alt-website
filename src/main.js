@@ -137,6 +137,51 @@ handle.addEventListener('keydown', (e) => {
   e.preventDefault();
 });
 
+// ------------------------------------------- scroll-driven statements
+
+// The story section pins for ~3 screens; scroll progress drives each
+// statement through fade-in → hold → fade-out, with a soft drift and blur.
+const story = document.getElementById('mg-story');
+if (story && !reducedMotion) {
+  const steps = [...story.querySelectorAll('.mg-statement')];
+  const n = steps.length;
+  const clamp01 = (v) => Math.max(0, Math.min(1, v));
+
+  const update = () => {
+    const r = story.getBoundingClientRect();
+    const total = r.height - window.innerHeight;
+    if (total <= 0) return;
+    // progress through the story in "statement units", with half-step hold
+    // zones at both ends so the first and last hold while pinned
+    const fp = clamp01(-r.top / total) * n;
+    const fpc = Math.max(0.5, Math.min(n - 0.5, fp));
+    steps.forEach((s, i) => {
+      const d = fpc - (i + 0.5);
+      // hold at full opacity within ±0.2, then fade over 0.45 — wide enough
+      // that adjacent statements overlap and dissolve into each other
+      let o = 1 - clamp01((Math.abs(d) - 0.2) / 0.45);
+      o = o * o * (3 - 2 * o); // smoothstep
+      s.style.opacity = String(o);
+      s.style.transform = `translateY(${(-d * 46).toFixed(1)}px)`;
+      s.style.filter = o >= 0.999 ? 'none' : `blur(${((1 - o) * 7).toFixed(2)}px)`;
+      s.style.zIndex = o > 0.5 ? '2' : '1';
+    });
+  };
+
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      update();
+      ticking = false;
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+}
+
 // a gentle nudge the first time the slider scrolls into view
 if (!reducedMotion && 'IntersectionObserver' in window) {
   const nudge = new IntersectionObserver((entries) => {

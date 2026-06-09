@@ -20,8 +20,10 @@ vanilla JS and CSS.
 2. **Same Monday** — a curtain slider (pointer, touch and keyboard) comparing
    the day without Plutus (5:45 pm, still at your desk) and with it
    (4:00 pm, you went home). It nudges itself once to invite the drag.
-3. **Three statements** — *You say it. It happens. You stay in charge* — with
-   a literal "Yes, send it / Not yet" approval card.
+3. **Three statements** — *You say it. It happens. You stay in charge* — a
+   pinned scroll story: the section holds for ~3 screens while scroll
+   progress dissolves each statement into the next (drift + blur crossfade).
+   Falls back to simple stacked blocks without JS or with reduced motion.
 4. **Everyday magic** — six plain-words cards: emails, meeting times, tidy
    folders, first drafts, looking things up, follow-ups.
 5. **Final CTA** — "Less busywork. *More life.*"
