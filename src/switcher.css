@@ -73,8 +73,32 @@
   opacity: 0.45;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 880px) {
   .switcher-label {
+    display: none;
+  }
+
+  .switcher {
+    padding: 0 10px;
+  }
+
+  .switcher-tabs {
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .switcher-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .switcher-tabs a {
+    flex: 0 0 auto;
+    padding: 5px 11px;
+  }
+
+  .switcher-tabs a .num {
     display: none;
   }
 }

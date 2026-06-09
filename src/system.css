@@ -1,0 +1,790 @@
+/* Plutus — variant 04 "SYSTEM". Enterprise OS aesthetic: deep slate canvas
+   with a blueprint grid, JetBrains Mono microlabels, thin-border modules,
+   a live orchestrator console, and a hub-and-spoke platform diagram. */
+
+:root {
+  --s-bg: #0a0e14;
+  --s-panel: #0e141d;
+  --s-panel-2: #111927;
+  --s-line: rgba(148, 163, 184, 0.16);
+  --s-line-soft: rgba(148, 163, 184, 0.08);
+  --s-ink: #e2e8f0;
+  --s-dim: #8b98ab;
+  --s-blue: #3b82f6;
+  --s-blue-bright: #60a5fa;
+  --s-green: #10b981;
+  --s-amber: #f59e0b;
+  --s-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --s-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --s-nav-h: 60px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--s-nav-h) + var(--switch-h, 0px) + 14px);
+}
+
+body.sys {
+  font-family: var(--s-sans);
+  font-size: 16.5px;
+  line-height: 1.55;
+  background: var(--s-bg);
+  color: var(--s-ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* blueprint grid */
+body.sys::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: linear-gradient(var(--s-line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--s-line-soft) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 100%);
+}
+
+main,
+.sys-nav,
+.sys-foot {
+  position: relative;
+  z-index: 1;
+}
+
+body.sys ::selection {
+  background: rgba(59, 130, 246, 0.35);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.sys-container {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 26px;
+}
+
+/* ---------------------------------------------------------------- nav */
+
+.sys-nav {
+  position: fixed;
+  top: var(--switch-h, 0px);
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--s-nav-h);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 0 26px;
+  background: rgba(10, 14, 20, 0.85);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--s-line);
+}
+
+.sys-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.sys-brand-mark {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--s-blue);
+  border-radius: 7px;
+  color: var(--s-blue-bright);
+  font-family: var(--s-mono);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.sys-brand-name {
+  font-family: var(--s-mono);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.06em;
+}
+
+.sys-brand-name em {
+  font-style: normal;
+  color: var(--s-blue-bright);
+}
+
+.sys-online {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--s-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--s-green);
+}
+
+.sys-online i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--s-green);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.9);
+  animation: sys-blink 1.8s ease-in-out infinite;
+}
+
+@keyframes sys-blink {
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.sys-nav-links {
+  display: flex;
+  gap: 26px;
+  margin: 0 auto;
+}
+
+.sys-nav-links a {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--s-dim);
+  transition: color 0.2s ease;
+}
+
+.sys-nav-links a:hover {
+  color: var(--s-ink);
+}
+
+/* ------------------------------------------------------------ buttons */
+
+.sys-btn {
+  display: inline-block;
+  background: var(--s-blue);
+  color: #fff;
+  font-family: var(--s-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 12px 22px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sys-btn:hover {
+  background: #2563eb;
+  box-shadow: 0 0 24px rgba(59, 130, 246, 0.35);
+}
+
+.sys-btn-ghost {
+  background: transparent;
+  border-color: var(--s-line);
+  color: var(--s-dim);
+}
+
+.sys-btn-ghost:hover {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: var(--s-blue);
+  color: var(--s-ink);
+  box-shadow: none;
+}
+
+.sys-btn-big {
+  font-size: 13.5px;
+  padding: 16px 32px;
+}
+
+/* --------------------------------------------------------------- hero */
+
+.sys-hero {
+  padding: calc(var(--s-nav-h) + var(--switch-h, 0px) + 84px) 0 72px;
+}
+
+.sys-hero-grid {
+  display: grid;
+  grid-template-columns: 1.02fr 0.98fr;
+  gap: 56px;
+  align-items: center;
+  margin-bottom: 64px;
+}
+
+.sys-label {
+  font-family: var(--s-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: var(--s-blue-bright);
+  margin-bottom: 18px;
+}
+
+.sys-hero h1 {
+  font-size: clamp(34px, 4.4vw, 54px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+}
+
+.sys-sub {
+  font-size: 17.5px;
+  color: var(--s-dim);
+  max-width: 56ch;
+  margin-bottom: 30px;
+}
+
+.sys-ctas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.sys-ctas-center {
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.sys-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.sys-points li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 14.5px;
+  color: var(--s-dim);
+}
+
+.sys-points li::before {
+  content: '▪';
+  position: absolute;
+  left: 0;
+  color: var(--s-green);
+}
+
+/* console */
+
+.sys-console {
+  background: #070b11;
+  border: 1px solid var(--s-line);
+  border-radius: 12px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), 0 0 40px rgba(59, 130, 246, 0.07);
+  overflow: hidden;
+}
+
+.sys-console-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 14px;
+  background: var(--s-panel);
+  border-bottom: 1px solid var(--s-line);
+}
+
+.sys-console-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.sys-console-dots i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1f2937;
+  border: 1px solid var(--s-line);
+}
+
+.sys-console-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--s-mono);
+  font-size: 11px;
+  color: var(--s-dim);
+  white-space: nowrap;
+}
+
+.sys-console-body {
+  padding: 20px 18px;
+  min-height: 282px;
+  font-family: var(--s-mono);
+  font-size: 13px;
+  line-height: 2;
+}
+
+.sys-console-body .ln {
+  display: block;
+  white-space: pre-wrap;
+}
+
+.ln-cmd {
+  color: var(--s-ink);
+  font-weight: 700;
+}
+
+.ln-step {
+  color: var(--s-dim);
+}
+
+.ln-ok {
+  color: var(--s-green);
+}
+
+.ln-wait {
+  color: var(--s-amber);
+}
+
+.ln-end {
+  color: var(--s-blue-bright);
+}
+
+.sys-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background: var(--s-blue-bright);
+  vertical-align: -2px;
+  animation: sys-cursor 1s steps(1) infinite;
+}
+
+@keyframes sys-cursor {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* status strip */
+
+.sys-status {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 26px;
+  padding: 16px 20px;
+  border: 1px solid var(--s-line);
+  border-radius: 10px;
+  background: rgba(14, 20, 29, 0.6);
+}
+
+.sys-status li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--s-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--s-dim);
+}
+
+.sys-status li i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--s-green);
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
+}
+
+/* ----------------------------------------------------------- sections */
+
+.sys-section {
+  padding: 110px 0;
+}
+
+.sys-section-line {
+  border-top: 1px solid var(--s-line-soft);
+  border-bottom: 1px solid var(--s-line-soft);
+  background: rgba(14, 20, 29, 0.35);
+}
+
+.sys-section h2,
+.sys-boot h2 {
+  font-size: clamp(28px, 3.6vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.022em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+/* hub diagram */
+
+.sys-hub {
+  position: relative;
+  width: min(620px, 92vw);
+  aspect-ratio: 1;
+  margin: 56px auto 0;
+}
+
+.sys-hub-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sys-hub-lines line {
+  stroke: rgba(59, 130, 246, 0.35);
+  stroke-width: 0.35;
+  stroke-dasharray: 1.4 2.2;
+  animation: sys-dash 2.6s linear infinite;
+}
+
+@keyframes sys-dash {
+  to {
+    stroke-dashoffset: -7.2;
+  }
+}
+
+.sys-hub-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  background: var(--s-panel-2);
+  border: 1.5px solid var(--s-blue);
+  box-shadow: 0 0 50px rgba(59, 130, 246, 0.3), inset 0 0 24px rgba(59, 130, 246, 0.12);
+  font-family: var(--s-mono);
+}
+
+.sys-hub-core strong {
+  font-size: 15px;
+  letter-spacing: 0.1em;
+}
+
+.sys-hub-core em {
+  font-style: normal;
+  font-size: 9.5px;
+  letter-spacing: 0.3em;
+  color: var(--s-blue-bright);
+}
+
+.sys-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  width: 96px;
+  text-align: center;
+}
+
+.sys-node-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--s-panel);
+  border: 1px solid var(--s-line);
+}
+
+.sys-node-icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+.sys-node span {
+  font-family: var(--s-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  color: var(--s-dim);
+}
+
+/* capability grid */
+
+.sys-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.sys-card {
+  background: var(--s-panel);
+  border: 1px solid var(--s-line);
+  border-radius: 12px;
+  padding: 26px 24px;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.sys-card:hover {
+  border-color: rgba(59, 130, 246, 0.55);
+  background: var(--s-panel-2);
+}
+
+.sys-card-id {
+  display: block;
+  font-family: var(--s-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--s-blue-bright);
+  margin-bottom: 14px;
+}
+
+.sys-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.sys-card p {
+  font-size: 14.5px;
+  color: var(--s-dim);
+}
+
+/* control band */
+
+.sys-control {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 48px;
+}
+
+.sys-control-icon {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  border: 1px solid var(--s-line);
+  background: var(--s-panel);
+  margin-bottom: 18px;
+}
+
+.sys-control-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.sys-control-item h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.sys-control-item p {
+  font-size: 15px;
+  color: var(--s-dim);
+  max-width: 38ch;
+}
+
+/* teams */
+
+.sys-teams {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.sys-team {
+  border: 1px solid var(--s-line);
+  border-radius: 12px;
+  padding: 24px 22px;
+  background: var(--s-panel);
+}
+
+.sys-team h3 {
+  font-family: var(--s-mono);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--s-blue-bright);
+  margin-bottom: 10px;
+}
+
+.sys-team p {
+  font-size: 14.5px;
+  color: var(--s-dim);
+}
+
+.sys-team-note {
+  margin-top: 32px;
+  font-size: 15px;
+  color: var(--s-dim);
+  max-width: 64ch;
+}
+
+/* boot cta */
+
+.sys-boot {
+  text-align: center;
+  padding: 130px 0 140px;
+  background: radial-gradient(ellipse 60% 55% at 50% 40%, rgba(59, 130, 246, 0.16), transparent 70%);
+}
+
+.sys-boot .sys-sub {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sys-boot-cmd {
+  font-family: var(--s-mono);
+  font-size: 13px;
+  color: var(--s-dim);
+}
+
+/* footer */
+
+.sys-foot {
+  border-top: 1px solid var(--s-line);
+  padding: 26px 0;
+}
+
+.sys-foot .sys-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-family: var(--s-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--s-dim);
+}
+
+/* motion */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  transition-delay: var(--d, 0s);
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .sys-cursor,
+  .sys-online i,
+  .sys-hub-lines line {
+    animation: none;
+  }
+}
+
+/* responsive */
+
+@media (max-width: 960px) {
+  .sys-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .sys-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sys-control {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .sys-teams {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .sys-nav {
+    gap: 16px;
+    padding: 0 18px;
+  }
+
+  .sys-nav-links {
+    display: none;
+  }
+
+  .sys-nav .sys-btn {
+    margin-left: auto;
+  }
+
+  .sys-online {
+    display: none;
+  }
+
+  .sys-foot .sys-online {
+    display: inline-flex;
+  }
+
+  .sys-section {
+    padding: 84px 0;
+  }
+
+  .sys-grid,
+  .sys-teams {
+    grid-template-columns: 1fr;
+  }
+
+  .sys-node {
+    width: 72px;
+  }
+
+  .sys-node-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .sys-node-icon svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .sys-node span {
+    font-size: 8px;
+  }
+
+  .sys-hub-core {
+    width: 96px;
+    height: 96px;
+  }
+
+  .sys-console-body {
+    font-size: 11.5px;
+    min-height: 250px;
+  }
+}

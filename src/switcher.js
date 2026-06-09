@@ -7,6 +7,8 @@ const VARIANTS = [
   { id: 'minimal', num: '01', label: 'Minimal', href: './index.html' },
   { id: 'neon', num: '02', label: 'Neon', href: './neon.html' },
   { id: 'convert', num: '03', label: 'Converter', href: './convert.html' },
+  { id: 'system', num: '04', label: 'System', href: './system.html' },
+  { id: 'editorial', num: '05', label: 'Editorial', href: './editorial.html' },
 ];
 
 export function mountSwitcher(current) {
@@ -25,4 +27,12 @@ export function mountSwitcher(current) {
     </nav>
   `;
   document.body.prepend(bar);
+
+  // with five tabs the pill row can overflow on small screens — keep the
+  // active tab in view
+  const tabs = bar.querySelector('.switcher-tabs');
+  const active = tabs.querySelector('a.active');
+  if (active && tabs.scrollWidth > tabs.clientWidth) {
+    tabs.scrollLeft = active.offsetLeft - (tabs.clientWidth - active.offsetWidth) / 2;
+  }
 }
