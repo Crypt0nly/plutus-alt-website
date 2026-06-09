@@ -152,6 +152,24 @@ if (story && !reducedMotion) {
   }));
   const n = steps.length;
   const clamp01 = (v) => Math.max(0, Math.min(1, v));
+
+  // per-statement scroll time: data-weight stretches a statement's slice of
+  // the story (e.g. data-weight="1.6" holds ~60% longer)
+  const weights = steps.map((s) => parseFloat(s.el.dataset.weight) || 1);
+  const W = weights.reduce((a, b) => a + b, 0);
+  // keep ~78vh of scroll per statement-unit regardless of total weight
+  story.style.height = `${Math.round(100 + W * 78)}vh`;
+
+  // raw progress (0..1) → statement units (0..n), stretched by weight
+  const warp = (p) => {
+    let u = p * W;
+    for (let i = 0; i < n; i += 1) {
+      if (u <= weights[i] || i === n - 1) return i + Math.min(1, u / weights[i]);
+      u -= weights[i];
+    }
+    return n;
+  };
+
   let target = 0;
   let current = -1;
   let raf = 0;
@@ -161,7 +179,7 @@ if (story && !reducedMotion) {
     const total = r.height - window.innerHeight;
     // progress in "statement units", clamped so the first and last
     // statements hold while the stage pins and unpins
-    target = total > 0 ? clamp01(-r.top / total) * n : 0;
+    target = total > 0 ? warp(clamp01(-r.top / total)) : 0;
   };
 
   // Inner choreography: the headline leads, each following block trails by
