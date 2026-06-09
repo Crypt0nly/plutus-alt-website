@@ -64,50 +64,65 @@
         </div>
       </section>
 
-      <!-- Before / after slider -->
+      <!-- Before / after scrubber -->
       <section class="mg-section" id="monday">
         <div class="mg-container">
           <header class="mg-head">
-            <h2 class="reveal">Same Monday. <em>Drag to compare.</em></h2>
+            <h2 class="reveal">Your team’s Monday. <em>Drag to compare.</em></h2>
           </header>
 
-          <div class="mg-compare reveal" style="--d: 0.1s" id="mg-compare">
-            <!-- without -->
-            <div class="mg-pane mg-pane-before">
-              <div class="mg-pane-inner">
-                <p class="mg-pane-title">Without Plutus</p>
-                <ul>
-                  <li><i>✗</i>Answer 14 emails</li>
-                  <li><i>✗</i>Find a meeting time for six people</li>
-                  <li><i>✗</i>Tidy the shared folder</li>
-                  <li><i>✗</i>Draft the monthly report</li>
-                  <li><i>✗</i>Chase two people for replies</li>
-                </ul>
-                <p class="mg-pane-end">5:45 pm — still at your desk.</p>
-              </div>
-            </div>
-            <!-- with -->
-            <div class="mg-pane mg-pane-after">
-              <div class="mg-pane-inner">
-                <p class="mg-pane-title">With Plutus</p>
-                <ul>
-                  <li><i>✓</i>Emails answered — 3 waited for your OK</li>
-                  <li><i>✓</i>Thursday 10:00 booked, invites out</li>
-                  <li><i>✓</i>Folder tidy, files properly named</li>
-                  <li><i>✓</i>Report drafted, ready for your edits</li>
-                  <li><i>✓</i>Both replies chased — one already in</li>
-                </ul>
-                <p class="mg-pane-end">4:00 pm — done. You went home.</p>
-              </div>
-            </div>
+          <div class="mg-compare reveal" style="--d: 0.1s" id="mg-compare"
+               aria-label="Your team's Monday — drag the divider to watch Plutus take the work over">
+            <div class="mg-compare-tint" id="mg-tint" aria-hidden="true"></div>
+            <header class="mg-compare-top">
+              <span class="mg-side" id="mg-side-before">Without Plutus</span>
+              <span class="mg-side" id="mg-side-after">With Plutus</span>
+            </header>
+            <ul class="mg-rows" id="mg-rows">
+              <li data-at="16" data-hours="3.5" class="done">
+                <span class="mg-row-icon" aria-hidden="true"><i class="x">✗</i><i class="c">✓</i></span>
+                <span class="mg-row-text">
+                  <span class="b">23 sales follow-ups waiting in drafts</span>
+                  <span class="a">Follow-ups sent before lunch — 4 replies already in</span>
+                </span>
+              </li>
+              <li data-at="39" data-hours="4" class="done">
+                <span class="mg-row-icon" aria-hidden="true"><i class="x">✗</i><i class="c">✓</i></span>
+                <span class="mg-row-text">
+                  <span class="b">Support queue: 41 unanswered tickets</span>
+                  <span class="a">Queue triaged — 6 tricky ones handed to humans</span>
+                </span>
+              </li>
+              <li data-at="61" data-hours="2">
+                <span class="mg-row-icon" aria-hidden="true"><i class="x">✗</i><i class="c">✓</i></span>
+                <span class="mg-row-text">
+                  <span class="b">Board pack due Thursday, not started</span>
+                  <span class="a">Board pack drafted — waiting for your OK</span>
+                </span>
+              </li>
+              <li data-at="84" data-hours="1.5">
+                <span class="mg-row-icon" aria-hidden="true"><i class="x">✗</i><i class="c">✓</i></span>
+                <span class="mg-row-text">
+                  <span class="b">A dozen overdue invoices to chase</span>
+                  <span class="a">Payment reminders out — 2 already paid</span>
+                </span>
+              </li>
+            </ul>
+            <footer class="mg-compare-end">
+              <span class="mg-row-text mg-end">
+                <span class="b">5:45 pm — everyone’s still buried.</span>
+                <span class="a">4:00 pm — queues clear.</span>
+              </span>
+              <span class="mg-hours" id="mg-hours">+7.5 team-hours</span>
+            </footer>
             <!-- handle -->
             <div class="mg-handle" id="mg-handle" role="slider" tabindex="0"
-                 aria-label="Comparison slider between Monday without Plutus and Monday with Plutus"
+                 aria-label="How much of Monday Plutus has taken over"
                  aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
               <span class="mg-handle-knob">⟷</span>
             </div>
           </div>
-          <p class="mg-compare-note reveal" style="--d: 0.16s">You said one “OK”. Plutus did the rest.</p>
+          <p class="mg-compare-note reveal" style="--d: 0.16s">One “OK” from your team. Plutus did the rest.</p>
         </div>
       </section>
 

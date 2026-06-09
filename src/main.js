@@ -92,19 +92,52 @@ if (reducedMotion) {
   })();
 }
 
-// --------------------------------------------------- before/after slider
+// ------------------------------------------------ team-Monday scrubber
 
+// One list; the divider is a "how much Plutus" scrubber. Each row flips
+// ✗→✓ when the divider passes its data-at threshold, the end line swaps
+// near the right edge, and the team-hours pill ticks with progress.
 const compare = document.getElementById('mg-compare');
 const handle = document.getElementById('mg-handle');
+const rows = [...document.querySelectorAll('#mg-rows li')];
+const hoursEl = document.getElementById('mg-hours');
+const sideBefore = document.getElementById('mg-side-before');
+const sideAfter = document.getElementById('mg-side-after');
+const tint = document.getElementById('mg-tint');
+
 let x = 50;
 let interacted = false;
+let sweepRaf = 0;
+const c01 = (v) => Math.max(0, Math.min(1, v));
 
 const setX = (v) => {
   x = Math.max(4, Math.min(96, v));
   compare.style.setProperty('--x', `${x}%`);
+  const p = (x - 4) / 92;
+  let hours = 0;
+  let done = 0;
+  rows.forEach((r) => {
+    const at = parseFloat(r.dataset.at);
+    const isDone = x >= at;
+    r.classList.toggle('done', isDone);
+    if (isDone) done += 1;
+    // each row's hours ease in around its threshold so the pill ticks
+    hours += parseFloat(r.dataset.hours) * c01((x - at + 7) / 14);
+  });
+  hoursEl.textContent = `+${hours.toFixed(1)} team-hours`;
+  compare.classList.toggle('complete', x > 86);
+  tint.style.opacity = (p * 0.9).toFixed(3);
+  sideBefore.style.opacity = (1 - p * 0.62).toFixed(3);
+  sideAfter.style.opacity = (0.4 + p * 0.6).toFixed(3);
   handle.setAttribute('aria-valuenow', String(Math.round(x)));
+  handle.setAttribute('aria-valuetext', `${Math.round(x)}% — ${done} of ${rows.length} tasks handled`);
 };
-setX(50);
+
+const stopSweep = () => {
+  interacted = true;
+  if (sweepRaf) cancelAnimationFrame(sweepRaf);
+  sweepRaf = 0;
+};
 
 let dragging = false;
 const fromEvent = (e) => {
@@ -113,8 +146,8 @@ const fromEvent = (e) => {
 };
 
 compare.addEventListener('pointerdown', (e) => {
+  stopSweep();
   dragging = true;
-  interacted = true;
   compare.setPointerCapture(e.pointerId);
   setX(fromEvent(e));
 });
@@ -128,14 +161,47 @@ compare.addEventListener('pointerup', stop);
 compare.addEventListener('pointercancel', stop);
 
 handle.addEventListener('keydown', (e) => {
-  interacted = true;
+  if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+  stopSweep();
   if (e.key === 'ArrowLeft') setX(x - 4);
   else if (e.key === 'ArrowRight') setX(x + 4);
   else if (e.key === 'Home') setX(4);
-  else if (e.key === 'End') setX(96);
-  else return;
+  else setX(96);
   e.preventDefault();
 });
+
+// one slow demonstration sweep (all undone → all handled → settle halfway)
+// the first time the card scrolls into view; any interaction cancels it
+const canSweep = !reducedMotion && 'IntersectionObserver' in window;
+setX(canSweep ? 4 : 50);
+if (canSweep) {
+  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const sweepIO = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((e) => e.isIntersecting) || interacted) return;
+      sweepIO.disconnect();
+      const RISE = 2700;
+      const HOLD = 800;
+      const BACK = 1200;
+      const t0 = performance.now();
+      (function step(now) {
+        if (interacted) return;
+        const e = now - t0;
+        if (e < RISE) setX(4 + 92 * ease(e / RISE));
+        else if (e < RISE + HOLD) setX(96);
+        else if (e < RISE + HOLD + BACK) setX(96 - 46 * ease((e - RISE - HOLD) / BACK));
+        else {
+          setX(50);
+          sweepRaf = 0;
+          return;
+        }
+        sweepRaf = requestAnimationFrame(step);
+      })(t0);
+    },
+    { threshold: 0.55 }
+  );
+  sweepIO.observe(compare);
+}
 
 // ------------------------------------------- scroll-driven statements
 
@@ -234,23 +300,6 @@ if (story && !reducedMotion) {
     { rootMargin: '20% 0px' }
   );
   io.observe(story);
-}
-
-// a gentle nudge the first time the slider scrolls into view
-if (!reducedMotion && 'IntersectionObserver' in window) {
-  const nudge = new IntersectionObserver((entries) => {
-    if (!entries.some((e) => e.isIntersecting)) return;
-    nudge.disconnect();
-    const t0 = performance.now();
-    (function wiggle(now) {
-      if (interacted) return;
-      const t = (now - t0) / 1600;
-      if (t >= 1) return setX(50);
-      setX(50 + Math.sin(t * Math.PI * 2) * 9);
-      requestAnimationFrame(wiggle);
-    })(t0);
-  });
-  nudge.observe(compare);
 }
 
 document.getElementById('year').textContent = String(new Date().getFullYear());
