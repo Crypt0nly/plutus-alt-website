@@ -146,7 +146,10 @@ handle.addEventListener('keydown', (e) => {
 // transform only — no filters — to stay on the compositor.
 const story = document.getElementById('mg-story');
 if (story && !reducedMotion) {
-  const steps = [...story.querySelectorAll('.mg-statement')];
+  const steps = [...story.querySelectorAll('.mg-statement')].map((el) => ({
+    el,
+    parts: [...el.children],
+  }));
   const n = steps.length;
   const clamp01 = (v) => Math.max(0, Math.min(1, v));
   let target = 0;
@@ -161,17 +164,31 @@ if (story && !reducedMotion) {
     target = total > 0 ? clamp01(-r.top / total) * n : 0;
   };
 
+  // Inner choreography: the headline leads, each following block trails by
+  // STAG progress units. Entering pieces rise in slightly small and tilted
+  // back; leaving pieces drift up, grow and tip away — a gentle fly-through.
+  // Tuned so trailing pieces are fully gone before the next headline enters.
+  const HOLD = 0.16;
+  const FADE = 0.26;
+  const STAG = 0.04;
+
   const apply = (fp) => {
     const fpc = Math.max(0.5, Math.min(n - 0.5, fp));
-    steps.forEach((s, i) => {
+    steps.forEach((step, i) => {
       const d = fpc - (i + 0.5);
-      // hold within ±0.18, fully faded by ±0.46 — statements never share
-      // the screen; the hand-off passes through a blink of dark
-      let o = 1 - clamp01((Math.abs(d) - 0.18) / 0.28);
-      o = o * o * (3 - 2 * o); // smoothstep
-      s.style.opacity = o.toFixed(3);
-      s.style.transform = `translate3d(0, ${(-d * 36).toFixed(2)}px, 0)`;
-      s.style.visibility = o < 0.002 ? 'hidden' : 'visible';
+      let maxO = 0;
+      step.parts.forEach((p, k) => {
+        const dk = d - k * STAG;
+        let o = 1 - clamp01((Math.abs(dk) - HOLD) / FADE);
+        o = o * o * (3 - 2 * o); // smoothstep
+        maxO = Math.max(maxO, o);
+        p.style.opacity = o.toFixed(3);
+        p.style.transform =
+          `translate3d(0, ${(-dk * 52).toFixed(2)}px, 0) ` +
+          `scale(${(1 + dk * 0.12).toFixed(4)}) ` +
+          `rotateX(${(dk * -9).toFixed(2)}deg)`;
+      });
+      step.el.style.visibility = maxO < 0.002 ? 'hidden' : 'visible';
     });
   };
 
