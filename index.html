@@ -3,235 +3,174 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#fbfbfd" />
-    <title>Plutus — The AI Agent That Actually Does Your Work</title>
+    <meta name="theme-color" content="#0b0b1a" />
+    <title>Plutus — What If Your To-Do List Did Itself?</title>
     <meta
       name="description"
-      content="Plutus is the AI agent that actually does your work. Give it a goal in plain language — it understands, gathers context, uses your tools (Gmail, Calendar, GitHub, Discord and more), and tells you what changed."
+      content="Plutus is like a brilliant assistant inside your email, calendar and files. Say what you need — watch it get done. It always asks before anything important."
     />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d1d1f'/%3E%3Ctext x='16' y='23' font-family='Helvetica, Arial' font-weight='700' font-size='19' fill='white' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Plutus — What If Your To-Do List Did Itself?" />
+    <meta
+      property="og:description"
+      content="Plutus is like a brilliant assistant inside your email, calendar and files. Say what you need — watch it get done. It always asks before anything important."
+    />
+    <meta name="twitter:card" content="summary" />
+    <script>
+      document.documentElement.classList.add('js');
+    </script>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230b0b1a'/%3E%3Ctext x='16' y='23' font-family='Georgia, serif' font-style='italic' font-weight='700' font-size='20' fill='%23c4b5fd' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+  <body class="mg">
+    <div class="mg-aurora mg-aurora-a" aria-hidden="true"></div>
+    <div class="mg-aurora mg-aurora-b" aria-hidden="true"></div>
 
-    <!-- Global navigation -->
-    <header class="nav" id="nav">
-      <div class="nav-inner">
-        <a class="nav-brand" href="#top" aria-label="Plutus home">Plutus</a>
-        <nav class="nav-links" aria-label="Primary">
-          <a href="#how">How it works</a>
-          <a href="#features">Features</a>
-          <a href="#integrations">Integrations</a>
-        </nav>
-        <div class="nav-cta">
-          <a class="btn btn-primary btn-small" href="#get-started">Get started</a>
-        </div>
-        <button class="nav-burger" id="nav-burger" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
-          <span></span><span></span>
-        </button>
-      </div>
-      <div class="nav-menu" id="nav-menu">
-        <a href="#how">How it works</a>
-        <a href="#features">Features</a>
-        <a href="#integrations">Integrations</a>
-        <a href="#get-started">Get started</a>
-      </div>
+    <!-- Nav -->
+    <header class="mg-nav">
+      <a class="mg-brand" href="#top">Plutus <span aria-hidden="true">✦</span></a>
+      <nav class="mg-nav-links" aria-label="Primary">
+        <a href="#monday">The difference</a>
+        <a href="#everyday">Everyday magic</a>
+      </nav>
+      <a class="mg-btn mg-btn-small" href="#try">Try the magic</a>
     </header>
 
-    <main id="main">
+    <main id="top">
       <!-- Hero -->
-      <section class="hero" id="top">
-        <div class="container">
-          <p class="hero-eyebrow reveal">Meet Plutus</p>
-          <h1 class="hero-title reveal" style="--d: 0.06s">
-            The AI agent that<br />actually does your work.
+      <section class="mg-hero">
+        <div class="mg-container">
+          <h1 class="reveal">
+            What if your to-do list<br /><em>did itself?</em>
           </h1>
-          <p class="hero-sub reveal" style="--d: 0.12s">
-            Give it a goal in plain language. Plutus understands what you want, gathers the
-            context, uses your tools<sup><a class="fn" href="#footnote-1" aria-label="Footnote 1">1</a></sup> — and tells you exactly what changed.
+          <p class="mg-sub reveal" style="--d: 0.1s">
+            Plutus is like a brilliant assistant living inside your email, calendar and
+            files. Say what you need, in your own words — then watch it get done.
           </p>
-          <div class="cta-row reveal" style="--d: 0.18s">
-            <a class="btn btn-primary" href="#get-started">Put Plutus to work</a>
-            <a class="link-arrow" href="#how">See how it works</a>
+          <div class="mg-ctas reveal" style="--d: 0.18s">
+            <a class="mg-btn" href="#try">Try the magic</a>
+            <a class="mg-hint" href="#monday">See the difference ↓</a>
           </div>
 
-          <!-- Product demo window -->
-          <div class="hero-demo reveal" style="--d: 0.26s">
-            <div class="window" role="img" aria-label="Plutus turning a plain-language goal into a completed plan">
-              <div class="window-bar">
-                <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                <span class="window-title">Plutus</span>
-              </div>
-              <div class="window-body" id="demo">
-                <div class="msg msg-user">
-                  <p><span id="demo-prompt"></span><span class="caret" id="demo-caret" aria-hidden="true"></span></p>
-                </div>
-                <div class="msg msg-agent" id="demo-plan" hidden>
-                  <p class="msg-label">Plan</p>
-                  <ul class="plan-steps" id="demo-steps"></ul>
-                </div>
-                <div class="msg-done" id="demo-done" hidden>
-                  <span class="done-check" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-                  </span>
-                  <span id="demo-summary"></span>
-                </div>
+          <!-- self-clearing notifications -->
+          <div class="mg-stack-wrap reveal" style="--d: 0.26s">
+            <div class="mg-stack" id="mg-stack" role="img" aria-label="A pile of notifications being handled one by one until everything is done"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Before / after slider -->
+      <section class="mg-section" id="monday">
+        <div class="mg-container">
+          <header class="mg-head">
+            <h2 class="reveal">Same Monday. <em>Drag to compare.</em></h2>
+          </header>
+
+          <div class="mg-compare reveal" style="--d: 0.1s" id="mg-compare">
+            <!-- without -->
+            <div class="mg-pane mg-pane-before">
+              <div class="mg-pane-inner">
+                <p class="mg-pane-title">Without Plutus</p>
+                <ul>
+                  <li><i>✗</i>Answer 14 emails</li>
+                  <li><i>✗</i>Find a meeting time for six people</li>
+                  <li><i>✗</i>Tidy the shared folder</li>
+                  <li><i>✗</i>Draft the monthly report</li>
+                  <li><i>✗</i>Chase two people for replies</li>
+                </ul>
+                <p class="mg-pane-end">5:45 pm — still at your desk.</p>
               </div>
             </div>
+            <!-- with -->
+            <div class="mg-pane mg-pane-after">
+              <div class="mg-pane-inner">
+                <p class="mg-pane-title">With Plutus</p>
+                <ul>
+                  <li><i>✓</i>Emails answered — 3 waited for your OK</li>
+                  <li><i>✓</i>Thursday 10:00 booked, invites out</li>
+                  <li><i>✓</i>Folder tidy, files properly named</li>
+                  <li><i>✓</i>Report drafted, ready for your edits</li>
+                  <li><i>✓</i>Both replies chased — one already in</li>
+                </ul>
+                <p class="mg-pane-end">4:00 pm — done. You went home.</p>
+              </div>
+            </div>
+            <!-- handle -->
+            <div class="mg-handle" id="mg-handle" role="slider" tabindex="0"
+                 aria-label="Comparison slider between Monday without Plutus and Monday with Plutus"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="mg-handle-knob">⟷</span>
+            </div>
+          </div>
+          <p class="mg-compare-note reveal" style="--d: 0.16s">You said one “OK”. Plutus did the rest.</p>
+        </div>
+      </section>
+
+      <!-- Statements -->
+      <section class="mg-statements">
+        <div class="mg-container">
+          <div class="mg-statement reveal">
+            <h2>You say it.</h2>
+            <p class="mg-said">“Find us a time next week and send the invites.”</p>
+          </div>
+          <div class="mg-statement reveal">
+            <h2>It <em>happens.</em></h2>
+            <ul class="mg-outcomes">
+              <li>✓ Calendars checked</li>
+              <li>✓ Tuesday 14:00 booked</li>
+              <li>✓ Invites sent to all six</li>
+            </ul>
+          </div>
+          <div class="mg-statement reveal">
+            <h2>You stay in charge.</h2>
+            <div class="mg-approve">
+              <p>Plutus asks: <strong>“Send the invite to the client too?”</strong></p>
+              <div class="mg-approve-btns"><span class="yes">Yes, send it</span><span>Not yet</span></div>
+            </div>
+            <p class="mg-statement-note">Anything important waits for your word. Always.</p>
           </div>
         </div>
       </section>
 
-      <!-- Tool strip -->
-      <section class="logos" aria-label="Integrations overview">
-        <div class="container">
-          <p class="logos-title reveal">Works with the tools you already use.</p>
-          <ul class="logos-row reveal" style="--d: 0.08s" id="logo-strip"></ul>
-        </div>
-      </section>
-
-      <!-- How it works -->
-      <section class="section section-alt" id="how">
-        <div class="container">
-          <header class="section-head">
-            <p class="eyebrow reveal">How it works</p>
-            <h2 class="reveal" style="--d: 0.06s">From goal to done.</h2>
-            <p class="section-sub reveal" style="--d: 0.12s">
-              No new workflow to learn. Describe the outcome — Plutus handles everything in between.
-            </p>
+      <!-- Everyday magic -->
+      <section class="mg-section" id="everyday">
+        <div class="mg-container">
+          <header class="mg-head">
+            <h2 class="reveal">Everyday <em>magic.</em></h2>
+            <p class="reveal" style="--d: 0.08s">No spells to learn. Just the stuff you didn’t want to do anyway.</p>
           </header>
-          <div class="steps-grid">
-            <article class="step-card reveal">
-              <span class="step-num">1</span>
-              <h3>Just say what you want.</h3>
-              <p>
-                “Research our top 3 competitors”, “clean up the open PRs”, “plan Thursday’s
-                launch” — plain language is the whole interface.
-              </p>
-            </article>
-            <article class="step-card reveal" style="--d: 0.08s">
-              <span class="step-num">2</span>
-              <h3>It turns your goal into a plan.</h3>
-              <p>
-                Plutus breaks a fuzzy request into concrete, checkable steps — and works out
-                what needs to happen in what order before it touches anything.
-              </p>
-            </article>
-            <article class="step-card reveal" style="--d: 0.16s">
-              <span class="step-num">3</span>
-              <h3>It does the work in your tools.</h3>
-              <p>
-                Drafts emails, organizes files, writes and commits code, books time — directly
-                inside Gmail, Calendar, GitHub, Discord and more. No copy-paste required.
-              </p>
-            </article>
-            <article class="step-card reveal" style="--d: 0.24s">
-              <span class="step-num">4</span>
-              <h3>You see exactly what changed.</h3>
-              <p>
-                Every run ends with a clear summary: what Plutus did, where it did it, and
-                what’s worth a second look.
-              </p>
-            </article>
+          <div class="mg-grid">
+            <article class="mg-card reveal"><span>✉️</span><h3>Answers the routine emails</h3><p>And shows you the ones that actually need a human.</p></article>
+            <article class="mg-card reveal" style="--d: 0.05s"><span>📅</span><h3>Finds times that work</h3><p>Checks everyone’s calendar, books the slot, sends the invites.</p></article>
+            <article class="mg-card reveal" style="--d: 0.1s"><span>📁</span><h3>Keeps folders tidy</h3><p>Files named, sorted and where your team expects them.</p></article>
+            <article class="mg-card reveal" style="--d: 0.15s"><span>📝</span><h3>Writes the first draft</h3><p>Reports, summaries, replies — you just polish and send.</p></article>
+            <article class="mg-card reveal" style="--d: 0.2s"><span>🔎</span><h3>Does the looking-up</h3><p>Research, comparisons, “what did we decide last March?”</p></article>
+            <article class="mg-card reveal" style="--d: 0.25s"><span>🔔</span><h3>Never lets things slip</h3><p>Follows up, reminds the right people, reports back to you.</p></article>
           </div>
         </div>
       </section>
 
-      <!-- Features bento -->
-      <section class="section" id="features">
-        <div class="container">
-          <header class="section-head">
-            <p class="eyebrow reveal">Features</p>
-            <h2 class="reveal" style="--d: 0.06s">Everything you’d expect.<br />From an agent you’d hire.</h2>
-          </header>
-          <div class="bento">
-            <article class="bento-card bento-wide reveal">
-              <h3>It already knows how you work.</h3>
-              <p>
-                Projects, preferences, contacts and reusable routines live in one workspace.
-                Plutus remembers — so you don’t repeat yourself.
-              </p>
-            </article>
-            <article class="bento-card bento-wide reveal" style="--d: 0.08s">
-              <h3>Nothing important happens without your nod.</h3>
-              <p>
-                Plutus pauses for approval before consequential actions. Review the step,
-                approve it, or send it back — your hand stays on the wheel.
-              </p>
-            </article>
-            <article class="bento-card reveal">
-              <h3>Real output.</h3>
-              <p>Results land back in the right tools — not in yet another inbox.</p>
-            </article>
-            <article class="bento-card reveal" style="--d: 0.06s">
-              <h3>Team-ready.</h3>
-              <p>Share knowledge and routines, review each other’s work, stay in control.</p>
-            </article>
-            <article class="bento-card reveal" style="--d: 0.12s">
-              <h3>Cloud or local.</h3>
-              <p>Start instantly in the cloud, or run it on your machine for private work.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- Integrations -->
-      <section class="section section-dark" id="integrations">
-        <div class="container">
-          <header class="section-head">
-            <p class="eyebrow reveal">Integrations</p>
-            <h2 class="reveal" style="--d: 0.06s">Works where you work.</h2>
-            <p class="section-sub reveal" style="--d: 0.12s">
-              Email, calendars, code, chat, files and the web — Plutus reaches into all of
-              them. 10+ integrations and counting.
-            </p>
-          </header>
-          <ul class="tiles" id="integration-tiles"></ul>
-        </div>
-      </section>
-
-      <!-- CTA -->
-      <section class="section section-alt cta" id="get-started">
-        <div class="container">
-          <h2 class="reveal">Stop managing tools.<br />Start delegating outcomes.</h2>
-          <p class="section-sub reveal" style="--d: 0.08s">
-            Put Plutus to work today — give it a goal and watch it follow through.
-          </p>
-          <div class="cta-row reveal" style="--d: 0.16s">
-            <a class="btn btn-primary btn-large" href="#top">Put Plutus to work</a>
-            <a class="link-arrow" href="#how">Learn more</a>
+      <!-- Final CTA -->
+      <section class="mg-final" id="try">
+        <div class="mg-container">
+          <h2 class="reveal">Less busywork.<br /><em>More life.</em></h2>
+          <p class="reveal" style="--d: 0.08s">Works with the email, calendar and files you already use.<br />Asks before anything important.</p>
+          <div class="reveal" style="--d: 0.16s">
+            <a class="mg-btn mg-btn-big" href="#top">Try the magic</a>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <p class="footnote" id="footnote-1">
-          1. Plutus connects to Gmail, Google Calendar, GitHub, Discord, your files, the web
-          and more — and pauses for your approval before consequential actions.
-        </p>
-        <div class="footer-grid">
-          <div class="footer-brand">
-            <p class="footer-logo">Plutus</p>
-            <p>The AI agent that actually does your work.</p>
-          </div>
-          <nav class="footer-col" aria-label="Explore">
-            <h4>Explore</h4>
-            <a href="#how">How it works</a>
-            <a href="#features">Features</a>
-            <a href="#integrations">Integrations</a>
-          </nav>
-          <nav class="footer-col" aria-label="Get started">
-            <h4>Get started</h4>
-            <a href="#get-started">Put Plutus to work</a>
-            <a href="#top">Back to top</a>
-          </nav>
-        </div>
-        <div class="footer-legal">
-          <p>Copyright © <span id="year">2026</span> Plutus. All rights reserved.</p>
-        </div>
+    <footer class="mg-foot">
+      <div class="mg-container">
+        <span>Plutus © <span id="year">2026</span></span>
+        <span><em>Say it. It happens. You stay in charge.</em></span>
       </div>
     </footer>
 
