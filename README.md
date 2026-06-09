@@ -17,9 +17,11 @@ vanilla JS and CSS.
 1. **Hero** — "What if your to-do list *did itself?*" plus the self-clearing
    notification pile: five everyday worries get a check and swoosh away,
    ending on "✨ All handled. Enjoy your evening."
-2. **Same Monday** — a curtain slider (pointer, touch and keyboard) comparing
-   the day without Plutus (5:45 pm, still at your desk) and with it
-   (4:00 pm, you went home). It nudges itself once to invite the drag.
+2. **Your team's Monday** — a scrubber over one team to-do list (pointer,
+   touch and keyboard): each row flips ✗→✓ as the divider passes it, the
+   card washes teal, the end line swaps (5:45 pm buried → 4:00 pm clear)
+   and a "+team-hours" pill ticks with progress. On first view it plays one
+   slow demonstration sweep, then settles halfway; any interaction cancels.
 3. **Three statements** — *You say it. It happens. You stay in charge* — a
    pinned scroll story: the section holds for ~3 screens while scroll
    progress dissolves each statement into the next (drift + blur crossfade).

@@ -373,117 +373,186 @@ h2 em {
 
 .mg-compare {
   position: relative;
-  max-width: 780px;
-  min-height: 396px;
+  max-width: 720px;
   margin: 0 auto;
   border-radius: 22px;
   overflow: hidden;
   border: 1px solid var(--m-line);
+  background: #17132b;
+  padding: 26px 30px 24px;
   user-select: none;
   -webkit-user-select: none;
   touch-action: pan-y;
 }
 
-/* curtain reveal: each pane fills the card but keeps its content in its own
-   half, so the divider sweeps across both columns */
-.mg-pane {
+/* teal wash that strengthens as the divider sweeps right */
+.mg-compare-tint {
   position: absolute;
   inset: 0;
+  z-index: 0;
+  background: linear-gradient(135deg, rgba(16, 30, 44, 0.95), rgba(15, 38, 48, 0.95));
+  opacity: 0;
+  pointer-events: none;
 }
 
-.mg-pane-inner {
-  padding: 34px 30px 30px;
+.mg-compare-top,
+.mg-rows,
+.mg-compare-end {
+  position: relative;
+  z-index: 1;
 }
 
-.mg-pane-before {
-  background: #1d1426;
-  clip-path: inset(0 calc(100% - var(--x, 50%)) 0 0);
+.mg-compare-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
 }
 
-.mg-pane-before .mg-pane-inner {
-  width: 50%;
-}
-
-.mg-pane-after {
-  background: linear-gradient(135deg, #101e2c, #0f2430);
-  clip-path: inset(0 0 0 var(--x, 50%));
-}
-
-.mg-pane-after .mg-pane-inner {
-  width: 50%;
-  margin-left: 50%;
-}
-
-.mg-pane-title {
+.mg-side {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--m-dim);
-  margin-bottom: 20px;
 }
 
-.mg-pane-after .mg-pane-title {
+#mg-side-after {
   color: var(--m-teal);
 }
 
-.mg-pane ul {
+/* one list; each row flips ✗→✓ as the divider sweeps past its threshold */
+.mg-rows {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 13px;
 }
 
-.mg-pane li {
-  display: flex;
-  align-items: flex-start;
-  gap: 11px;
-  font-size: 15px;
-  line-height: 1.45;
-}
-
-.mg-pane li i {
-  flex: 0 0 auto;
-  font-style: normal;
+.mg-rows li {
   display: grid;
-  place-items: center;
+  grid-template-columns: 22px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(196, 181, 253, 0.1);
+}
+
+.mg-rows li:last-child {
+  border-bottom: 0;
+}
+
+.mg-row-icon {
+  position: relative;
   width: 22px;
   height: 22px;
+  margin-top: 1px;
+}
+
+.mg-row-icon i {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
   border-radius: 50%;
+  font-style: normal;
   font-size: 12px;
   font-weight: 800;
+  transition: opacity 0.3s ease, transform 0.35s var(--ease-out);
 }
 
-.mg-pane-before li {
-  color: #cdb8c8;
-}
-
-.mg-pane-before li i {
+.mg-row-icon .x {
   background: rgba(244, 114, 182, 0.16);
   color: #f9a8d4;
 }
 
-.mg-pane-after li i {
+.mg-row-icon .c {
   background: var(--m-teal);
   color: #0b0b1a;
+  opacity: 0;
+  transform: scale(0.4);
 }
 
-.mg-pane-end {
-  margin-top: 24px;
+.mg-rows li.done .mg-row-icon .x {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.mg-rows li.done .mg-row-icon .c {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* before/after text stacked in the same grid cell, crossfaded */
+.mg-row-text {
+  display: grid;
+}
+
+.mg-row-text > span {
+  grid-area: 1 / 1;
+  font-size: 15px;
+  line-height: 1.45;
+  transition: opacity 0.3s ease, transform 0.35s var(--ease-out);
+}
+
+.mg-row-text .b {
+  color: #cdb8c8;
+}
+
+.mg-row-text .a {
+  color: var(--m-ink);
+  opacity: 0;
+  transform: translateY(7px);
+}
+
+.mg-rows li.done .mg-row-text .b,
+.mg-compare.complete .mg-end .b {
+  opacity: 0;
+  transform: translateY(-7px);
+}
+
+.mg-rows li.done .mg-row-text .a,
+.mg-compare.complete .mg-end .a {
+  opacity: 1;
+  transform: none;
+}
+
+.mg-compare-end {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.mg-end > span {
   font-family: var(--m-serif);
   font-style: italic;
   font-size: 19px;
 }
 
-.mg-pane-before .mg-pane-end {
+.mg-end .b {
   color: #f9a8d4;
 }
 
-.mg-pane-after .mg-pane-end {
+.mg-end .a {
   color: var(--m-teal);
 }
 
+.mg-hours {
+  flex: 0 0 auto;
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--m-teal);
+  background: rgba(94, 234, 212, 0.1);
+  border: 1px solid rgba(94, 234, 212, 0.3);
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+
 .mg-handle {
+  z-index: 2;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -804,26 +873,31 @@ html:not(.js) .mg-stack-wrap {
   }
 
   .mg-compare {
-    min-height: 470px;
+    padding: 18px 18px 16px;
   }
 
-  .mg-pane-inner {
-    padding: 22px 16px 20px;
+  .mg-rows li {
+    padding: 10px 0;
+    gap: 10px;
   }
 
-  .mg-pane li {
-    font-size: 12.5px;
-    gap: 8px;
+  .mg-row-text > span {
+    font-size: 13.5px;
   }
 
-  .mg-pane li i {
-    width: 18px;
-    height: 18px;
-    font-size: 10px;
-  }
-
-  .mg-pane-end {
+  .mg-end > span {
     font-size: 15px;
+  }
+
+  .mg-compare-end {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .mg-handle-knob {
+    width: 40px;
+    height: 40px;
   }
 
   .mg-stack {
