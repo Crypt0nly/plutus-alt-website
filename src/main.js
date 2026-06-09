@@ -140,46 +140,65 @@ handle.addEventListener('keydown', (e) => {
 // ------------------------------------------- scroll-driven statements
 
 // The story section pins for ~3 screens; scroll progress drives each
-// statement through fade-in → hold → fade-out, with a soft drift and blur.
+// statement through fade-in → hold → fade-out with a soft drift. The
+// displayed progress eases toward the real scroll position every frame,
+// so stepped mouse-wheel input still renders as fluid motion. Opacity and
+// transform only — no filters — to stay on the compositor.
 const story = document.getElementById('mg-story');
 if (story && !reducedMotion) {
   const steps = [...story.querySelectorAll('.mg-statement')];
   const n = steps.length;
   const clamp01 = (v) => Math.max(0, Math.min(1, v));
+  let target = 0;
+  let current = -1;
+  let raf = 0;
 
-  const update = () => {
+  const measure = () => {
     const r = story.getBoundingClientRect();
     const total = r.height - window.innerHeight;
-    if (total <= 0) return;
-    // progress through the story in "statement units", with half-step hold
-    // zones at both ends so the first and last hold while pinned
-    const fp = clamp01(-r.top / total) * n;
+    // progress in "statement units", clamped so the first and last
+    // statements hold while the stage pins and unpins
+    target = total > 0 ? clamp01(-r.top / total) * n : 0;
+  };
+
+  const apply = (fp) => {
     const fpc = Math.max(0.5, Math.min(n - 0.5, fp));
     steps.forEach((s, i) => {
       const d = fpc - (i + 0.5);
-      // hold at full opacity within ±0.2, then fade over 0.45 — wide enough
-      // that adjacent statements overlap and dissolve into each other
-      let o = 1 - clamp01((Math.abs(d) - 0.2) / 0.45);
+      // hold within ±0.18, fully faded by ±0.46 — statements never share
+      // the screen; the hand-off passes through a blink of dark
+      let o = 1 - clamp01((Math.abs(d) - 0.18) / 0.28);
       o = o * o * (3 - 2 * o); // smoothstep
-      s.style.opacity = String(o);
-      s.style.transform = `translateY(${(-d * 46).toFixed(1)}px)`;
-      s.style.filter = o >= 0.999 ? 'none' : `blur(${((1 - o) * 7).toFixed(2)}px)`;
-      s.style.zIndex = o > 0.5 ? '2' : '1';
+      s.style.opacity = o.toFixed(3);
+      s.style.transform = `translate3d(0, ${(-d * 36).toFixed(2)}px, 0)`;
+      s.style.visibility = o < 0.002 ? 'hidden' : 'visible';
     });
   };
 
-  let ticking = false;
-  const onScroll = () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      update();
-      ticking = false;
-    });
+  const tick = () => {
+    measure();
+    current += (target - current) * 0.14;
+    if (Math.abs(target - current) < 0.0004) current = target;
+    apply(current);
+    raf = requestAnimationFrame(tick);
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  update();
+
+  // run the easing loop only while the story is anywhere near the viewport
+  const io = new IntersectionObserver(
+    (entries) => {
+      const on = entries.some((e) => e.isIntersecting);
+      if (on && !raf) {
+        measure();
+        if (current < 0) current = target;
+        raf = requestAnimationFrame(tick);
+      } else if (!on && raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+    },
+    { rootMargin: '20% 0px' }
+  );
+  io.observe(story);
 }
 
 // a gentle nudge the first time the slider scrolls into view
