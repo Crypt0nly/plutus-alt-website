@@ -3,7 +3,7 @@
   "private": true,
   "version": "3.0.0",
   "type": "module",
-  "description": "PLUTUS — the AI operating system for companies. A cinematic single-page site: aurora light, serif statements, a self-clearing notification pile, a draggable before/after Monday, department cards, real-product pricing and FAQ. Vite + vanilla JS.",
+  "description": "OCUR — the AI operating system for companies. A cinematic single-page site: aurora light, serif statements, a self-clearing notification pile, a draggable before/after Monday, department cards, real-product pricing and FAQ. Vite + vanilla JS.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
