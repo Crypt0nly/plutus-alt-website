@@ -1,7 +1,8 @@
 import './style.css';
 import { initReveals, reducedMotion } from './fx.js';
-import { applyLang, initLangToggle, currentLang, STRINGS } from './i18n.js';
+import { applyLang, initLangRouting, initLangToggle, currentLang, STRINGS } from './i18n.js';
 
+initLangRouting();
 applyLang();
 initLangToggle();
 initReveals();

@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite';
 
-// PLUTUS — static single-page site.
-// Base is relative so the built site works from any sub-path (GitHub Pages, S3, etc.).
+// OCUR — static site, served from the domain root (ocur.ai).
+// Base must be absolute: the prerendered /de/ page lives in a
+// subdirectory and relative asset paths would break there.
 export default defineConfig({
-  base: './',
+  base: '/',
   build: {
     target: 'es2020',
     sourcemap: false,
