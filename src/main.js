@@ -1,18 +1,17 @@
 import './style.css';
 import { initReveals, reducedMotion } from './fx.js';
+import { applyLang, initLangToggle, currentLang, STRINGS } from './i18n.js';
 
+applyLang();
+initLangToggle();
 initReveals();
+
+const L = STRINGS[currentLang];
 
 // ---------------------------------------------- self-clearing notifications
 
-const NOTES = [
-  { e: '✉️', t: '23 customer emails overnight', s: 'answered — 3 escalated to a human' },
-  { e: '📅', t: 'Quarterly review to schedule', s: '11 calendars aligned, invites out' },
-  { e: '🧾', t: 'Four invoices overdue', s: 'reminders sent — one already paid' },
-  { e: '📝', t: 'Investor update due Friday', s: 'first draft waiting for your edits' },
-  { e: '📣', t: 'Launch post not written', s: 'drafted and queued across channels' },
-];
-const FINAL = { e: '✨', t: 'All handled.', s: 'Two things waited for your sign-off. The rest just ran.' };
+const NOTES = L.notes;
+const FINAL = L.final;
 
 const stack = document.getElementById('mg-stack');
 
@@ -124,13 +123,14 @@ const setX = (v) => {
     // each row's hours ease in around its threshold so the pill ticks
     hours += parseFloat(r.dataset.hours) * c01((x - at + 7) / 14);
   });
-  hoursEl.textContent = `+${hours.toFixed(1)} team-hours`;
+  const fmtHours = currentLang === 'de' ? hours.toFixed(1).replace('.', ',') : hours.toFixed(1);
+  hoursEl.textContent = `+${fmtHours} ${L.teamHours}`;
   compare.classList.toggle('complete', x > 86);
   tint.style.opacity = (p * 0.9).toFixed(3);
   sideBefore.style.opacity = (1 - p * 0.62).toFixed(3);
   sideAfter.style.opacity = (0.4 + p * 0.6).toFixed(3);
   handle.setAttribute('aria-valuenow', String(Math.round(x)));
-  handle.setAttribute('aria-valuetext', `${Math.round(x)}% — ${done} of ${rows.length} tasks handled`);
+  handle.setAttribute('aria-valuetext', L.tasksHandled(Math.round(x), done, rows.length));
 };
 
 const stopSweep = () => {

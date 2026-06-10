@@ -69,6 +69,16 @@ vanilla JS and CSS.
   fully readable if JavaScript fails; the whole site respects
   `prefers-reduced-motion`.
 - The slider is keyboard-accessible (`role="slider"`, arrow keys, Home/End).
+- **Localisation** (`src/i18n.js`): German-language browsers get the full
+  page in German (incl. euro pricing, German times/decimals and
+  aria-labels); everyone else gets the English baked into the HTML. An
+  EN | DE toggle in the nav persists to localStorage and beats browser
+  language. Detection is `navigator.languages`, deliberately not geo-IP
+  (privacy, VPNs, expats). The dictionary maps CSS selectors →
+  replacement HTML, so the markup stays single-source — when copy
+  changes, update the matching entry. SEO note: the swap is client-side,
+  so search engines index English; if German SERP presence matters
+  later, prerender a `/de/` page from the same dictionary.
 
 ## Run
 
