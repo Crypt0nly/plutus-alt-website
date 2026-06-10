@@ -663,25 +663,6 @@ h2 em {
   color: var(--m-ink);
 }
 
-/* quieter alternates under the main quote — breadth without stealing
-   the thread that "It happens." answers */
-.mg-said-more {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 16px;
-}
-
-.mg-said-more span {
-  font-size: 13.5px;
-  color: var(--m-dim);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px dashed var(--m-line);
-  border-radius: 999px;
-  padding: 9px 17px;
-}
-
 .mg-outcomes {
   list-style: none;
   display: flex;
