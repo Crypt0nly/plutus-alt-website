@@ -1,10 +1,12 @@
 import './style.css';
 import { initReveals, reducedMotion } from './fx.js';
 import { applyLang, initLangRouting, initLangToggle, currentLang, STRINGS } from './i18n.js';
+import { initThemeToggle } from './theme.js';
 
 initLangRouting();
 applyLang();
 initLangToggle();
+initThemeToggle();
 initReveals();
 
 const L = STRINGS[currentLang];

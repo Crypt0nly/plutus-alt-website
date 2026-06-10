@@ -3,19 +3,102 @@
    stack and a draggable before/after Monday. */
 
 :root {
+  color-scheme: dark;
   --m-bg: #0b0b1a;
   --m-ink: #f3f1ff;
   --m-dim: #a6a0c3;
-  --m-line: rgba(196, 181, 253, 0.18);
+  --m-line: rgba(var(--m-lilac-rgb), 0.18);
   --m-violet: #7c3aed;
   --m-lilac: #c4b5fd;
   --m-pink: #f0abfc;
   --m-teal: #5eead4;
+  --m-lilac-rgb: 196, 181, 253;
+  --m-teal-rgb: 94, 234, 212;
+  --m-pink-rgb: 240, 171, 252;
+  --m-violet-rgb: 124, 58, 237;
+  --m-grad-a: var(--m-lilac);
+  --m-grad-b: var(--m-pink);
+  --m-grad-c: var(--m-teal);
+  --m-aur-1: var(--m-violet);
+  --m-aur-2: var(--m-pink);
+  --m-aur-3: var(--m-teal);
   --m-glass: rgba(255, 255, 255, 0.055);
+  --m-card: rgba(20, 18, 42, 0.85);
+  --m-card-solid: #17132b;
+  --m-nav-bg: rgba(11, 11, 26, 0.7);
+  --m-tile: rgba(255, 255, 255, 0.07);
+  --m-btn-bg: #fff;
+  --m-btn-ink: #14122a;
+  --m-handle: #fff;
+  --m-knob-ink: #14122a;
+  --m-on-teal: #0b0b1a;
+  --m-on-accent: #14122a;
+  --m-aurora-o: 0.5;
+  --m-x-bg: rgba(244, 114, 182, 0.16);
+  --m-x-ink: #f9a8d4;
+  --m-row-b: #cdb8c8;
+  --m-end-b: #f9a8d4;
+  --m-tint: linear-gradient(135deg, rgba(16, 30, 44, 0.95), rgba(15, 38, 48, 0.95));
+  --m-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
   --m-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --m-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   --m-nav-h: 64px;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* light mode — palette sampled from the pitch deck (v7.0): warm cream
+   canvas #f8f7f3, black ink, fox orange #f2942e with peach washes;
+   success/negative states stay semantic (teal/rose). Retint by editing
+   this block only. */
+html[data-theme='light'] {
+  color-scheme: light;
+  --m-bg: #f8f7f3;
+  --m-ink: #131210;
+  --m-dim: #6b665c;
+  --m-line: rgba(19, 18, 16, 0.22);
+  --m-violet: #f2942e;
+  --m-lilac: #f2942e;
+  --m-pink: #f3a44f;
+  --m-teal: #0f766e;
+  --m-lilac-rgb: 242, 148, 46;
+  --m-teal-rgb: 15, 118, 110;
+  --m-pink-rgb: 243, 164, 79;
+  --m-violet-rgb: 242, 148, 46;
+  --m-grad-a: #b45309;
+  --m-grad-b: #d97706;
+  --m-grad-c: #92400e;
+  --m-aur-1: #f2942e;
+  --m-aur-2: #fbd3a1;
+  --m-aur-3: #f8efdf;
+  --m-glass: rgba(19, 18, 16, 0.04);
+  --m-card: rgba(255, 255, 255, 0.93);
+  --m-card-solid: #ffffff;
+  --m-nav-bg: rgba(248, 247, 243, 0.82);
+  --m-tile: rgba(19, 18, 16, 0.06);
+  --m-btn-bg: #131210;
+  --m-btn-ink: #ffffff;
+  --m-handle: #131210;
+  --m-knob-ink: #ffffff;
+  --m-on-teal: #ffffff;
+  --m-on-accent: #131210;
+  --m-aurora-o: 0.5;
+  --m-x-bg: rgba(190, 24, 93, 0.1);
+  --m-x-ink: #be185d;
+  --m-row-b: #76705f;
+  --m-end-b: #b91c1c;
+  --m-tint: linear-gradient(135deg, rgba(15, 118, 110, 0.06), rgba(15, 118, 110, 0.12));
+  --m-shadow: 0 18px 44px rgba(60, 45, 20, 0.12);
+}
+
+/* small text in pure brand orange is too low-contrast on cream — use
+   the deeper amber for type, keep #f2942e for graphics */
+html[data-theme='light'] .mg-kicker {
+  color: #b45309;
+}
+
+html[data-theme='light'] .mg-hint:hover {
+  color: #b45309;
+  border-color: #f2942e;
 }
 
 * {
@@ -40,7 +123,7 @@ body.mg {
 }
 
 body.mg ::selection {
-  background: rgba(124, 58, 237, 0.45);
+  background: rgba(var(--m-violet-rgb), 0.45);
 }
 
 [hidden] {
@@ -66,7 +149,7 @@ a {
   z-index: 0;
   border-radius: 50%;
   filter: blur(110px);
-  opacity: 0.5;
+  opacity: var(--m-aurora-o);
   pointer-events: none;
 }
 
@@ -77,7 +160,7 @@ a {
   max-height: 900px;
   top: -24vw;
   left: -16vw;
-  background: conic-gradient(from 120deg, var(--m-violet), var(--m-pink), var(--m-teal), var(--m-violet));
+  background: conic-gradient(from 120deg, var(--m-aur-1), var(--m-aur-2), var(--m-aur-3), var(--m-aur-1));
   animation: mg-drift-a 26s ease-in-out infinite alternate;
 }
 
@@ -88,7 +171,7 @@ a {
   max-height: 700px;
   bottom: -20vw;
   right: -14vw;
-  background: conic-gradient(from 300deg, var(--m-teal), var(--m-violet), var(--m-pink), var(--m-teal));
+  background: conic-gradient(from 300deg, var(--m-aur-3), var(--m-aur-1), var(--m-aur-2), var(--m-aur-3));
   animation: mg-drift-b 31s ease-in-out infinite alternate;
 }
 
@@ -119,7 +202,7 @@ em {
    through the gradient */
 h1 em,
 h2 em {
-  background: linear-gradient(95deg, var(--m-lilac), var(--m-pink) 40%, var(--m-teal) 75%, var(--m-lilac));
+  background: linear-gradient(95deg, var(--m-grad-a), var(--m-grad-b) 40%, var(--m-grad-c) 75%, var(--m-grad-a));
   background-size: 220% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -150,7 +233,7 @@ h2 em {
   align-items: center;
   gap: 30px;
   padding: 0 26px;
-  background: rgba(11, 11, 26, 0.7);
+  background: var(--m-nav-bg);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--m-line);
@@ -213,32 +296,55 @@ h2 em {
 
 .mg-lang a.on {
   color: var(--m-ink);
-  background: rgba(124, 58, 237, 0.3);
+  background: rgba(var(--m-violet-rgb), 0.3);
+}
+
+/* theme switch — moon in the dark, sun in the light */
+
+.mg-theme {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--m-dim);
+  background: none;
+  border: 1px solid var(--m-line);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.mg-theme:hover {
+  color: var(--m-ink);
+  border-color: var(--m-lilac);
 }
 
 /* ------------------------------------------------------------ buttons */
 
 .mg-btn {
   display: inline-block;
-  background: #fff;
-  color: #14122a;
+  background: var(--m-btn-bg);
+  color: var(--m-btn-ink);
   font-weight: 700;
   font-size: 16px;
   padding: 14px 30px;
   border-radius: 999px;
-  box-shadow: 0 0 36px rgba(196, 181, 253, 0.4), 0 0 80px rgba(124, 58, 237, 0.25);
+  box-shadow: 0 0 36px rgba(var(--m-lilac-rgb), 0.4), 0 0 80px rgba(var(--m-violet-rgb), 0.25);
   transition: transform 0.25s var(--ease-out), box-shadow 0.25s ease;
 }
 
 .mg-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 48px rgba(196, 181, 253, 0.6), 0 0 110px rgba(124, 58, 237, 0.35);
+  box-shadow: 0 0 48px rgba(var(--m-lilac-rgb), 0.6), 0 0 110px rgba(var(--m-violet-rgb), 0.35);
 }
 
 .mg-btn-small {
   font-size: 13.5px;
   padding: 9px 20px;
-  box-shadow: 0 0 22px rgba(196, 181, 253, 0.3);
+  box-shadow: 0 0 22px rgba(var(--m-lilac-rgb), 0.3);
 }
 
 .mg-btn-big {
@@ -320,14 +426,14 @@ h2 em {
   display: flex;
   align-items: center;
   gap: 14px;
-  background: rgba(20, 18, 42, 0.85);
+  background: var(--m-card);
   border: 1px solid var(--m-line);
   border-radius: 18px;
   padding: 16px 18px;
   text-align: left;
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--m-shadow);
   transition: transform 0.55s var(--ease-out), opacity 0.55s ease, filter 0.55s ease;
 }
 
@@ -339,7 +445,7 @@ h2 em {
   height: 42px;
   font-size: 20px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--m-tile);
 }
 
 .mg-note-text strong {
@@ -360,7 +466,7 @@ h2 em {
   height: 24px;
   border-radius: 50%;
   background: var(--m-teal);
-  color: #0b0b1a;
+  color: var(--m-on-teal);
   font-size: 13px;
   font-weight: 800;
   display: grid;
@@ -381,8 +487,8 @@ h2 em {
 }
 
 .mg-note-final {
-  border-color: rgba(94, 234, 212, 0.4);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45), 0 0 50px rgba(94, 234, 212, 0.12);
+  border-color: rgba(var(--m-teal-rgb), 0.4);
+  box-shadow: var(--m-shadow), 0 0 50px rgba(var(--m-teal-rgb), 0.12);
 }
 
 /* ----------------------------------------------------------- sections */
@@ -421,7 +527,7 @@ h2 em {
   border-radius: 22px;
   overflow: hidden;
   border: 1px solid var(--m-line);
-  background: #17132b;
+  background: var(--m-card-solid);
   padding: 26px 30px 24px;
   user-select: none;
   -webkit-user-select: none;
@@ -433,7 +539,7 @@ h2 em {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: linear-gradient(135deg, rgba(16, 30, 44, 0.95), rgba(15, 38, 48, 0.95));
+  background: var(--m-tint);
   opacity: 0;
   pointer-events: none;
 }
@@ -478,7 +584,7 @@ h2 em {
   gap: 12px;
   align-items: start;
   padding: 12px 0;
-  border-bottom: 1px solid rgba(196, 181, 253, 0.1);
+  border-bottom: 1px solid rgba(var(--m-lilac-rgb), 0.1);
 }
 
 .mg-rows li:last-child {
@@ -505,13 +611,13 @@ h2 em {
 }
 
 .mg-row-icon .x {
-  background: rgba(244, 114, 182, 0.16);
-  color: #f9a8d4;
+  background: var(--m-x-bg);
+  color: var(--m-x-ink);
 }
 
 .mg-row-icon .c {
   background: var(--m-teal);
-  color: #0b0b1a;
+  color: var(--m-on-teal);
   opacity: 0;
   transform: scale(0.4);
 }
@@ -539,7 +645,7 @@ h2 em {
 }
 
 .mg-row-text .b {
-  color: #cdb8c8;
+  color: var(--m-row-b);
 }
 
 .mg-row-text .a {
@@ -575,7 +681,7 @@ h2 em {
 }
 
 .mg-end .b {
-  color: #f9a8d4;
+  color: var(--m-end-b);
 }
 
 .mg-end .a {
@@ -588,8 +694,8 @@ h2 em {
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: var(--m-teal);
-  background: rgba(94, 234, 212, 0.1);
-  border: 1px solid rgba(94, 234, 212, 0.3);
+  background: rgba(var(--m-teal-rgb), 0.1);
+  border: 1px solid rgba(var(--m-teal-rgb), 0.3);
   border-radius: 999px;
   padding: 8px 14px;
 }
@@ -602,7 +708,7 @@ h2 em {
   left: var(--x, 50%);
   width: 2px;
   margin-left: -1px;
-  background: #fff;
+  background: var(--m-handle);
   cursor: ew-resize;
   box-shadow: 0 0 24px rgba(255, 255, 255, 0.5);
 }
@@ -620,8 +726,8 @@ h2 em {
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: #fff;
-  color: #14122a;
+  background: var(--m-handle);
+  color: var(--m-knob-ink);
   font-size: 17px;
   font-weight: 700;
   display: grid;
@@ -710,8 +816,8 @@ h2 em {
   font-size: 14.5px;
   font-weight: 600;
   color: var(--m-teal);
-  background: rgba(94, 234, 212, 0.08);
-  border: 1px solid rgba(94, 234, 212, 0.25);
+  background: rgba(var(--m-teal-rgb), 0.08);
+  border: 1px solid rgba(var(--m-teal-rgb), 0.25);
   border-radius: 999px;
   padding: 10px 18px;
 }
@@ -750,7 +856,7 @@ h2 em {
 .mg-approve-btns .yes {
   background: var(--m-teal);
   border-color: var(--m-teal);
-  color: #0b0b1a;
+  color: var(--m-on-teal);
 }
 
 .mg-statement-note {
@@ -779,7 +885,7 @@ h2 em {
 
 .mg-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(196, 181, 253, 0.45);
+  border-color: rgba(var(--m-lilac-rgb), 0.45);
 }
 
 .mg-card span {
@@ -789,7 +895,7 @@ h2 em {
   height: 46px;
   font-size: 22px;
   border-radius: 13px;
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--m-tile);
   margin-bottom: 16px;
 }
 
@@ -831,7 +937,7 @@ h2 em {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px dashed rgba(196, 181, 253, 0.16);
+  border: 1px dashed rgba(var(--m-lilac-rgb), 0.16);
   border-radius: 50%;
 }
 
@@ -859,9 +965,9 @@ h2 em {
   font-family: var(--m-serif);
   font-style: italic;
   font-size: 30px;
-  background: rgba(20, 18, 42, 0.88);
-  border: 1px solid rgba(196, 181, 253, 0.45);
-  box-shadow: 0 0 50px rgba(124, 58, 237, 0.45), 0 0 120px rgba(124, 58, 237, 0.22);
+  background: var(--m-card);
+  border: 1px solid rgba(var(--m-lilac-rgb), 0.45);
+  box-shadow: 0 0 50px rgba(var(--m-violet-rgb), 0.45), 0 0 120px rgba(var(--m-violet-rgb), 0.22);
 }
 
 .mg-sun img {
@@ -890,11 +996,15 @@ h2 em {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: rgba(20, 18, 42, 0.85);
+  background: var(--m-card);
   border: 1px solid var(--m-line);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--m-shadow);
   transform: rotate(var(--a)) translateX(var(--r)) rotate(calc(var(--a) * -1));
   animation: mg-orbit-spin var(--t, 80s) linear infinite;
+}
+
+.mg-planet {
+  color: var(--m-ink);
 }
 
 .mg-planet svg {
@@ -920,11 +1030,11 @@ h2 em {
 /* the open slot — bring your own apps */
 .mg-p-add {
   border-style: dashed;
-  border-color: rgba(196, 181, 253, 0.45);
+  border-color: rgba(var(--m-lilac-rgb), 0.45);
   color: var(--m-lilac);
   font-size: 26px;
   font-weight: 500;
-  background: rgba(124, 58, 237, 0.12);
+  background: rgba(var(--m-violet-rgb), 0.12);
 }
 
 .mg-system-note {
@@ -962,9 +1072,9 @@ h2 em {
 }
 
 .mg-price-popular {
-  border-color: rgba(196, 181, 253, 0.5);
-  background: rgba(124, 58, 237, 0.1);
-  box-shadow: 0 0 60px rgba(124, 58, 237, 0.18);
+  border-color: rgba(var(--m-lilac-rgb), 0.5);
+  background: rgba(var(--m-violet-rgb), 0.1);
+  box-shadow: 0 0 60px rgba(var(--m-violet-rgb), 0.18);
 }
 
 .mg-price-badge {
@@ -976,7 +1086,7 @@ h2 em {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #14122a;
+  color: var(--m-on-accent);
   background: var(--m-lilac);
   border-radius: 999px;
   padding: 5px 14px;
@@ -1051,13 +1161,13 @@ h2 em {
 .mg-btn-ghost {
   background: transparent;
   color: var(--m-ink);
-  border: 1px solid rgba(196, 181, 253, 0.4);
+  border: 1px solid rgba(var(--m-lilac-rgb), 0.4);
   box-shadow: none;
 }
 
 .mg-btn-ghost:hover {
   border-color: var(--m-lilac);
-  box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
+  box-shadow: 0 0 30px rgba(var(--m-violet-rgb), 0.2);
 }
 
 .mg-price-note {
@@ -1089,7 +1199,7 @@ h2 em {
 }
 
 .mg-faq details[open] {
-  border-color: rgba(196, 181, 253, 0.4);
+  border-color: rgba(var(--m-lilac-rgb), 0.4);
 }
 
 .mg-faq summary {
@@ -1166,7 +1276,7 @@ h2 em {
   top: 16px;
   bottom: 16px;
   width: 2px;
-  background: rgba(196, 181, 253, 0.14);
+  background: rgba(var(--m-lilac-rgb), 0.14);
 }
 
 .mg-pulse-rows li {
@@ -1194,12 +1304,12 @@ h2 em {
   margin: 6px auto 0;
   border-radius: 50%;
   background: var(--m-lilac);
-  box-shadow: 0 0 12px rgba(196, 181, 253, 0.55);
+  box-shadow: 0 0 12px rgba(var(--m-lilac-rgb), 0.55);
 }
 
 .mg-pulse-dot.beat {
   background: var(--m-pink);
-  box-shadow: 0 0 14px rgba(240, 171, 252, 0.65);
+  box-shadow: 0 0 14px rgba(var(--m-pink-rgb), 0.65);
   animation: mg-beat 2.6s ease-in-out infinite;
 }
 
@@ -1235,7 +1345,7 @@ h2 em {
 .mg-pulse-note {
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid rgba(196, 181, 253, 0.12);
+  border-top: 1px solid rgba(var(--m-lilac-rgb), 0.12);
   text-align: center;
   font-size: 14px;
   color: var(--m-dim);

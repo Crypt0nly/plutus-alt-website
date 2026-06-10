@@ -68,6 +68,12 @@ vanilla JS and CSS.
 - Reveal-on-scroll styles are gated behind an `html.js` class, so the page is
   fully readable if JavaScript fails; the whole site respects
   `prefers-reduced-motion`.
+- **Themes**: dark is the default; a sun/moon toggle in the nav switches
+  to light mode, persisted in localStorage, with `prefers-color-scheme`
+  as the first-visit default. Every colour flows through the token block
+  at the top of `src/style.css` — the light palette is provisional
+  (brand-derived) until the pitch-deck colours are supplied; retint by
+  editing the `html[data-theme='light']` block only.
 - The slider is keyboard-accessible (`role="slider"`, arrow keys, Home/End).
 - **Localisation**: the German page is a real prerendered URL — `npm run
   build` runs `scripts/prerender-de.mjs`, which applies the dictionary in
