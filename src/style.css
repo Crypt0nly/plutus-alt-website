@@ -157,12 +157,16 @@ h2 em {
 }
 
 .mg-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--m-serif);
   font-size: 25px;
 }
 
-.mg-brand span {
-  color: var(--m-lilac);
+.mg-brand-logo {
+  width: 30px;
+  height: auto;
 }
 
 .mg-nav-links {
@@ -831,8 +835,9 @@ h2 em {
 }
 
 .mg-sun img {
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: auto;
+  filter: drop-shadow(0 0 18px rgba(242, 148, 46, 0.45));
 }
 
 @keyframes mg-orbit-spin {
@@ -1385,8 +1390,8 @@ html:not(.js) .mg-stack-wrap {
   }
 
   .mg-sun img {
-    width: 52px;
-    height: 52px;
+    width: 46px;
+    height: auto;
   }
 
   .mg-faq details {
