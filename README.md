@@ -43,10 +43,15 @@ vanilla JS and CSS.
    heartbeat runner (interval wake-ups, quiet hours, full action log).
 5. **One system, every department** — six department cards: Sales, Support,
    Finance, Marketing, Operations, Company memory.
-6. **Plugged into everything** — a pill strip of real connectors (Gmail,
-   Google Calendar, Drive, Notion, WhatsApp, Telegram, Slack, Discord,
-   GitHub, your computer) plus six system cards: voice, parallel workers,
-   scheduled rhythm, desktop control, image generation, admin guardrails.
+6. **Plugged into everything** — a CSS-only solar system: Ocur at the
+   centre, real connector logos in two counter-rotating orbits (Gmail,
+   Google Calendar, Drive, Notion, GitHub inner; Telegram, WhatsApp,
+   Discord, email, your computer, the web outer) plus a dashed "+" planet
+   and a caption making the no-limits point: build your own connectors —
+   API or, failing that, desktop control. Logos lifted from the app's
+   `ConnectorLogos.tsx`. Below it, six system cards: voice, parallel
+   workers, scheduled rhythm, desktop control, image generation, admin
+   guardrails.
 7. **Pricing** — Free ("for the pilot") / Team ($149, "most popular") /
    Business ($299), each mirroring the in-app plans and token allowances,
    with an Enterprise note.
