@@ -1004,6 +1004,108 @@ h2 em {
   color: var(--m-dim);
 }
 
+/* ----------------------------------------- autopilot heartbeat timeline */
+
+.mg-pulse {
+  max-width: 620px;
+  margin: 0 auto;
+  background: var(--m-glass);
+  border: 1px solid var(--m-line);
+  border-radius: 22px;
+  padding: 26px 30px 22px;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.mg-pulse-rows {
+  --line-x: 74px;
+  position: relative;
+  list-style: none;
+}
+
+/* the thread the beats hang on */
+.mg-pulse-rows::before {
+  content: '';
+  position: absolute;
+  left: var(--line-x);
+  top: 16px;
+  bottom: 16px;
+  width: 2px;
+  background: rgba(196, 181, 253, 0.14);
+}
+
+.mg-pulse-rows li {
+  display: grid;
+  grid-template-columns: 52px 22px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 11px 0;
+}
+
+.mg-pulse-time {
+  padding-top: 2px;
+  font-size: 12.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--m-dim);
+  text-align: right;
+}
+
+.mg-pulse-dot {
+  position: relative;
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  margin: 6px auto 0;
+  border-radius: 50%;
+  background: var(--m-lilac);
+  box-shadow: 0 0 12px rgba(196, 181, 253, 0.55);
+}
+
+.mg-pulse-dot.beat {
+  background: var(--m-pink);
+  box-shadow: 0 0 14px rgba(240, 171, 252, 0.65);
+  animation: mg-beat 2.6s ease-in-out infinite;
+}
+
+/* lub-dub */
+@keyframes mg-beat {
+  0%,
+  48%,
+  100% {
+    transform: scale(1);
+  }
+  12% {
+    transform: scale(1.5);
+  }
+  24% {
+    transform: scale(1);
+  }
+  36% {
+    transform: scale(1.32);
+  }
+}
+
+.mg-pulse-text {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--m-dim);
+}
+
+.mg-pulse-text strong {
+  color: var(--m-ink);
+  font-weight: 600;
+}
+
+.mg-pulse-note {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(196, 181, 253, 0.12);
+  text-align: center;
+  font-size: 14px;
+  color: var(--m-dim);
+}
+
 /* final */
 
 .mg-final {
@@ -1071,7 +1173,8 @@ html:not(.js) .mg-stack-wrap {
 
   .mg-aurora,
   h1 em,
-  h2 em {
+  h2 em,
+  .mg-pulse-dot.beat {
     animation: none;
   }
 
@@ -1166,5 +1269,22 @@ html:not(.js) .mg-stack-wrap {
 
   .mg-faq details {
     padding: 0 16px;
+  }
+
+  .mg-pulse {
+    padding: 20px 18px 16px;
+  }
+
+  .mg-pulse-rows {
+    --line-x: 62px;
+  }
+
+  .mg-pulse-rows li {
+    grid-template-columns: 44px 18px 1fr;
+    gap: 10px;
+  }
+
+  .mg-pulse-text {
+    font-size: 13.5px;
   }
 }

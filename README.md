@@ -13,9 +13,10 @@ vanilla JS and CSS.
 > before anything important, and reporting back after every run. Content on
 > this page is kept in sync with what the
 > [plutus-cloud](https://github.com/Crypt0nly/plutus-cloud) app actually
-> ships: connectors, voice, company memory, scheduled automations, parallel
-> workers, desktop control, image generation, autonomous email replies,
-> org/role guardrails, and the Free / Team ($149) / Business ($299) plans.
+> ships: connectors, voice, company memory, the autonomous heartbeat
+> autopilot, scheduled automations, parallel workers, desktop control,
+> image generation, autonomous email replies, org/role guardrails, and
+> the Free / Team ($149) / Business ($299) plans.
 
 ## Page tour
 
@@ -30,24 +31,29 @@ vanilla JS and CSS.
    card washes teal, the end line swaps (5:45 pm buried → 4:00 pm clear)
    and a "+team-hours" pill ticks with progress. On first view it plays one
    slow demonstration sweep, then settles halfway; any interaction cancels.
-3. **Three statements** — *Your team says it. It happens. You stay in
-   charge* — one coherent invoice-chasing story told as a pinned scroll
-   narrative: the section holds for ~3 screens while scroll progress
+3. **Four statements** — *Your team says it. It happens. Or say nothing.
+   You stay in charge* — one coherent invoice-chasing story told as a
+   pinned scroll narrative: the section holds while scroll progress
    dissolves each statement into the next. Falls back to simple stacked
    blocks without JS or with reduced motion.
-4. **One system, every department** — six department cards: Sales, Support,
+4. **Autopilot, with a heartbeat** — a timeline card of one morning on
+   autopilot: heartbeats wake Plutus (pulsing "lub-dub" dots), he answers
+   the routine email, chases an invoice, builds himself a tool on a quiet
+   beat, and lands the morning digest. Mirrors the app's real per-user
+   heartbeat runner (interval wake-ups, quiet hours, full action log).
+5. **One system, every department** — six department cards: Sales, Support,
    Finance, Marketing, Operations, Company memory.
-5. **Plugged into everything** — a pill strip of real connectors (Gmail,
+6. **Plugged into everything** — a pill strip of real connectors (Gmail,
    Google Calendar, Drive, Notion, WhatsApp, Telegram, Slack, Discord,
    GitHub, your computer) plus six system cards: voice, parallel workers,
    scheduled rhythm, desktop control, image generation, admin guardrails.
-6. **Pricing** — Free ("for the pilot") / Team ($149, "most popular") /
+7. **Pricing** — Free ("for the pilot") / Team ($149, "most popular") /
    Business ($299), each mirroring the in-app plans and token allowances,
    with an Enterprise note.
-7. **FAQ** — seven `<details>` accordions (no JS needed) answering the
+8. **FAQ** — seven `<details>` accordions (no JS needed) answering the
    classic objections: free?, install?, autonomy/approval, integrations,
    privacy, company-wide use, rollout time.
-8. **Final CTA** — "Run the company. *Not the busywork.*" → **Start free**.
+9. **Final CTA** — "Run the company. *Not the busywork.*" → **Start free**.
 
 ## Tech notes
 
