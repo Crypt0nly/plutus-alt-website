@@ -778,31 +778,131 @@ h2 em {
   color: var(--m-dim);
 }
 
-/* connector pill strip */
+/* connector solar system — Ocur at the centre, the company's tools in
+   orbit. Pure CSS: each planet positions itself at --a on its ring's
+   radius and the keyframes sweep the angle a full turn while counter-
+   rotating the body so logos stay upright. */
 
-.mg-pills {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  max-width: 760px;
-  margin: 0 auto 44px;
+.mg-system {
+  position: relative;
+  width: min(540px, 92vw);
+  aspect-ratio: 1;
+  margin: 0 auto 40px;
+  --r1: clamp(86px, 21vw, 124px);
+  --r2: clamp(148px, 36vw, 212px);
 }
 
-.mg-pills li {
-  font-size: 14px;
-  font-weight: 600;
-  background: var(--m-glass);
+.mg-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px dashed rgba(196, 181, 253, 0.16);
+  border-radius: 50%;
+}
+
+.mg-orbit-inner {
+  width: calc(var(--r1) * 2);
+  height: calc(var(--r1) * 2);
+}
+
+.mg-orbit-outer {
+  width: calc(var(--r2) * 2);
+  height: calc(var(--r2) * 2);
+}
+
+.mg-sun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--m-serif);
+  font-style: italic;
+  font-size: 30px;
+  background: rgba(20, 18, 42, 0.88);
+  border: 1px solid rgba(196, 181, 253, 0.45);
+  box-shadow: 0 0 50px rgba(124, 58, 237, 0.45), 0 0 120px rgba(124, 58, 237, 0.22);
+}
+
+.mg-sun img {
+  width: 64px;
+  height: 64px;
+}
+
+@keyframes mg-orbit-spin {
+  from {
+    transform: rotate(var(--a)) translateX(var(--r)) rotate(calc(var(--a) * -1));
+  }
+  to {
+    transform: rotate(calc(var(--a) + 360deg)) translateX(var(--r)) rotate(calc(var(--a) * -1 - 360deg));
+  }
+}
+
+.mg-planet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: 54px;
+  height: 54px;
+  margin: -27px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(20, 18, 42, 0.85);
   border: 1px solid var(--m-line);
-  border-radius: 999px;
-  padding: 9px 18px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+  transform: rotate(var(--a)) translateX(var(--r)) rotate(calc(var(--a) * -1));
+  animation: mg-orbit-spin var(--t, 80s) linear infinite;
 }
 
-.mg-pills li:last-child {
-  color: var(--m-dim);
-  font-weight: 500;
+.mg-planet svg {
+  width: 26px;
+  height: 26px;
+}
+
+.mg-p-inner {
+  --r: var(--r1);
+  --t: 52s;
+}
+
+.mg-p-outer {
+  --r: var(--r2);
+  --t: 88s;
+  animation-direction: reverse;
+}
+
+.mg-p-emoji {
+  font-size: 23px;
+}
+
+/* the open slot — bring your own apps */
+.mg-p-add {
   border-style: dashed;
+  border-color: rgba(196, 181, 253, 0.45);
+  color: var(--m-lilac);
+  font-size: 26px;
+  font-weight: 500;
+  background: rgba(124, 58, 237, 0.12);
+}
+
+.mg-system-note {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 52px;
+  font-size: 15px;
+  color: var(--m-dim);
+}
+
+.mg-system-note strong {
+  color: var(--m-ink);
+  font-weight: 600;
 }
 
 /* ------------------------------------------------------------- pricing */
@@ -1174,7 +1274,8 @@ html:not(.js) .mg-stack-wrap {
   .mg-aurora,
   h1 em,
   h2 em,
-  .mg-pulse-dot.beat {
+  .mg-pulse-dot.beat,
+  .mg-planet {
     animation: none;
   }
 
@@ -1262,9 +1363,30 @@ html:not(.js) .mg-stack-wrap {
     height: 320px;
   }
 
-  .mg-pills li {
-    font-size: 13px;
-    padding: 8px 14px;
+  .mg-planet {
+    width: 44px;
+    height: 44px;
+    margin: -22px;
+  }
+
+  .mg-planet svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .mg-p-emoji {
+    font-size: 19px;
+  }
+
+  .mg-sun {
+    width: 84px;
+    height: 84px;
+    font-size: 24px;
+  }
+
+  .mg-sun img {
+    width: 52px;
+    height: 52px;
   }
 
   .mg-faq details {
