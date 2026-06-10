@@ -1,13 +1,13 @@
-# Lonus — the AI operating system for companies
+# Ocur — the AI operating system for companies
 
-The Lonus marketing site: cinematic and calm, written for non-technical
+The Ocur marketing site: cinematic and calm, written for non-technical
 readers. A midnight canvas with drifting aurora light, Instrument Serif
 statements, glass cards — and two signature moments: a **notification pile
 that clears itself** in the hero, and a **draggable before/after "same
 Monday"** comparison. No frameworks, no runtime dependencies — just Vite,
 vanilla JS and CSS.
 
-> The product: *Lonus — the AI operating system for companies.* It plugs
+> The product: *Ocur — the AI operating system for companies.* It plugs
 > into the platforms a company already runs on (email, calendar, files,
 > chat, documents, the web) and does the work inside them — always asking
 > before anything important, and reporting back after every run. Content on
@@ -37,8 +37,8 @@ vanilla JS and CSS.
    dissolves each statement into the next. Falls back to simple stacked
    blocks without JS or with reduced motion.
 4. **Autopilot, with a heartbeat** — a timeline card of one morning on
-   autopilot: heartbeats wake Lonus (pulsing "lub-dub" dots), he answers
-   the routine email, chases an invoice, builds himself a tool on a quiet
+   autopilot: heartbeats wake Ocur (pulsing "lub-dub" dots), it answers
+   the routine email, chases an invoice, builds itself a tool on a quiet
    beat, and lands the morning digest. Mirrors the app's real per-user
    heartbeat runner (interval wake-ups, quiet hours, full action log).
 5. **One system, every department** — six department cards: Sales, Support,
@@ -86,14 +86,14 @@ src/
 
 ## Notes
 
-- **Domain transition:** the brand and site are now **Lonus** (lonus.ai).
+- **Domain transition:** the brand and site are now **Ocur** (ocur.ai).
   The app itself still runs at app.useplutus.ai, so every CTA points there
-  for now — flip the links once the app answers on app.lonus.ai (or a 301
+  for now — flip the links once the app answers on app.ocur.ai (or a 301
   is in place).
-- Copy is drafted from Lonus's public description; the hero notifications
+- Copy is drafted from Ocur's public description; the hero notifications
   and the Monday lists are illustrative placeholders — swap in real examples
   before launch.
 - Six other explored design directions (Apple-style minimal, neon
-  attention-max, direct-response converter, enterprise "LonusOS", serif
+  attention-max, direct-response converter, enterprise "PlutusOS", serif
   editorial, playful coworker) live in this repo's git history — see the
   commits up to `1e4f27c`.

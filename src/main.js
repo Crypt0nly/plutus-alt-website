@@ -94,7 +94,7 @@ if (reducedMotion) {
 
 // ------------------------------------------------ team-Monday scrubber
 
-// One list; the divider is a "how much Lonus" scrubber. Each row flips
+// One list; the divider is a "how much Ocur" scrubber. Each row flips
 // ✗→✓ when the divider passes its data-at threshold, the end line swaps
 // near the right edge, and the team-hours pill ticks with progress.
 const compare = document.getElementById('mg-compare');
