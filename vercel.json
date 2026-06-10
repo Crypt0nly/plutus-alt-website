@@ -1,0 +1,35 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "cookie", "key": "ocur-lang", "value": "de" }],
+      "destination": "/de/",
+      "permanent": false
+    },
+    {
+      "source": "/de",
+      "has": [{ "type": "cookie", "key": "ocur-lang", "value": "en" }],
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/de/",
+      "has": [{ "type": "cookie", "key": "ocur-lang", "value": "en" }],
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "missing": [{ "type": "cookie", "key": "ocur-lang" }],
+      "has": [{ "type": "header", "key": "accept-language", "value": "de.*" }],
+      "destination": "/de/",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}

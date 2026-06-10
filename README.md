@@ -84,6 +84,25 @@ vanilla JS and CSS.
   the matching dictionary entry. `?lang=de` force-applies German
   client-side on the dev server, where `/de/` doesn't exist.
 
+## Deploy (Vercel)
+
+The repo is connected to Vercel (build `npm run build`, output `dist/`).
+`vercel.json` moves the language routing to the edge — zero client hops
+in production:
+
+- `/` with a German `Accept-Language` and no preference cookie → 307 to
+  `/de/`.
+- An explicit EN/DE choice is stored in the `ocur-lang` cookie (set by
+  the nav toggle) and wins in both directions.
+- A deliberately opened `/de/` link with no stored preference is served
+  as-is.
+- `/assets/*` (hashed filenames) are served immutable for a year.
+
+`public/sitemap.xml` lists both language URLs with hreflang alternates;
+`public/robots.txt` points to it — submit the sitemap in Google Search
+Console once the domain is live. The client-side routing in
+`src/i18n.js` stays as a fallback for dev and non-Vercel hosts.
+
 ## Run
 
 ```bash

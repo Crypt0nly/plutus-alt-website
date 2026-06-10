@@ -16,17 +16,39 @@ const query = new URLSearchParams(location.search).get('lang');
 const pathLang = /^\/de(\/|$)/.test(location.pathname) ? 'de' : 'en';
 export const currentLang = query === 'de' || query === 'en' ? query : pathLang;
 
-// Send people to the page in their language — explicit choice first,
-// browser language second, and an explicit URL visit (e.g. a shared
-// /de/ link) is respected unless the visitor chose otherwise before.
-export function initLangRouting() {
-  if (query) return; // dev override, never redirect
+// The choice is stored twice: localStorage for the client fallback and
+// a cookie for Vercel's edge redirects (vercel.json), which can't see
+// localStorage.
+function readStored() {
   let stored = null;
   try {
     stored = localStorage.getItem('ocur-lang');
   } catch {
-    /* storage blocked — browser language only */
+    /* storage blocked */
   }
+  if (stored !== 'de' && stored !== 'en') {
+    stored = (document.cookie.match(/(?:^|;\s*)ocur-lang=(de|en)/) || [])[1] || null;
+  }
+  return stored;
+}
+
+function writeStored(lang) {
+  try {
+    localStorage.setItem('ocur-lang', lang);
+  } catch {
+    /* ignore */
+  }
+  document.cookie = `ocur-lang=${lang};path=/;max-age=31536000;SameSite=Lax`;
+}
+
+// Send people to the page in their language — explicit choice first,
+// browser language second, and an explicit URL visit (e.g. a shared
+// /de/ link) is respected unless the visitor chose otherwise before.
+// On Vercel the same rules run at the edge (vercel.json) before the
+// page even loads; this client version covers dev and other hosts.
+export function initLangRouting() {
+  if (query) return; // dev override, never redirect
+  const stored = readStored();
   const browserDe = (navigator.languages || [navigator.language || 'en']).some((l) => /^de/i.test(l));
   if (pathLang === 'en' && (stored === 'de' || (!stored && browserDe))) {
     location.replace('/de/' + location.hash);
@@ -79,11 +101,7 @@ export function initLangToggle() {
       a.setAttribute('aria-current', 'true');
     }
     a.addEventListener('click', () => {
-      try {
-        localStorage.setItem('ocur-lang', lang);
-      } catch {
-        /* ignore */
-      }
+      writeStored(lang);
     });
     box.appendChild(a);
   });
