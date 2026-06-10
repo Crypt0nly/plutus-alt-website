@@ -1,13 +1,13 @@
-# Plutus — the AI operating system for companies
+# Lonus — the AI operating system for companies
 
-The Plutus marketing site: cinematic and calm, written for non-technical
+The Lonus marketing site: cinematic and calm, written for non-technical
 readers. A midnight canvas with drifting aurora light, Instrument Serif
 statements, glass cards — and two signature moments: a **notification pile
 that clears itself** in the hero, and a **draggable before/after "same
 Monday"** comparison. No frameworks, no runtime dependencies — just Vite,
 vanilla JS and CSS.
 
-> The product: *Plutus — the AI operating system for companies.* It plugs
+> The product: *Lonus — the AI operating system for companies.* It plugs
 > into the platforms a company already runs on (email, calendar, files,
 > chat, documents, the web) and does the work inside them — always asking
 > before anything important, and reporting back after every run. Content on
@@ -37,7 +37,7 @@ vanilla JS and CSS.
    dissolves each statement into the next. Falls back to simple stacked
    blocks without JS or with reduced motion.
 4. **Autopilot, with a heartbeat** — a timeline card of one morning on
-   autopilot: heartbeats wake Plutus (pulsing "lub-dub" dots), he answers
+   autopilot: heartbeats wake Lonus (pulsing "lub-dub" dots), he answers
    the routine email, chases an invoice, builds himself a tool on a quiet
    beat, and lands the morning digest. Mirrors the app's real per-user
    heartbeat runner (interval wake-ups, quiet hours, full action log).
@@ -86,10 +86,14 @@ src/
 
 ## Notes
 
-- Copy is drafted from Plutus's public description; the hero notifications
+- **Domain transition:** the brand and site are now **Lonus** (lonus.ai).
+  The app itself still runs at app.useplutus.ai, so every CTA points there
+  for now — flip the links once the app answers on app.lonus.ai (or a 301
+  is in place).
+- Copy is drafted from Lonus's public description; the hero notifications
   and the Monday lists are illustrative placeholders — swap in real examples
   before launch.
 - Six other explored design directions (Apple-style minimal, neon
-  attention-max, direct-response converter, enterprise "PlutusOS", serif
+  attention-max, direct-response converter, enterprise "LonusOS", serif
   editorial, playful coworker) live in this repo's git history — see the
   commits up to `1e4f27c`.
