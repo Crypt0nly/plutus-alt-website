@@ -186,6 +186,36 @@ h2 em {
   color: var(--m-ink);
 }
 
+/* language switch — EN | DE, persisted choice beats browser language */
+
+.mg-lang {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid var(--m-line);
+  border-radius: 999px;
+}
+
+.mg-lang a {
+  font-family: var(--m-sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--m-dim);
+  border-radius: 999px;
+  padding: 4px 10px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.mg-lang a:hover {
+  color: var(--m-ink);
+}
+
+.mg-lang a.on {
+  color: var(--m-ink);
+  background: rgba(124, 58, 237, 0.3);
+}
+
 /* ------------------------------------------------------------ buttons */
 
 .mg-btn {
@@ -1328,8 +1358,12 @@ html:not(.js) .mg-stack-wrap {
     display: none;
   }
 
-  .mg-nav .mg-btn-small {
+  .mg-lang {
     margin-left: auto;
+  }
+
+  .mg-nav .mg-btn-small {
+    margin-left: 0;
   }
 
   .mg-grid {

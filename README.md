@@ -69,6 +69,20 @@ vanilla JS and CSS.
   fully readable if JavaScript fails; the whole site respects
   `prefers-reduced-motion`.
 - The slider is keyboard-accessible (`role="slider"`, arrow keys, Home/End).
+- **Localisation**: the German page is a real prerendered URL — `npm run
+  build` runs `scripts/prerender-de.mjs`, which applies the dictionary in
+  `src/strings.de.js` (CSS selector → replacement HTML) to the built page
+  with cheerio and writes `dist/de/index.html` (euro pricing, German
+  times/decimals, translated aria-labels, `lang="de"`, its own
+  canonical). Both pages carry `hreflang` alternates, so English and
+  German index separately. At runtime `src/i18n.js` only routes:
+  German-language browsers landing on `/` are redirected to `/de/`
+  (`navigator.languages`, deliberately not geo-IP — privacy, VPNs,
+  expats), a shared `/de/` link is respected as-is, and the EN | DE
+  toggle in the nav is a pair of real links whose choice persists in
+  localStorage and beats browser language. When copy changes, update
+  the matching dictionary entry. `?lang=de` force-applies German
+  client-side on the dev server, where `/de/` doesn't exist.
 
 ## Run
 
