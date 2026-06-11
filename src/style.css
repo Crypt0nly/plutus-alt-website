@@ -228,18 +228,6 @@ h2 em {
   left: 0;
   right: 0;
   z-index: 100;
-}
-
-/* while the design-preview bar is mounted, everything shifts below it */
-html.has-designbar .mg-nav {
-  top: 34px;
-}
-
-html.has-designbar .mg-hero {
-  padding-top: calc(var(--m-nav-h) + 130px);
-}
-
-.mg-nav {
   height: var(--m-nav-h);
   display: flex;
   align-items: center;
