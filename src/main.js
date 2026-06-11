@@ -2,13 +2,11 @@ import './style.css';
 import { initReveals, reducedMotion } from './fx.js';
 import { applyLang, initLangRouting, initLangToggle, currentLang, STRINGS } from './i18n.js';
 import { initThemeToggle } from './theme.js';
-import { initDesignBar } from './designbar.js';
 
 initLangRouting();
 applyLang();
 initLangToggle();
 initThemeToggle();
-initDesignBar('a');
 initReveals();
 
 const L = STRINGS[currentLang];

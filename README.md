@@ -71,9 +71,9 @@ vanilla JS and CSS.
 - **Themes**: dark is the default; a sun/moon toggle in the nav switches
   to light mode, persisted in localStorage, with `prefers-color-scheme`
   as the first-visit default. Every colour flows through the token block
-  at the top of `src/style.css` — the light palette is provisional
-  (brand-derived) until the pitch-deck colours are supplied; retint by
-  editing the `html[data-theme='light']` block only.
+  at the top of `src/style.css`; the light palette is sampled from
+  Pitchdeck 7.0 (cream #f8f7f3, black ink, fox orange #f2942e) —
+  retint by editing the `html[data-theme='light']` block only.
 - The slider is keyboard-accessible (`role="slider"`, arrow keys, Home/End).
 - **Localisation**: the German page is a real prerendered URL — `npm run
   build` runs `scripts/prerender-de.mjs`, which applies the dictionary in
@@ -121,31 +121,19 @@ npm run preview
 ## Structure
 
 ```
-index.html       # design A "Midnight Aurora" (production)
-alt/index.html   # design B "Editorial Motion" (noindex preview at /alt/)
+index.html       # the page
 src/
   main.js        # notification pile, before/after slider, reveals
-  style.css      # design A's design system (theme tokens at the top)
+  style.css      # the design system (theme tokens at the top)
   fx.js          # reveal-on-scroll + reduced-motion flag
   i18n.js        # language routing + EN|DE toggle
   strings.de.js  # the entire German dictionary (data only)
   theme.js       # dark/light toggle
-  designbar.js   # the design-preview switcher bar (delete to retire)
-  alt/alt.js     # design B choreography (GSAP + ScrollTrigger + Lenis)
-  alt/alt.css    # design B styles
 ```
 
-### Design preview
-
-Two directions are live side by side while a winner is being picked —
-a slim bar at the top of every page switches between **/** (A ·
-Midnight Aurora) and **/alt/** (B · Editorial Motion). Design B is
-English-only, `noindex`, and loads its motion stack (GSAP,
-ScrollTrigger, SplitText, Lenis — ~55 KB gz) only on its own page;
-all animation sits behind an `html.motion` gate so reduced-motion
-visitors get a fully readable static page. To retire the preview:
-delete `alt/`, `src/alt/`, `src/designbar.js`, the two `initDesignBar`
-calls, and the `alt` input in `vite.config.js`.
+An alternative design direction ("Editorial Motion" — GSAP scroll
+choreography on the pitch-deck palette) was built and retired; it
+lives in git history if it's ever wanted again.
 
 ## Notes
 
