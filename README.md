@@ -131,9 +131,21 @@ src/
   theme.js       # dark/light toggle
 ```
 
-An alternative design direction ("Editorial Motion" — GSAP scroll
-choreography on the pitch-deck palette) was built and retired; it
-lives in git history if it's ever wanted again.
+### Design preview
+
+Two directions are live side by side while a winner is being picked —
+a slim bar at the top of every page switches between **/** (A ·
+Midnight Aurora) and **/alt/** (B · Liquid Editorial). Design B is the
+pitch-deck palette as a big-type editorial site with Apple-style
+liquid-glass surfaces (floating glass nav, glass pricing/FAQ/approval
+cards with pointer-tracked glare, a glass connector marquee, a
+persistent glass CTA dock) and GSAP/Lenis scroll choreography — plus
+the full conversion machinery: nav anchors, FAQ, trust section,
+complete pricing, CTAs in every scene. English-only, `noindex`; its
+~55 KB gz motion stack loads only on its own page, and all animation
+gates behind `html.motion`. To retire: delete `alt/`, `src/alt/`,
+`src/designbar.js`, the `initDesignBar` calls, the nav-offset rules
+in `style.css`, and the `alt` input in `vite.config.js`.
 
 ## Notes
 
