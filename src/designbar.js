@@ -33,7 +33,7 @@ export function initDesignBar(active) {
   bar.innerHTML =
     '<span>Design preview</span>' +
     `<a href="/" ${active === 'a' ? 'class="on" aria-current="true"' : ''}>A · Midnight Aurora</a>` +
-    `<a href="/alt/" ${active === 'b' ? 'class="on" aria-current="true"' : ''}>B · Editorial Motion</a>`;
+    `<a href="/alt/" ${active === 'b' ? 'class="on" aria-current="true"' : ''}>B · Obsidian Glass</a>`;
   document.body.prepend(bar);
   document.documentElement.classList.add('has-designbar');
 }

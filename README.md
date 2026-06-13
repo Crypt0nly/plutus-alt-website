@@ -135,13 +135,15 @@ src/
 
 Two directions are live side by side while a winner is being picked —
 a slim bar at the top of every page switches between **/** (A ·
-Midnight Aurora) and **/alt/** (B · Liquid Editorial). Design B is the
-pitch-deck palette as a big-type editorial site with Apple-style
-liquid-glass surfaces (floating glass nav, glass pricing/FAQ/approval
-cards with pointer-tracked glare, a glass connector marquee, a
-persistent glass CTA dock) and GSAP/Lenis scroll choreography — plus
-the full conversion machinery: nav anchors, FAQ, trust section,
-complete pricing, CTAs in every scene. English-only, `noindex`; its
+Midnight Aurora) and **/alt/** (B · Obsidian Glass). Design B is an
+Apple-keynote-style page: near-black canvas, fox-orange glow meshes,
+liquid-glass surfaces everywhere (floating glass nav, glass bento
+tiles, pricing/FAQ cards with pointer-tracked glare, a persistent
+glass CTA dock) and GSAP/Lenis choreography. Centrepiece: a pinned
+glass app window that plays a three-scene product demo as you scroll
+(delegate → Ocur executes → approval). Full conversion machinery:
+nav anchors, connector logo row, stats counters, complete pricing,
+FAQ, trust beats in the demo and bento. English-only, `noindex`; its
 ~55 KB gz motion stack loads only on its own page, and all animation
 gates behind `html.motion`. To retire: delete `alt/`, `src/alt/`,
 `src/designbar.js`, the `initDesignBar` calls, the nav-offset rules
