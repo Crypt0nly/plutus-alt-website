@@ -143,11 +143,16 @@ glass CTA dock) and GSAP/Lenis choreography. Centrepiece: a pinned
 glass app window that plays a three-scene product demo as you scroll
 (delegate → Ocur executes → approval). Full conversion machinery:
 nav anchors, connector logo row, stats counters, complete pricing,
-FAQ, trust beats in the demo and bento. English-only, `noindex`; its
-~55 KB gz motion stack loads only on its own page, and all animation
-gates behind `html.motion`. To retire: delete `alt/`, `src/alt/`,
-`src/designbar.js`, the `initDesignBar` calls, the nav-offset rules
-in `style.css`, and the `alt` input in `vite.config.js`.
+FAQ, trust beats in the demo and bento. It now carries the same chrome
+as A — a sun/moon light-mode toggle (frosted-white glass on a soft
+canvas) and a real prerendered German page at `/alt/de/` with an
+EN | DE switch, both sharing A's `ocur-theme` / `ocur-lang` choices —
+but stays `noindex` as a preview. Its ~59 KB gz motion stack loads only
+on its own page, and all animation gates behind `html.motion`. To
+retire: delete `alt/`, `src/alt/`, `src/designbar.js`, the
+`initDesignBar` calls, the nav-offset rules in `style.css`, the `alt`
+input in `vite.config.js`, the Design-B block in
+`scripts/prerender-de.mjs`, and the `/alt/` rules in `vercel.json`.
 
 ## Notes
 

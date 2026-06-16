@@ -4,6 +4,7 @@
    html.motion so the page reads fine without JS or with reduced motion. */
 
 :root {
+  color-scheme: dark;
   --g-bg: #060608;
   --g-ink: #f5f5f7;
   --g-dim: #9d9da6;
@@ -11,9 +12,54 @@
   --g-orange: #f2942e;
   --g-peach: #ffc680;
   --g-ember: #ff7849;
+  /* liquid-glass surface tokens — retinted wholesale in the light block */
+  --g-glass: linear-gradient(155deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035) 42%, rgba(255, 255, 255, 0.07));
+  --g-glass-bd: rgba(255, 255, 255, 0.14);
+  --g-edge: rgba(255, 255, 255, 0.22);
+  --g-glare: rgba(255, 255, 255, 0.14);
+  --g-fill: rgba(255, 255, 255, 0.07);
+  --g-fill-2: rgba(255, 255, 255, 0.16);
+  --g-shadow: rgba(0, 0, 0, 0.5);
+  --g-shine: rgba(255, 255, 255, 0.28);
+  --g-on-ink: #0a0a0c;
+  --g-grain-o: 0.04;
   --g-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --g-mono: 'JetBrains Mono', ui-monospace, monospace;
   --g-pad: clamp(20px, 5vw, 64px);
+}
+
+/* light mode — frosted white glass on a soft cool canvas; the fox-orange
+   glow meshes carry the warmth. Retint by editing this block only. */
+html[data-theme='light'] {
+  color-scheme: light;
+  --g-bg: #eaecf1;
+  --g-ink: #18181d;
+  --g-dim: #5b5b66;
+  --g-hair: rgba(18, 18, 28, 0.12);
+  --g-glass: linear-gradient(155deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.58) 42%, rgba(255, 255, 255, 0.72));
+  --g-glass-bd: rgba(18, 18, 28, 0.1);
+  --g-edge: rgba(255, 255, 255, 0.9);
+  --g-glare: rgba(255, 255, 255, 0.55);
+  --g-fill: rgba(18, 18, 28, 0.05);
+  --g-fill-2: rgba(18, 18, 28, 0.2);
+  --g-shadow: rgba(38, 34, 28, 0.16);
+  --g-shine: rgba(255, 255, 255, 0.75);
+  --g-on-ink: #f7f7f9;
+  --g-grain-o: 0.02;
+  /* darker warm accents for contrast on the light canvas — the blurred
+     glow meshes keep the vivid fox-orange (they use literal rgba) */
+  --g-peach: #b45309;
+  --g-orange: #c2620e;
+  --g-ember: #b3400c;
+}
+
+/* light-mode tweaks that aren't single tokens */
+html[data-theme='light'] .g-glow {
+  opacity: 0.72;
+}
+
+html[data-theme='light'] .g-logo[title='GitHub'] path {
+  fill: #18181d;
 }
 
 * {
@@ -65,14 +111,14 @@ a {
 .lg {
   position: relative;
   isolation: isolate;
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035) 42%, rgba(255, 255, 255, 0.07));
+  background: var(--g-glass);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid var(--g-glass-bd);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 1px 0 var(--g-edge),
     inset 0 -1px 0 rgba(255, 255, 255, 0.05),
-    0 18px 50px rgba(0, 0, 0, 0.5);
+    0 18px 50px var(--g-shadow);
   border-radius: 26px;
 }
 
@@ -83,7 +129,7 @@ a {
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  background: radial-gradient(320px circle at var(--gx, 50%) var(--gy, -40%), rgba(255, 255, 255, 0.14), transparent 62%);
+  background: radial-gradient(320px circle at var(--gx, 50%) var(--gy, -40%), var(--g-glare), transparent 62%);
   opacity: 0.6;
   transition: opacity 0.35s ease;
   pointer-events: none;
@@ -154,7 +200,7 @@ a {
   inset: -50%;
   z-index: 999;
   pointer-events: none;
-  opacity: 0.04;
+  opacity: var(--g-grain-o);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -222,8 +268,8 @@ html.motion .g-cursor {
 
 .g-nav.is-stuck {
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    0 22px 60px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 var(--g-edge),
+    0 22px 60px var(--g-shadow),
     0 0 50px rgba(242, 148, 46, 0.1);
 }
 
@@ -257,12 +303,63 @@ html.motion .g-cursor {
   color: var(--g-ink);
 }
 
+/* ----------------------------------------- nav language + theme toggles */
+
+.g-lang {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--g-hair);
+  border-radius: 999px;
+}
+
+.g-lang a {
+  font-family: var(--g-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--g-dim);
+  border-radius: 999px;
+  padding: 4px 9px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.g-lang a:hover {
+  color: var(--g-ink);
+}
+
+.g-lang a.on {
+  color: var(--g-on-ink);
+  background: var(--g-orange);
+}
+
+.g-theme {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--g-dim);
+  background: none;
+  border: 1px solid var(--g-hair);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.g-theme:hover {
+  color: var(--g-ink);
+  border-color: var(--g-orange);
+}
+
 /* ----------------------------------------------------------- buttons */
 
 .g-btn {
   display: inline-block;
   background: var(--g-ink);
-  color: #0a0a0c;
+  color: var(--g-on-ink);
   font-weight: 600;
   font-size: 15.5px;
   padding: 14px 30px;
@@ -293,8 +390,8 @@ html.motion .g-cursor {
 
 .g-btn-glass:hover {
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    0 14px 44px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 var(--g-edge),
+    0 14px 44px var(--g-shadow),
     0 0 40px rgba(242, 148, 46, 0.18);
 }
 
@@ -519,7 +616,7 @@ html.motion .g-stats {
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.16);
+  background: var(--g-fill-2);
 }
 
 .g-win-dots i:first-child {
@@ -609,7 +706,7 @@ html.motion .g-stats {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--g-fill);
   border: 1px solid var(--g-hair);
   border-bottom-left-radius: 6px;
 }
@@ -677,7 +774,7 @@ html.motion .g-stats {
 .g-approve-btns .yes {
   background: var(--g-ink);
   border-color: var(--g-ink);
-  color: #0a0a0c;
+  color: var(--g-on-ink);
 }
 
 .g-caps {
@@ -821,7 +918,7 @@ html.motion .g-ekg polyline {
   font-size: 12.5px;
   font-weight: 600;
   color: var(--g-ink);
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--g-fill);
   border: 1px solid var(--g-hair);
   border-radius: 999px;
   padding: 5px 12px;
@@ -898,8 +995,8 @@ html.motion .g-eq i {
 .g-card-hot {
   border-color: rgba(242, 148, 46, 0.45);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.25),
-    0 18px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 var(--g-edge),
+    0 18px 50px var(--g-shadow),
     0 0 70px rgba(242, 148, 46, 0.22);
 }
 
@@ -1119,7 +1216,7 @@ html.motion .g-dock::before {
   top: 0;
   bottom: 0;
   width: 60px;
-  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  background: linear-gradient(105deg, transparent, var(--g-shine), transparent);
   animation: g-shine 4.5s ease-in-out infinite;
 }
 
