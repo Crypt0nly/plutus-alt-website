@@ -142,7 +142,7 @@ tiles, pricing/FAQ cards with pointer-tracked glare, a persistent
 glass CTA dock) and GSAP/Lenis choreography. Centrepiece: a pinned
 glass app window that plays a three-scene product demo as you scroll
 (delegate → Ocur executes → approval). Full conversion machinery:
-nav anchors, connector logo row, stats counters, complete pricing,
+nav anchors, a connector solar system, stats counters, complete pricing,
 FAQ, trust beats in the demo and bento. It now carries the same chrome
 as A — a sun/moon light-mode toggle (frosted-white glass on a soft
 canvas) and a real prerendered German page at `/alt/de/` with an
