@@ -247,4 +247,15 @@ if (demo && story && !reducedMotion) {
   io.observe(story);
 }
 
+// pointer-tracked sheen: feed the cursor position to the window's glare
+// highlight (--gx/--gy). Fine pointers only — touch keeps the resting sheen.
+const win = document.querySelector('.mg-win');
+if (win && window.matchMedia('(pointer: fine)').matches) {
+  win.addEventListener('pointermove', (e) => {
+    const r = win.getBoundingClientRect();
+    win.style.setProperty('--gx', `${((e.clientX - r.left) / r.width) * 100}%`);
+    win.style.setProperty('--gy', `${((e.clientY - r.top) / r.height) * 100}%`);
+  });
+}
+
 document.getElementById('year').textContent = String(new Date().getFullYear());
