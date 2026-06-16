@@ -19,6 +19,7 @@
   --g-glare: rgba(255, 255, 255, 0.14);
   --g-fill: rgba(255, 255, 255, 0.07);
   --g-fill-2: rgba(255, 255, 255, 0.16);
+  --g-orb: rgba(22, 22, 30, 0.85);
   --g-shadow: rgba(0, 0, 0, 0.5);
   --g-shine: rgba(255, 255, 255, 0.28);
   --g-on-ink: #0a0a0c;
@@ -42,6 +43,7 @@ html[data-theme='light'] {
   --g-glare: rgba(255, 255, 255, 0.55);
   --g-fill: rgba(18, 18, 28, 0.05);
   --g-fill-2: rgba(18, 18, 28, 0.2);
+  --g-orb: rgba(255, 255, 255, 0.86);
   --g-shadow: rgba(38, 34, 28, 0.16);
   --g-shine: rgba(255, 255, 255, 0.75);
   --g-on-ink: #f7f7f9;
@@ -56,10 +58,6 @@ html[data-theme='light'] {
 /* light-mode tweaks that aren't single tokens */
 html[data-theme='light'] .g-glow {
   opacity: 0.72;
-}
-
-html[data-theme='light'] .g-logo[title='GitHub'] path {
-  fill: #18181d;
 }
 
 * {
@@ -524,35 +522,123 @@ html.motion .g-stats {
   margin-bottom: 26px;
 }
 
-.g-logos-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
+/* connector solar system — Ocur at the centre, logos in two
+   counter-rotating orbits, plus a free "+" slot for ones you build */
+.g-system {
+  position: relative;
+  width: min(560px, 92vw);
+  aspect-ratio: 1;
+  margin: 44px auto 0;
+  --r1: clamp(88px, 21vw, 128px);
+  --r2: clamp(150px, 36vw, 216px);
 }
 
-.g-logo {
-  width: 58px;
-  height: 58px;
+.g-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px dashed rgba(242, 148, 46, 0.22);
+  border-radius: 50%;
+}
+
+.g-orbit-inner {
+  width: calc(var(--r1) * 2);
+  height: calc(var(--r1) * 2);
+}
+
+.g-orbit-outer {
+  width: calc(var(--r2) * 2);
+  height: calc(var(--r2) * 2);
+}
+
+.g-sun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
   display: grid;
   place-items: center;
-  border-radius: 18px;
+  background: var(--g-glass), var(--g-orb);
+  border: 1px solid var(--g-glass-bd);
+  box-shadow:
+    inset 0 1px 0 var(--g-edge),
+    0 0 50px rgba(242, 148, 46, 0.4),
+    0 0 120px rgba(242, 148, 46, 0.2);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
 }
 
-.g-logo svg {
-  width: 26px;
-  height: 26px;
+.g-sun img {
+  width: 60px;
+  height: auto;
+  filter: drop-shadow(0 0 18px rgba(242, 148, 46, 0.55));
 }
 
-.g-logo-txt {
-  font-size: 23px;
+@keyframes g-orbit-spin {
+  from {
+    transform: rotate(var(--a)) translateX(var(--r)) rotate(calc(var(--a) * -1));
+  }
+  to {
+    transform: rotate(calc(var(--a) + 360deg)) translateX(var(--r)) rotate(calc(var(--a) * -1 - 360deg));
+  }
 }
 
-.g-logo-plus {
+/* orbiting glass discs — solid --g-orb base (no backdrop-filter while
+   moving) under the glass sheen, so 12 planets stay cheap to animate */
+.g-planet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: 56px;
+  height: 56px;
+  margin: -28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--g-ink);
+  background: var(--g-glass), var(--g-orb);
+  border: 1px solid var(--g-glass-bd);
+  box-shadow:
+    inset 0 1px 0 var(--g-edge),
+    0 10px 28px var(--g-shadow);
+  transform: rotate(var(--a)) translateX(var(--r)) rotate(calc(var(--a) * -1));
+  animation: g-orbit-spin var(--t, 80s) linear infinite;
+}
+
+.g-planet svg {
+  width: 27px;
+  height: 27px;
+}
+
+.g-p-inner {
+  --r: var(--r1);
+  --t: 54s;
+}
+
+.g-p-outer {
+  --r: var(--r2);
+  --t: 90s;
+  animation-direction: reverse;
+}
+
+.g-p-emoji {
   font-size: 24px;
-  color: var(--g-peach);
+}
+
+/* the open slot — bring your own apps */
+.g-p-add {
   border-style: dashed;
-  border-color: rgba(255, 198, 128, 0.4);
+  border-color: rgba(242, 148, 46, 0.5);
+  color: var(--g-orange);
+  font-size: 26px;
+  font-weight: 500;
+  background: rgba(242, 148, 46, 0.12);
 }
 
 .g-logos-sub {
@@ -1271,12 +1357,37 @@ html.motion .g-dock::before {
   .g-faq details {
     padding: 0 18px;
   }
+
+  .g-planet {
+    width: 46px;
+    height: 46px;
+    margin: -23px;
+  }
+
+  .g-planet svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .g-p-emoji {
+    font-size: 20px;
+  }
+
+  .g-sun {
+    width: 88px;
+    height: 88px;
+  }
+
+  .g-sun img {
+    width: 48px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .g-kdot,
   .g-eq i,
-  .g-ekg polyline {
+  .g-ekg polyline,
+  .g-planet {
     animation: none;
   }
 

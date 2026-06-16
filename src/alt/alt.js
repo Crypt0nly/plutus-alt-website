@@ -100,14 +100,13 @@ if (motion) {
     scrollTrigger: { trigger: '.g-hero', start: 'top top', end: 'bottom top', scrub: 0.6 },
   });
 
-  // ------------------------------------------- connector row entrance
-  gsap.from('.g-logo', {
-    y: 26,
+  // ----------------------------------------- connector system entrance
+  gsap.from('.g-system', {
+    scale: 0.9,
     opacity: 0,
-    duration: 0.6,
-    stagger: 0.045,
+    duration: 1,
     ease: 'power3.out',
-    scrollTrigger: { trigger: '.g-logos-row', start: 'top 82%' },
+    scrollTrigger: { trigger: '.g-logos', start: 'top 75%' },
   });
 
   // --------------------------------------- pinned three-scene demo
