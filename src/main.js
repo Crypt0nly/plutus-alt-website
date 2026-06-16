@@ -208,94 +208,34 @@ if (canSweep) {
   sweepIO.observe(compare);
 }
 
-// ------------------------------------------- scroll-driven statements
+// ------------------------------------------- scroll-driven chat demo
 
-// The story section pins for ~3 screens; scroll progress drives each
-// statement through fade-in → hold → fade-out with a soft drift. The
-// displayed progress eases toward the real scroll position every frame,
-// so stepped mouse-wheel input still renders as fluid motion. Opacity and
-// transform only — no filters — to stay on the compositor.
+// The demo section pins for ~3 screens; scroll progress flips the window
+// through three scenes — the ask → the work → the sign-off. CSS owns the
+// crossfade (one .mg-scene + caption shown per data-scene), so JS only
+// writes data-scene when it changes. Runs only while the section is near
+// the viewport; without JS or with reduced motion every scene stays
+// stacked into a readable transcript.
+const demo = document.querySelector('.mg-demo');
 const story = document.getElementById('mg-story');
-if (story && !reducedMotion) {
-  const steps = [...story.querySelectorAll('.mg-statement')].map((el) => ({
-    el,
-    parts: [...el.children],
-  }));
-  const n = steps.length;
-  const clamp01 = (v) => Math.max(0, Math.min(1, v));
-
-  // per-statement scroll time: data-weight stretches a statement's slice of
-  // the story (e.g. data-weight="1.6" holds ~60% longer)
-  const weights = steps.map((s) => parseFloat(s.el.dataset.weight) || 1);
-  const W = weights.reduce((a, b) => a + b, 0);
-  // keep ~78vh of scroll per statement-unit regardless of total weight
-  story.style.height = `${Math.round(100 + W * 78)}vh`;
-
-  // raw progress (0..1) → statement units (0..n), stretched by weight
-  const warp = (p) => {
-    let u = p * W;
-    for (let i = 0; i < n; i += 1) {
-      if (u <= weights[i] || i === n - 1) return i + Math.min(1, u / weights[i]);
-      u -= weights[i];
-    }
-    return n;
-  };
-
-  let target = 0;
-  let current = -1;
+if (demo && story && !reducedMotion) {
   let raf = 0;
-
-  const measure = () => {
-    const r = story.getBoundingClientRect();
-    const total = r.height - window.innerHeight;
-    // progress in "statement units", clamped so the first and last
-    // statements hold while the stage pins and unpins
-    target = total > 0 ? warp(clamp01(-r.top / total)) : 0;
-  };
-
-  // Inner choreography: the headline leads, each following block trails by
-  // STAG progress units. Entering pieces rise in slightly small and tilted
-  // back; leaving pieces drift up, grow and tip away — a gentle fly-through.
-  // Tuned so trailing pieces are fully gone before the next headline enters.
-  const HOLD = 0.16;
-  const FADE = 0.26;
-  const STAG = 0.04;
-
-  const apply = (fp) => {
-    const fpc = Math.max(0.5, Math.min(n - 0.5, fp));
-    steps.forEach((step, i) => {
-      const d = fpc - (i + 0.5);
-      let maxO = 0;
-      step.parts.forEach((p, k) => {
-        const dk = d - k * STAG;
-        let o = 1 - clamp01((Math.abs(dk) - HOLD) / FADE);
-        o = o * o * (3 - 2 * o); // smoothstep
-        maxO = Math.max(maxO, o);
-        p.style.opacity = o.toFixed(3);
-        p.style.transform =
-          `translate3d(0, ${(-dk * 52).toFixed(2)}px, 0) ` +
-          `scale(${(1 + dk * 0.12).toFixed(4)}) ` +
-          `rotateX(${(dk * -9).toFixed(2)}deg)`;
-      });
-      step.el.style.visibility = maxO < 0.002 ? 'hidden' : 'visible';
-    });
-  };
+  const clamp01 = (v) => Math.max(0, Math.min(1, v));
+  const sceneFor = (p) => (p < 0.34 ? '1' : p < 0.7 ? '2' : '3');
 
   const tick = () => {
-    measure();
-    current += (target - current) * 0.14;
-    if (Math.abs(target - current) < 0.0004) current = target;
-    apply(current);
+    const r = story.getBoundingClientRect();
+    const total = r.height - window.innerHeight;
+    const scene = sceneFor(total > 0 ? clamp01(-r.top / total) : 0);
+    if (demo.dataset.scene !== scene) demo.dataset.scene = scene;
     raf = requestAnimationFrame(tick);
   };
 
-  // run the easing loop only while the story is anywhere near the viewport
+  // run the loop only while the demo is anywhere near the viewport
   const io = new IntersectionObserver(
     (entries) => {
       const on = entries.some((e) => e.isIntersecting);
       if (on && !raf) {
-        measure();
-        if (current < 0) current = target;
         raf = requestAnimationFrame(tick);
       } else if (!on && raf) {
         cancelAnimationFrame(raf);

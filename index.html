@@ -149,34 +149,51 @@
         </div>
       </section>
 
-      <!-- Statements — pinned scroll story: each fades in, holds, dissolves -->
-      <section class="mg-statements" aria-label="How Ocur works">
+      <!-- Demo — pinned chat window: scroll drives the three scenes
+           (the ask → the work → the sign-off). Without JS or motion every
+           scene shows stacked, so the whole transcript stays readable. -->
+      <section class="mg-statements mg-demo" aria-label="How Ocur works" data-scene="1">
         <div class="mg-story" id="mg-story">
           <div class="mg-story-stage">
-            <div class="mg-statement">
-              <h2>Your team says it.</h2>
-              <p class="mg-said">“Chase the overdue invoices and update the sheet.”</p>
-            </div>
-            <div class="mg-statement" data-weight="1.6">
-              <h2>It <em>happens.</em></h2>
-              <ul class="mg-outcomes">
-                <li>✓ 14 reminders sent</li>
-                <li>✓ Sheet updated</li>
-                <li>✓ 2 payments already in</li>
-              </ul>
-            </div>
-            <div class="mg-statement">
-              <h2>Or say <em>nothing.</em></h2>
-              <p class="mg-said">💓 Heartbeat — Ocur noticed, handled it, logged it.</p>
-              <p class="mg-statement-note">On autopilot, work happens before anyone asks.</p>
-            </div>
-            <div class="mg-statement">
-              <h2>You stay in charge.</h2>
-              <div class="mg-approve">
-                <p>Ocur asks: <strong>“Anders &amp; Co is 90 days overdue — send the final notice?”</strong></p>
-                <div class="mg-approve-btns"><span class="yes">Yes, send it</span><span>Not yet</span></div>
+            <div class="mg-demo-stage">
+              <h2 class="mg-demo-h">Your team says it. <em>It happens.</em></h2>
+              <div class="mg-win">
+                <div class="mg-win-bar">
+                  <span class="mg-win-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="mg-win-title"><img src="/logo.svg" alt="" /> Ocur</span>
+                  <span class="mg-win-pill"><i class="mg-kdot" aria-hidden="true"></i> Autopilot on</span>
+                </div>
+                <div class="mg-win-body">
+                  <!-- scene 1: the ask -->
+                  <div class="mg-scene mg-s1">
+                    <div class="mg-bubble mg-bubble-you">Chase the overdue invoices and update the sheet.</div>
+                    <p class="mg-stamp">You · 09:41</p>
+                  </div>
+                  <!-- scene 2: the work -->
+                  <div class="mg-scene mg-s2">
+                    <div class="mg-bubble mg-bubble-ocur">
+                      <span class="mg-working">On it — running the loop.</span>
+                      <span class="mg-step" style="--sd: 0.1s">✓&nbsp; 14 payment reminders sent</span>
+                      <span class="mg-step" style="--sd: 0.3s">✓&nbsp; Sheet updated — 12 rows reconciled</span>
+                      <span class="mg-step" style="--sd: 0.5s">✓&nbsp; 2 payments already in</span>
+                    </div>
+                    <p class="mg-stamp">Ocur · 09:43</p>
+                  </div>
+                  <!-- scene 3: the sign-off -->
+                  <div class="mg-scene mg-s3">
+                    <div class="mg-approve">
+                      <p>Anders &amp; Co is 90 days overdue — <strong>send the final notice?</strong></p>
+                      <div class="mg-approve-btns"><span class="yes">Approve</span><span>Hold</span></div>
+                    </div>
+                    <p class="mg-stamp">Every step logged · nothing important without your sign-off</p>
+                  </div>
+                </div>
               </div>
-              <p class="mg-statement-note">Anything important waits for sign-off. Every action is on the record.</p>
+              <div class="mg-caps">
+                <p class="mg-cap mg-cap-1">Say it once, in plain language. No prompts to engineer.</p>
+                <p class="mg-cap mg-cap-2">Ocur runs the whole loop — across email, sheets and the web.</p>
+                <p class="mg-cap mg-cap-3">Anything important waits for you. One tap, done.</p>
+              </div>
             </div>
           </div>
         </div>

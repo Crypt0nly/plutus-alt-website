@@ -80,19 +80,27 @@ export const DE = [
   ['.mg-end .a', '16:00 — alles abgearbeitet.'],
   ['.mg-compare-note', 'Ein „OK“ von deinem Team. Den Rest hat Ocur erledigt.'],
 
-  // statements story
-  ['.mg-statement:nth-of-type(1) h2', 'Dein Team sagt es.'],
-  ['.mg-statement:nth-of-type(1) .mg-said', '„Mahne die überfälligen Rechnungen an und aktualisiere die Tabelle.“'],
-  ['.mg-statement:nth-of-type(2) h2', 'Es <em>passiert.</em>'],
-  ['.mg-outcomes li', ['✓ 14 Erinnerungen verschickt', '✓ Tabelle aktualisiert', '✓ 2 Zahlungen schon da']],
-  ['.mg-statement:nth-of-type(3) h2', 'Oder sag <em>gar nichts.</em>'],
-  ['.mg-statement:nth-of-type(3) .mg-said', '💓 Heartbeat — Ocur hat’s bemerkt, erledigt, protokolliert.'],
-  ['.mg-statement:nth-of-type(3) .mg-statement-note', 'Auf Autopilot passiert die Arbeit, bevor jemand fragt.'],
-  ['.mg-statement:nth-of-type(4) h2', 'Du behältst die Kontrolle.'],
-  ['.mg-approve p', 'Ocur fragt: <strong>„Anders &amp; Co ist 90 Tage überfällig — letzte Mahnung senden?“</strong>'],
-  ['.mg-approve-btns .yes', 'Ja, senden'],
-  ['.mg-approve-btns span:not(.yes)', 'Noch nicht'],
-  ['.mg-statement:nth-of-type(4) .mg-statement-note', 'Alles Wichtige wartet auf deine Freigabe. Jede Aktion ist protokolliert.'],
+  // demo — chat window (the ask → the work → the sign-off)
+  ['.mg-demo-h', 'Dein Team sagt es. <em>Es passiert.</em>'],
+  ['.mg-bubble-you', 'Mahne die überfälligen Rechnungen an und aktualisiere die Tabelle.'],
+  ['.mg-working', 'Mach ich — die Schleife läuft.'],
+  [
+    '.mg-step',
+    [
+      '✓&nbsp; 14 Zahlungserinnerungen verschickt',
+      '✓&nbsp; Tabelle aktualisiert — 12 Zeilen abgeglichen',
+      '✓&nbsp; 2 Zahlungen schon da',
+    ],
+  ],
+  ['.mg-s1 .mg-stamp', 'Du · 09:41'],
+  ['.mg-s2 .mg-stamp', 'Ocur · 09:43'],
+  ['.mg-approve p', 'Anders &amp; Co ist 90 Tage überfällig — <strong>letzte Mahnung senden?</strong>'],
+  ['.mg-approve-btns .yes', 'Freigeben'],
+  ['.mg-approve-btns span:not(.yes)', 'Halten'],
+  ['.mg-s3 .mg-stamp', 'Jeder Schritt protokolliert · nichts Wichtiges ohne deine Freigabe'],
+  ['.mg-cap-1', 'Einmal sagen, in normaler Sprache. Kein Prompt-Engineering.'],
+  ['.mg-cap-2', 'Ocur fährt die ganze Schleife — über E-Mail, Tabellen und das Web.'],
+  ['.mg-cap-3', 'Alles Wichtige wartet auf dich. Ein Tipp, fertig.'],
 
   // autopilot
   ['#autopilot h2', 'Autopilot, mit <em>Herzschlag.</em>'],
