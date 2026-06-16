@@ -513,7 +513,7 @@ html.has-designbar .mg-hero {
 }
 
 .mg-head h2,
-.mg-statement h2,
+.mg-demo-h,
 .mg-final h2 {
   font-family: var(--m-serif);
   font-weight: 400;
@@ -751,95 +751,178 @@ html.has-designbar .mg-hero {
   color: var(--m-dim);
 }
 
-/* statements — static fallback (no JS / reduced motion): simple stacked
-   blocks. With JS + motion, the section becomes a pinned scroll story:
-   the stage sticks for ~3 screens while the statements crossfade. */
+/* demo — a chat window telling one invoice story in three scenes (the ask
+   → the work → the sign-off). Static fallback (no JS / reduced motion):
+   every scene stacks into a readable transcript. With JS + motion the
+   stage pins for ~3 screens and scroll progress flips data-scene to
+   crossfade one scene — and its caption — at a time. */
 
 .mg-statements {
   padding: 30px 0 60px;
 }
 
-.mg-statement {
-  text-align: center;
-  padding: 80px 24px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html.js .mg-statements {
-    padding: 0;
-  }
-
-  html.js .mg-story {
-    height: 330vh;
-  }
-
-  html.js .mg-story-stage {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    height: 100svh;
-    overflow: hidden;
-  }
-
-  html.js .mg-statement {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0 24px;
-    transition: none;
-    perspective: 900px;
-  }
-
-  /* the pieces animate individually (headline leads, blocks trail) */
-  html.js .mg-statement > * {
-    opacity: 0;
-    transition: none;
-    will-change: opacity, transform;
-  }
-}
-
-.mg-said {
-  display: inline-block;
-  margin-top: 26px;
-  font-size: 17px;
-  background: var(--m-glass);
-  border: 1px solid var(--m-line);
-  border-radius: 999px;
-  padding: 14px 26px;
-  color: var(--m-ink);
-}
-
-.mg-outcomes {
-  list-style: none;
+.mg-demo-stage {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px;
   display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 26px;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(28px, 5vh, 48px);
 }
 
-.mg-outcomes li {
-  font-size: 14.5px;
+.mg-demo-h {
+  text-align: center;
+}
+
+.mg-win {
+  width: min(640px, 100%);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--m-card);
+  border: 1px solid var(--m-line);
+  box-shadow: var(--m-shadow);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.mg-win-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--m-line);
+}
+
+.mg-win-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.mg-win-dots i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.mg-win-dots i:nth-child(1) { background: #ff5f56; }
+.mg-win-dots i:nth-child(2) { background: #ffbd2e; }
+.mg-win-dots i:nth-child(3) { background: #27c93f; }
+
+.mg-win-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
   font-weight: 600;
-  color: var(--m-teal);
-  background: rgba(var(--m-teal-rgb), 0.08);
-  border: 1px solid rgba(var(--m-teal-rgb), 0.25);
-  border-radius: 999px;
-  padding: 10px 18px;
 }
 
+.mg-win-title img {
+  width: 17px;
+  height: auto;
+}
+
+.mg-win-pill {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--m-teal);
+  border: 1px solid rgba(var(--m-teal-rgb), 0.3);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+.mg-kdot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--m-teal);
+  box-shadow: 0 0 10px var(--m-teal);
+}
+
+.mg-win-body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mg-scene {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mg-bubble {
+  max-width: 88%;
+  padding: 14px 18px;
+  border-radius: 18px;
+  font-size: 15.5px;
+  line-height: 1.5;
+}
+
+.mg-bubble-you {
+  align-self: flex-end;
+  background: var(--m-btn-bg);
+  color: var(--m-btn-ink);
+  font-weight: 600;
+  border-bottom-right-radius: 6px;
+}
+
+.mg-bubble-ocur {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--m-tile);
+  border: 1px solid var(--m-line);
+  border-bottom-left-radius: 6px;
+}
+
+.mg-working {
+  font-weight: 600;
+}
+
+.mg-step {
+  font-size: 14px;
+  color: var(--m-teal);
+}
+
+.mg-stamp {
+  font-size: 11.5px;
+  color: var(--m-dim);
+  align-self: center;
+}
+
+.mg-s1 .mg-stamp { align-self: flex-end; }
+.mg-s2 .mg-stamp { align-self: flex-start; }
+
+.mg-caps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+}
+
+.mg-cap {
+  font-size: clamp(15px, 1.8vw, 17px);
+  color: var(--m-dim);
+}
+
+/* the approval card, now living inside the sign-off scene */
 .mg-approve {
+  align-self: center;
+  width: 100%;
   max-width: 420px;
-  margin: 26px auto 0;
+  text-align: center;
   background: var(--m-glass);
   border: 1px solid var(--m-line);
-  border-radius: 18px;
-  padding: 24px;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 22px 24px;
 }
 
 .mg-approve p {
@@ -868,10 +951,82 @@ html.has-designbar .mg-hero {
   color: var(--m-on-teal);
 }
 
-.mg-statement-note {
-  margin-top: 18px;
-  font-size: 14.5px;
-  color: var(--m-dim);
+/* with JS + motion: pin the stage, crossfade one scene + caption at a time */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .mg-statements {
+    padding: 0;
+  }
+
+  html.js .mg-story {
+    height: 300vh;
+  }
+
+  html.js .mg-story-stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  html.js .mg-win-body {
+    position: relative;
+    height: clamp(264px, 34vh, 320px);
+    padding: 24px;
+  }
+
+  html.js .mg-scene {
+    position: absolute;
+    inset: 24px;
+    justify-content: center;
+    opacity: 0;
+    translate: 0 16px;
+    transition: opacity 0.5s var(--ease-out), translate 0.5s var(--ease-out);
+    pointer-events: none;
+  }
+
+  html.js .mg-demo[data-scene='1'] .mg-s1,
+  html.js .mg-demo[data-scene='2'] .mg-s2,
+  html.js .mg-demo[data-scene='3'] .mg-s3 {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  html.js .mg-step {
+    opacity: 0;
+    translate: 0 8px;
+    transition: opacity 0.4s ease var(--sd, 0s), translate 0.4s ease var(--sd, 0s);
+  }
+
+  html.js .mg-demo[data-scene='2'] .mg-step {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  html.js .mg-caps {
+    position: relative;
+    height: 52px;
+    width: min(560px, 92vw);
+  }
+
+  html.js .mg-cap {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    translate: 0 10px;
+    transition: opacity 0.5s var(--ease-out), translate 0.5s var(--ease-out);
+  }
+
+  html.js .mg-demo[data-scene='1'] .mg-cap-1,
+  html.js .mg-demo[data-scene='2'] .mg-cap-2,
+  html.js .mg-demo[data-scene='3'] .mg-cap-3 {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 /* everyday grid */
@@ -1450,8 +1605,8 @@ html:not(.js) .mg-stack-wrap {
     grid-template-columns: 1fr 1fr;
   }
 
-  .mg-statement {
-    padding: 64px 0;
+  html.js .mg-win-body {
+    height: clamp(288px, 44vh, 348px);
   }
 
   .mg-prices {
