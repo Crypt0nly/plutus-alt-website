@@ -151,10 +151,8 @@ in `style.css`, and the `alt` input in `vite.config.js`.
 
 ## Notes
 
-- **Domain transition:** the brand and site are now **Ocur** (ocur.ai).
-  The app itself still runs at app.useplutus.ai, so every CTA points there
-  for now — flip the links once the app answers on app.ocur.ai (or a 301
-  is in place).
+- **Domain transition:** the brand and site are now **Ocur** (ocur.ai),
+  and every CTA points to app.ocur.ai.
 - Copy is drafted from Ocur's public description; the hero notifications
   and the Monday lists are illustrative placeholders — swap in real examples
   before launch.
