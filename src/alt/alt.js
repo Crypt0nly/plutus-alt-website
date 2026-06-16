@@ -4,12 +4,20 @@
 
 import './alt.css';
 import { initDesignBar } from '../designbar.js';
+import { initLangRouting, applyLang, initLangToggle } from './i18n.js';
+import { initThemeToggle } from './theme.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import Lenis from 'lenis';
 
+// language + theme first: applyLang() rewrites copy (the dev ?lang=de
+// fallback) before SplitText below caches the hero markup.
+initLangRouting();
+applyLang();
 initDesignBar('b');
+initLangToggle();
+initThemeToggle();
 document.getElementById('g-year').textContent = String(new Date().getFullYear());
 
 const motion = document.documentElement.classList.contains('motion');
