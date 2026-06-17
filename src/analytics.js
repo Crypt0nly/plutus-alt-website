@@ -13,8 +13,13 @@ export function initAnalytics() {
     posthog.init(KEY, {
       api_host: HOST,
       defaults: '2025-05-24',
-      // marketing site: only spin up a person profile once someone is
-      // identified, so anonymous visits stay light and privacy-friendly
+      // cookieless / low-friction: keep all state in memory, so nothing is
+      // written to the visitor's device (no cookies, no localStorage) — no
+      // consent banner needed. Trade-off: each fresh page load is a new
+      // anonymous session, so unique-visitor counts skew high.
+      persistence: 'memory',
+      // and only spin up a person profile once someone is identified, so
+      // anonymous visits stay light
       person_profiles: 'identified_only',
     });
   });
