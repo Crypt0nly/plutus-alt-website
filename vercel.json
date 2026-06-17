@@ -24,31 +24,6 @@
       "has": [{ "type": "header", "key": "accept-language", "value": "de.*" }],
       "destination": "/de/",
       "permanent": false
-    },
-    {
-      "source": "/alt/",
-      "has": [{ "type": "cookie", "key": "ocur-lang", "value": "de" }],
-      "destination": "/alt/de/",
-      "permanent": false
-    },
-    {
-      "source": "/alt/de",
-      "has": [{ "type": "cookie", "key": "ocur-lang", "value": "en" }],
-      "destination": "/alt/",
-      "permanent": false
-    },
-    {
-      "source": "/alt/de/",
-      "has": [{ "type": "cookie", "key": "ocur-lang", "value": "en" }],
-      "destination": "/alt/",
-      "permanent": false
-    },
-    {
-      "source": "/alt/",
-      "missing": [{ "type": "cookie", "key": "ocur-lang" }],
-      "has": [{ "type": "header", "key": "accept-language", "value": "de.*" }],
-      "destination": "/alt/de/",
-      "permanent": false
     }
   ],
   "headers": [

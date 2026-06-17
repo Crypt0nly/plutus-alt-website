@@ -1,261 +1,231 @@
-import './style.css';
-import { initReveals, reducedMotion } from './fx.js';
-import { applyLang, initLangRouting, initLangToggle, currentLang, STRINGS } from './i18n.js';
-import { initThemeToggle } from './theme.js';
-import { initDesignBar } from './designbar.js';
+// Ocur site — "Obsidian Glass": scroll choreography + liquid-glass
+// micro-interactions. Heavy work gates behind html.motion (set in
+// <head> unless the visitor prefers reduced motion).
 
+import './style.css';
+import { initLangRouting, applyLang, initLangToggle } from './i18n.js';
+import { initThemeToggle } from './theme.js';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
+import Lenis from 'lenis';
+
+// language + theme first: applyLang() rewrites copy (the dev ?lang=de
+// fallback) before SplitText below caches the hero markup.
 initLangRouting();
 applyLang();
 initLangToggle();
 initThemeToggle();
-initDesignBar('a');
-initReveals();
+document.getElementById('g-year').textContent = String(new Date().getFullYear());
 
-const L = STRINGS[currentLang];
+const motion = document.documentElement.classList.contains('motion');
+const finePointer = window.matchMedia('(pointer: fine)').matches;
 
-// ---------------------------------------------- self-clearing notifications
-
-const NOTES = L.notes;
-const FINAL = L.final;
-
-const stack = document.getElementById('mg-stack');
-
-const makeNote = (n, extra = '') => {
-  const div = document.createElement('div');
-  div.className = `mg-note ${extra}`;
-  div.innerHTML = `
-    <span class="mg-note-emoji" aria-hidden="true">${n.e}</span>
-    <span class="mg-note-text"><strong>${n.t}</strong><span>${n.s}</span></span>
-    <span class="mg-note-check" aria-hidden="true">✓</span>`;
-  return div;
-};
-
-if (reducedMotion) {
-  const fin = makeNote(FINAL, 'mg-note-final handled');
-  fin.style.top = '110px';
-  stack.appendChild(fin);
-} else {
-  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-
-  // pile layout: top 4 cards visible, fanned downwards
-  const layout = (order) => {
-    order.forEach((note, i) => {
-      const k = Math.min(i, 3);
-      note.style.zIndex = String(20 - i);
-      note.style.opacity = i > 3 ? '0' : String(1 - k * 0.16);
-      note.style.transform = `translateY(${36 + k * 18}px) scale(${1 - k * 0.035})`;
+// pointer-tracked glare on every glass surface
+if (finePointer) {
+  document.querySelectorAll('.glare').forEach((el) => {
+    el.addEventListener('pointermove', (e) => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--gx', `${((e.clientX - r.left) / r.width) * 100}%`);
+      el.style.setProperty('--gy', `${((e.clientY - r.top) / r.height) * 100}%`);
     });
-  };
-
-  (async function loop() {
-    await new Promise((resolve) => {
-      if (!('IntersectionObserver' in window)) return resolve();
-      const watch = new IntersectionObserver((entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          watch.disconnect();
-          resolve();
-        }
-      });
-      watch.observe(stack);
-    });
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      stack.innerHTML = '';
-      const order = NOTES.map((n) => {
-        const note = makeNote(n);
-        stack.appendChild(note);
-        return note;
-      });
-      layout(order);
-      await wait(1300);
-
-      while (order.length) {
-        const top = order[0];
-        top.classList.add('handled');
-        await wait(950);
-        top.classList.add('gone');
-        await wait(420);
-        top.remove();
-        order.shift();
-        layout(order);
-        await wait(420);
-      }
-
-      const fin = makeNote(FINAL, 'mg-note-final handled');
-      fin.style.top = '0';
-      fin.style.transform = 'translateY(120px) scale(0.9)';
-      fin.style.opacity = '0';
-      stack.appendChild(fin);
-      await wait(60);
-      fin.style.transform = 'translateY(96px) scale(1)';
-      fin.style.opacity = '1';
-      await wait(4300);
-      fin.style.opacity = '0';
-      await wait(500);
-    }
-  })();
-}
-
-// ------------------------------------------------ team-Monday scrubber
-
-// One list; the divider is a "how much Ocur" scrubber. Each row flips
-// ✗→✓ when the divider passes its data-at threshold, the end line swaps
-// near the right edge, and the team-hours pill ticks with progress.
-const compare = document.getElementById('mg-compare');
-const handle = document.getElementById('mg-handle');
-const rows = [...document.querySelectorAll('#mg-rows li')];
-const hoursEl = document.getElementById('mg-hours');
-const sideBefore = document.getElementById('mg-side-before');
-const sideAfter = document.getElementById('mg-side-after');
-const tint = document.getElementById('mg-tint');
-
-let x = 50;
-let interacted = false;
-let sweepRaf = 0;
-const c01 = (v) => Math.max(0, Math.min(1, v));
-
-const setX = (v) => {
-  x = Math.max(4, Math.min(96, v));
-  compare.style.setProperty('--x', `${x}%`);
-  const p = (x - 4) / 92;
-  let hours = 0;
-  let done = 0;
-  rows.forEach((r) => {
-    const at = parseFloat(r.dataset.at);
-    const isDone = x >= at;
-    r.classList.toggle('done', isDone);
-    if (isDone) done += 1;
-    // each row's hours ease in around its threshold so the pill ticks
-    hours += parseFloat(r.dataset.hours) * c01((x - at + 7) / 14);
-  });
-  const fmtHours = currentLang === 'de' ? hours.toFixed(1).replace('.', ',') : hours.toFixed(1);
-  hoursEl.textContent = `+${fmtHours} ${L.teamHours}`;
-  compare.classList.toggle('complete', x > 86);
-  tint.style.opacity = (p * 0.9).toFixed(3);
-  sideBefore.style.opacity = (1 - p * 0.62).toFixed(3);
-  sideAfter.style.opacity = (0.4 + p * 0.6).toFixed(3);
-  handle.setAttribute('aria-valuenow', String(Math.round(x)));
-  handle.setAttribute('aria-valuetext', L.tasksHandled(Math.round(x), done, rows.length));
-};
-
-const stopSweep = () => {
-  interacted = true;
-  if (sweepRaf) cancelAnimationFrame(sweepRaf);
-  sweepRaf = 0;
-};
-
-let dragging = false;
-const fromEvent = (e) => {
-  const r = compare.getBoundingClientRect();
-  return ((e.clientX - r.left) / r.width) * 100;
-};
-
-compare.addEventListener('pointerdown', (e) => {
-  stopSweep();
-  dragging = true;
-  compare.setPointerCapture(e.pointerId);
-  setX(fromEvent(e));
-});
-compare.addEventListener('pointermove', (e) => {
-  if (dragging) setX(fromEvent(e));
-});
-const stop = () => {
-  dragging = false;
-};
-compare.addEventListener('pointerup', stop);
-compare.addEventListener('pointercancel', stop);
-
-handle.addEventListener('keydown', (e) => {
-  if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
-  stopSweep();
-  if (e.key === 'ArrowLeft') setX(x - 4);
-  else if (e.key === 'ArrowRight') setX(x + 4);
-  else if (e.key === 'Home') setX(4);
-  else setX(96);
-  e.preventDefault();
-});
-
-// one slow demonstration sweep (all undone → all handled → settle halfway)
-// the first time the card scrolls into view; any interaction cancels it
-const canSweep = !reducedMotion && 'IntersectionObserver' in window;
-setX(canSweep ? 4 : 50);
-if (canSweep) {
-  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-  const sweepIO = new IntersectionObserver(
-    (entries) => {
-      if (!entries.some((e) => e.isIntersecting) || interacted) return;
-      sweepIO.disconnect();
-      const RISE = 2700;
-      const HOLD = 800;
-      const BACK = 1200;
-      const t0 = performance.now();
-      (function step(now) {
-        if (interacted) return;
-        const e = now - t0;
-        if (e < RISE) setX(4 + 92 * ease(e / RISE));
-        else if (e < RISE + HOLD) setX(96);
-        else if (e < RISE + HOLD + BACK) setX(96 - 46 * ease((e - RISE - HOLD) / BACK));
-        else {
-          setX(50);
-          sweepRaf = 0;
-          return;
-        }
-        sweepRaf = requestAnimationFrame(step);
-      })(t0);
-    },
-    { threshold: 0.55 }
-  );
-  sweepIO.observe(compare);
-}
-
-// ------------------------------------------- scroll-driven chat demo
-
-// The demo section pins for ~3 screens; scroll progress flips the window
-// through three scenes — the ask → the work → the sign-off. CSS owns the
-// crossfade (one .mg-scene + caption shown per data-scene), so JS only
-// writes data-scene when it changes. Runs only while the section is near
-// the viewport; without JS or with reduced motion every scene stays
-// stacked into a readable transcript.
-const demo = document.querySelector('.mg-demo');
-const story = document.getElementById('mg-story');
-if (demo && story && !reducedMotion) {
-  let raf = 0;
-  const clamp01 = (v) => Math.max(0, Math.min(1, v));
-  const sceneFor = (p) => (p < 0.34 ? '1' : p < 0.7 ? '2' : '3');
-
-  const tick = () => {
-    const r = story.getBoundingClientRect();
-    const total = r.height - window.innerHeight;
-    const scene = sceneFor(total > 0 ? clamp01(-r.top / total) : 0);
-    if (demo.dataset.scene !== scene) demo.dataset.scene = scene;
-    raf = requestAnimationFrame(tick);
-  };
-
-  // run the loop only while the demo is anywhere near the viewport
-  const io = new IntersectionObserver(
-    (entries) => {
-      const on = entries.some((e) => e.isIntersecting);
-      if (on && !raf) {
-        raf = requestAnimationFrame(tick);
-      } else if (!on && raf) {
-        cancelAnimationFrame(raf);
-        raf = 0;
-      }
-    },
-    { rootMargin: '20% 0px' }
-  );
-  io.observe(story);
-}
-
-// pointer-tracked sheen: feed the cursor position to the window's glare
-// highlight (--gx/--gy). Fine pointers only — touch keeps the resting sheen.
-const win = document.querySelector('.mg-win');
-if (win && window.matchMedia('(pointer: fine)').matches) {
-  win.addEventListener('pointermove', (e) => {
-    const r = win.getBoundingClientRect();
-    win.style.setProperty('--gx', `${((e.clientX - r.left) / r.width) * 100}%`);
-    win.style.setProperty('--gy', `${((e.clientY - r.top) / r.height) * 100}%`);
   });
 }
 
-document.getElementById('year').textContent = String(new Date().getFullYear());
+// without motion the demo window still tells the full story: end state
+if (!motion) {
+  document.querySelector('.g-demo').dataset.scene = '3';
+}
+
+if (motion) {
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  const lenis = new Lenis({ autoRaf: false, lerp: 0.12 });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((t) => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
+
+  // nav anchors glide
+  document.querySelectorAll('.g-links a[href^="#"], .g-ctas a[href^="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      lenis.scrollTo(a.getAttribute('href'), { offset: -20, duration: 1.2 });
+    });
+  });
+
+  // nav gains depth + glow once scrolled
+  ScrollTrigger.create({
+    start: 80,
+    onToggle: (self) => document.getElementById('g-nav').classList.toggle('is-stuck', self.isActive),
+  });
+
+  // ---------------------------------------------------- hero entrance
+  const heroLines = new SplitText('.g-h1', { type: 'lines', mask: 'lines' }).lines;
+  gsap
+    .timeline({ defaults: { ease: 'power4.out' } })
+    .from(heroLines, { yPercent: 120, duration: 1.1, stagger: 0.1 }, 0.15)
+    .to('.g-kicker', { opacity: 1, duration: 0.7 }, 0.35)
+    .to('.g-sub', { opacity: 1, duration: 0.8 }, 0.7)
+    .to('.g-ctas', { opacity: 1, duration: 0.8 }, 0.85)
+    .to('.g-micro', { opacity: 1, duration: 0.8 }, 0.95)
+    .to('.g-stats', { opacity: 1, duration: 0.8 }, 1.05);
+
+  document.querySelectorAll('.g-stat strong').forEach((el) => {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const state = { v: 0 };
+    gsap.to(state, {
+      v: target,
+      duration: 1.6,
+      delay: 1.05,
+      ease: 'power2.out',
+      onUpdate: () => {
+        el.textContent = Math.round(state.v) + suffix;
+      },
+    });
+  });
+
+  // glow meshes breathe and drift
+  gsap.to('.g-glow-hero', { y: 90, scale: 1.08, duration: 14, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  gsap.to('.g-glow-demo', { x: -70, y: 60, duration: 17, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  gsap.to('.g-glow-bento', { x: 60, y: -50, duration: 19, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  gsap.to('.g-glow-price', { y: 70, scale: 1.06, duration: 16, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+
+  // hero glow recedes as you scroll into the page
+  gsap.to('.g-glow-hero', {
+    opacity: 0.35,
+    ease: 'none',
+    scrollTrigger: { trigger: '.g-hero', start: 'top top', end: 'bottom top', scrub: 0.6 },
+  });
+
+  // ----------------------------------------- connector system entrance
+  gsap.from('.g-system', {
+    scale: 0.9,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.g-logos', start: 'top 75%' },
+  });
+
+  // --------------------------------------- pinned three-scene demo
+  const demo = document.querySelector('.g-demo');
+  gsap.from('.g-win', {
+    y: 80,
+    opacity: 0,
+    scale: 0.96,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.g-demo', start: 'top 70%' },
+  });
+  ScrollTrigger.create({
+    trigger: '.g-demo',
+    start: 'top top',
+    end: '+=240%',
+    pin: '.g-demo-stage',
+    scrub: true,
+    onUpdate: (self) => {
+      const scene = self.progress < 0.33 ? '1' : self.progress < 0.7 ? '2' : '3';
+      if (demo.dataset.scene !== scene) demo.dataset.scene = scene;
+    },
+  });
+
+  // ------------------------------------------------------ bento tiles
+  gsap.from('.g-tile', {
+    y: 60,
+    opacity: 0,
+    scale: 0.97,
+    duration: 0.8,
+    stagger: 0.09,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.g-bento', start: 'top 80%' },
+  });
+
+  // ----------------------------------------------------- pricing
+  gsap.from('.g-card', {
+    y: 70,
+    opacity: 0,
+    duration: 0.9,
+    stagger: 0.12,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.g-cards', start: 'top 78%' },
+  });
+
+  // --------------------------------------------------------- faq
+  gsap.from('.g-faq details', {
+    y: 36,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.07,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.g-faq', start: 'top 80%' },
+  });
+
+  // ------------------------------------------------------- final
+  const finalLines = new SplitText('.g-final-h', { type: 'lines', mask: 'lines' }).lines;
+  gsap.from(finalLines, {
+    yPercent: 120,
+    duration: 1,
+    stagger: 0.1,
+    ease: 'power4.out',
+    scrollTrigger: { trigger: '.g-final', start: 'top 65%' },
+  });
+
+  // --------------------------------------------- floating CTA dock
+  const dock = document.getElementById('g-dock');
+  const showDock = gsap.to(dock, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power3.out', paused: true });
+  gsap.set(dock, { y: 16 });
+  let pastHero = false;
+  let beforeFinal = true;
+  const syncDock = () => (pastHero && beforeFinal ? showDock.play() : showDock.reverse());
+  ScrollTrigger.create({
+    trigger: '.g-hero',
+    start: 'bottom 70%',
+    onToggle: (self) => {
+      pastHero = self.isActive || self.progress === 1;
+      syncDock();
+    },
+  });
+  ScrollTrigger.create({
+    trigger: '.g-final',
+    start: 'top 75%',
+    onToggle: (self) => {
+      beforeFinal = !self.isActive;
+      syncDock();
+    },
+  });
+
+  // ------------------------------------------------ micro-interactions
+  if (finePointer) {
+    document.querySelectorAll('.magnetic').forEach((btn) => {
+      const strength = 12;
+      btn.addEventListener('pointermove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const dx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+        const dy = ((e.clientY - r.top) / r.height - 0.5) * 2;
+        gsap.to(btn, { x: dx * strength, y: dy * strength, duration: 0.35, ease: 'power3.out' });
+      });
+      btn.addEventListener('pointerleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.45)' });
+      });
+    });
+
+    const cursor = document.querySelector('.g-cursor');
+    const dot = document.querySelector('.g-cursor-dot');
+    const ring = document.querySelector('.g-cursor-ring');
+    const pos = { x: innerWidth / 2, y: innerHeight / 2 };
+    const ringPos = { ...pos };
+    addEventListener('pointermove', (e) => {
+      pos.x = e.clientX;
+      pos.y = e.clientY;
+      dot.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
+    });
+    gsap.ticker.add(() => {
+      ringPos.x += (pos.x - ringPos.x) * 0.16;
+      ringPos.y += (pos.y - ringPos.y) * 0.16;
+      ring.style.transform = `translate(${ringPos.x}px, ${ringPos.y}px)`;
+    });
+    document.addEventListener('pointerover', (e) => {
+      cursor.classList.toggle('is-link', !!e.target.closest('a, button, summary'));
+    });
+  }
+}
