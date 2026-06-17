@@ -5,6 +5,7 @@
 import './style.css';
 import { initLangRouting, applyLang, initLangToggle } from './i18n.js';
 import { initThemeToggle } from './theme.js';
+import { initAnalytics } from './analytics.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
@@ -13,6 +14,7 @@ import Lenis from 'lenis';
 // language + theme first: applyLang() rewrites copy (the dev ?lang=de
 // fallback) before SplitText below caches the hero markup.
 initLangRouting();
+initAnalytics();
 applyLang();
 initLangToggle();
 initThemeToggle();
