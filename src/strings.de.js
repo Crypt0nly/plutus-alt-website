@@ -17,7 +17,7 @@ export const DE = [
 
   // hero
   ['.g-kicker', '<span class="g-kdot" aria-hidden="true"></span>Das KI-Betriebssystem für Unternehmen'],
-  ['.g-h1', 'Was, wenn dein Unternehmen<br /><span class="g-grad">sich selbst führt?</span>'],
+  ['.g-h1', 'What if…<br /><span class="g-grad">dein Business mit Autopilot fliegt</span>'],
   [
     '.g-sub',
     'Ocur dockt an die Plattformen an, auf denen du arbeitest, und erledigt die Arbeit darin. Auf Zuruf — oder voll auf Autopilot.',
