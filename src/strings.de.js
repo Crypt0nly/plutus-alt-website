@@ -17,20 +17,20 @@ export const DE = [
 
   // hero
   ['.g-kicker', '<span class="g-kdot" aria-hidden="true"></span>Das KI-Betriebssystem für Unternehmen'],
-  ['.g-h1', 'What if…<br /><span class="g-grad">dein Business mit Autopilot fliegt</span>'],
+  ['.g-h1', 'Deine KI redet nicht.<br /><span class="g-grad">Sie erledigt.</span>'],
   [
     '.g-sub',
     'Ocur dockt an die Plattformen an, auf denen du arbeitest, und erledigt die Arbeit darin. Auf Zuruf — oder voll auf Autopilot.',
   ],
-  ['.g-ctas a', ['Kostenlos starten', 'Ansehen']],
+  ['.g-ctas a', ['Kostenlos starten', 'Demo ansehen']],
   [
     '.g-micro',
     [
-      'Kostenloser Pilot&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte&nbsp;&nbsp;·&nbsp;&nbsp;Kein IT-Projekt',
-      'Kostenloser Pilot&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte&nbsp;&nbsp;·&nbsp;&nbsp;In Minuten live',
+      'Kostenlos testen&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte&nbsp;&nbsp;·&nbsp;&nbsp;Kein IT-Projekt',
+      'Kostenlos testen&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte&nbsp;&nbsp;·&nbsp;&nbsp;In Minuten live',
     ],
   ],
-  ['.g-stat span', ['kostenlose Tokens / Monat', 'bis zum Rollout', 'native Konnektoren']],
+  ['.g-stat span', ['Tokens gratis / Monat', 'bis Live', 'native Konnektoren']],
 
   // connector strip
   ['.g-logos-label', 'Arbeitet in den Tools, die dein Unternehmen schon nutzt'],
@@ -40,10 +40,10 @@ export const DE = [
   ],
 
   // pinned demo
-  ['#demo .g-h2', 'Delegier es. <span class="g-grad">Sieh zu, wie es passiert.</span>'],
+  ['#demo .g-h2', 'Gesagt. <span class="g-grad">Getan.</span>'],
   ['.g-win-pill', '<i class="g-kdot"></i> Autopilot an'],
   ['.g-bubble-you', 'Mahne die überfälligen Rechnungen an und aktualisiere die Tabelle.'],
-  ['.g-working', 'Mach ich — die Schleife läuft.'],
+  ['.g-working', 'Mach ich — der Ablauf läuft.'],
   [
     '.g-step',
     [
@@ -66,7 +66,7 @@ export const DE = [
     '.g-cap',
     [
       'Einmal sagen, in normaler Sprache. Kein Prompt-Engineering.',
-      'Ocur fährt die ganze Schleife — über E-Mail, Tabellen und das Web.',
+      'Ocur erledigt den ganzen Ablauf — über E-Mail, Tabellen und das Web.',
       'Alles Wichtige wartet auf dich. Ein Tipp, fertig.',
     ],
   ],
@@ -76,9 +76,9 @@ export const DE = [
   [
     '.g-tile h3',
     [
-      'Autopilot, mit Herzschlag',
+      'Autopilot, rund um die Uhr',
       'Jede Abteilung',
-      'Sprich mit ihm',
+      'Reden statt tippen',
       'Unternehmensgedächtnis',
       'Bedient deinen Computer',
       'Auf Kontrolle gebaut',
@@ -87,9 +87,9 @@ export const DE = [
   [
     '.g-tile p',
     [
-      'Ein Heartbeat weckt Ocur über den Tag. Es prüft, was ansteht, erledigt es und schreibt jeden Schritt mit. Du wachst zu einem Bericht auf, nicht zu einem Rückstand.',
+      'Ocur wacht über den Tag von selbst auf, prüft was ansteht, erledigt es und protokolliert jeden Schritt. Du wachst auf — und hast einen Bericht, keinen Rückstand.',
       'Echte Arbeit, von Anfang bis Ende.',
-      'Laut, wie ein Kollege — unterbrich es mitten im Satz.',
+      'Per Sprache, wie mit einem Kollegen — unterbrich es mitten im Satz.',
       '„Was haben wir im März vereinbart?“ — einmal gefragt, für immer beantwortet.',
       'Öffnet Apps, klickt, tippt, liest den Bildschirm — mit deinem Okay.',
       'Admins legen fest, was allein läuft. Der Rest wartet auf Freigabe — jede Aktion protokolliert.',
@@ -99,8 +99,8 @@ export const DE = [
   ['.g-chips span', ['Vertrieb', 'Support', 'Finanzen', 'Marketing', 'Betrieb', 'Wissen']],
 
   // pricing (euro for the German market)
-  ['#pricing .g-h2', 'Pilotier es kostenlos. Skalier, wenn <span class="g-grad">es sich beweist.</span>'],
-  ['.g-eyebrow', ['Für den Piloten', 'Ideal für wachsende Teams', 'Für den Betrieb gebaut']],
+  ['#pricing .g-h2', 'Kostenlos starten. Skalieren, <span class="g-grad">wenn’s überzeugt.</span>'],
+  ['.g-eyebrow', ['Zum Ausprobieren', 'Ideal für wachsende Teams', 'Für den Betrieb gebaut']],
   ['.g-badge', 'Am beliebtesten'],
   ['.g-price', ['€0<span>/Monat</span>', '€149<span>/Monat</span>', '€299<span>/Monat</span>']],
   [
@@ -113,13 +113,13 @@ export const DE = [
       'Keine Kreditkarte zum Start',
       // Team
       'Alles aus Free',
-      '300× das monatliche Kontingent',
+      '300× so viel Arbeitsvolumen wie Free',
       'Geteiltes Unternehmensgedächtnis und -wissen',
       'Eigene Tools und Automatisierungen',
       'Standard-Support',
       // Business
       'Alles aus Team',
-      'Doppeltes monatliches Kontingent',
+      'Doppeltes Volumen von Team',
       'Höhere Automatisierungs- &amp; Worker-Limits',
       'Priorisierter Support',
     ],
@@ -127,13 +127,13 @@ export const DE = [
   [
     '.g-meta',
     [
-      '250K Tokens Ocur-Arbeit pro Monat',
+      '250K Tokens Ocur-Arbeit/Monat — genug für echte Aufgaben',
       '75M Tokens Ocur-Arbeit pro Monat',
       '150M Tokens Ocur-Arbeit pro Monat',
     ],
   ],
-  ['.g-cards .g-btn', ['Kostenlos starten', 'Team starten', 'Business holen']],
-  ['.g-note', 'Enterprise wird unbegrenzt — kostenlos starten, in Ocur upgraden.'],
+  ['.g-cards .g-btn', ['Kostenlos starten', 'Team starten', 'Business starten']],
+  ['.g-note', 'Mehr nötig? Enterprise ist unbegrenzt — einfach in der App upgraden.'],
 
   // FAQ
   ['#faq .g-h2', 'Fragen, <span class="g-grad">beantwortet.</span>'],
@@ -163,7 +163,7 @@ export const DE = [
   ],
 
   // final + dock
-  ['.g-final-h', 'Führ das Unternehmen.<br /><span class="g-grad">Nicht den Kleinkram.</span>'],
+  ['.g-final-h', 'Führ dein Unternehmen —<br /><span class="g-grad">nicht deinen Posteingang.</span>'],
   ['.g-final .g-btn', 'Kostenlos starten'],
   ['.g-foot em', 'Sag es — oder nicht. Es passiert. Du behältst die Kontrolle.'],
   ['#g-dock strong', 'Kostenlos starten'],
