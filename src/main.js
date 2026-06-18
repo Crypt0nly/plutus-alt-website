@@ -74,6 +74,7 @@ if (motion) {
 
   document.querySelectorAll('.g-stat strong').forEach((el) => {
     const target = parseInt(el.dataset.count, 10);
+    if (Number.isNaN(target)) return; // static value (e.g. ∞) — don't animate
     const suffix = el.dataset.suffix || '';
     const state = { v: 0 };
     gsap.to(state, {
