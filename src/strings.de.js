@@ -31,7 +31,7 @@ export const DE = [
       'Kostenlos testen&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte&nbsp;&nbsp;·&nbsp;&nbsp;In Minuten live',
     ],
   ],
-  ['.g-stat span', ['Gratis-Tokens / Monat', 'bis live', 'Konnektoren — bau dir eigene']],
+  ['.g-stat span', ['Gratis-Tokens / Monat', 'bis live', 'Konnektoren — beliebig erweiterbar']],
 
   // connector strip
   ['.g-logos-label', 'Arbeitet in den Tools, die dein Team längst nutzt'],
