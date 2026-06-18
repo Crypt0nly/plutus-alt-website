@@ -1,12 +1,13 @@
 // All German copy lives here, as pure data — imported by the browser
 // runtime (src/i18n.js) and by the build-time prerenderer
 // (scripts/prerender-de.mjs) that bakes dist/de/index.html. No browser
-// APIs in this file.
+// APIs in this file. Written as native, conversion-focused German — not a
+// literal translation of the English page.
 
-export const TITLE_DE = 'Ocur — Das KI-Betriebssystem für Unternehmen | Kostenlos starten';
-export const OG_TITLE_DE = 'Ocur — Das KI-Betriebssystem für Unternehmen';
+export const TITLE_DE = 'Ocur — das KI-Betriebssystem für Unternehmen | Kostenlos starten';
+export const OG_TITLE_DE = 'Ocur — das KI-Betriebssystem für Unternehmen';
 export const DESC_DE =
-  'Ocur dockt an die Plattformen an, auf denen dein Unternehmen läuft — E-Mail, Kalender, Dateien, Chat, das Web — und erledigt die Arbeit darin. Auf Zuruf oder voll auf Autopilot. Du setzt die Grenzen. Teste kostenlos.';
+  'Ocur erledigt die Arbeit direkt in deinen Tools — E-Mail, Kalender, Dateien, Chat, Web. Auf Zuruf oder voll automatisch. Du gibst frei, Ocur macht den Rest. Jetzt kostenlos starten.';
 
 // selector → replacement innerHTML. A string applies to every match; an
 // array applies element-by-element in DOM order.
@@ -17,33 +18,33 @@ export const DE = [
 
   // hero
   ['.g-kicker', '<span class="g-kdot" aria-hidden="true"></span>Das KI-Betriebssystem für Unternehmen'],
-  ['.g-h1', 'What if…<br /><span class="g-grad">dein Business mit Autopilot fliegt</span>'],
+  ['.g-h1', 'Deine KI redet nicht.<br /><span class="g-grad">Sie erledigt.</span>'],
   [
     '.g-sub',
-    'Ocur dockt an die Plattformen an, auf denen du arbeitest, und erledigt die Arbeit darin. Auf Zuruf — oder voll auf Autopilot.',
+    'Sag, was zu tun ist — Ocur erledigt es direkt in deinen Tools. Auf Zuruf oder komplett auf Autopilot.',
   ],
-  ['.g-ctas a', ['Kostenlos starten', 'Ansehen']],
+  ['.g-ctas a', ['Kostenlos starten', 'Demo ansehen']],
   [
     '.g-micro',
     [
-      'Kostenloser Pilot&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte&nbsp;&nbsp;·&nbsp;&nbsp;Kein IT-Projekt',
-      'Kostenloser Pilot&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte&nbsp;&nbsp;·&nbsp;&nbsp;In Minuten live',
+      'Kostenlos testen&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte&nbsp;&nbsp;·&nbsp;&nbsp;Kein IT-Projekt',
+      'Kostenlos testen&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte&nbsp;&nbsp;·&nbsp;&nbsp;In Minuten live',
     ],
   ],
-  ['.g-stat span', ['kostenlose Tokens / Monat', 'bis zum Rollout', 'native Konnektoren']],
+  ['.g-stat span', ['Gratis-Tokens / Monat', 'bis live', 'Konnektoren — bau dir eigene']],
 
   // connector strip
-  ['.g-logos-label', 'Arbeitet in den Tools, die dein Unternehmen schon nutzt'],
+  ['.g-logos-label', 'Arbeitet in den Tools, die dein Team längst nutzt'],
   [
     '.g-logos-sub',
-    '…und allem mit einer API. Keine API? Ocur bedient die App auf deinem Computer wie ein Mensch.',
+    '…und allem, was eine API hat. Keine API? Dann steuert Ocur die App direkt auf deinem Rechner — wie ein Mensch.',
   ],
 
   // pinned demo
-  ['#demo .g-h2', 'Delegier es. <span class="g-grad">Sieh zu, wie es passiert.</span>'],
+  ['#demo .g-h2', 'Gesagt. <span class="g-grad">Getan.</span>'],
   ['.g-win-pill', '<i class="g-kdot"></i> Autopilot an'],
   ['.g-bubble-you', 'Mahne die überfälligen Rechnungen an und aktualisiere die Tabelle.'],
-  ['.g-working', 'Mach ich — die Schleife läuft.'],
+  ['.g-working', 'Mach ich — der Ablauf läuft.'],
   [
     '.g-step',
     [
@@ -65,9 +66,9 @@ export const DE = [
   [
     '.g-cap',
     [
-      'Einmal sagen, in normaler Sprache. Kein Prompt-Engineering.',
-      'Ocur fährt die ganze Schleife — über E-Mail, Tabellen und das Web.',
-      'Alles Wichtige wartet auf dich. Ein Tipp, fertig.',
+      'Einmal sagen — in ganz normaler Sprache. Kein Prompt-Engineering.',
+      'Ocur erledigt den ganzen Ablauf — über E-Mail, Tabellen und das Web.',
+      'Alles Wichtige wartet auf deine Freigabe. Ein Klick, fertig.',
     ],
   ],
 
@@ -76,31 +77,31 @@ export const DE = [
   [
     '.g-tile h3',
     [
-      'Autopilot, mit Herzschlag',
-      'Jede Abteilung',
-      'Sprich mit ihm',
+      'Autopilot rund um die Uhr',
+      'Für jede Abteilung',
+      'Reden statt tippen',
       'Unternehmensgedächtnis',
-      'Bedient deinen Computer',
-      'Auf Kontrolle gebaut',
+      'Steuert deinen Rechner',
+      'Volle Kontrolle',
     ],
   ],
   [
     '.g-tile p',
     [
-      'Ein Heartbeat weckt Ocur über den Tag. Es prüft, was ansteht, erledigt es und schreibt jeden Schritt mit. Du wachst zu einem Bericht auf, nicht zu einem Rückstand.',
-      'Echte Arbeit, von Anfang bis Ende.',
-      'Laut, wie ein Kollege — unterbrich es mitten im Satz.',
+      'Ocur wacht über den Tag immer wieder von selbst auf, prüft, was ansteht, erledigt es und protokolliert jeden Schritt. Du wachst auf — und findest einen Bericht, keinen Rückstand.',
+      'Echte Arbeit — von Anfang bis Ende.',
+      'Per Sprache, wie mit einem Kollegen — unterbrich es mitten im Satz.',
       '„Was haben wir im März vereinbart?“ — einmal gefragt, für immer beantwortet.',
       'Öffnet Apps, klickt, tippt, liest den Bildschirm — mit deinem Okay.',
-      'Admins legen fest, was allein läuft. Der Rest wartet auf Freigabe — jede Aktion protokolliert.',
+      'Du legst fest, was allein laufen darf. Der Rest wartet auf Freigabe — jede Aktion protokolliert.',
     ],
   ],
-  ['.g-times span', ['06:00 Posteingang', '06:15 Rechnungen', '07:12 baut ein Tool', '08:00 Digest']],
+  ['.g-times span', ['06:00 Posteingang', '06:15 Rechnungen', '07:12 baut ein Tool', '08:00 Bericht']],
   ['.g-chips span', ['Vertrieb', 'Support', 'Finanzen', 'Marketing', 'Betrieb', 'Wissen']],
 
   // pricing (euro for the German market)
-  ['#pricing .g-h2', 'Pilotier es kostenlos. Skalier, wenn <span class="g-grad">es sich beweist.</span>'],
-  ['.g-eyebrow', ['Für den Piloten', 'Ideal für wachsende Teams', 'Für den Betrieb gebaut']],
+  ['#pricing .g-h2', 'Kostenlos starten. Skalieren, <span class="g-grad">wenn’s überzeugt.</span>'],
+  ['.g-eyebrow', ['Zum Ausprobieren', 'Für wachsende Teams', 'Für den vollen Betrieb']],
   ['.g-badge', 'Am beliebtesten'],
   ['.g-price', ['€0<span>/Monat</span>', '€149<span>/Monat</span>', '€299<span>/Monat</span>']],
   [
@@ -109,31 +110,31 @@ export const DE = [
       // Free
       'Das volle Betriebssystem',
       'E-Mail, Kalender, Dateien, Chat &amp; das Web',
-      'Gedächtnis, Sprache, Bilder und Automatisierungen',
-      'Keine Kreditkarte zum Start',
+      'Gedächtnis, Sprache, Bilder &amp; Automatisierungen',
+      'Ohne Kreditkarte',
       // Team
       'Alles aus Free',
-      '300× das monatliche Kontingent',
-      'Geteiltes Unternehmensgedächtnis und -wissen',
-      'Eigene Tools und Automatisierungen',
+      '300× so viel Arbeitsvolumen wie Free',
+      'Gemeinsames Wissen fürs ganze Team',
+      'Eigene Tools &amp; Automatisierungen',
       'Standard-Support',
       // Business
       'Alles aus Team',
-      'Doppeltes monatliches Kontingent',
-      'Höhere Automatisierungs- &amp; Worker-Limits',
-      'Priorisierter Support',
+      'Doppeltes Volumen von Team',
+      'Mehr Automatisierungen &amp; parallele Worker',
+      'Priority-Support',
     ],
   ],
   [
     '.g-meta',
     [
-      '250K Tokens Ocur-Arbeit pro Monat',
-      '75M Tokens Ocur-Arbeit pro Monat',
-      '150M Tokens Ocur-Arbeit pro Monat',
+      '250K Tokens Ocur-Arbeit / Monat — genug für echte Aufgaben',
+      '75M Tokens Ocur-Arbeit / Monat',
+      '150M Tokens Ocur-Arbeit / Monat',
     ],
   ],
-  ['.g-cards .g-btn', ['Kostenlos starten', 'Team starten', 'Business holen']],
-  ['.g-note', 'Enterprise wird unbegrenzt — kostenlos starten, in Ocur upgraden.'],
+  ['.g-cards .g-btn', ['Kostenlos starten', 'Team starten', 'Business starten']],
+  ['.g-note', 'Mehr nötig? Enterprise läuft unbegrenzt — Upgrade direkt in der App.'],
 
   // FAQ
   ['#faq .g-h2', 'Fragen, <span class="g-grad">beantwortet.</span>'],
@@ -142,32 +143,32 @@ export const DE = [
     [
       'Ist der Start wirklich kostenlos?',
       'Muss ich etwas installieren?',
-      'Macht es Dinge, ohne zu fragen?',
-      'Womit arbeitet es?',
-      'Sind unsere Daten privat?',
-      'Kann das ganze Unternehmen es nutzen?',
-      'Wie lange dauert der Rollout?',
+      'Macht Ocur etwas ohne mein Okay?',
+      'Mit welchen Tools funktioniert es?',
+      'Sind unsere Daten sicher?',
+      'Kann das ganze Unternehmen mitmachen?',
+      'Wie schnell sind wir startklar?',
     ],
   ],
   [
     '.g-faq p',
     [
-      'Ja. Der kostenlose Plan ist das volle Betriebssystem mit einem monatlichen Arbeits-Kontingent — genug, um Ocur an echten Aufgaben zu testen. Keine Kreditkarte, keine Testuhr. Wenn es sich beweist, ist das Upgrade einen Klick entfernt.',
-      'Nein — Ocur läuft im Browser, und du kannst ihm aus WhatsApp, Telegram, Slack oder Discord schreiben. Soll es auch auf deinem Computer arbeiten? Eine kleine Begleit-App verbindet deine Maschine in etwa einer Minute.',
-      'Nur dort, wo du es erlaubt hast. Standardmäßig wartet alles Wichtige auf deine Freigabe. Stell einen Job auf Autopilot, und Ocur wacht auf einem Heartbeat und fährt die ganze Schleife selbst — jeder Schritt protokolliert. Du kannst jederzeit erweitern oder einschränken, was allein läuft, Ruhezeiten inklusive.',
-      'Gmail, Google Kalender, Google Drive, Notion, GitHub, WhatsApp, Telegram, Slack und Discord — dazu das Web selbst und sogar deinen eigenen Computer, wenn du ihn verbindest. Du fügst Konten einzeln hinzu und kannst sie jederzeit trennen.',
-      'Der Arbeitsbereich deines Unternehmens ist von jedem anderen Kunden abgeschottet. Ocur erreicht nur die Konten, die du verbunden hast, und du kannst jedes davon mit einem Klick entfernen.',
-      'Ja — genau das ist der Punkt. Alle delegieren an ein gemeinsames Ocur mit geteiltem Gedächtnis und Wissen, Admins entscheiden, wer was darf, und es gibt einen Ort, an dem alles Erledigte sichtbar ist.',
-      'Minuten, nicht Monate. Ocur läuft im Browser, verbindet sich Anmeldung für Anmeldung mit deinen Tools und braucht kein IT-Projekt. Die meisten Teams geben ihm am ersten Tag echte Arbeit.',
+      'Ja, wirklich. Der Free-Plan ist das volle Betriebssystem mit monatlichem Arbeitsvolumen — genug, um Ocur an echten Aufgaben zu testen. Keine Kreditkarte, keine Frist. Überzeugt es, ist das Upgrade einen Klick entfernt.',
+      'Nein. Ocur läuft im Browser — und du erreichst es genauso aus WhatsApp, Telegram, Slack oder Discord. Soll es auch auf deinem Rechner arbeiten? Eine kleine Begleit-App verbindet ihn in unter einer Minute.',
+      'Nur, wo du es erlaubst. Standardmäßig wartet alles Wichtige auf deine Freigabe. Erst auf Autopilot erledigt Ocur ganze Abläufe von selbst — jeder Schritt protokolliert. Was allein laufen darf, bestimmst du jederzeit, Ruhezeiten inklusive.',
+      'Gmail, Google Kalender &amp; Drive, Notion, GitHub, WhatsApp, Telegram, Slack und Discord — dazu das Web und auf Wunsch deinen eigenen Rechner. Konten verbindest du einzeln und trennst sie jederzeit wieder.',
+      'Dein Workspace ist strikt von jedem anderen Kunden getrennt. Ocur sieht nur die Konten, die du verbindest — und jede Verbindung kappst du mit einem Klick.',
+      'Ja — genau dafür ist es gemacht. Alle delegieren an ein gemeinsames Ocur mit geteiltem Wissen. Admins regeln, wer was darf, und an einem Ort siehst du, was erledigt wurde.',
+      'Minuten, nicht Monate. Ocur läuft im Browser, verbindet sich Login für Login mit deinen Tools und braucht kein IT-Projekt. Die meisten Teams geben ihm schon am ersten Tag echte Arbeit.',
     ],
   ],
 
   // final + dock
-  ['.g-final-h', 'Führ das Unternehmen.<br /><span class="g-grad">Nicht den Kleinkram.</span>'],
+  ['.g-final-h', 'Führ dein Unternehmen —<br /><span class="g-grad">nicht deinen Posteingang.</span>'],
   ['.g-final .g-btn', 'Kostenlos starten'],
   ['.g-foot em', 'Sag es — oder nicht. Es passiert. Du behältst die Kontrolle.'],
   ['#g-dock strong', 'Kostenlos starten'],
-  ['.g-dock-sub', 'keine Kreditkarte'],
+  ['.g-dock-sub', 'ohne Kreditkarte'],
 ];
 
 // selector → [attribute, value]
