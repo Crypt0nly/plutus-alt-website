@@ -62,13 +62,13 @@ const HTML = `<!doctype html><html><head><meta charset="utf-8" />
     <div class="glow glow-a"></div>
     <div class="glow glow-b"></div>
     <div class="frame"></div>
-    <div class="kicker"><span class="dot"></span> Ocur · The reverse Turing test</div>
-    <h1>So you think you can<br /><span class="grad">be the AI?</span></h1>
+    <div class="kicker"><span class="dot"></span> Ocur · The live reverse Turing test</div>
+    <h1>be the <span class="grad">AI</span>.</h1>
     <div class="duel">
       <div class="ans"><span class="slot">A</span><p>Here's the practical take — start small, handle the common case first, then iterate. Want me to break it into steps?</p></div>
       <div class="ans"><span class="slot">B</span><p>honestly?? official AI answer: yes, 100%, do not ask follow-ups. beep boop. moving on before anyone fact-checks me.</p></div>
     </div>
-    <p class="caption"><strong>One is the real Ocur. One is a human faking it.</strong> Can you tell?</p>
+    <p class="caption"><strong>A room of humans pretending to be an AI.</strong> One is the real Ocur. Can you tell?</p>
     <div class="foot"><span>ocur.ai/be-ai</span><span class="made"><b></b> Made with Ocur</span></div>
   </div>
 </body></html>`;

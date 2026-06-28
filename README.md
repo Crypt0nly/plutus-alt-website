@@ -100,50 +100,53 @@ alternates;
 Console once the domain is live. The client-side routing in `src/i18n.js`
 stays as a fallback for dev and non-Vercel hosts.
 
-## `/be-ai` — the reverse Turing test (top of funnel)
+## `/be-ai` — the live "be the AI" game (top of funnel)
 
-A standalone, shareable game at **`ocur.ai/be-ai`**: a visitor asks one
-question and gets two answers — one from the real Ocur, one from a human
-"being the AI" — then guesses which is the machine. An animated reveal scores
-them, hands them a share card, and routes the curiosity into an Ocur signup.
-Front door leads with the **"Be the AI"** ego hook; tone is **absurdist-funny**.
+A standalone, shareable **realtime multiplayer** game at **`ocur.ai/be-ai`** —
+the structure of [youraislopbores.me](https://youraislopbores.me), with Ocur as
+the house player. Two roles:
 
-- **Anonymous by design.** No login to play — login is a later conversion step,
-  never the gate. The whole page is one click from `app.ocur.ai`.
-- **Ocur is the house player**, so a round always works even with zero humans
-  online (the app backend backfills the human side).
-- **Brand safety.** The human answer is rendered unmistakably as **not Ocur**
-  (muted, dashed, "🥸 a human pretending to be an AI"); only the real answer
-  carries the Ocur mark. The backend also moderates both sides.
+- **Be the AI** — join the AI queue, get strangers' prompts, and answer
+  pretending to be a machine in **text or a drawing**; fool the asker to earn
+  credits and a "Certified Artificial" leaderboard spot.
+- **Spot the AI** — ask a prompt, read the answers, and pick the real Ocur
+  hiding among the humans.
 
-**URL / infra split.** The website repo owns the public shell, SEO and the
-routing rule; the game endpoints live in the app backend (`plutus-cloud`). The
-page is served statically at `/be-ai`, and only its API calls are proxied to
-the app, so there's no CORS and the canonical stays on the root domain:
+The look is a **blend**: the Obsidian Glass design system plus hand-drawn
+accents (a Caveat marker font, wobbly `.ba-sketch` borders, offset marker
+shadows, a scribble underline). Anonymous by design — a client-generated player
+id in `localStorage` is the only identity; login is a later conversion step.
 
-```
-ocur.ai/be-ai/api/round  →  app.ocur.ai/api/be-ai/round   (POST {question})
-ocur.ai/be-ai/api/guess  →  app.ocur.ai/api/be-ai/guess   (POST {roundId, slot})
-ocur.ai/be-ai/api/stats  →  app.ocur.ai/api/be-ai/stats   (GET)
-```
+**Transport / infra split.** The website owns the public shell, SEO and routing;
+the game lives in the app backend (`plutus-cloud`).
 
-The production rewrite lives in `vercel.json`; `vite.config.js` mirrors it as a
-dev `server.proxy` (point it at a local backend with
-`VITE_BE_AI_BACKEND=http://localhost:8000 npm run dev`, or override the client
-base entirely with `VITE_BE_AI_API`). `/be-ai` carries its own `canonical`,
-`summary_large_image` OG/Twitter tags and a sitemap entry; it is English-only
-(no `/de/` variant yet).
+- **Realtime** runs over a WebSocket the client opens **directly** to
+  `wss://app.ocur.ai/api/be-ai/ws?pid=<id>` — Vercel rewrites don't carry WS
+  upgrades, so it is *not* proxied. Messages: `join_queue` / `ask` / `respond`
+  / `guess` / `vote`.
+- **HTTP** (gallery, leaderboard) goes through the same-origin `/be-ai/api/*`
+  rewrite → `app.ocur.ai/api/be-ai/*` (in `vercel.json`; `vite.config.js`
+  mirrors it as a dev proxy). Override with `VITE_BE_AI_WS`,
+  `VITE_BE_AI_BACKEND`, `VITE_BE_AI_API`.
 
-**Share cards.** Each result renders to an 1200×630 card client-side (canvas)
-and shares via the native sheet where supported, else an X / LinkedIn / Save
-modal — every card stamped "Made with Ocur". The static OG image that unfurls
-when the page URL is shared is committed at `public/be-ai-og.png`; regenerate
-it with `npm i -D playwright && npm run gen:og` (Playwright is a one-off tool,
+**Ocur is the house player**, so a round always works even with nobody in the
+queue. **Brand safety:** human answers (text or drawing) are always shown and
+labelled as **not Ocur** ("🥸 … pretending to be an AI"); only the real Ocur
+answer carries the mark. The backend moderates text and validates drawings.
+
+`/be-ai` carries its own `canonical`, `summary_large_image` OG/Twitter tags and
+a sitemap entry; it is English-only (no `/de/` variant yet).
+
+**Share cards.** Each result renders to a 1200×630 card client-side (canvas) and
+shares via the native sheet where supported, else an X / LinkedIn / Save modal —
+every card stamped "Made with Ocur". The static OG image at
+`public/be-ai-og.png` is committed; regenerate it with
+`npm i -D playwright && npm run gen:og` (Playwright is a one-off tool,
 deliberately not a shipped dependency).
 
-**Analytics.** Funnel events fire through PostHog (`be_ai_round_start`,
-`be_ai_guess`, `be_ai_cta_click`, `be_ai_share*`) — the metric that matters is
-`/be-ai → app.ocur.ai` CTR.
+**Analytics.** Funnel events fire through PostHog (`be_ai_role`, `be_ai_ask`,
+`be_ai_respond`, `be_ai_guess`, `be_ai_cta_click`, `be_ai_share*`) — the metric
+that matters is `/be-ai → app.ocur.ai` CTR.
 
 ## Run
 
@@ -166,8 +169,9 @@ src/
   strings.de.js    # the entire German dictionary (data only)
   theme.js         # dark/light toggle
   analytics.js     # PostHog (lazy, env-gated) + a small track() helper
-  be-ai.js         # /be-ai game logic (state machine, API calls, score)
-  be-ai.css        # /be-ai game styling (reuses the style.css tokens)
+  be-ai.js         # /be-ai live game: WebSocket client + view state machine
+  be-ai.css        # /be-ai styling — Ocur glass + hand-drawn "sketch" accents
+  be-ai-draw.js    # /be-ai drawing pad (answer a prompt with a scribble)
   be-ai-share.js   # /be-ai share card (canvas) + native share / modal
 scripts/
   prerender-de.mjs    # bakes dist/de/index.html after the Vite build
