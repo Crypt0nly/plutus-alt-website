@@ -1224,3 +1224,20 @@ html.motion .ba-msg {
   margin-top: 26px;
   margin-bottom: 26px;
 }
+
+/* leaderboard "show top 50 / show less" toggle */
+.ba-board-toggle {
+  display: block;
+  margin: 16px auto 0;
+  padding: 8px 18px;
+  font-size: 17px;
+  color: var(--g-peach);
+  background: var(--g-fill);
+  border: 1px solid var(--g-hair);
+  border-radius: 12px 9px 13px 10px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.ba-board-toggle:hover {
+  border-color: var(--g-orange);
+}
