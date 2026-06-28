@@ -90,11 +90,60 @@ production:
 - A deliberately opened `/de/` link with no stored preference is served
   as-is.
 - `/assets/*` (hashed filenames) are served immutable for a year.
+- `/be-ai/api/*` is rewritten (proxied) to `app.ocur.ai/api/be-ai/*` so the
+  game's interactive parts run on the app backend while the page itself stays
+  on the marketing site (see the `/be-ai` section above).
 
-`public/sitemap.xml` lists both language URLs with hreflang alternates;
+`public/sitemap.xml` lists both language URLs (plus `/be-ai`) with hreflang
+alternates;
 `public/robots.txt` points to it — submit the sitemap in Google Search
 Console once the domain is live. The client-side routing in `src/i18n.js`
 stays as a fallback for dev and non-Vercel hosts.
+
+## `/be-ai` — the reverse Turing test (top of funnel)
+
+A standalone, shareable game at **`ocur.ai/be-ai`**: a visitor asks one
+question and gets two answers — one from the real Ocur, one from a human
+"being the AI" — then guesses which is the machine. An animated reveal scores
+them, hands them a share card, and routes the curiosity into an Ocur signup.
+Front door leads with the **"Be the AI"** ego hook; tone is **absurdist-funny**.
+
+- **Anonymous by design.** No login to play — login is a later conversion step,
+  never the gate. The whole page is one click from `app.ocur.ai`.
+- **Ocur is the house player**, so a round always works even with zero humans
+  online (the app backend backfills the human side).
+- **Brand safety.** The human answer is rendered unmistakably as **not Ocur**
+  (muted, dashed, "🥸 a human pretending to be an AI"); only the real answer
+  carries the Ocur mark. The backend also moderates both sides.
+
+**URL / infra split.** The website repo owns the public shell, SEO and the
+routing rule; the game endpoints live in the app backend (`plutus-cloud`). The
+page is served statically at `/be-ai`, and only its API calls are proxied to
+the app, so there's no CORS and the canonical stays on the root domain:
+
+```
+ocur.ai/be-ai/api/round  →  app.ocur.ai/api/be-ai/round   (POST {question})
+ocur.ai/be-ai/api/guess  →  app.ocur.ai/api/be-ai/guess   (POST {roundId, slot})
+ocur.ai/be-ai/api/stats  →  app.ocur.ai/api/be-ai/stats   (GET)
+```
+
+The production rewrite lives in `vercel.json`; `vite.config.js` mirrors it as a
+dev `server.proxy` (point it at a local backend with
+`VITE_BE_AI_BACKEND=http://localhost:8000 npm run dev`, or override the client
+base entirely with `VITE_BE_AI_API`). `/be-ai` carries its own `canonical`,
+`summary_large_image` OG/Twitter tags and a sitemap entry; it is English-only
+(no `/de/` variant yet).
+
+**Share cards.** Each result renders to an 1200×630 card client-side (canvas)
+and shares via the native sheet where supported, else an X / LinkedIn / Save
+modal — every card stamped "Made with Ocur". The static OG image that unfurls
+when the page URL is shared is committed at `public/be-ai-og.png`; regenerate
+it with `npm i -D playwright && npm run gen:og` (Playwright is a one-off tool,
+deliberately not a shipped dependency).
+
+**Analytics.** Funnel events fire through PostHog (`be_ai_round_start`,
+`be_ai_guess`, `be_ai_cta_click`, `be_ai_share*`) — the metric that matters is
+`/be-ai → app.ocur.ai` CTR.
 
 ## Run
 
@@ -108,15 +157,21 @@ npm run preview
 ## Structure
 
 ```
-index.html       # the page
+index.html         # the marketing home page (ocur.ai/)
+be-ai/index.html   # the reverse Turing test game (ocur.ai/be-ai)
 src/
-  main.js        # GSAP/Lenis choreography, pinned demo, micro-interactions
-  style.css      # the liquid-glass design system (theme tokens at the top)
-  i18n.js        # language routing + EN|DE toggle
-  strings.de.js  # the entire German dictionary (data only)
-  theme.js       # dark/light toggle
+  main.js          # GSAP/Lenis choreography, pinned demo, micro-interactions
+  style.css        # the liquid-glass design system (theme tokens at the top)
+  i18n.js          # language routing + EN|DE toggle
+  strings.de.js    # the entire German dictionary (data only)
+  theme.js         # dark/light toggle
+  analytics.js     # PostHog (lazy, env-gated) + a small track() helper
+  be-ai.js         # /be-ai game logic (state machine, API calls, score)
+  be-ai.css        # /be-ai game styling (reuses the style.css tokens)
+  be-ai-share.js   # /be-ai share card (canvas) + native share / modal
 scripts/
-  prerender-de.mjs  # bakes dist/de/index.html after the Vite build
+  prerender-de.mjs    # bakes dist/de/index.html after the Vite build
+  gen-be-ai-og.mjs    # renders public/be-ai-og.png (the /be-ai OG image)
 ```
 
 ## Notes

@@ -7,6 +7,11 @@
 const KEY = import.meta.env.VITE_POSTHOG_KEY;
 const HOST = import.meta.env.VITE_POSTHOG_HOST || 'https://eu.i.posthog.com';
 
+// Once loaded, the live posthog instance; until then, events are queued so a
+// capture fired during page load (e.g. the /be-ai funnel) isn't dropped.
+let _posthog = null;
+const _queue = [];
+
 export function initAnalytics() {
   if (!KEY) return;
   import('posthog-js').then(({ default: posthog }) => {
@@ -22,5 +27,15 @@ export function initAnalytics() {
       // anonymous visits stay light
       person_profiles: 'identified_only',
     });
+    _posthog = posthog;
+    _queue.splice(0).forEach(([event, props]) => posthog.capture(event, props));
   });
+}
+
+// Fire a product-analytics event. No-op when no key is configured (dev /
+// previews stay clean); queues until posthog finishes loading.
+export function track(event, props) {
+  if (!KEY) return;
+  if (_posthog) _posthog.capture(event, props);
+  else _queue.push([event, props]);
 }

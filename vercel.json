@@ -1,4 +1,10 @@
 {
+  "rewrites": [
+    {
+      "source": "/be-ai/api/:path*",
+      "destination": "https://app.ocur.ai/api/be-ai/:path*"
+    }
+  ],
   "redirects": [
     {
       "source": "/",
