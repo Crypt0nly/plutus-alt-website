@@ -215,6 +215,21 @@ function scheduleReconnect() {
   backoff = Math.min(backoff * 1.7, 12000);
   setTimeout(connect, backoff + Math.random() * 400);
 }
+// iOS Safari suspends background tabs and often won't fire `onclose` until you
+// interact — so the socket can be silently dead when you return. Force a
+// reconnect the moment the tab is visible again or the network comes back; the
+// server re-syncs any in-flight round on connect, so a missed duel/prompt
+// recovers instead of looking like "no answer".
+function ensureConnected() {
+  if (wsReady) return;
+  if (ws && ws.readyState === 0) return; // already connecting
+  connect();
+}
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) ensureConnected();
+});
+window.addEventListener('online', ensureConnected);
+window.addEventListener('pageshow', () => ensureConnected());
 function send(msg) {
   if (wsReady && ws) ws.send(JSON.stringify(msg));
   else pending.push(msg);
