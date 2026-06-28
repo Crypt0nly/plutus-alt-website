@@ -5,6 +5,9 @@
 //                  (text or a drawing), and try to fool the asker.
 //   • Spot the AI — ask a prompt, read the answers, pick the real Ocur.
 //
+// Both roles play out in a chat transcript: your message goes out as a bubble,
+// the room's replies stream back as bubbles, a typing indicator covers the wait.
+//
 // Ocur is the house player, so a round always resolves. The WS connects
 // directly to the backend host api.ocur.ai (NOT the app.ocur.ai frontend —
 // Vercel rewrites don't proxy WebSocket upgrades); the gallery/leaderboard go
@@ -22,6 +25,7 @@ const SIGNUP = 'https://app.ocur.ai?utm_source=be-ai&utm_medium=referral&utm_cam
 const PID_KEY = 'ocur-beai-pid';
 const NAME_KEY = 'ocur-beai-name';
 const MAX_Q = 280;
+const WORD_LIMIT = 10;
 
 initAnalytics();
 initThemeToggle();
@@ -59,20 +63,14 @@ function storedName() {
 }
 const PID = playerId();
 
-// ── flavour copy (blended: dry Ocur wit + absurdist scribble energy) ─────────
-const WAIT_LINES = [
-  'rounding up some suspiciously confident humans…',
-  'waking the machine…',
-  'asking the internet to keep a straight face…',
-  'shuffling the liars…',
-];
+// ── flavour copy ─────────────────────────────────────────────────────────────
 const RESULT_FOOLED = [
-  'You fooled them. They genuinely thought you were the machine. 🏆',
+  'They genuinely thought you were the machine. 🏆',
   'Certified Artificial. They picked you as the real AI.',
   'A human (you) just out-roboted a robot.',
 ];
 const RESULT_SPOTTED = [
-  'Busted — they clocked you as human. Too much soul.',
+  'They clocked you as human. Too much soul.',
   "They spotted the bot, and it wasn't you. Try weirder.",
   'Rumbled. The meat showed.',
 ];
@@ -101,12 +99,60 @@ function renderPresence(p) {
   $('#ba-inqueue').textContent = String(p.inQueue ?? 0);
 }
 
+// ── chat transcript helpers ──────────────────────────────────────────────────
+function chatReset(c) {
+  c.innerHTML = '';
+}
+function scrollChat(c) {
+  c.scrollTop = c.scrollHeight;
+}
+function addMsg(c, side, opts = {}) {
+  const el = document.createElement('div');
+  el.className = `ba-msg ba-msg-${side}`;
+  if (opts.label) {
+    const l = document.createElement('div');
+    l.className = 'ba-msg-label ba-hand';
+    l.innerHTML = opts.label;
+    el.appendChild(l);
+  }
+  const body = document.createElement('div');
+  body.className = 'ba-msg-body';
+  if (opts.drawing) {
+    const img = document.createElement('img');
+    img.className = 'ba-msg-img';
+    img.src = opts.drawing;
+    img.alt = 'a hand-drawn answer';
+    body.appendChild(img);
+  } else {
+    const span = document.createElement('span');
+    span.textContent = opts.text || '';
+    body.appendChild(span);
+  }
+  el.appendChild(body);
+  if (opts.footer) el.appendChild(opts.footer);
+  c.appendChild(el);
+  scrollChat(c);
+  return el;
+}
+function setTyping(c, on) {
+  let t = c.querySelector('.ba-typing');
+  if (on && !t) {
+    t = document.createElement('div');
+    t.className = 'ba-msg ba-msg-in ba-typing';
+    t.innerHTML = '<div class="ba-msg-body"><span class="ba-dots"><i></i><i></i><i></i></span></div>';
+    c.appendChild(t);
+    scrollChat(c);
+  } else if (!on && t) {
+    t.remove();
+  }
+}
+
 // ── WebSocket transport (reconnect + heartbeat) ──────────────────────────────
 let ws = null;
 let wsReady = false;
 let backoff = 800;
 let heartbeat = null;
-const pending = []; // queued sends while connecting
+const pending = [];
 
 function connect() {
   const name = encodeURIComponent(me.name || '');
@@ -157,6 +203,8 @@ function setConnected(ok) {
 // ── inbound message handling ─────────────────────────────────────────────────
 let currentRound = null; // asker's active round id
 let promptRound = null; // responder's active prompt round id
+const askChat = () => $('#ba-ask-chat');
+const beChat = () => $('#ba-be-chat');
 
 function handle(msg) {
   switch (msg.type) {
@@ -191,11 +239,10 @@ function handle(msg) {
       if (role === 'be') setView('join');
       break;
     case 'prompt':
-      promptRound = msg.roundId;
       openPrompt(msg);
       break;
     case 'answer_received':
-      setView('answered');
+      onAnswerReceived();
       break;
     case 'asked':
       currentRound = msg.roundId;
@@ -203,10 +250,9 @@ function handle(msg) {
         me = { ...me, ...msg.player };
         renderMe();
       }
-      $('#ba-asked-line').textContent = msg.liveResponders
-        ? `${msg.liveResponders} real human${msg.liveResponders > 1 ? 's are' : ' is'} writing their best robot impression…`
-        : pick(WAIT_LINES);
-      setView('asked');
+      $('#ba-ask-hint').textContent = msg.liveResponders
+        ? `${msg.liveResponders} real human${msg.liveResponders > 1 ? 's are' : ' is'} writing…`
+        : 'the room is answering…';
       break;
     case 'out_of_credits':
       if (msg.player) {
@@ -229,18 +275,30 @@ function handle(msg) {
       break;
     case 'error':
       flash(msg.message || 'something glitched');
+      // mid-answer rejection: clear the typing dots and bring the composer back
+      if (role === 'be' && $('#ba-be-after').hidden) {
+        setTyping(beChat(), false);
+        $('#ba-be-composer').hidden = false;
+        pendingAnswer = null;
+      }
       break;
     default:
       break;
   }
 }
 
-// ── ASKER: ask → asked → duel → reveal ───────────────────────────────────────
+// ── ASKER: ask → chat (question + answers) → pick → reveal ───────────────────
 $('#ba-ask-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const q = $('#ba-question').value.trim().slice(0, MAX_Q);
   if (!q) return;
   track('be_ai_ask', { length: q.length });
+  setView('ask-chat');
+  $('#ba-ask-after').hidden = true;
+  $('#ba-ask-hint').textContent = 'sending to the room…';
+  chatReset(askChat());
+  addMsg(askChat(), 'out', { text: q });
+  setTyping(askChat(), true);
   send({ type: 'ask', question: q });
 });
 $('#ba-question').addEventListener('input', (e) => {
@@ -253,50 +311,49 @@ $$('.ba-chip').forEach((c) =>
   })
 );
 
+const askBubbles = {}; // responseId -> bubble element (for relabel on reveal)
 function renderDuel(msg) {
   currentRound = msg.roundId;
-  $('#ba-duel-q').textContent = msg.question;
-  const wrap = $('#ba-duel-options');
-  wrap.innerHTML = '';
+  setTyping(askChat(), false);
+  $('#ba-ask-hint').textContent = 'one of these is the real Ocur — tap it';
+  for (const id in askBubbles) delete askBubbles[id];
   msg.options.forEach((o, i) => {
-    wrap.appendChild(optionCard(o, i, false));
-  });
-  setView('duel');
-}
-
-function optionCard(o, i, revealed) {
-  const card = document.createElement('div');
-  card.className = 'ba-answer ba-sketch';
-  card.dataset.id = o.id;
-  const body =
-    o.kind === 'drawing'
-      ? `<img class="ba-answer-img" src="${o.drawing}" alt="a hand-drawn answer" />`
-      : `<p class="ba-answer-text"></p>`;
-  card.innerHTML = `
-    <div class="ba-answer-tag ba-hand">answer ${String.fromCharCode(65 + i)}</div>
-    ${body}
-    <div class="ba-answer-actions">
-      <button type="button" class="ba-pickbtn" data-id="${o.id}">this is the real AI →</button>
-      <div class="ba-votes">
-        <button type="button" class="ba-vote" data-dir="up" data-id="${o.id}">👍 <span data-up="${o.id}">0</span></button>
-        <button type="button" class="ba-vote" data-dir="down" data-id="${o.id}">👎 <span data-down="${o.id}">0</span></button>
-      </div>
-    </div>`;
-  if (o.kind !== 'drawing') card.querySelector('.ba-answer-text').textContent = o.text;
-  if (!revealed) {
-    card.querySelector('.ba-pickbtn').addEventListener('click', () => {
+    const foot = document.createElement('div');
+    foot.className = 'ba-msg-foot';
+    const pickBtn = document.createElement('button');
+    pickBtn.type = 'button';
+    pickBtn.className = 'ba-pickbtn';
+    pickBtn.textContent = "🤖 it's the AI";
+    pickBtn.addEventListener('click', () => {
       track('be_ai_guess', {});
+      $$('.ba-pickbtn', askChat()).forEach((b) => (b.disabled = true));
       send({ type: 'guess', roundId: currentRound, responseId: o.id });
     });
-  }
-  card.querySelectorAll('.ba-vote').forEach((b) =>
-    b.addEventListener('click', () =>
-      send({ type: 'vote', responseId: b.dataset.id, dir: b.dataset.dir })
-    )
-  );
-  return card;
+    foot.appendChild(pickBtn);
+    foot.appendChild(voteWidget(o.id));
+    const el = addMsg(askChat(), 'in', {
+      label: `answer ${String.fromCharCode(65 + i)}`,
+      text: o.kind === 'drawing' ? '' : o.text,
+      drawing: o.kind === 'drawing' ? o.drawing : null,
+      footer: foot,
+    });
+    askBubbles[o.id] = el;
+  });
 }
 
+function voteWidget(id) {
+  const wrap = document.createElement('div');
+  wrap.className = 'ba-votes';
+  ['up', 'down'].forEach((dir) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'ba-vote';
+    b.innerHTML = `${dir === 'up' ? '👍' : '👎'} <span data-${dir}="${id}">0</span>`;
+    b.addEventListener('click', () => send({ type: 'vote', responseId: id, dir }));
+    wrap.appendChild(b);
+  });
+  return wrap;
+}
 function updateVotes(msg) {
   const up = document.querySelector(`[data-up="${msg.responseId}"]`);
   const down = document.querySelector(`[data-down="${msg.responseId}"]`);
@@ -310,6 +367,19 @@ function renderReveal(msg) {
     me = { ...me, ...msg.player };
     renderMe();
   }
+  $$('.ba-pickbtn', askChat()).forEach((b) => b.remove());
+  msg.options.forEach((o) => {
+    const el = askBubbles[o.id];
+    if (!el) return;
+    el.classList.add(o.isOcur ? 'is-ai' : 'is-human');
+    if (o.id === msg.pickedId) el.classList.add('is-picked');
+    const label = el.querySelector('.ba-msg-label');
+    if (label) {
+      label.innerHTML = o.isOcur
+        ? `<img src="/logo.svg" alt="" /> The real Ocur`
+        : `🥸 ${o.playerName || 'a human'} — pretending`;
+    }
+  });
   $('#ba-reveal-emoji').textContent = msg.correct ? '🎯' : '😱';
   $('#ba-reveal-h').textContent = msg.correct
     ? 'You spotted the real Ocur.'
@@ -317,59 +387,65 @@ function renderReveal(msg) {
   $('#ba-reveal-sub').textContent = msg.correct
     ? `+${msg.reward} credits. The machines respect you.`
     : 'You picked a human pretending. Happens to the best of us.';
-  const grid = $('#ba-reveal-grid');
-  grid.innerHTML = '';
-  msg.options.forEach((o) => {
-    const card = document.createElement('div');
-    const human = !o.isOcur;
-    card.className = `ba-answer ba-sketch ${o.isOcur ? 'is-ai' : 'is-human'}${
-      o.id === msg.pickedId ? ' is-picked' : ''
-    }`;
-    const label = o.isOcur
-      ? `<img src="/logo.svg" alt="" /> The real Ocur`
-      : `🥸 ${o.playerName || 'a human'} — pretending to be an AI`;
-    const body =
-      o.kind === 'drawing'
-        ? `<img class="ba-answer-img" src="${o.drawing}" alt="a hand-drawn answer" />`
-        : `<p class="ba-answer-text"></p>`;
-    card.innerHTML = `<div class="ba-answer-label ba-hand">${label}</div>${body}`;
-    if (o.kind !== 'drawing') card.querySelector('.ba-answer-text').textContent = o.text;
-    grid.appendChild(card);
-  });
+  addMsg(askChat(), 'sys', { text: msg.correct ? '🎯 you got it' : '😱 fooled' });
+  $('#ba-ask-hint').textContent = 'round over';
   lastReveal = { correct: msg.correct, me: { ...me } };
-  setView('reveal');
+  $('#ba-ask-after').hidden = false;
+  scrollChat(askChat());
   loadGalleryAndBoard();
 }
 
-// ── RESPONDER: join → queued → prompt → answered → result ────────────────────
+// ── RESPONDER: prompt → chat (question + your answer) → result ───────────────
 let pad = null;
 let answerMode = 'text';
+let pendingAnswer = null;
 
 function openPrompt(msg) {
-  $('#ba-prompt-q').textContent = msg.question;
+  promptRound = msg.roundId;
+  setView('be-chat');
+  $('#ba-be-after').hidden = true;
+  chatReset(beChat());
+  const who = msg.fromBot ? '🤖 a curious AI asks' : '🕵️ a human asks';
+  addMsg(beChat(), 'in', { label: who, text: msg.question });
   $('#ba-answer').value = '';
-  $('#ba-acount').textContent = '0';
+  updateWordCount();
   if (pad) pad.clear();
   setAnswerMode('text');
+  $('#ba-be-composer').hidden = false;
   startPromptTimer(msg.deadlineMs || 30000);
-  setView('prompt');
+}
+
+function onAnswerReceived() {
+  $('#ba-be-composer').hidden = true;
+  stopTimer();
+  if (pendingAnswer) {
+    addMsg(beChat(), 'out', {
+      text: pendingAnswer.kind === 'text' ? pendingAnswer.text : '',
+      drawing: pendingAnswer.kind === 'drawing' ? pendingAnswer.drawing : null,
+    });
+    pendingAnswer = null;
+  }
+  setTyping(beChat(), true);
 }
 
 let promptTimer = null;
 function startPromptTimer(ms) {
   const end = Date.now() + ms;
   const bar = $('#ba-timer-bar');
+  $('#ba-timer').hidden = false;
   const tick = () => {
     const left = Math.max(0, end - Date.now());
     bar.style.width = `${(left / ms) * 100}%`;
-    if (left <= 0 && promptTimer) {
-      clearInterval(promptTimer);
-      promptTimer = null;
-    }
+    if (left <= 0) stopTimer();
   };
   if (promptTimer) clearInterval(promptTimer);
   tick();
   if (!reduceMotion) promptTimer = setInterval(tick, 100);
+}
+function stopTimer() {
+  if (promptTimer) clearInterval(promptTimer);
+  promptTimer = null;
+  $('#ba-timer').hidden = true;
 }
 
 function setAnswerMode(mode) {
@@ -416,20 +492,29 @@ function initPad() {
   $('#ba-clear').addEventListener('click', () => pad.clear());
 }
 
-$('#ba-answer').addEventListener('input', (e) => {
-  $('#ba-acount').textContent = String(e.target.value.length);
-});
+function wordCount(s) {
+  return (s.trim().match(/\S+/g) || []).length;
+}
+function updateWordCount() {
+  const n = wordCount($('#ba-answer').value);
+  const wc = $('#ba-wordcount');
+  wc.querySelector('strong').textContent = String(n);
+  wc.classList.toggle('over', n > WORD_LIMIT);
+}
+$('#ba-answer').addEventListener('input', updateWordCount);
 
 $('#ba-answer-submit').addEventListener('click', () => {
   if (!promptRound) return;
   if (answerMode === 'draw') {
     const drawing = pad && pad.toDataURL();
     if (!drawing) return flash('draw something first');
+    pendingAnswer = { kind: 'drawing', drawing };
     send({ type: 'respond', roundId: promptRound, kind: 'drawing', drawing });
   } else {
     const text = $('#ba-answer').value.trim();
     if (!text) return flash('write something first');
-    send({ type: 'respond', roundId: promptRound, kind: 'text', text: text.slice(0, 600) });
+    pendingAnswer = { kind: 'text', text: text.slice(0, 280) };
+    send({ type: 'respond', roundId: promptRound, kind: 'text', text: pendingAnswer.text });
   }
   track('be_ai_respond', { mode: answerMode });
 });
@@ -439,18 +524,21 @@ function renderResult(msg) {
     me = { ...me, ...msg.player };
     renderMe();
   }
+  setTyping(beChat(), false);
   const fooled = msg.fooledThem;
+  addMsg(beChat(), 'sys', { text: fooled ? '🏆 you fooled them!' : '🫠 they spotted the bot' });
   $('#ba-result-emoji').textContent = fooled ? '🏆' : '🫠';
   $('#ba-result-h').textContent = fooled ? 'You fooled them!' : 'They spotted the bot.';
   $('#ba-result-sub').textContent = fooled
     ? `${pick(RESULT_FOOLED)} +${msg.reward} credits.`
     : pick(RESULT_SPOTTED);
   lastReveal = { correct: !fooled, fooledAsResponder: fooled, me: { ...me } };
-  setView('result');
+  $('#ba-be-after').hidden = false;
+  scrollChat(beChat());
   loadGalleryAndBoard();
 }
 
-// ── role picker + nav between flows ──────────────────────────────────────────
+// ── role picker + nav ─────────────────────────────────────────────────────────
 $('#ba-pick-be').addEventListener('click', () => {
   role = 'be';
   track('be_ai_role', { role: 'be' });
@@ -508,7 +596,7 @@ $('#ba-name').addEventListener('change', (e) => {
 });
 
 // ── gallery + leaderboard (HTTP) ─────────────────────────────────────────────
-async function loadGalleryAndBoard() {
+function loadGalleryAndBoard() {
   loadGallery();
   loadBoard();
 }
@@ -527,7 +615,7 @@ async function loadGallery() {
         it.kind === 'drawing'
           ? `<img src="${it.drawing}" alt="a hand-drawn answer" />`
           : `<p class="ba-answer-text"></p>`;
-      card.innerHTML = `${body}<figcaption class="ba-hand">“${it.question}”${
+      card.innerHTML = `${body}<figcaption class="ba-hand">“${escapeHtml(it.question)}”${
         it.pickedAsAi ? ' · fooled them 🏆' : ''
       }</figcaption>`;
       if (it.kind !== 'drawing') card.querySelector('.ba-answer-text').textContent = it.text;
@@ -567,7 +655,10 @@ function renderGlobalStat(stats) {
   el.hidden = false;
 }
 function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  return String(s).replace(
+    /[&<>"']/g,
+    (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]
+  );
 }
 
 // ── transient toast ──────────────────────────────────────────────────────────
