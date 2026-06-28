@@ -18,6 +18,7 @@ import './be-ai.css';
 import { initThemeToggle } from './theme.js';
 import { initAnalytics, track } from './analytics.js';
 import { DrawPad, INK_COLORS, BRUSH_SIZES } from './be-ai-draw.js';
+import { ShapeChallenge } from './be-ai-shapes.js';
 
 const API = import.meta.env.VITE_BE_AI_API || '/be-ai/api';
 const WS_URL = import.meta.env.VITE_BE_AI_WS || 'wss://api.ocur.ai/api/be-ai/ws';
@@ -147,6 +148,24 @@ function setTyping(c, on) {
   }
 }
 
+// ── "draw a perfect shape" wait game ─────────────────────────────────────────
+// Something to do while the other side writes their answer (asker waiting for
+// the room, or you waiting in the AI queue). One re-parented instance, since
+// only one waiting state is ever active at a time.
+let shapeGame = null;
+function mountWaitGame(slot) {
+  if (!slot) return;
+  if (!shapeGame) shapeGame = new ShapeChallenge();
+  if (shapeGame.root.parentNode !== slot) slot.appendChild(shapeGame.root);
+  slot.hidden = false;
+  shapeGame.start();
+  track('be_ai_waitgame_open', {});
+}
+function stopWaitGame(slot) {
+  if (shapeGame) shapeGame.stop();
+  if (slot) slot.hidden = true;
+}
+
 // ── WebSocket transport (reconnect + heartbeat) ──────────────────────────────
 let ws = null;
 let wsReady = false;
@@ -233,9 +252,13 @@ function handle(msg) {
       $('#ba-queue-wait').textContent = msg.estWaitMs
         ? `~${Math.ceil(msg.estWaitMs / 1000)}s wait`
         : 'any moment now';
-      if (role === 'be') setView('queued');
+      if (role === 'be') {
+        setView('queued');
+        mountWaitGame($('#ba-queued-waitgame'));
+      }
       break;
     case 'left_queue':
+      stopWaitGame($('#ba-queued-waitgame'));
       if (role === 'be') setView('join');
       break;
     case 'prompt':
@@ -299,6 +322,7 @@ $('#ba-ask-form').addEventListener('submit', (e) => {
   chatReset(askChat());
   addMsg(askChat(), 'out', { text: q });
   setTyping(askChat(), true);
+  mountWaitGame($('#ba-ask-waitgame'));
   send({ type: 'ask', question: q });
 });
 $('#ba-question').addEventListener('input', (e) => {
@@ -315,6 +339,7 @@ const askBubbles = {}; // responseId -> bubble element (for relabel on reveal)
 function renderDuel(msg) {
   currentRound = msg.roundId;
   setTyping(askChat(), false);
+  stopWaitGame($('#ba-ask-waitgame'));
   $('#ba-ask-hint').textContent = 'one of these is the real Ocur — tap it';
   for (const id in askBubbles) delete askBubbles[id];
   msg.options.forEach((o, i) => {
@@ -402,6 +427,7 @@ let pendingAnswer = null;
 
 function openPrompt(msg) {
   promptRound = msg.roundId;
+  stopWaitGame($('#ba-queued-waitgame'));
   setView('be-chat');
   $('#ba-be-after').hidden = true;
   chatReset(beChat());
