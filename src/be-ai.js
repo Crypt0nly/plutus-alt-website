@@ -75,6 +75,11 @@ const RESULT_SPOTTED = [
   "They spotted the bot, and it wasn't you. Try weirder.",
   'Rumbled. The meat showed.',
 ];
+const RESULT_UNDECIDED = [
+  'They bailed before calling it. No verdict this round.',
+  "They couldn't decide in time — you live to bluff another round.",
+  'The detective ghosted. We’ll never know if you fooled them.',
+];
 const pick = (a) => a[Math.floor(Math.random() * a.length)];
 
 // ── view machine ─────────────────────────────────────────────────────────────
@@ -252,7 +257,10 @@ function handle(msg) {
       $('#ba-queue-wait').textContent = msg.estWaitMs
         ? `~${Math.ceil(msg.estWaitMs / 1000)}s wait`
         : 'any moment now';
-      if (role === 'be') {
+      // Don't yank the player off a result they're still reading — when they get
+      // auto-requeued after a round, keep them on the verdict screen until they
+      // hit "Go again" or the next prompt arrives.
+      if (role === 'be' && $('#ba-be-after').hidden) {
         setView('queued');
         mountWaitGame($('#ba-queued-waitgame'));
       }
@@ -295,6 +303,13 @@ function handle(msg) {
       break;
     case 'vote_update':
       updateVotes(msg);
+      break;
+    case 'guess_expired':
+      // The asker took too long to pick — close the dangling duel on their side.
+      if (role === 'ask') {
+        $$('.ba-pickbtn', askChat()).forEach((b) => (b.disabled = true));
+        flash('you took too long — that round expired');
+      }
       break;
     case 'error':
       flash(msg.message || 'something glitched');
@@ -551,6 +566,19 @@ function renderResult(msg) {
     renderMe();
   }
   setTyping(beChat(), false);
+  if (msg.undecided) {
+    // The human asker never guessed (timed out or left) — close it out cleanly
+    // so the player always learns the outcome instead of waiting forever.
+    addMsg(beChat(), 'sys', { text: "🤔 they didn't call it in time" });
+    $('#ba-result-emoji').textContent = '🤔';
+    $('#ba-result-h').textContent = 'No verdict this round.';
+    $('#ba-result-sub').textContent = pick(RESULT_UNDECIDED);
+    lastReveal = { correct: null, fooledAsResponder: false, me: { ...me } };
+    $('#ba-be-after').hidden = false;
+    scrollChat(beChat());
+    loadGalleryAndBoard();
+    return;
+  }
   const fooled = msg.fooledThem;
   addMsg(beChat(), 'sys', { text: fooled ? '🏆 you fooled them!' : '🫠 they spotted the bot' });
   $('#ba-result-emoji').textContent = fooled ? '🏆' : '🫠';
@@ -599,7 +627,14 @@ $('#ba-ask-again').addEventListener('click', () => {
   $('#ba-qcount').textContent = '0';
   setView('ask');
 });
-$('#ba-be-again').addEventListener('click', () => send({ type: 'join_queue' }));
+$('#ba-be-again').addEventListener('click', () => {
+  // Leave the verdict screen and go wait in the queue (idempotent on the server
+  // if we were already auto-requeued after the round).
+  $('#ba-be-after').hidden = true;
+  setView('queued');
+  mountWaitGame($('#ba-queued-waitgame'));
+  send({ type: 'join_queue' });
+});
 $('#ba-broke-be').addEventListener('click', () => {
   role = 'be';
   setView('join');

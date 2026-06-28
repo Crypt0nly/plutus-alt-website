@@ -1217,3 +1217,10 @@ html.motion .ba-msg {
   background: var(--g-orange);
   color: #1a1a1e;
 }
+
+/* In the queued view, give the shape game room to breathe — space above it
+   (under the queue status) and below it (before the "leave queue" button). */
+#ba-queued-waitgame {
+  margin-top: 26px;
+  margin-bottom: 26px;
+}
