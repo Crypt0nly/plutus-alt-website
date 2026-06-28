@@ -151,37 +151,74 @@
               </div>
             </div>
 
-            <!-- VIEW: asked / waiting -->
-            <div class="ba-view ba-wait" data-view="asked" hidden>
-              <div class="ba-spinner ba-hand" aria-hidden="true">◠◡◠</div>
-              <h2 class="ba-stage-h">Out to the room…</h2>
-              <p class="ba-stage-p" id="ba-asked-line">rounding up some suspiciously confident humans…</p>
+            <!-- VIEW: asker chat (question → answers → pick → reveal) -->
+            <div class="ba-view" data-view="ask-chat" hidden>
+              <div class="ba-rolebar"><span class="ba-hand">Spot the AI</span><span class="ba-chat-hint" id="ba-ask-hint">one of these is the real Ocur — tap it</span></div>
+              <div class="ba-chat" id="ba-ask-chat"></div>
+              <div class="ba-after" id="ba-ask-after" hidden>
+                <div class="ba-verdict">
+                  <p class="ba-verdict-emoji" id="ba-reveal-emoji"></p>
+                  <h2 class="ba-verdict-h" id="ba-reveal-h"></h2>
+                  <p class="ba-verdict-sub" id="ba-reveal-sub"></p>
+                </div>
+                <div class="ba-cta ba-sketch">
+                  <p class="ba-cta-h">The real AI was <span class="g-grad">Ocur</span>.</p>
+                  <p class="ba-cta-p">It doesn't just win party games — it plugs into your inbox, calendar, files and chat and actually <em>does the work</em>.</p>
+                  <a class="g-btn g-btn-lg magnetic" id="ba-cta-btn" href="https://app.ocur.ai?utm_source=be-ai&utm_medium=referral&utm_campaign=reverse-turing">Try the real Ocur — free →</a>
+                </div>
+                <div class="ba-reveal-actions">
+                  <button type="button" class="g-btn g-btn-glass lg magnetic ba-share-trigger">Share this 🔥</button>
+                  <button type="button" class="g-btn g-btn-glass lg magnetic" id="ba-ask-again">Ask another →</button>
+                  <button type="button" class="g-btn g-btn-glass lg magnetic ba-torole" data-role="be">Now BE the AI →</button>
+                </div>
+              </div>
             </div>
 
-            <!-- VIEW: duel -->
-            <div class="ba-view" data-view="duel" hidden>
-              <p class="ba-duel-q" id="ba-duel-q"></p>
-              <p class="ba-duel-prompt">One of these is the real Ocur. The rest are humans pretending. <strong>Tap the real AI.</strong></p>
-              <div class="ba-answers" id="ba-duel-options"></div>
-            </div>
+            <!-- VIEW: responder chat (prompt → answer → result) -->
+            <div class="ba-view" data-view="be-chat" hidden>
+              <div class="ba-timer" id="ba-timer" aria-hidden="true"><span class="ba-timer-bar" id="ba-timer-bar"></span></div>
+              <div class="ba-rolebar"><span class="ba-hand">Be the AI</span><span class="ba-chat-hint">answer like a machine — the rule is 10 words</span></div>
+              <div class="ba-chat" id="ba-be-chat"></div>
 
-            <!-- VIEW: reveal -->
-            <div class="ba-view" data-view="reveal" hidden>
-              <div class="ba-verdict">
-                <p class="ba-verdict-emoji" id="ba-reveal-emoji"></p>
-                <h2 class="ba-verdict-h" id="ba-reveal-h"></h2>
-                <p class="ba-verdict-sub" id="ba-reveal-sub"></p>
+              <!-- composer (shown only while answering) -->
+              <div class="ba-composer" id="ba-be-composer" hidden>
+                <div class="ba-modes">
+                  <button type="button" class="ba-mode on" id="ba-mode-text">type it</button>
+                  <button type="button" class="ba-mode" id="ba-mode-draw">draw it ✏️</button>
+                </div>
+                <div id="ba-answer-text-wrap">
+                  <textarea id="ba-answer" class="ba-input ba-sketch" maxlength="280" rows="2" placeholder="beep boop, the answer is obviously…" aria-label="Your answer"></textarea>
+                  <div class="ba-ask-row">
+                    <span class="ba-count" id="ba-wordcount"><strong>0</strong>/10 words</span>
+                    <span class="ba-count ba-dim">over 10 = suspiciously human 👀</span>
+                  </div>
+                </div>
+                <div id="ba-answer-draw-wrap" hidden>
+                  <div class="ba-canvas-wrap ba-sketch"><canvas id="ba-canvas" aria-label="drawing pad"></canvas></div>
+                  <div class="ba-tools">
+                    <div class="ba-palette" id="ba-palette"></div>
+                    <div class="ba-sizes" id="ba-sizes"></div>
+                    <div class="ba-tool-actions">
+                      <button type="button" class="ba-tool" id="ba-undo" title="undo">↶</button>
+                      <button type="button" class="ba-tool" id="ba-redo" title="redo">↷</button>
+                      <button type="button" class="ba-tool" id="ba-clear" title="clear">clear</button>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="g-btn g-btn-lg magnetic ba-submit" id="ba-answer-submit">Submit your answer</button>
               </div>
-              <div class="ba-answers" id="ba-reveal-grid"></div>
-              <div class="ba-cta ba-sketch">
-                <p class="ba-cta-h">The real AI was <span class="g-grad">Ocur</span>.</p>
-                <p class="ba-cta-p">It doesn't just win party games — it plugs into your inbox, calendar, files and chat and actually <em>does the work</em>.</p>
-                <a class="g-btn g-btn-lg magnetic" id="ba-cta-btn" href="https://app.ocur.ai?utm_source=be-ai&utm_medium=referral&utm_campaign=reverse-turing">Try the real Ocur — free →</a>
-              </div>
-              <div class="ba-reveal-actions">
-                <button type="button" class="g-btn g-btn-glass lg magnetic ba-share-trigger">Share this 🔥</button>
-                <button type="button" class="g-btn g-btn-glass lg magnetic" id="ba-ask-again">Ask another →</button>
-                <button type="button" class="g-btn g-btn-glass lg magnetic ba-torole" data-role="be">Now BE the AI →</button>
+
+              <div class="ba-after" id="ba-be-after" hidden>
+                <div class="ba-verdict">
+                  <p class="ba-verdict-emoji" id="ba-result-emoji"></p>
+                  <h2 class="ba-verdict-h" id="ba-result-h"></h2>
+                  <p class="ba-verdict-sub" id="ba-result-sub"></p>
+                </div>
+                <div class="ba-reveal-actions">
+                  <button type="button" class="g-btn g-btn-glass lg magnetic ba-share-trigger">Share this 🔥</button>
+                  <button type="button" class="g-btn magnetic" id="ba-be-again">Go again →</button>
+                  <button type="button" class="g-btn g-btn-glass lg magnetic ba-torole" data-role="ask">Try spotting instead →</button>
+                </div>
               </div>
             </div>
 
@@ -207,61 +244,11 @@
 
             <!-- VIEW: queued -->
             <div class="ba-view ba-wait" data-view="queued" hidden>
-              <div class="ba-spinner ba-hand" aria-hidden="true">◜◝◞◟</div>
+              <div class="ba-loader" aria-hidden="true"></div>
               <h2 class="ba-stage-h">You're in the queue.</h2>
               <p class="ba-stage-p"><strong id="ba-queue-pos">next up</strong> · <span id="ba-queue-wait">any moment now</span></p>
               <p class="ba-stage-p ba-dim">keep this tab open — a prompt will pop up here.</p>
               <button type="button" class="g-btn g-btn-glass lg magnetic" id="ba-leave">leave queue</button>
-            </div>
-
-            <!-- VIEW: prompt (answer) -->
-            <div class="ba-view" data-view="prompt" hidden>
-              <div class="ba-timer" aria-hidden="true"><span class="ba-timer-bar" id="ba-timer-bar"></span></div>
-              <p class="ba-prompt-label ba-hand">a human just asked you:</p>
-              <p class="ba-prompt-q" id="ba-prompt-q"></p>
-              <p class="ba-stage-p ba-dim">answer like an AI. confident, a little uncanny. fool them.</p>
-              <div class="ba-modes">
-                <button type="button" class="ba-mode on" id="ba-mode-text">type it</button>
-                <button type="button" class="ba-mode" id="ba-mode-draw">draw it ✏️</button>
-              </div>
-              <div id="ba-answer-text-wrap">
-                <textarea id="ba-answer" class="ba-input ba-sketch" maxlength="600" rows="3" placeholder="beep boop, the answer is obviously…" aria-label="Your answer"></textarea>
-                <div class="ba-ask-row"><span class="ba-count"><span id="ba-acount">0</span>/600</span></div>
-              </div>
-              <div id="ba-answer-draw-wrap" hidden>
-                <div class="ba-canvas-wrap ba-sketch"><canvas id="ba-canvas" aria-label="drawing pad"></canvas></div>
-                <div class="ba-tools">
-                  <div class="ba-palette" id="ba-palette"></div>
-                  <div class="ba-sizes" id="ba-sizes"></div>
-                  <div class="ba-tool-actions">
-                    <button type="button" class="ba-tool" id="ba-undo" title="undo">↶</button>
-                    <button type="button" class="ba-tool" id="ba-redo" title="redo">↷</button>
-                    <button type="button" class="ba-tool" id="ba-clear" title="clear">clear</button>
-                  </div>
-                </div>
-              </div>
-              <button type="button" class="g-btn g-btn-lg magnetic ba-submit" id="ba-answer-submit">Submit your answer</button>
-            </div>
-
-            <!-- VIEW: answered / waiting verdict -->
-            <div class="ba-view ba-wait" data-view="answered" hidden>
-              <div class="ba-spinner ba-hand" aria-hidden="true">◠◡◠</div>
-              <h2 class="ba-stage-h">Answer's in.</h2>
-              <p class="ba-stage-p">Now we wait for the human to guess. Did you fool them?</p>
-            </div>
-
-            <!-- VIEW: result -->
-            <div class="ba-view" data-view="result" hidden>
-              <div class="ba-verdict">
-                <p class="ba-verdict-emoji" id="ba-result-emoji"></p>
-                <h2 class="ba-verdict-h" id="ba-result-h"></h2>
-                <p class="ba-verdict-sub" id="ba-result-sub"></p>
-              </div>
-              <div class="ba-reveal-actions">
-                <button type="button" class="g-btn g-btn-glass lg magnetic ba-share-trigger">Share this 🔥</button>
-                <button type="button" class="g-btn magnetic" id="ba-be-again">Go again →</button>
-                <button type="button" class="g-btn g-btn-glass lg magnetic ba-torole" data-role="ask">Try spotting instead →</button>
-              </div>
             </div>
           </div>
         </div>
