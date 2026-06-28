@@ -1083,3 +1083,137 @@ html.motion .ba-msg {
     animation: none !important;
   }
 }
+
+/* ── "draw a perfect shape" wait game ─────────────────────────────────────── */
+.ba-waitgame-slot {
+  margin-top: 18px;
+}
+.ba-shapegame {
+  border-top: 1px dashed var(--g-hair);
+  padding-top: 16px;
+  text-align: center;
+  animation: ba-waitgame-in 0.4s ease both;
+}
+@keyframes ba-waitgame-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.ba-shapegame-kicker {
+  display: inline-block;
+  font-size: 18px;
+  color: var(--g-peach);
+  transform: rotate(-2deg);
+}
+.ba-shapegame-h {
+  font-family: var(--g-sans);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--g-ink);
+  margin: 2px 0 4px;
+}
+.ba-shapegame-name {
+  color: var(--g-orange);
+}
+.ba-shapegame-sub {
+  font-size: 13px;
+  color: var(--g-dim);
+  margin: 0 auto 12px;
+  max-width: 360px;
+}
+.ba-shapegame-canvas-wrap {
+  position: relative;
+  padding: 8px;
+  background: #faf7f0;
+  width: min(300px, 82vw);
+  margin: 0 auto;
+}
+.ba-shapegame-canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  touch-action: none;
+  cursor: crosshair;
+}
+/* score badge sits on the light paper, so it uses fixed (non-theme) colours */
+.ba-shapegame-score[hidden] {
+  display: none; /* author display:flex below would otherwise beat [hidden] */
+}
+.ba-shapegame-score {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+  padding: 6px 11px;
+  border-radius: 13px 10px 13px 9px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #1a1a1e;
+  box-shadow: 3px 3px 0 rgba(38, 34, 28, 0.22);
+  animation: ba-shapegame-pop 0.3s ease both;
+}
+@keyframes ba-shapegame-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.82) rotate(-3deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.ba-shapegame-pct {
+  font-family: var(--g-mono);
+  font-size: 26px;
+  line-height: 1;
+  color: #1a1a1e;
+}
+.ba-shapegame-score[data-tier='hi'] .ba-shapegame-pct {
+  color: #2f855a;
+}
+.ba-shapegame-score[data-tier='lo'] .ba-shapegame-pct {
+  color: #c53030;
+}
+.ba-shapegame-verdict {
+  font-size: 15px;
+  color: #5b5b66;
+}
+.ba-shapegame-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: min(300px, 82vw);
+  margin: 12px auto 0;
+}
+.ba-shapegame-best {
+  font-size: 16px;
+  color: var(--g-peach);
+}
+.ba-shapegame-actions {
+  display: flex;
+  gap: 8px;
+}
+.ba-shapegame-next {
+  font-family: var(--g-sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--g-ink);
+  background: var(--g-fill);
+  border: 1px solid var(--g-orange);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.ba-shapegame-next:hover {
+  background: var(--g-orange);
+  color: #1a1a1e;
+}
