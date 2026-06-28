@@ -1,24 +1,25 @@
-// Ocur — /be-ai "reverse Turing test" game.
+// Ocur — /be-ai live multiplayer "be the AI" game (client).
 //
-// The marketing shell owns this screen; the actual game endpoints live in the
-// app backend (plutus-cloud) and are reached same-origin via a reverse-proxy
-// rewrite so there's no CORS and no app shell in the way:
+// Two roles over one anonymous WebSocket to the app backend:
+//   • Be the AI  — join the queue, get strangers' prompts, answer as an "AI"
+//                  (text or a drawing), and try to fool the asker.
+//   • Spot the AI — ask a prompt, read the answers, pick the real Ocur.
 //
-//   /be-ai/api/round  ->  app.ocur.ai  POST /api/be-ai/round   {question}
-//   /be-ai/api/guess  ->  app.ocur.ai  POST /api/be-ai/guess   {roundId, slot}
-//   /be-ai/api/stats  ->  app.ocur.ai  GET  /api/be-ai/stats
-//
-// (see vercel.json for the production rewrite, vite.config.js for the dev
-// proxy). Anonymous by design — play is the funnel, login is a later step.
+// Ocur is the house player, so a round always resolves. The WS connects
+// directly to app.ocur.ai (Vercel rewrites don't proxy WebSockets); the
+// gallery/leaderboard go through the same-origin /be-ai/api/* rewrite.
 
 import './style.css';
 import './be-ai.css';
 import { initThemeToggle } from './theme.js';
 import { initAnalytics, track } from './analytics.js';
+import { DrawPad, INK_COLORS, BRUSH_SIZES } from './be-ai-draw.js';
 
 const API = import.meta.env.VITE_BE_AI_API || '/be-ai/api';
+const WS_URL = import.meta.env.VITE_BE_AI_WS || 'wss://app.ocur.ai/api/be-ai/ws';
 const SIGNUP = 'https://app.ocur.ai?utm_source=be-ai&utm_medium=referral&utm_campaign=reverse-turing';
-const SCORE_KEY = 'ocur-beai-score';
+const PID_KEY = 'ocur-beai-pid';
+const NAME_KEY = 'ocur-beai-name';
 const MAX_Q = 280;
 
 initAnalytics();
@@ -26,305 +27,564 @@ initThemeToggle();
 const yearEl = document.getElementById('g-year');
 if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-// ── tiny DOM helpers ─────────────────────────────────────────────────────────
-const $ = (sel, root = document) => root.querySelector(sel);
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// ── flavour copy (absurdist-funny tone) ──────────────────────────────────────
-const THINK_STATUS = [
-  'consulting the machines…',
-  'asking a human to act normal…',
-  'warming up the robot voice…',
-  'pretending to compute…',
-  'aligning the vibes…',
-  'booting confidence.exe…',
-];
-const WIN_SUBS = [
-  'Certified AI-whisperer. The machines fear you.',
-  'You saw straight through the meat puppet. Respect.',
-  'Real recognises real — or does artificial recognise artificial?',
-  'Flawless. You owe the human nothing.',
-];
-const LOSS_SUBS = [
-  'A regular human, with a regular brain, fooled you completely.',
-  'You just lost a Turing test to someone typing with their thumbs.',
-  'They did a little robot voice and you bought the whole thing.',
-  'Out-AI’d by a carbon-based life form. It happens.',
-];
-const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
-
-// ── score (session-persistent in localStorage) ───────────────────────────────
-function loadScore() {
+// ── identity (anonymous, persisted) ──────────────────────────────────────────
+function playerId() {
+  let id = null;
   try {
-    const s = JSON.parse(localStorage.getItem(SCORE_KEY) || '{}');
-    return {
-      rounds: s.rounds | 0,
-      spotted: s.spotted | 0,
-      fooled: s.fooled | 0,
-    };
+    id = localStorage.getItem(PID_KEY);
   } catch {
-    return { rounds: 0, spotted: 0, fooled: 0 };
+    /* private mode */
   }
+  if (!id) {
+    id = 'p_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+    try {
+      localStorage.setItem(PID_KEY, id);
+    } catch {
+      /* ignore */
+    }
+  }
+  return id;
 }
-function saveScore(score) {
+function storedName() {
   try {
-    localStorage.setItem(SCORE_KEY, JSON.stringify(score));
+    return localStorage.getItem(NAME_KEY) || '';
   } catch {
-    /* private mode — score just won't persist */
+    return '';
   }
 }
-let score = loadScore();
+const PID = playerId();
 
-function renderScore() {
-  const box = $('#ba-score');
-  if (score.rounds === 0) {
-    box.hidden = true;
-    return;
-  }
-  box.hidden = false;
-  $('#ba-score-spotted').textContent = String(score.spotted);
-  $('#ba-score-rounds').textContent = String(score.rounds);
-  $('#ba-score-fooled').textContent = String(score.fooled);
+// ── flavour copy (blended: dry Ocur wit + absurdist scribble energy) ─────────
+const WAIT_LINES = [
+  'rounding up some suspiciously confident humans…',
+  'waking the machine…',
+  'asking the internet to keep a straight face…',
+  'shuffling the liars…',
+];
+const RESULT_FOOLED = [
+  'You fooled them. They genuinely thought you were the machine. 🏆',
+  'Certified Artificial. They picked you as the real AI.',
+  'A human (you) just out-roboted a robot.',
+];
+const RESULT_SPOTTED = [
+  'Busted — they clocked you as human. Too much soul.',
+  "They spotted the bot, and it wasn't you. Try weirder.",
+  'Rumbled. The meat showed.',
+];
+const pick = (a) => a[Math.floor(Math.random() * a.length)];
+
+// ── view machine ─────────────────────────────────────────────────────────────
+let role = null; // 'ask' | 'be'
+function setView(name) {
+  $$('.ba-view').forEach((el) => {
+    el.hidden = el.dataset.view !== name;
+  });
 }
 
-// ── stage machine ────────────────────────────────────────────────────────────
-const stages = {};
-document.querySelectorAll('.ba-stage').forEach((el) => {
-  stages[el.dataset.stage] = el;
+// ── HUD ──────────────────────────────────────────────────────────────────────
+let me = { credits: 0, name: storedName(), timesFooledOthers: 0, timesSpottedAi: 0 };
+function renderMe() {
+  $('#ba-credits').textContent = String(me.credits ?? 0);
+  $('#ba-fooled').textContent = String(me.timesFooledOthers ?? 0);
+  $('#ba-spotted').textContent = String(me.timesSpottedAi ?? 0);
+  $('#ba-hud').hidden = false;
+}
+function renderPresence(p) {
+  if (!p) return;
+  $('#ba-presence').hidden = false;
+  $('#ba-online').textContent = String(p.online ?? 0);
+  $('#ba-inqueue').textContent = String(p.inQueue ?? 0);
+}
+
+// ── WebSocket transport (reconnect + heartbeat) ──────────────────────────────
+let ws = null;
+let wsReady = false;
+let backoff = 800;
+let heartbeat = null;
+const pending = []; // queued sends while connecting
+
+function connect() {
+  const name = encodeURIComponent(me.name || '');
+  const url = `${WS_URL}?pid=${encodeURIComponent(PID)}&name=${name}`;
+  try {
+    ws = new WebSocket(url);
+  } catch {
+    setConnected(false);
+    return scheduleReconnect();
+  }
+  ws.onopen = () => {
+    wsReady = true;
+    backoff = 800;
+    setConnected(true);
+    while (pending.length) ws.send(JSON.stringify(pending.shift()));
+    heartbeat = setInterval(() => send({ type: 'ping' }), 25000);
+  };
+  ws.onmessage = (e) => {
+    let msg;
+    try {
+      msg = JSON.parse(e.data);
+    } catch {
+      return;
+    }
+    handle(msg);
+  };
+  ws.onclose = () => {
+    wsReady = false;
+    setConnected(false);
+    if (heartbeat) clearInterval(heartbeat);
+    scheduleReconnect();
+  };
+  ws.onerror = () => ws && ws.close();
+}
+function scheduleReconnect() {
+  backoff = Math.min(backoff * 1.7, 12000);
+  setTimeout(connect, backoff + Math.random() * 400);
+}
+function send(msg) {
+  if (wsReady && ws) ws.send(JSON.stringify(msg));
+  else pending.push(msg);
+}
+function setConnected(ok) {
+  $('#ba-conn').dataset.state = ok ? 'on' : 'off';
+  $('#ba-conn-text').textContent = ok ? 'live' : 'reconnecting…';
+}
+
+// ── inbound message handling ─────────────────────────────────────────────────
+let currentRound = null; // asker's active round id
+let promptRound = null; // responder's active prompt round id
+
+function handle(msg) {
+  switch (msg.type) {
+    case 'welcome':
+      if (msg.player) {
+        me = { ...me, ...msg.player };
+        if (msg.player.name) me.name = msg.player.name;
+      }
+      renderMe();
+      renderPresence(msg.presence);
+      if (msg.stats) renderGlobalStat(msg.stats);
+      break;
+    case 'player':
+      me = { ...me, ...msg.player };
+      renderMe();
+      break;
+    case 'presence':
+      renderPresence(msg);
+      break;
+    case 'stats':
+      renderGlobalStat(msg.stats);
+      break;
+    case 'queued':
+      promptRound = null;
+      $('#ba-queue-pos').textContent = msg.position ? `#${msg.position} in line` : 'next up';
+      $('#ba-queue-wait').textContent = msg.estWaitMs
+        ? `~${Math.ceil(msg.estWaitMs / 1000)}s wait`
+        : 'any moment now';
+      if (role === 'be') setView('queued');
+      break;
+    case 'left_queue':
+      if (role === 'be') setView('join');
+      break;
+    case 'prompt':
+      promptRound = msg.roundId;
+      openPrompt(msg);
+      break;
+    case 'answer_received':
+      setView('answered');
+      break;
+    case 'asked':
+      currentRound = msg.roundId;
+      if (msg.player) {
+        me = { ...me, ...msg.player };
+        renderMe();
+      }
+      $('#ba-asked-line').textContent = msg.liveResponders
+        ? `${msg.liveResponders} real human${msg.liveResponders > 1 ? 's are' : ' is'} writing their best robot impression…`
+        : pick(WAIT_LINES);
+      setView('asked');
+      break;
+    case 'out_of_credits':
+      if (msg.player) {
+        me = { ...me, ...msg.player };
+        renderMe();
+      }
+      setView('broke');
+      break;
+    case 'duel':
+      renderDuel(msg);
+      break;
+    case 'reveal':
+      renderReveal(msg);
+      break;
+    case 'result':
+      renderResult(msg);
+      break;
+    case 'vote_update':
+      updateVotes(msg);
+      break;
+    case 'error':
+      flash(msg.message || 'something glitched');
+      break;
+    default:
+      break;
+  }
+}
+
+// ── ASKER: ask → asked → duel → reveal ───────────────────────────────────────
+$('#ba-ask-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const q = $('#ba-question').value.trim().slice(0, MAX_Q);
+  if (!q) return;
+  track('be_ai_ask', { length: q.length });
+  send({ type: 'ask', question: q });
 });
-function showStage(name) {
-  Object.entries(stages).forEach(([key, el]) => {
-    el.hidden = key !== name;
-  });
-}
+$('#ba-question').addEventListener('input', (e) => {
+  $('#ba-qcount').textContent = String(e.target.value.length);
+});
+$$('.ba-chip').forEach((c) =>
+  c.addEventListener('click', () => {
+    $('#ba-question').value = c.textContent;
+    $('#ba-question').dispatchEvent(new Event('input'));
+  })
+);
 
-// ── thinking animation (cycles the absurd statuses) ──────────────────────────
-let thinkTimer = null;
-function startThinking(question) {
-  $('#ba-think-q').textContent = `“${question}”`;
-  const statusEl = $('#ba-think-status');
-  let i = 0;
-  statusEl.textContent = THINK_STATUS[0];
-  showStage('think');
-  if (reduceMotion) return;
-  thinkTimer = window.setInterval(() => {
-    i = (i + 1) % THINK_STATUS.length;
-    statusEl.textContent = THINK_STATUS[i];
-  }, 1100);
-}
-function stopThinking() {
-  if (thinkTimer) window.clearInterval(thinkTimer);
-  thinkTimer = null;
-}
-
-// ── round + guess state ──────────────────────────────────────────────────────
-let current = null; // { roundId, question, options }
-let lastResult = null; // for the share card
-
-const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-
-async function startRound(question) {
-  question = question.trim().slice(0, MAX_Q);
-  if (!question) return;
-  current = null;
-  track('be_ai_round_start', { question_length: question.length });
-  startThinking(question);
-  setAskBusy(true);
-
-  // keep the "thinking" beat on screen a moment even if the API is instant —
-  // an instant reveal undersells the duel.
-  const minBeat = reduceMotion ? 0 : 900;
-  try {
-    const [data] = await Promise.all([
-      postJSON(`${API}/round`, { question }),
-      wait(minBeat),
-    ]);
-    stopThinking();
-    current = data;
-    renderDuel(data);
-  } catch (err) {
-    stopThinking();
-    showError(err);
-  } finally {
-    setAskBusy(false);
-  }
-}
-
-function renderDuel(data) {
-  $('#ba-duel-q').textContent = data.question;
-  const wrap = $('#ba-options');
+function renderDuel(msg) {
+  currentRound = msg.roundId;
+  $('#ba-duel-q').textContent = msg.question;
+  const wrap = $('#ba-duel-options');
   wrap.innerHTML = '';
-  (data.options || []).forEach((opt) => {
-    const card = document.createElement('button');
-    card.type = 'button';
-    card.className = 'ba-option lg glare';
-    card.dataset.slot = opt.slot;
-    card.innerHTML = `
-      <span class="ba-option-tag"><span class="ba-option-slot">${opt.slot}</span>Answer ${opt.slot}</span>
-      <span class="ba-option-text"></span>
-      <span class="ba-option-pick">This one's the real AI →</span>`;
-    card.querySelector('.ba-option-text').textContent = opt.text;
-    card.addEventListener('click', () => submitGuess(opt.slot));
-    wrap.appendChild(card);
+  msg.options.forEach((o, i) => {
+    wrap.appendChild(optionCard(o, i, false));
   });
-  showStage('duel');
+  setView('duel');
 }
 
-async function submitGuess(slot) {
-  if (!current) return;
-  // lock the cards so a double-tap can't fire two guesses
-  document.querySelectorAll('.ba-option').forEach((el) => {
-    el.disabled = true;
-    el.style.pointerEvents = 'none';
-    if (el.dataset.slot === slot) el.dataset.picked = 'true';
-  });
-  try {
-    const result = await postJSON(`${API}/guess`, { roundId: current.roundId, slot });
-    renderReveal(result, slot);
-  } catch (err) {
-    showError(err);
+function optionCard(o, i, revealed) {
+  const card = document.createElement('div');
+  card.className = 'ba-answer ba-sketch';
+  card.dataset.id = o.id;
+  const body =
+    o.kind === 'drawing'
+      ? `<img class="ba-answer-img" src="${o.drawing}" alt="a hand-drawn answer" />`
+      : `<p class="ba-answer-text"></p>`;
+  card.innerHTML = `
+    <div class="ba-answer-tag ba-hand">answer ${String.fromCharCode(65 + i)}</div>
+    ${body}
+    <div class="ba-answer-actions">
+      <button type="button" class="ba-pickbtn" data-id="${o.id}">this is the real AI →</button>
+      <div class="ba-votes">
+        <button type="button" class="ba-vote" data-dir="up" data-id="${o.id}">👍 <span data-up="${o.id}">0</span></button>
+        <button type="button" class="ba-vote" data-dir="down" data-id="${o.id}">👎 <span data-down="${o.id}">0</span></button>
+      </div>
+    </div>`;
+  if (o.kind !== 'drawing') card.querySelector('.ba-answer-text').textContent = o.text;
+  if (!revealed) {
+    card.querySelector('.ba-pickbtn').addEventListener('click', () => {
+      track('be_ai_guess', {});
+      send({ type: 'guess', roundId: currentRound, responseId: o.id });
+    });
   }
+  card.querySelectorAll('.ba-vote').forEach((b) =>
+    b.addEventListener('click', () =>
+      send({ type: 'vote', responseId: b.dataset.id, dir: b.dataset.dir })
+    )
+  );
+  return card;
 }
 
-function renderReveal(result, pickedSlot) {
-  const correct = !!result.correct;
+function updateVotes(msg) {
+  const up = document.querySelector(`[data-up="${msg.responseId}"]`);
+  const down = document.querySelector(`[data-down="${msg.responseId}"]`);
+  if (up) up.textContent = String(msg.votesUp);
+  if (down) down.textContent = String(msg.votesDown);
+}
 
-  // score
-  score.rounds += 1;
-  if (correct) score.spotted += 1;
-  else score.fooled += 1;
-  saveScore(score);
-  renderScore();
-
-  track('be_ai_guess', { correct, picked: pickedSlot, round: score.rounds });
-
-  // verdict
-  $('#ba-verdict-emoji').textContent = correct ? '🎯' : '😱';
-  $('#ba-verdict-h').textContent = correct ? 'You spotted the machine.' : 'A human just out-AI’d you.';
-  $('#ba-verdict-sub').textContent = correct ? pick(WIN_SUBS) : pick(LOSS_SUBS);
-
-  // revealed answers — the real Ocur is branded; the human is clearly flagged
-  // as NOT Ocur (the headline brand-safety guard).
+let lastReveal = null;
+function renderReveal(msg) {
+  if (msg.player) {
+    me = { ...me, ...msg.player };
+    renderMe();
+  }
+  $('#ba-reveal-emoji').textContent = msg.correct ? '🎯' : '😱';
+  $('#ba-reveal-h').textContent = msg.correct
+    ? 'You spotted the real Ocur.'
+    : 'A human just out-AI’d you.';
+  $('#ba-reveal-sub').textContent = msg.correct
+    ? `+${msg.reward} credits. The machines respect you.`
+    : 'You picked a human pretending. Happens to the best of us.';
   const grid = $('#ba-reveal-grid');
   grid.innerHTML = '';
-  ['A', 'B'].forEach((slot) => {
-    const isAi = slot === result.aiSlot;
+  msg.options.forEach((o) => {
     const card = document.createElement('div');
-    card.className = `ba-reveal-card ${isAi ? 'is-ai' : 'is-human'}${slot === pickedSlot ? ' is-picked' : ''}`;
-    const label = isAi
+    const human = !o.isOcur;
+    card.className = `ba-answer ba-sketch ${o.isOcur ? 'is-ai' : 'is-human'}${
+      o.id === msg.pickedId ? ' is-picked' : ''
+    }`;
+    const label = o.isOcur
       ? `<img src="/logo.svg" alt="" /> The real Ocur`
-      : `🥸 A human pretending to be an AI`;
-    card.innerHTML = `
-      <div class="ba-reveal-label">${label}</div>
-      <div class="ba-reveal-text"></div>`;
-    card.querySelector('.ba-reveal-text').textContent = (result.answers && result.answers[slot]) || '';
+      : `🥸 ${o.playerName || 'a human'} — pretending to be an AI`;
+    const body =
+      o.kind === 'drawing'
+        ? `<img class="ba-answer-img" src="${o.drawing}" alt="a hand-drawn answer" />`
+        : `<p class="ba-answer-text"></p>`;
+    card.innerHTML = `<div class="ba-answer-label ba-hand">${label}</div>${body}`;
+    if (o.kind !== 'drawing') card.querySelector('.ba-answer-text').textContent = o.text;
     grid.appendChild(card);
   });
-
-  lastResult = { correct, score: { ...score } };
-  showStage('reveal');
-
-  // soft nudge: after a few rounds, gently re-point at the product
-  if (score.rounds === 3) {
-    $('#ba-cta-btn').textContent = 'Okay, I have to try the real one →';
-  }
+  lastReveal = { correct: msg.correct, me: { ...me } };
+  setView('reveal');
+  loadGalleryAndBoard();
 }
 
-function showError(err) {
-  const msg = $('#ba-error-msg');
-  if (msg) {
-    msg.textContent =
-      err && err.status === 429
-        ? 'Whoa, slow down — too many rounds too fast. Give it a few seconds.'
-        : 'Couldn’t start that round. Give it another go in a moment.';
-  }
-  showStage('error');
+// ── RESPONDER: join → queued → prompt → answered → result ────────────────────
+let pad = null;
+let answerMode = 'text';
+
+function openPrompt(msg) {
+  $('#ba-prompt-q').textContent = msg.question;
+  $('#ba-answer').value = '';
+  $('#ba-acount').textContent = '0';
+  if (pad) pad.clear();
+  setAnswerMode('text');
+  startPromptTimer(msg.deadlineMs || 30000);
+  setView('prompt');
 }
 
-// ── ask form ─────────────────────────────────────────────────────────────────
-const askForm = $('#ba-ask-form');
-const questionInput = $('#ba-question');
-const askBtn = $('#ba-ask-btn');
-
-function setAskBusy(busy) {
-  askBtn.disabled = busy;
-  askBtn.classList.toggle('ba-ask-btn-spin', busy);
-  askBtn.textContent = busy ? 'Summoning contestants…' : 'Pit them against each other';
+let promptTimer = null;
+function startPromptTimer(ms) {
+  const end = Date.now() + ms;
+  const bar = $('#ba-timer-bar');
+  const tick = () => {
+    const left = Math.max(0, end - Date.now());
+    bar.style.width = `${(left / ms) * 100}%`;
+    if (left <= 0 && promptTimer) {
+      clearInterval(promptTimer);
+      promptTimer = null;
+    }
+  };
+  if (promptTimer) clearInterval(promptTimer);
+  tick();
+  if (!reduceMotion) promptTimer = setInterval(tick, 100);
 }
 
-questionInput.addEventListener('input', () => {
-  const n = questionInput.value.length;
-  $('#ba-count').textContent = String(n);
-});
+function setAnswerMode(mode) {
+  answerMode = mode;
+  $('#ba-mode-text').classList.toggle('on', mode === 'text');
+  $('#ba-mode-draw').classList.toggle('on', mode === 'draw');
+  $('#ba-answer-text-wrap').hidden = mode !== 'text';
+  $('#ba-answer-draw-wrap').hidden = mode !== 'draw';
+  if (mode === 'draw' && !pad) initPad();
+}
+$('#ba-mode-text').addEventListener('click', () => setAnswerMode('text'));
+$('#ba-mode-draw').addEventListener('click', () => setAnswerMode('draw'));
 
-askForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  startRound(questionInput.value);
-});
-
-document.querySelectorAll('.ba-chip').forEach((chip) => {
-  chip.addEventListener('click', () => {
-    questionInput.value = chip.textContent;
-    questionInput.dispatchEvent(new Event('input'));
-    startRound(chip.textContent);
+function initPad() {
+  pad = new DrawPad($('#ba-canvas'));
+  const palette = $('#ba-palette');
+  INK_COLORS.forEach((c, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'ba-swatch' + (i === 0 ? ' on' : '');
+    b.style.background = c;
+    b.addEventListener('click', () => {
+      pad.setColor(c);
+      $$('.ba-swatch', palette).forEach((s) => s.classList.remove('on'));
+      b.classList.add('on');
+    });
+    palette.appendChild(b);
   });
+  const sizes = $('#ba-sizes');
+  BRUSH_SIZES.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'ba-sizebtn' + (i === 1 ? ' on' : '');
+    b.innerHTML = `<i style="width:${s}px;height:${s}px"></i>`;
+    b.addEventListener('click', () => {
+      pad.setSize(s);
+      $$('.ba-sizebtn', sizes).forEach((x) => x.classList.remove('on'));
+      b.classList.add('on');
+    });
+    sizes.appendChild(b);
+  });
+  $('#ba-undo').addEventListener('click', () => pad.undo());
+  $('#ba-redo').addEventListener('click', () => pad.redo());
+  $('#ba-clear').addEventListener('click', () => pad.clear());
+}
+
+$('#ba-answer').addEventListener('input', (e) => {
+  $('#ba-acount').textContent = String(e.target.value.length);
 });
 
-// next round / retry → back to a fresh ask
-function resetToAsk() {
-  questionInput.value = '';
-  $('#ba-count').textContent = '0';
-  showStage('ask');
-  document.getElementById('play').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-  questionInput.focus({ preventScroll: true });
-}
-$('#ba-next-btn').addEventListener('click', resetToAsk);
-$('#ba-retry-btn').addEventListener('click', resetToAsk);
-
-// ── CTA + teaser analytics (links navigate normally) ─────────────────────────
-$('#ba-cta-btn').addEventListener('click', () => track('be_ai_cta_click', { placement: 'reveal' }));
-$('#ba-teaser-btn').addEventListener('click', () => track('be_ai_cta_click', { placement: 'teaser' }));
-document
-  .querySelectorAll('.g-nav .g-btn, .ba-final .g-btn')
-  .forEach((a) => a.addEventListener('click', () => track('be_ai_cta_click', { placement: 'chrome' })));
-
-// ── network ──────────────────────────────────────────────────────────────────
-async function postJSON(url, body) {
-  const resp = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-  if (!resp.ok) {
-    const err = new Error(`Request failed: ${resp.status}`);
-    err.status = resp.status;
-    throw err;
+$('#ba-answer-submit').addEventListener('click', () => {
+  if (!promptRound) return;
+  if (answerMode === 'draw') {
+    const drawing = pad && pad.toDataURL();
+    if (!drawing) return flash('draw something first');
+    send({ type: 'respond', roundId: promptRound, kind: 'drawing', drawing });
+  } else {
+    const text = $('#ba-answer').value.trim();
+    if (!text) return flash('write something first');
+    send({ type: 'respond', roundId: promptRound, kind: 'text', text: text.slice(0, 600) });
   }
-  return resp.json();
+  track('be_ai_respond', { mode: answerMode });
+});
+
+function renderResult(msg) {
+  if (msg.player) {
+    me = { ...me, ...msg.player };
+    renderMe();
+  }
+  const fooled = msg.fooledThem;
+  $('#ba-result-emoji').textContent = fooled ? '🏆' : '🫠';
+  $('#ba-result-h').textContent = fooled ? 'You fooled them!' : 'They spotted the bot.';
+  $('#ba-result-sub').textContent = fooled
+    ? `${pick(RESULT_FOOLED)} +${msg.reward} credits.`
+    : pick(RESULT_SPOTTED);
+  lastReveal = { correct: !fooled, fooledAsResponder: fooled, me: { ...me } };
+  setView('result');
+  loadGalleryAndBoard();
 }
 
-// ── global stats on the hero (social proof) ──────────────────────────────────
-(async function loadGlobalStats() {
+// ── role picker + nav between flows ──────────────────────────────────────────
+$('#ba-pick-be').addEventListener('click', () => {
+  role = 'be';
+  track('be_ai_role', { role: 'be' });
+  setView('join');
+});
+$('#ba-pick-ask').addEventListener('click', () => {
+  role = 'ask';
+  track('be_ai_role', { role: 'ask' });
+  setView('ask');
+});
+$$('.ba-torole').forEach((b) =>
+  b.addEventListener('click', () => {
+    const r = b.dataset.role;
+    if (r === 'be') {
+      role = 'be';
+      setView('join');
+    } else if (r === 'ask') {
+      role = 'ask';
+      setView('ask');
+    } else {
+      setView('pick');
+    }
+  })
+);
+$('#ba-join').addEventListener('click', () => {
+  send({ type: 'join_queue' });
+  track('be_ai_join_queue', {});
+});
+$('#ba-leave').addEventListener('click', () => send({ type: 'leave_queue' }));
+$('#ba-ask-again').addEventListener('click', () => {
+  $('#ba-question').value = '';
+  $('#ba-qcount').textContent = '0';
+  setView('ask');
+});
+$('#ba-be-again').addEventListener('click', () => send({ type: 'join_queue' }));
+$('#ba-broke-be').addEventListener('click', () => {
+  role = 'be';
+  setView('join');
+});
+$$('.ba-cta-link, #ba-cta-btn').forEach((a) =>
+  a.addEventListener('click', () => track('be_ai_cta_click', { placement: 'game' }))
+);
+
+// name editor
+$('#ba-name').value = me.name || '';
+$('#ba-name').addEventListener('change', (e) => {
+  const name = e.target.value.trim().slice(0, 24);
+  me.name = name;
   try {
-    const resp = await fetch(`${API}/stats`);
-    if (!resp.ok) return;
-    const s = await resp.json();
-    if (!s || !s.totalGuesses) return;
-    const el = $('#ba-globalstat');
-    const fooled = s.humanFooledCount | 0;
-    $('#ba-globalstat-text').innerHTML =
-      fooled > 0
-        ? `Humans have fooled players <strong>${fooled.toLocaleString()}×</strong> into thinking they were the AI`
-        : `<strong>${(s.totalRounds | 0).toLocaleString()}</strong> rounds played so far`;
-    el.hidden = false;
+    localStorage.setItem(NAME_KEY, name);
   } catch {
-    /* stats are optional flair — stay hidden on failure */
+    /* ignore */
   }
-})();
+  send({ type: 'set_name', name });
+});
 
-// ── share card ───────────────────────────────────────────────────────────────
+// ── gallery + leaderboard (HTTP) ─────────────────────────────────────────────
+async function loadGalleryAndBoard() {
+  loadGallery();
+  loadBoard();
+}
+async function loadGallery() {
+  try {
+    const r = await fetch(`${API}/gallery`);
+    if (!r.ok) return;
+    const { items } = await r.json();
+    const grid = $('#ba-gallery-grid');
+    if (!items || !items.length) return;
+    grid.innerHTML = '';
+    items.slice(0, 24).forEach((it) => {
+      const card = document.createElement('figure');
+      card.className = 'ba-gal ba-sketch';
+      const body =
+        it.kind === 'drawing'
+          ? `<img src="${it.drawing}" alt="a hand-drawn answer" />`
+          : `<p class="ba-answer-text"></p>`;
+      card.innerHTML = `${body}<figcaption class="ba-hand">“${it.question}”${
+        it.pickedAsAi ? ' · fooled them 🏆' : ''
+      }</figcaption>`;
+      if (it.kind !== 'drawing') card.querySelector('.ba-answer-text').textContent = it.text;
+      grid.appendChild(card);
+    });
+    $('#ba-gallery').hidden = false;
+  } catch {
+    /* gallery is best-effort */
+  }
+}
+async function loadBoard() {
+  try {
+    const r = await fetch(`${API}/leaderboard`);
+    if (!r.ok) return;
+    const { players } = await r.json();
+    if (!players || !players.length) return;
+    const ol = $('#ba-board-list');
+    ol.innerHTML = '';
+    players.slice(0, 10).forEach((p) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="ba-board-name">${escapeHtml(p.name)}</span>
+        <span class="ba-board-score">fooled ${p.timesFooledOthers}×</span>`;
+      ol.appendChild(li);
+    });
+    $('#ba-leaderboard').hidden = false;
+  } catch {
+    /* best-effort */
+  }
+}
+function renderGlobalStat(stats) {
+  if (!stats || !stats.totalGuesses) return;
+  const el = $('#ba-globalstat');
+  if (!el) return;
+  $('#ba-globalstat-text').innerHTML = `Humans have fooled players <strong>${(
+    stats.humanFooledCount || 0
+  ).toLocaleString()}×</strong> into thinking they were the AI`;
+  el.hidden = false;
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+// ── transient toast ──────────────────────────────────────────────────────────
+let toastTimer = null;
+function flash(text) {
+  const t = $('#ba-toast');
+  t.textContent = text;
+  t.hidden = false;
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => (t.hidden = true), 2600);
+}
+
+// ── share card (lazy) ────────────────────────────────────────────────────────
 import('./be-ai-share.js')
-  .then(({ initShare }) => initShare({ lastResult: () => lastResult, track }))
-  .catch(() => {
-    /* share is enhancement-only; the game works without it */
-  });
+  .then(({ initShare }) => initShare({ lastResult: () => lastReveal, track }))
+  .catch(() => {});
+
+// ── go ───────────────────────────────────────────────────────────────────────
+setView('pick');
+connect();
+loadGalleryAndBoard();
