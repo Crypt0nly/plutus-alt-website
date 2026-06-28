@@ -275,6 +275,9 @@ function handle(msg) {
     case 'answer_received':
       onAnswerReceived();
       break;
+    case 'round_timeout':
+      onPromptExpired();
+      break;
     case 'asked':
       currentRound = msg.roundId;
       if (msg.player) {
@@ -477,11 +480,25 @@ function startPromptTimer(ms) {
   const tick = () => {
     const left = Math.max(0, end - Date.now());
     bar.style.width = `${(left / ms) * 100}%`;
-    if (left <= 0) stopTimer();
+    if (left <= 0) onPromptExpired();
   };
   if (promptTimer) clearInterval(promptTimer);
   tick();
   if (!reduceMotion) promptTimer = setInterval(tick, 100);
+}
+// The answer window ran out before they submitted — don't strand them on a dead
+// composer (a late submit just gets "that round already closed"). Bounce them
+// back to the queue for a fresh round.
+function onPromptExpired() {
+  stopTimer();
+  if ($('#ba-be-composer').hidden) return; // already answered → waiting on a verdict
+  $('#ba-be-composer').hidden = true;
+  pendingAnswer = null;
+  promptRound = null;
+  addMsg(beChat(), 'sys', { text: "⏰ time's up — finding you a new round" });
+  setView('queued');
+  mountWaitGame($('#ba-queued-waitgame'));
+  send({ type: 'join_queue' });
 }
 function stopTimer() {
   if (promptTimer) clearInterval(promptTimer);
@@ -687,25 +704,48 @@ async function loadGallery() {
     /* gallery is best-effort */
   }
 }
+let boardPlayers = [];
+let boardExpanded = false;
+let boardPoll = null;
 async function loadBoard() {
   try {
     const r = await fetch(`${API}/leaderboard`);
     if (!r.ok) return;
     const { players } = await r.json();
     if (!players || !players.length) return;
-    const ol = $('#ba-board-list');
-    ol.innerHTML = '';
-    players.slice(0, 10).forEach((p) => {
-      const li = document.createElement('li');
-      li.innerHTML = `<span class="ba-board-name">${escapeHtml(p.name)}</span>
-        <span class="ba-board-score">fooled ${p.timesFooledOthers}×</span>`;
-      ol.appendChild(li);
-    });
+    boardPlayers = players;
+    renderBoard();
     $('#ba-leaderboard').hidden = false;
+    // Keep it alive — the board drifts and resets daily server-side, so re-poll.
+    if (!boardPoll) boardPoll = setInterval(loadBoard, 30000);
   } catch {
     /* best-effort */
   }
 }
+function renderBoard() {
+  const ol = $('#ba-board-list');
+  if (!ol) return;
+  const shown = boardPlayers.slice(0, boardExpanded ? 50 : 5);
+  ol.innerHTML = '';
+  shown.forEach((p) => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="ba-board-name"></span>
+      <span class="ba-board-score">fooled ${p.timesFooledOthers}×</span>`;
+    li.querySelector('.ba-board-name').textContent = p.name;
+    ol.appendChild(li);
+  });
+  const toggle = $('#ba-board-toggle');
+  if (toggle) {
+    toggle.hidden = boardPlayers.length <= 5;
+    toggle.textContent = boardExpanded
+      ? 'Show less ↑'
+      : `Show the top ${Math.min(50, boardPlayers.length)} ↓`;
+  }
+}
+$('#ba-board-toggle')?.addEventListener('click', () => {
+  boardExpanded = !boardExpanded;
+  renderBoard();
+});
 function renderGlobalStat(stats) {
   if (!stats || !stats.totalGuesses) return;
   const el = $('#ba-globalstat');
