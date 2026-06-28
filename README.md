@@ -90,7 +90,7 @@ production:
 - A deliberately opened `/de/` link with no stored preference is served
   as-is.
 - `/assets/*` (hashed filenames) are served immutable for a year.
-- `/be-ai/api/*` is rewritten (proxied) to `app.ocur.ai/api/be-ai/*` so the
+- `/be-ai/api/*` is rewritten (proxied) to `api.ocur.ai/api/be-ai/*` so the
   game's interactive parts run on the app backend while the page itself stays
   on the marketing site (see the `/be-ai` section above).
 
@@ -121,11 +121,11 @@ id in `localStorage` is the only identity; login is a later conversion step.
 the game lives in the app backend (`plutus-cloud`).
 
 - **Realtime** runs over a WebSocket the client opens **directly** to
-  `wss://app.ocur.ai/api/be-ai/ws?pid=<id>` — Vercel rewrites don't carry WS
+  `wss://api.ocur.ai/api/be-ai/ws?pid=<id>` — Vercel rewrites don't carry WS
   upgrades, so it is *not* proxied. Messages: `join_queue` / `ask` / `respond`
   / `guess` / `vote`.
 - **HTTP** (gallery, leaderboard) goes through the same-origin `/be-ai/api/*`
-  rewrite → `app.ocur.ai/api/be-ai/*` (in `vercel.json`; `vite.config.js`
+  rewrite → `api.ocur.ai/api/be-ai/*` (in `vercel.json`; `vite.config.js`
   mirrors it as a dev proxy). Override with `VITE_BE_AI_WS`,
   `VITE_BE_AI_BACKEND`, `VITE_BE_AI_API`.
 

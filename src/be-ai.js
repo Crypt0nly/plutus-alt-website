@@ -6,8 +6,9 @@
 //   • Spot the AI — ask a prompt, read the answers, pick the real Ocur.
 //
 // Ocur is the house player, so a round always resolves. The WS connects
-// directly to app.ocur.ai (Vercel rewrites don't proxy WebSockets); the
-// gallery/leaderboard go through the same-origin /be-ai/api/* rewrite.
+// directly to the backend host api.ocur.ai (NOT the app.ocur.ai frontend —
+// Vercel rewrites don't proxy WebSocket upgrades); the gallery/leaderboard go
+// through the same-origin /be-ai/api/* rewrite, which also points at api.ocur.ai.
 
 import './style.css';
 import './be-ai.css';
@@ -16,7 +17,7 @@ import { initAnalytics, track } from './analytics.js';
 import { DrawPad, INK_COLORS, BRUSH_SIZES } from './be-ai-draw.js';
 
 const API = import.meta.env.VITE_BE_AI_API || '/be-ai/api';
-const WS_URL = import.meta.env.VITE_BE_AI_WS || 'wss://app.ocur.ai/api/be-ai/ws';
+const WS_URL = import.meta.env.VITE_BE_AI_WS || 'wss://api.ocur.ai/api/be-ai/ws';
 const SIGNUP = 'https://app.ocur.ai?utm_source=be-ai&utm_medium=referral&utm_campaign=reverse-turing';
 const PID_KEY = 'ocur-beai-pid';
 const NAME_KEY = 'ocur-beai-name';
