@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#060608" />
+    <title>Be the AI — the live reverse Turing test | Ocur</title>
+    <meta
+      name="description"
+      content="A live game where humans pretend to be an AI. Join the AI queue and answer strangers' prompts — in text or a scribble — while everyone tries to spot the real Ocur. Fool people, earn credits, get Certified Artificial. Made with Ocur."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ocur.ai/be-ai" />
+    <meta property="og:title" content="Be the AI — the live reverse Turing test" />
+    <meta
+      property="og:description"
+      content="Humans pretending to be an AI, live. Answer prompts, fool people, spot the real Ocur. Can you tell who's the machine?"
+    />
+    <meta property="og:image" content="https://ocur.ai/be-ai-og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Be the AI — the live reverse Turing test" />
+    <meta
+      name="twitter:description"
+      content="Humans pretending to be an AI, live. Fool people, spot the real Ocur."
+    />
+    <meta name="twitter:image" content="https://ocur.ai/be-ai-og.png" />
+    <link rel="canonical" href="https://ocur.ai/be-ai" />
+    <script>
+      document.documentElement.classList.add('js');
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('motion');
+      }
+      try {
+        var t = localStorage.getItem('ocur-theme');
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.dataset.theme = t;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    </script>
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Caveat:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="g ba">
+    <div class="g-grain" aria-hidden="true"></div>
+
+    <header class="g-nav lg glare" id="g-nav">
+      <a class="g-brand" href="/"><img src="/logo.svg" alt="" /> Ocur</a>
+      <nav class="g-links" aria-label="Primary">
+        <a href="#play">Play</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#how">How it works</a>
+        <a href="/">The real thing</a>
+      </nav>
+      <a class="g-btn g-btn-sm magnetic" href="https://app.ocur.ai?utm_source=be-ai&utm_medium=referral&utm_campaign=reverse-turing">Start free</a>
+    </header>
+
+    <main>
+      <!-- hero -->
+      <section class="g-hero ba-hero">
+        <div class="g-glow g-glow-hero" aria-hidden="true"></div>
+        <div class="g-wrap">
+          <p class="ba-kicker"><span class="g-kdot" aria-hidden="true"></span>The live reverse Turing test</p>
+          <h1 class="g-h1">be the <span class="g-grad ba-scribble">AI</span>.</h1>
+          <p class="ba-sub">
+            A room full of humans doing their best robot impression — answering real prompts in
+            text or a scribble — while everyone tries to spot the one real AI. (It's
+            <strong>Ocur</strong>, the house player. Probably. Maybe. Good luck.)
+          </p>
+          <div class="g-ctas">
+            <a class="g-btn g-btn-lg magnetic" href="#play">Play now</a>
+            <a class="g-btn g-btn-glass lg magnetic" href="#how">how does this work?</a>
+          </div>
+          <div class="ba-globalstat" id="ba-globalstat" hidden>
+            <span class="ba-globalstat-dot" aria-hidden="true"></span>
+            <span id="ba-globalstat-text"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- the game -->
+      <section class="ba-game" id="play">
+        <div class="g-glow g-glow-demo" aria-hidden="true"></div>
+        <div class="g-wrap">
+          <!-- HUD -->
+          <div class="ba-topbar">
+            <div class="ba-hud" id="ba-hud" hidden>
+              <span class="ba-credits" title="credits">✏️ <strong id="ba-credits">0</strong></span>
+              <span class="ba-stat" title="times you fooled an asker">🏆 <strong id="ba-fooled">0</strong></span>
+              <span class="ba-stat" title="times you spotted the real AI">🎯 <strong id="ba-spotted">0</strong></span>
+              <input id="ba-name" class="ba-name" maxlength="24" placeholder="nickname" aria-label="Your nickname" />
+            </div>
+            <div class="ba-meta">
+              <span class="ba-presence" id="ba-presence" hidden>
+                <strong id="ba-online">0</strong> online · <strong id="ba-inqueue">0</strong> in the AI queue
+              </span>
+              <span class="ba-conn" id="ba-conn" data-state="off">
+                <span class="ba-conn-dot" aria-hidden="true"></span><span id="ba-conn-text">connecting…</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="ba-board lg glare">
+            <!-- VIEW: role picker -->
+            <div class="ba-view" data-view="pick">
+              <h2 class="ba-stage-h">Pick your side.</h2>
+              <p class="ba-stage-p">Both are anonymous. No login, no nothing.</p>
+              <div class="ba-roles">
+                <button type="button" class="ba-role ba-sketch" id="ba-pick-be">
+                  <span class="ba-role-emoji" aria-hidden="true">🥸</span>
+                  <span class="ba-role-h ba-hand">Be the AI</span>
+                  <span class="ba-role-p">Answer strangers' prompts pretending to be a machine. Fool them, earn credits, get Certified Artificial.</span>
+                </button>
+                <button type="button" class="ba-role ba-sketch" id="ba-pick-ask">
+                  <span class="ba-role-emoji" aria-hidden="true">🕵️</span>
+                  <span class="ba-role-h ba-hand">Spot the AI</span>
+                  <span class="ba-role-p">Ask anything, read the answers, and pick the real Ocur hiding among the humans.</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- VIEW: ask -->
+            <div class="ba-view" data-view="ask" hidden>
+              <div class="ba-rolebar"><button type="button" class="ba-back ba-torole" data-role="pick">← back</button><span class="ba-hand">Spot the AI</span></div>
+              <h2 class="ba-stage-h">Ask anything.</h2>
+              <p class="ba-stage-p">Humans in the queue (and Ocur) will answer. Then you guess which one is the machine.</p>
+              <form id="ba-ask-form" class="ba-ask">
+                <textarea id="ba-question" class="ba-input ba-sketch" maxlength="280" rows="2" placeholder="e.g. describe the smell of rain to a toaster" aria-label="Your question"></textarea>
+                <div class="ba-ask-row">
+                  <span class="ba-count"><span id="ba-qcount">0</span>/280 · costs ✏️1</span>
+                  <button type="submit" class="g-btn magnetic">Send it to the room</button>
+                </div>
+              </form>
+              <div class="ba-chips">
+                <span class="ba-chips-label">stuck?</span>
+                <button type="button" class="ba-chip">is cereal a soup?</button>
+                <button type="button" class="ba-chip">describe the colour blue without using "blue"</button>
+                <button type="button" class="ba-chip">what do clouds taste like?</button>
+                <button type="button" class="ba-chip">pitch me a startup for dogs</button>
+              </div>
+            </div>
+
+            <!-- VIEW: asker chat (question → answers → pick → reveal) -->
+            <div class="ba-view" data-view="ask-chat" hidden>
+              <div class="ba-rolebar"><span class="ba-hand">Spot the AI</span><span class="ba-chat-hint" id="ba-ask-hint">one of these is the real Ocur — tap it</span></div>
+              <div class="ba-chat" id="ba-ask-chat"></div>
+              <div class="ba-waitgame-slot" id="ba-ask-waitgame" hidden></div>
+              <div class="ba-after" id="ba-ask-after" hidden>
+                <div class="ba-verdict">
+                  <p class="ba-verdict-emoji" id="ba-reveal-emoji"></p>
+                  <h2 class="ba-verdict-h" id="ba-reveal-h"></h2>
+                  <p class="ba-verdict-sub" id="ba-reveal-sub"></p>
+                </div>
+                <div class="ba-cta ba-sketch">
+                  <p class="ba-cta-h">The real AI was <span class="g-grad">Ocur</span>.</p>
+                  <p class="ba-cta-p">It doesn't just win party games — it plugs into your inbox, calendar, files and chat and actually <em>does the work</em>.</p>
+                  <a class="g-btn g-btn-lg magnetic" id="ba-cta-btn" href="https://app.ocur.ai?utm_source=be-ai&utm_medium=referral&utm_campaign=reverse-turing">Try the real Ocur — free →</a>
+                </div>
+                <div class="ba-reveal-actions">
+                  <button type="button" class="g-btn g-btn-glass lg magnetic ba-share-trigger">Share this 🔥</button>
+                  <button type="button" class="g-btn g-btn-glass lg magnetic" id="ba-ask-again">Ask another →</button>
+                  <button type="button" class="g-btn g-btn-glass lg magnetic ba-torole" data-role="be">Now BE the AI →</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- VIEW: responder chat (prompt → answer → result) -->
+            <div class="ba-view" data-view="be-chat" hidden>
+              <div class="ba-timer" id="ba-timer" aria-hidden="true"><span class="ba-timer-bar" id="ba-timer-bar"></span></div>
+              <div class="ba-rolebar"><span class="ba-hand">Be the AI</span><span class="ba-chat-hint">answer like a machine — the rule is 10 words</span></div>
+              <div class="ba-chat" id="ba-be-chat"></div>
+
+              <!-- composer (shown only while answering) -->
+              <div class="ba-composer" id="ba-be-composer" hidden>
+                <div class="ba-modes">
+                  <button type="button" class="ba-mode on" id="ba-mode-text">type it</button>
+                  <button type="button" class="ba-mode" id="ba-mode-draw">draw it ✏️</button>
+                </div>
+                <div id="ba-answer-text-wrap">
+                  <textarea id="ba-answer" class="ba-input ba-sketch" maxlength="280" rows="2" placeholder="beep boop, the answer is obviously…" aria-label="Your answer"></textarea>
+                  <div class="ba-ask-row">
+                    <span class="ba-count" id="ba-wordcount"><strong>0</strong>/10 words</span>
+                    <span class="ba-count ba-dim">over 10 = suspiciously human 👀</span>
+                  </div>
+                </div>
+                <div id="ba-answer-draw-wrap" hidden>
+                  <div class="ba-canvas-wrap ba-sketch"><canvas id="ba-canvas" aria-label="drawing pad"></canvas></div>
+                  <div class="ba-tools">
+                    <div class="ba-palette" id="ba-palette"></div>
+                    <div class="ba-sizes" id="ba-sizes"></div>
+                    <div class="ba-tool-actions">
+                      <button type="button" class="ba-tool" id="ba-undo" title="undo">↶</button>
+                      <button type="button" class="ba-tool" id="ba-redo" title="redo">↷</button>
+                      <button type="button" class="ba-tool" id="ba-clear" title="clear">clear</button>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="g-btn g-btn-lg magnetic ba-submit" id="ba-answer-submit">Submit your answer</button>
+              </div>
+
+              <div class="ba-after" id="ba-be-after" hidden>
+                <div class="ba-verdict">
+                  <p class="ba-verdict-emoji" id="ba-result-emoji"></p>
+                  <h2 class="ba-verdict-h" id="ba-result-h"></h2>
+                  <p class="ba-verdict-sub" id="ba-result-sub"></p>
+                </div>
+                <div class="ba-reveal-actions">
+                  <button type="button" class="g-btn g-btn-glass lg magnetic ba-share-trigger">Share this 🔥</button>
+                  <button type="button" class="g-btn magnetic" id="ba-be-again">Go again →</button>
+                  <button type="button" class="g-btn g-btn-glass lg magnetic ba-torole" data-role="ask">Try spotting instead →</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- VIEW: out of credits -->
+            <div class="ba-view ba-wait" data-view="broke" hidden>
+              <p class="ba-verdict-emoji">🪙</p>
+              <h2 class="ba-stage-h">Out of credits.</h2>
+              <p class="ba-stage-p">Earn more by <strong>being the AI</strong> and fooling people — or just keep playing the free way.</p>
+              <div class="ba-reveal-actions">
+                <button type="button" class="g-btn magnetic" id="ba-broke-be">Be the AI to earn credits →</button>
+                <a class="g-btn g-btn-glass lg magnetic ba-cta-link" href="https://app.ocur.ai?utm_source=be-ai&utm_medium=referral&utm_campaign=reverse-turing">Meet the real Ocur</a>
+              </div>
+            </div>
+
+            <!-- VIEW: join queue -->
+            <div class="ba-view" data-view="join" hidden>
+              <div class="ba-rolebar"><button type="button" class="ba-back ba-torole" data-role="pick">← back</button><span class="ba-hand">Be the AI</span></div>
+              <span class="ba-role-emoji ba-big" aria-hidden="true">🥸</span>
+              <h2 class="ba-stage-h">Ready to be the machine?</h2>
+              <p class="ba-stage-p">Join the queue. When a human asks something, you'll get 60 seconds to answer like an AI — typing or drawing. Fool them and you earn credits.</p>
+              <button type="button" class="g-btn g-btn-lg magnetic" id="ba-join">Join the AI queue</button>
+            </div>
+
+            <!-- VIEW: queued -->
+            <div class="ba-view ba-wait" data-view="queued" hidden>
+              <div class="ba-loader" aria-hidden="true"></div>
+              <h2 class="ba-stage-h">You're in the queue.</h2>
+              <p class="ba-stage-p"><strong id="ba-queue-pos">next up</strong> · <span id="ba-queue-wait">any moment now</span></p>
+              <p class="ba-stage-p ba-dim">keep this tab open — a prompt will pop up here.</p>
+              <div class="ba-waitgame-slot" id="ba-queued-waitgame"></div>
+              <button type="button" class="g-btn g-btn-glass lg magnetic" id="ba-leave">leave queue</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- gallery -->
+      <section class="ba-section" id="ba-gallery" hidden>
+        <div class="g-wrap">
+          <h2 class="g-h2">The <span class="g-grad ba-scribble">slop</span> gallery.</h2>
+          <p class="ba-section-sub">Real answers from humans being the AI. Some fooled everyone. None of these are Ocur.</p>
+          <div class="ba-gallery-grid" id="ba-gallery-grid"></div>
+        </div>
+      </section>
+
+      <!-- leaderboard -->
+      <section class="ba-section" id="ba-leaderboard" hidden>
+        <div class="g-wrap">
+          <h2 class="g-h2">Certified <span class="g-grad">Artificial.</span></h2>
+          <p class="ba-section-sub">The humans who fooled the most people into thinking they were the machine.</p>
+          <ol class="ba-board-list" id="ba-board-list"></ol>
+        </div>
+      </section>
+
+      <!-- how it works -->
+      <section class="ba-how" id="how">
+        <div class="g-wrap">
+          <h2 class="g-h2">How it <span class="g-grad ba-scribble">works.</span></h2>
+          <div class="ba-steps">
+            <article class="ba-step ba-sketch">
+              <span class="ba-step-n ba-hand">1</span>
+              <h3>Be the AI, or spot it</h3>
+              <p>Join the AI queue to answer prompts pretending to be a machine — or ask a prompt and try to spot the real Ocur among the humans.</p>
+            </article>
+            <article class="ba-step ba-sketch">
+              <span class="ba-step-n ba-hand">2</span>
+              <h3>Answer in text or a scribble</h3>
+              <p>When you're "being the AI" you get 60 seconds to answer. Type something uncanny, or draw your reply on the pad.</p>
+            </article>
+            <article class="ba-step ba-sketch">
+              <span class="ba-step-n ba-hand">3</span>
+              <h3>Fool people, earn credits</h3>
+              <p>If the asker picks you as the real AI, you fooled them — credits and a leaderboard spot. Spot the real Ocur and you earn too.</p>
+            </article>
+          </div>
+          <p class="ba-how-note">
+            Ocur is always the house player, so there's always a real AI in the room. Human answers
+            are written by real people and are <strong>never Ocur</strong> — they're clearly labelled
+            and run through a moderation filter.
+          </p>
+        </div>
+      </section>
+
+      <!-- final -->
+      <section class="g-final ba-final">
+        <div class="g-glow g-glow-final" aria-hidden="true"></div>
+        <div class="g-wrap">
+          <h2 class="g-final-h">Meet the AI you<br /><span class="g-grad">couldn't out-AI.</span></h2>
+          <a class="g-btn g-btn-lg magnetic ba-cta-link" href="https://app.ocur.ai?utm_source=be-ai&utm_medium=referral&utm_campaign=reverse-turing-final">Start free</a>
+          <p class="ba-micro">Ocur runs the actual work — inbox, calendar, files, chat — on demand or on autopilot.</p>
+          <footer class="g-foot">
+            <span>Ocur © <span id="g-year">2026</span></span>
+            <span><em>Made with Ocur — the house player.</em></span>
+          </footer>
+        </div>
+      </section>
+    </main>
+
+    <!-- share overlay -->
+    <div class="ba-share-overlay" id="ba-share-overlay" hidden>
+      <div class="ba-share-modal lg" role="dialog" aria-modal="true" aria-label="Share your result">
+        <button type="button" class="ba-share-close" id="ba-share-close" aria-label="Close">×</button>
+        <div class="ba-share-preview"><canvas id="ba-share-canvas" width="1200" height="630"></canvas></div>
+        <div class="ba-share-btns">
+          <a class="g-btn magnetic" id="ba-share-x" target="_blank" rel="noopener">Share on X</a>
+          <a class="g-btn g-btn-glass lg magnetic" id="ba-share-li" target="_blank" rel="noopener">LinkedIn</a>
+          <button type="button" class="g-btn g-btn-glass lg magnetic" id="ba-share-download">Save card</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ba-toast ba-hand" id="ba-toast" hidden></div>
+
+    <script type="module" src="/src/be-ai.js"></script>
+  </body>
+</html>
