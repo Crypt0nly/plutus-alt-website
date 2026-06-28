@@ -12,4 +12,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://ocur.ai/de/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ocur.ai/" />
   </url>
+  <url>
+    <loc>https://ocur.ai/be-ai</loc>
+  </url>
 </urlset>
