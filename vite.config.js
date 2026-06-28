@@ -11,14 +11,16 @@ import { resolve } from 'node:path';
 //
 // The game's interactive parts are powered by the app backend (plutus-cloud).
 // HTTP (gallery/leaderboard/duel) is proxied: in production a Vercel rewrite
-// sends /be-ai/api/* → app.ocur.ai (see vercel.json); in dev the server.proxy
-// below stands in for it so `npm run dev` talks to a backend without CORS.
+// sends /be-ai/api/* → the backend api.ocur.ai (see vercel.json); in dev the
+// server.proxy below stands in for it so `npm run dev` talks to a backend
+// without CORS.
 //
 // The realtime WebSocket is NOT proxied (Vercel rewrites don't carry WS
-// upgrades) — the client connects straight to wss://app.ocur.ai by default.
-// Point dev at a local backend with
+// upgrades) — the client connects straight to wss://api.ocur.ai by default
+// (the backend host, not the app.ocur.ai frontend). Point dev at a local
+// backend with
 //   VITE_BE_AI_WS=ws://localhost:8000/api/be-ai/ws VITE_BE_AI_BACKEND=http://localhost:8000 npm run dev
-const BE_AI_BACKEND = process.env.VITE_BE_AI_BACKEND || 'https://app.ocur.ai';
+const BE_AI_BACKEND = process.env.VITE_BE_AI_BACKEND || 'https://api.ocur.ai';
 
 export default defineConfig({
   base: '/',
