@@ -103,7 +103,7 @@ export const DE = [
   ['#pricing .g-h2', 'Kostenlos starten. Skalieren, <span class="g-grad">wenn’s überzeugt.</span>'],
   ['.g-eyebrow', ['Zum Ausprobieren', 'Für wachsende Teams', 'Für den vollen Betrieb']],
   ['.g-badge', 'Am beliebtesten'],
-  ['.g-price', ['€0<span>/Monat</span>', '€149<span>/Monat</span>', '€299<span>/Monat</span>']],
+  ['.g-price', ['€0<span>/Monat</span>', '€1.500<span>/Monat</span>', '€5.000<span>/Monat</span>']],
   [
     '.g-card li',
     [
