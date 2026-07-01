@@ -14,7 +14,7 @@ with Vite, vanilla JS, and vanilla CSS.
 > ships: connectors, voice, company memory, the autonomous heartbeat
 > autopilot, scheduled automations, parallel workers, desktop control,
 > image generation, autonomous email replies, org/role guardrails, and
-> the Free / Team ($149) / Business ($299) plans.
+> the Free / Team ($1,500) / Business ($5,000) plans.
 
 ## Page tour
 
@@ -35,8 +35,8 @@ with Vite, vanilla JS, and vanilla CSS.
    (autopilot heartbeat, every department, talk to it, company memory,
    drives your computer, built for control), each with a pointer-tracked
    glare.
-5. **Pricing** — Free ("for the pilot") / Team ($149, "most popular") /
-   Business ($299), mirroring the in-app plans and token allowances, with
+5. **Pricing** — Free ("for the pilot") / Team ($1,500, "most popular") /
+   Business ($5,000), mirroring the in-app plans and token allowances, with
    an Enterprise note.
 6. **FAQ** — seven `<details>` accordions answering the classic objections:
    free?, install?, autonomy/approval, integrations, privacy, company-wide
