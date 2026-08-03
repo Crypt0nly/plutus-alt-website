@@ -172,4 +172,8 @@ export const DE = [
 ];
 
 // selector → [attribute, value]
-export const DE_ATTRS = [['.g-links', 'aria-label', 'Hauptnavigation']];
+export const DE_ATTRS = [
+  ['.g-links', 'aria-label', 'Hauptnavigation'],
+  ['.g-social-x', 'aria-label', 'Ocur auf X'],
+  ['.g-social-x', 'title', 'Ocur auf X'],
+];
