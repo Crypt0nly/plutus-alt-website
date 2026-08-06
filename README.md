@@ -14,7 +14,7 @@ with Vite, vanilla JS, and vanilla CSS.
 > ships: connectors, voice, company memory, the autonomous heartbeat
 > autopilot, scheduled automations, parallel workers, desktop control,
 > image generation, autonomous email replies, org/role guardrails, and
-> the Free / Team ($149) / Business ($299) plans.
+> the Free / Team ($1,500) / Business ($5,000) plans.
 
 ## Page tour
 
@@ -35,8 +35,8 @@ with Vite, vanilla JS, and vanilla CSS.
    (autopilot heartbeat, every department, talk to it, company memory,
    drives your computer, built for control), each with a pointer-tracked
    glare.
-5. **Pricing** — Free ("for the pilot") / Team ($149, "most popular") /
-   Business ($299), mirroring the in-app plans and token allowances, with
+5. **Pricing** — Free ("for the pilot") / Team ($1,500, "most popular") /
+   Business ($5,000), mirroring the in-app plans and token allowances, with
    an Enterprise note.
 6. **FAQ** — seven `<details>` accordions answering the classic objections:
    free?, install?, autonomy/approval, integrations, privacy, company-wide
@@ -76,6 +76,73 @@ hero until the final section.
   is a pair of real links whose choice persists in localStorage (`ocur-lang`)
   and beats browser language. `?lang=de` force-applies German client-side on
   the dev server, where `/de/` doesn't exist.
+
+## Link previews
+
+Every page unfurls with a full-bleed card when it's pasted into X, WhatsApp,
+iMessage, LinkedIn, Slack or Discord — `summary_large_image` plus a 1200×630
+image, `og:url`, `og:site_name` and `og:locale`:
+
+| Page | Card |
+| --- | --- |
+| `ocur.ai/` | `public/og.jpg` |
+| `ocur.ai/de/` | `public/og-de.jpg` |
+| `ocur.ai/be-ai` | `public/be-ai-og.png` |
+
+The cards are rendered from HTML through Playwright's Chromium — the real
+Obsidian-Glass look, not a hand-rolled bitmap — and the outputs are committed,
+so the production build never touches them:
+
+```bash
+npm i -D playwright && npm run gen:og     # all three
+npm run gen:og og.jpg                     # just one
+```
+
+Playwright is a one-off tool, deliberately not a shipped dependency (it would
+pull a browser download into every install and Vercel build).
+
+Two things to keep in mind when changing a card:
+
+- **Bump the `?v=` query** on `og:image`/`twitter:image` (in `index.html` and
+  `scripts/prerender-de.mjs`) — every crawler caches the image by URL, so
+  without a new URL the old art keeps unfurling.
+- **Keep it well under 300 KB.** WhatsApp silently drops the preview on heavy
+  images. That's why the home cards are JPEG q96 (~130 KB, no visible
+  difference on art that's mostly a smooth gradient) while `/be-ai` keeps the
+  PNG it was already shared with.
+
+The German page gets its own card, `og:url`, `og:locale` and Twitter copy,
+swapped in by `scripts/prerender-de.mjs` from `src/strings.de.js`.
+
+### When a post shows no image
+
+Almost always a cache, not a bug — check the markup is actually live before
+changing anything:
+
+```bash
+curl -s -A "Twitterbot/1.0" https://ocur.ai/ | grep -E 'og:image|twitter:card'
+curl -sI https://ocur.ai/og.jpg | grep -iE 'HTTP|content-type'
+```
+
+If those look right, it's the platform's cache:
+
+- **X** snapshots a link card **when the post is composed** — editing the post
+  afterwards does not re-fetch it, so a post written before a deploy keeps the
+  old card forever. X also caches card data per URL for roughly a week. The
+  Card Validator that used to force a re-scrape (`cards-dev.twitter.com/validator`)
+  was retired and now just redirects to a login page; there is no official
+  replacement. To get a fresh crawl before the cache expires, post the link
+  with a distinct query string — a `?utm_source=x` is a different URL to the
+  crawler, and `canonical`/`og:url` still point at the clean one, so SEO is
+  unaffected.
+- **WhatsApp / iMessage / LinkedIn** share Meta's scraper cache, which
+  [developers.facebook.com/tools/debug](https://developers.facebook.com/tools/debug/)
+  can still refresh on demand.
+
+Worth knowing what X will drop a card over: `twitter:title` > 70 chars,
+`twitter:description` > 200, `twitter:image:alt` > 420, a relative or
+non-HTTPS image URL, or an image the crawler can't fetch (check `robots.txt`
+and any bot protection in front of the domain).
 
 ## Deploy (Vercel)
 
@@ -139,14 +206,39 @@ a sitemap entry; it is English-only (no `/de/` variant yet).
 
 **Share cards.** Each result renders to a 1200×630 card client-side (canvas) and
 shares via the native sheet where supported, else an X / LinkedIn / Save modal —
-every card stamped "Made with Ocur". The static OG image at
-`public/be-ai-og.png` is committed; regenerate it with
-`npm i -D playwright && npm run gen:og` (Playwright is a one-off tool,
-deliberately not a shipped dependency).
+every card stamped "Made with Ocur". The page's static OG image is
+`public/be-ai-og.png` — see [Link previews](#link-previews).
 
 **Analytics.** Funnel events fire through PostHog (`be_ai_role`, `be_ai_ask`,
 `be_ai_respond`, `be_ai_guess`, `be_ai_cta_click`, `be_ai_share*`) — the metric
 that matters is `/be-ai → app.ocur.ai` CTR.
+
+## Legal pages (and why the build checks them)
+
+`/privacy` and `/terms` — plus `/de/privacy` and `/de/terms` — are hand-written
+HTML entry points, not dictionary-prerendered like `/de/`: they're long-form
+prose on their own schedule, and `/privacy` has to answer with a real policy at
+exactly that URL because that's the privacy policy URL registered on Ocur's
+Google OAuth consent screen. They share the design system through
+`src/legal.js` (`style.css` + `legal.css`, theme and EN|DE chrome, no GSAP), and
+the EN|DE switch reads the page's own `hreflang` alternates, so it lands on the
+translation of the page you're reading rather than the home page.
+
+Google rejected Ocur's first verification attempt for exactly the failures this
+setup now prevents, so `npm run build` ends with `scripts/check-legal.mjs`,
+which **fails** the build if a legal page stops being emitted, if either home
+page stops linking to its privacy policy and terms, or if the Limited Use
+disclosure vanishes from a policy — and **warns** while the operator
+placeholders are still unfilled.
+
+The German side additionally carries an **Impressum** at `/de/impressum` (§ 5
+DDG — the company's principal place of business is in Wolfsburg). It's linked
+from every German page; the home page link is appended by
+`scripts/prerender-de.mjs`, since the English page has no counterpart.
+
+`docs/google-oauth-verification.md` has the rest: the operator details as
+published, the scope-by-scope justifications, the exact values for the consent
+screen, and the items that have to be set outside this repo.
 
 ## Run
 
@@ -157,14 +249,24 @@ npm run build    # → dist/  (deploy this; Vercel → Vite preset)
 npm run preview
 ```
 
+Note that `vite preview` serves `/privacy` (no trailing slash) with the SPA
+fallback — use `/privacy/` locally. Vercel resolves the directory index either
+way, which is how `/be-ai` already works in production.
+
 ## Structure
 
 ```
 index.html         # the marketing home page (ocur.ai/)
 be-ai/index.html   # the reverse Turing test game (ocur.ai/be-ai)
+privacy/index.html # the privacy policy (ocur.ai/privacy)
+terms/index.html   # the terms of service (ocur.ai/terms)
+de/privacy/, de/terms/   # their German twins (/de/privacy, /de/terms)
+de/impressum/      # Anbieterkennzeichnung § 5 DDG (German pages only)
 src/
   main.js          # GSAP/Lenis choreography, pinned demo, micro-interactions
   style.css        # the liquid-glass design system (theme tokens at the top)
+  legal.js         # entry for the legal pages — theme + EN|DE chrome, no GSAP
+  legal.css        # long-form reading layout: sticky TOC, prose, data tables
   i18n.js          # language routing + EN|DE toggle
   strings.de.js    # the entire German dictionary (data only)
   theme.js         # dark/light toggle
@@ -175,7 +277,10 @@ src/
   be-ai-share.js   # /be-ai share card (canvas) + native share / modal
 scripts/
   prerender-de.mjs    # bakes dist/de/index.html after the Vite build
-  gen-be-ai-og.mjs    # renders public/be-ai-og.png (the /be-ai OG image)
+  check-legal.mjs     # guards the Google-OAuth requirements (see below)
+  gen-og.mjs          # renders the OG share cards into public/
+docs/
+  google-oauth-verification.md   # what verification needs, and what's left to set
 ```
 
 ## Notes

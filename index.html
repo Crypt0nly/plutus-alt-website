@@ -5,21 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#060608" />
     <title>Ocur — The AI Operating System for Companies | Start Free</title>
+    <meta name="application-name" content="Ocur" />
     <meta
       name="description"
       content="Ocur plugs into the platforms your company already runs on — email, calendar, files, chat, the web — and does the work inside them, on demand or on full autopilot. You set the limits. Pilot it free."
     />
+    <!-- Link preview (X, WhatsApp, iMessage, LinkedIn, Slack, Discord). The card
+         art is public/og.jpg — regenerate with `npm run gen:og`, and bump the ?v=
+         below whenever it changes, since every crawler caches the image by URL.
+         scripts/prerender-de.mjs swaps these for the German page. -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ocur" />
+    <meta property="og:url" content="https://ocur.ai/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="de_DE" />
     <meta property="og:title" content="Ocur — The AI Operating System for Companies" />
     <meta
       property="og:description"
       content="Ocur plugs into the platforms your company already runs on — email, calendar, files, chat, the web — and does the work inside them, on demand or on full autopilot. You set the limits. Pilot it free."
     />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content="https://ocur.ai/og.jpg?v=1" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Ocur — “What if your company ran itself?” An Ocur window on autopilot: chase the overdue invoices and update the sheet, 14 reminders sent, sheet updated, 2 already paid."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ocur_ai" />
+    <meta name="twitter:creator" content="@ocur_ai" />
+    <meta name="twitter:title" content="Ocur — The AI Operating System for Companies" />
+    <meta
+      name="twitter:description"
+      content="Ocur does the work inside the tools your company already runs on — email, calendar, files, chat, the web. On demand, or on full autopilot. Pilot it free."
+    />
+    <meta name="twitter:image" content="https://ocur.ai/og.jpg?v=1" />
+    <meta
+      name="twitter:image:alt"
+      content="Ocur — “What if your company ran itself?” An Ocur window on autopilot: chase the overdue invoices and update the sheet, 14 reminders sent, sheet updated, 2 already paid."
+    />
     <link rel="canonical" href="https://ocur.ai/" />
     <link rel="alternate" hreflang="en" href="https://ocur.ai/" />
     <link rel="alternate" hreflang="de" href="https://ocur.ai/de/" />
     <link rel="alternate" hreflang="x-default" href="https://ocur.ai/" />
+    <!-- Machine-readable app identity. The name here, the name in the footer
+         and the name on the OAuth consent screen must all read "Ocur" — that
+         match is one of the things Google checks when verifying the app.
+         rel="privacy-policy" / rel="terms-of-service" are registered IANA link
+         relations: a crawler finds the policy without having to parse the page. -->
+    <link rel="privacy-policy" href="https://ocur.ai/privacy" />
+    <link rel="terms-of-service" href="https://ocur.ai/terms" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://ocur.ai/#organization",
+            "name": "OcurAI, Inc.",
+            "legalName": "OcurAI, Inc.",
+            "alternateName": ["Ocur", "Ocur AI", "OcurAI"],
+            "url": "https://ocur.ai/",
+            "logo": "https://ocur.ai/logo.svg",
+            "email": "privacy@ocur.ai",
+            "telephone": "+49-171-2189405",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Luisenstraße 8",
+              "postalCode": "38448",
+              "addressLocality": "Wolfsburg",
+              "addressCountry": "DE"
+            },
+            "sameAs": ["https://x.com/ocur_ai"]
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://ocur.ai/#app",
+            "name": "Ocur",
+            "alternateName": ["Ocur AI", "OcurAI"],
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "url": "https://ocur.ai/",
+            "installUrl": "https://app.ocur.ai",
+            "description": "Ocur is the AI operating system for companies. It plugs into the platforms a company already runs on — email, calendar, files, chat, the web — and does the work inside them, on demand or on autopilot.",
+            "publisher": { "@id": "https://ocur.ai/#organization" }
+          }
+        ]
+      }
+    </script>
     <script>
       document.documentElement.classList.add('js');
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -220,7 +294,7 @@
               <p class="g-badge">Most popular</p>
               <p class="g-eyebrow">Best for growing teams</p>
               <h3>Team</h3>
-              <p class="g-price">$149<span>/month</span></p>
+              <p class="g-price">$1,500<span>/month</span></p>
               <ul>
                 <li>Everything in Free</li>
                 <li>300× the monthly allowance</li>
@@ -234,7 +308,7 @@
             <article class="g-card lg glare">
               <p class="g-eyebrow">Built for operations</p>
               <h3>Business</h3>
-              <p class="g-price">$299<span>/month</span></p>
+              <p class="g-price">$5,000<span>/month</span></p>
               <ul>
                 <li>Everything in Team</li>
                 <li>Double the monthly allowance</li>
@@ -245,7 +319,7 @@
               <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai">Go Business</a>
             </article>
           </div>
-          <p class="g-note">EU customers pay the same numbers in euro (€149 / €299). Enterprise goes unlimited — start free, upgrade inside Ocur.</p>
+          <p class="g-note">EU customers pay the same numbers in euro (€1,500 / €5,000). Enterprise goes unlimited — start free, upgrade inside Ocur.</p>
         </div>
       </section>
 
@@ -272,7 +346,7 @@
             </details>
             <details class="lg" name="g-faq">
               <summary>Is our data private?</summary>
-              <p>Your company's workspace is sealed off from every other customer's. Ocur can only reach the accounts you've chosen to connect, and you can take any of them away in one click.</p>
+              <p>Your company’s workspace is sealed off from every other customer’s. Ocur can only reach the accounts you’ve chosen to connect, and you can take any of them away in one click. We never sell your data and never train models on it — the <a href="/privacy">privacy policy</a> spells out exactly what happens to everything Ocur touches, Google Workspace included.</p>
             </details>
             <details class="lg" name="g-faq">
               <summary>Can the whole company use it?</summary>
@@ -294,8 +368,22 @@
           <a class="g-btn g-btn-lg magnetic" href="https://app.ocur.ai">Start free</a>
           <p class="g-micro">Free pilot&nbsp;&nbsp;·&nbsp;&nbsp;No credit card&nbsp;&nbsp;·&nbsp;&nbsp;Live in minutes</p>
           <footer class="g-foot">
-            <span>Ocur © <span id="g-year">2026</span></span>
+            <span>Ocur © <span id="g-year">2026</span> · <span class="g-foot-org">a product of OcurAI, Inc.</span></span>
+            <nav class="g-foot-links" aria-label="Legal">
+              <a href="/privacy">Privacy Policy</a>
+              <a href="/terms">Terms of Service</a>
+            </nav>
             <span><em>Say it — or don’t. It happens. You stay in charge.</em></span>
+            <a
+              class="g-social g-social-x"
+              href="https://x.com/ocur_ai"
+              target="_blank"
+              rel="noopener"
+              aria-label="Ocur on X"
+              title="Ocur on X"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" fill="currentColor"/></svg>
+            </a>
           </footer>
         </div>
       </section>
