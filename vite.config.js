@@ -5,9 +5,16 @@ import { resolve } from 'node:path';
 // absolute: the prerendered /de/ page and the /be-ai/ game both live in
 // subdirectories and relative asset paths would break there.
 //
-// Two entry points:
-//   index.html        → the marketing home page (ocur.ai/)
-//   be-ai/index.html  → the reverse Turing test game (ocur.ai/be-ai)
+// Entry points:
+//   index.html          → the marketing home page (ocur.ai/)
+//   be-ai/index.html    → the reverse Turing test game (ocur.ai/be-ai)
+//   privacy/, terms/    → the legal pages (ocur.ai/privacy, ocur.ai/terms)
+//   de/privacy/, de/terms/ → their German twins
+//
+// The legal pages are hand-written HTML rather than prerendered from the
+// dictionary: they're long-form prose that changes on its own schedule, and
+// /privacy has to answer with a real policy at exactly that URL — it's the
+// privacy policy URL registered on Google's OAuth consent screen.
 //
 // The game's interactive parts are powered by the app backend (plutus-cloud).
 // HTTP (gallery/leaderboard/duel) is proxied: in production a Vercel rewrite
@@ -31,6 +38,10 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         beai: resolve(__dirname, 'be-ai/index.html'),
+        privacy: resolve(__dirname, 'privacy/index.html'),
+        terms: resolve(__dirname, 'terms/index.html'),
+        privacyDe: resolve(__dirname, 'de/privacy/index.html'),
+        termsDe: resolve(__dirname, 'de/terms/index.html'),
       },
     },
   },

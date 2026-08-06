@@ -71,17 +71,20 @@ export function applyLang() {
 }
 
 // EN | DE switch in the nav — real links so the choice is shareable;
-// clicking also records the choice so it sticks on future visits.
-export function initLangToggle() {
+// clicking also records the choice so it sticks on future visits. The
+// legal pages pass their own pair of URLs so the switch lands on the
+// translation of the page you're reading, not back on the home page.
+export function initLangToggle(paths) {
   const nav = document.querySelector('.g-nav');
   if (!nav) return;
+  const { en = EN_PATH, de = DE_PATH } = paths || {};
   const box = document.createElement('div');
   box.className = 'g-lang';
   box.setAttribute('role', 'group');
   box.setAttribute('aria-label', currentLang === 'de' ? 'Sprache' : 'Language');
   [
-    ['en', EN_PATH],
-    ['de', DE_PATH],
+    ['en', en],
+    ['de', de],
   ].forEach(([lang, href]) => {
     const a = document.createElement('a');
     a.href = href;

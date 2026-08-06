@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#060608" />
     <title>Ocur — The AI Operating System for Companies | Start Free</title>
+    <meta name="application-name" content="Ocur" />
     <meta
       name="description"
       content="Ocur plugs into the platforms your company already runs on — email, calendar, files, chat, the web — and does the work inside them, on demand or on full autopilot. You set the limits. Pilot it free."
@@ -48,6 +49,42 @@
     <link rel="alternate" hreflang="en" href="https://ocur.ai/" />
     <link rel="alternate" hreflang="de" href="https://ocur.ai/de/" />
     <link rel="alternate" hreflang="x-default" href="https://ocur.ai/" />
+    <!-- Machine-readable app identity. The name here, the name in the footer
+         and the name on the OAuth consent screen must all read "Ocur" — that
+         match is one of the things Google checks when verifying the app.
+         rel="privacy-policy" / rel="terms-of-service" are registered IANA link
+         relations: a crawler finds the policy without having to parse the page. -->
+    <link rel="privacy-policy" href="https://ocur.ai/privacy" />
+    <link rel="terms-of-service" href="https://ocur.ai/terms" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://ocur.ai/#organization",
+            "name": "Ocur",
+            "alternateName": ["Ocur AI", "OcurAI"],
+            "url": "https://ocur.ai/",
+            "logo": "https://ocur.ai/logo.svg",
+            "email": "privacy@ocur.ai",
+            "sameAs": ["https://x.com/ocur_ai"]
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://ocur.ai/#app",
+            "name": "Ocur",
+            "alternateName": ["Ocur AI", "OcurAI"],
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "url": "https://ocur.ai/",
+            "installUrl": "https://app.ocur.ai",
+            "description": "Ocur is the AI operating system for companies. It plugs into the platforms a company already runs on — email, calendar, files, chat, the web — and does the work inside them, on demand or on autopilot.",
+            "publisher": { "@id": "https://ocur.ai/#organization" }
+          }
+        ]
+      }
+    </script>
     <script>
       document.documentElement.classList.add('js');
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -300,7 +337,7 @@
             </details>
             <details class="lg" name="g-faq">
               <summary>Is our data private?</summary>
-              <p>Your company's workspace is sealed off from every other customer's. Ocur can only reach the accounts you've chosen to connect, and you can take any of them away in one click.</p>
+              <p>Your company’s workspace is sealed off from every other customer’s. Ocur can only reach the accounts you’ve chosen to connect, and you can take any of them away in one click. We never sell your data and never train models on it — the <a href="/privacy">privacy policy</a> spells out exactly what happens to everything Ocur touches, Google Workspace included.</p>
             </details>
             <details class="lg" name="g-faq">
               <summary>Can the whole company use it?</summary>
@@ -323,6 +360,10 @@
           <p class="g-micro">Free pilot&nbsp;&nbsp;·&nbsp;&nbsp;No credit card&nbsp;&nbsp;·&nbsp;&nbsp;Live in minutes</p>
           <footer class="g-foot">
             <span>Ocur © <span id="g-year">2026</span></span>
+            <nav class="g-foot-links" aria-label="Legal">
+              <a href="/privacy">Privacy Policy</a>
+              <a href="/terms">Terms of Service</a>
+            </nav>
             <span><em>Say it — or don’t. It happens. You stay in charge.</em></span>
             <a
               class="g-social g-social-x"

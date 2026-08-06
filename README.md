@@ -213,6 +213,28 @@ every card stamped "Made with Ocur". The page's static OG image is
 `be_ai_respond`, `be_ai_guess`, `be_ai_cta_click`, `be_ai_share*`) — the metric
 that matters is `/be-ai → app.ocur.ai` CTR.
 
+## Legal pages (and why the build checks them)
+
+`/privacy` and `/terms` — plus `/de/privacy` and `/de/terms` — are hand-written
+HTML entry points, not dictionary-prerendered like `/de/`: they're long-form
+prose on their own schedule, and `/privacy` has to answer with a real policy at
+exactly that URL because that's the privacy policy URL registered on Ocur's
+Google OAuth consent screen. They share the design system through
+`src/legal.js` (`style.css` + `legal.css`, theme and EN|DE chrome, no GSAP), and
+the EN|DE switch reads the page's own `hreflang` alternates, so it lands on the
+translation of the page you're reading rather than the home page.
+
+Google rejected Ocur's first verification attempt for exactly the failures this
+setup now prevents, so `npm run build` ends with `scripts/check-legal.mjs`,
+which **fails** the build if a legal page stops being emitted, if either home
+page stops linking to its privacy policy and terms, or if the Limited Use
+disclosure vanishes from a policy — and **warns** while the operator
+placeholders are still unfilled.
+
+`docs/google-oauth-verification.md` has the rest: the scope-by-scope
+justifications, the exact values for the consent screen, and the items that
+have to be set outside this repo.
+
 ## Run
 
 ```bash
@@ -222,14 +244,23 @@ npm run build    # → dist/  (deploy this; Vercel → Vite preset)
 npm run preview
 ```
 
+Note that `vite preview` serves `/privacy` (no trailing slash) with the SPA
+fallback — use `/privacy/` locally. Vercel resolves the directory index either
+way, which is how `/be-ai` already works in production.
+
 ## Structure
 
 ```
 index.html         # the marketing home page (ocur.ai/)
 be-ai/index.html   # the reverse Turing test game (ocur.ai/be-ai)
+privacy/index.html # the privacy policy (ocur.ai/privacy)
+terms/index.html   # the terms of service (ocur.ai/terms)
+de/privacy/, de/terms/   # their German twins (/de/privacy, /de/terms)
 src/
   main.js          # GSAP/Lenis choreography, pinned demo, micro-interactions
   style.css        # the liquid-glass design system (theme tokens at the top)
+  legal.js         # entry for the legal pages — theme + EN|DE chrome, no GSAP
+  legal.css        # long-form reading layout: sticky TOC, prose, data tables
   i18n.js          # language routing + EN|DE toggle
   strings.de.js    # the entire German dictionary (data only)
   theme.js         # dark/light toggle
@@ -240,7 +271,10 @@ src/
   be-ai-share.js   # /be-ai share card (canvas) + native share / modal
 scripts/
   prerender-de.mjs    # bakes dist/de/index.html after the Vite build
+  check-legal.mjs     # guards the Google-OAuth requirements (see below)
   gen-og.mjs          # renders the OG share cards into public/
+docs/
+  google-oauth-verification.md   # what verification needs, and what's left to set
 ```
 
 ## Notes

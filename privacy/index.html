@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#060608" />
+    <title>Privacy Policy — Ocur</title>
+    <meta
+      name="description"
+      content="How Ocur collects, uses, stores and shares data — including exactly what Ocur does with Google user data from Gmail, Google Calendar, Google Drive and Google Contacts, and our Limited Use disclosure."
+    />
+    <meta name="application-name" content="Ocur" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Ocur" />
+    <meta property="og:url" content="https://ocur.ai/privacy" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:title" content="Privacy Policy — Ocur" />
+    <meta
+      property="og:description"
+      content="How Ocur collects, uses, stores and shares data — including exactly what Ocur does with Google user data, and our Limited Use disclosure."
+    />
+    <meta property="og:image" content="https://ocur.ai/og.jpg?v=1" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ocur_ai" />
+    <meta name="twitter:image" content="https://ocur.ai/og.jpg?v=1" />
+    <link rel="canonical" href="https://ocur.ai/privacy" />
+    <link rel="alternate" hreflang="en" href="https://ocur.ai/privacy" />
+    <link rel="alternate" hreflang="de" href="https://ocur.ai/de/privacy" />
+    <link rel="alternate" hreflang="x-default" href="https://ocur.ai/privacy" />
+    <script>
+      document.documentElement.classList.add('js');
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('motion');
+      }
+      // resolve the theme before first paint: stored choice, then OS preference
+      try {
+        var t = localStorage.getItem('ocur-theme');
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.dataset.theme = t;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    </script>
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="g">
+    <div class="g-grain" aria-hidden="true"></div>
+
+    <header class="g-nav lg glare" id="g-nav">
+      <a class="g-brand" href="/"><img src="/logo.svg" alt="" /> Ocur</a>
+      <nav class="g-links" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/privacy" aria-current="page">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+      <a class="g-btn g-btn-sm magnetic" href="https://app.ocur.ai">Start free</a>
+    </header>
+
+    <main class="l-page">
+      <div class="l-glow" aria-hidden="true"></div>
+      <div class="g-wrap">
+        <div class="l-head">
+          <p class="l-eyebrow">Legal</p>
+          <h1 class="l-h1">Privacy Policy</h1>
+          <p class="l-lede">
+            Ocur works inside the tools your company already runs on. That only makes sense if
+            it is completely clear what Ocur touches, why it touches it, where it goes and how
+            you take it away again. This page is that, in plain language — no lawyer required.
+          </p>
+          <p class="l-dates">
+            <span>Last updated <strong>6 August 2026</strong></span>
+            <span>Effective <strong>6 August 2026</strong></span>
+            <span>Applies to <strong>ocur.ai · app.ocur.ai · the Ocur desktop companion</strong></span>
+          </p>
+        </div>
+
+        <div class="l-key lg glare">
+          <h2>The short version</h2>
+          <ul>
+            <li>We never sell your data, and we never use it for advertising.</li>
+            <li>
+              We do not use your content — or anything Ocur reads from Google Workspace — to
+              train generalized AI or machine-learning models. Not ours, not anyone's.
+            </li>
+            <li>
+              Ocur only reaches an account after you connect it, and only does what you asked
+              for. Anything you haven't cleared for autopilot waits for your sign-off.
+            </li>
+            <li>Your workspace is isolated from every other customer's. Credentials are encrypted at rest.</li>
+            <li>Disconnect a service, or delete everything, whenever you like — it takes one click.</li>
+            <li>Your data is hosted in the European Union.</li>
+          </ul>
+        </div>
+
+        <details class="l-toc-m lg">
+          <summary>Contents</summary>
+          <nav aria-label="Contents (mobile)">
+            <ol>
+              <li><a href="#who">Who we are</a></li>
+              <li><a href="#scope">What this policy covers</a></li>
+              <li><a href="#data">The data we process</a></li>
+              <li><a href="#google">Google user data</a></li>
+              <li><a href="#use">How we use data, and on what legal basis</a></li>
+              <li><a href="#ai">AI models and how your content is processed</a></li>
+              <li><a href="#sharing">Who we share data with</a></li>
+              <li><a href="#transfers">Where your data lives</a></li>
+              <li><a href="#retention">How long we keep it</a></li>
+              <li><a href="#security">How we protect it</a></li>
+              <li><a href="#controls">Disconnecting and deleting</a></li>
+              <li><a href="#rights">Your rights</a></li>
+              <li><a href="#cookies">Cookies and analytics</a></li>
+              <li><a href="#children">Children</a></li>
+              <li><a href="#changes">Changes to this policy</a></li>
+              <li><a href="#contact">Contact us</a></li>
+            </ol>
+          </nav>
+        </details>
+
+        <div class="l-layout">
+          <nav class="l-toc lg" aria-label="Contents">
+            <h2>Contents</h2>
+            <ol>
+              <li><a href="#who">Who we are</a></li>
+              <li><a href="#scope">What this policy covers</a></li>
+              <li><a href="#data">The data we process</a></li>
+              <li><a href="#google">Google user data</a></li>
+              <li><a href="#use">How we use data</a></li>
+              <li><a href="#ai">AI models</a></li>
+              <li><a href="#sharing">Who we share with</a></li>
+              <li><a href="#transfers">Where data lives</a></li>
+              <li><a href="#retention">How long we keep it</a></li>
+              <li><a href="#security">How we protect it</a></li>
+              <li><a href="#controls">Disconnect and delete</a></li>
+              <li><a href="#rights">Your rights</a></li>
+              <li><a href="#cookies">Cookies and analytics</a></li>
+              <li><a href="#children">Children</a></li>
+              <li><a href="#changes">Changes</a></li>
+              <li><a href="#contact">Contact us</a></li>
+            </ol>
+          </nav>
+
+          <article class="l-prose">
+            <section id="who">
+              <h2><span class="l-num">01</span>Who we are</h2>
+              <p>
+                <strong>Ocur</strong> is the AI operating system for companies. It plugs into the
+                platforms a company already runs on — email, calendar, files, chat, the web — and
+                does the work inside them, on demand or on autopilot.
+              </p>
+              <!-- OCUR_LEGAL_ENTITY — the operator block. Fill in the registered
+                   details once and keep the four legal pages in step:
+                   /privacy, /terms, /de/privacy, /de/terms. -->
+              <div class="l-todo">
+                <b>To be completed before publishing</b>
+                Replace the bracketed placeholders below with the registered operator details.
+                They also appear in the German version of this page and in the Terms.
+              </div>
+              <p>
+                Ocur is operated by <strong>[[ LEGAL ENTITY NAME ]]</strong>,
+                [[ STREET ADDRESS ]], [[ POSTCODE AND CITY ]], [[ COUNTRY ]]
+                (“Ocur”, “we”, “us”). For everything described here, we are the
+                <strong>data controller</strong> in the sense of the EU General Data Protection
+                Regulation (GDPR) — except where we process data on your behalf as a
+                <strong>processor</strong>, which is the normal case for the content your company
+                puts into the product (see <a href="#use">section 5</a>).
+              </p>
+              <p>
+                Privacy questions, requests and complaints:
+                <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a>. We answer every one of them.
+              </p>
+
+              <h3>App identity</h3>
+              <p>
+                These are the details our application is registered under — including with Google,
+                for the OAuth consent screen you see when you connect a Google account:
+              </p>
+              <div class="l-tw">
+                <table class="l-table">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Application name</th>
+                      <td>Ocur</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Home page</th>
+                      <td><a href="https://ocur.ai/">https://ocur.ai</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Application</th>
+                      <td><a href="https://app.ocur.ai">https://app.ocur.ai</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Privacy policy</th>
+                      <td><a href="https://ocur.ai/privacy">https://ocur.ai/privacy</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Terms of service</th>
+                      <td><a href="https://ocur.ai/terms">https://ocur.ai/terms</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Contact</th>
+                      <td><a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="scope">
+              <h2><span class="l-num">02</span>What this policy covers</h2>
+              <p>This policy covers:</p>
+              <ul>
+                <li>the Ocur website at <a href="https://ocur.ai/">ocur.ai</a>, including the game at <a href="/be-ai">ocur.ai/be-ai</a>;</li>
+                <li>the Ocur application at <a href="https://app.ocur.ai">app.ocur.ai</a> and its API;</li>
+                <li>the Ocur desktop companion app that connects your own computer to Ocur;</li>
+                <li>the messaging channels you can reach Ocur through (WhatsApp, Telegram, Slack, Discord).</li>
+              </ul>
+              <p>
+                It does not cover the third-party services you connect Ocur to. When Ocur reads
+                your Gmail or edits a Google Sheet on your instruction, Google's own privacy policy
+                still governs what Google does with that data.
+              </p>
+            </section>
+
+            <section id="data">
+              <h2><span class="l-num">03</span>The data we process</h2>
+
+              <h3>Account data</h3>
+              <p>
+                Your name, email address, profile picture, the organisation you belong to and your
+                role in it. Sign-in is handled for us by Clerk; we hold the resulting profile so
+                we know whose workspace is whose.
+              </p>
+
+              <h3>The content you give Ocur</h3>
+              <p>
+                Everything you send it and everything it produces: chat messages and voice input,
+                the files and documents you upload, the knowledge you add, the automations and
+                tasks you set up, the memories you (or your admins) explicitly save, and the record
+                of every run.
+              </p>
+
+              <h3>Data from the accounts you connect</h3>
+              <p>
+                Ocur can connect to Google (Gmail, Calendar, Drive, Contacts), Microsoft 365,
+                Slack, GitHub, Notion, Trello, Telegram, WhatsApp, Discord, and to any tool you add
+                yourself through a custom connector or an MCP server. Once you connect a service,
+                Ocur reads and writes there strictly to carry out the work you asked for.
+                <a href="#google">Section 4</a> sets out the Google case in full.
+              </p>
+
+              <h3>Usage and technical data</h3>
+              <p>
+                Server logs (IP address, browser and device type, timestamps, the endpoint called),
+                error diagnostics, the number of tokens a run consumed, and an audit trail of the
+                actions Ocur took on your behalf — which is what makes the "every step on the
+                record" promise real.
+              </p>
+
+              <h3>Billing data</h3>
+              <p>
+                Plan, invoices, billing country, VAT status. Card payments run through Stripe —
+                <strong>we never see or store full card numbers</strong>.
+              </p>
+
+              <h3>Website data</h3>
+              <p>
+                Aggregate, cookie-free product analytics on ocur.ai. See
+                <a href="#cookies">section 13</a>.
+              </p>
+            </section>
+
+            <section id="google">
+              <h2><span class="l-num">04</span>Google user data</h2>
+              <p>
+                Ocur is a Google API Services client. Because Gmail, Calendar and Drive are among
+                the most sensitive things a company can hand over, this section spells out exactly
+                what we ask for, what we do with it, and what we will never do with it.
+              </p>
+
+              <h3>Nothing is connected until you connect it</h3>
+              <p>
+                Google access is per-service and opt-in. Connecting Gmail does not connect Drive;
+                connecting Calendar does not connect Gmail. You grant each one from Ocur's
+                connector settings, you see Google's own consent screen listing the permissions,
+                and you can take any of them back at any time
+                (<a href="#controls">section 11</a>).
+              </p>
+
+              <h3>The permissions we request, and why</h3>
+              <div class="l-tw">
+                <table class="l-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Scope</th>
+                      <th scope="col">What it allows</th>
+                      <th scope="col">Why Ocur needs it</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row"><code>openid</code> <code>userinfo.email</code> <code>userinfo.profile</code></th>
+                      <td>Read the connected Google account's email address, name and profile picture.</td>
+                      <td>To show you which account is connected and to use the right one when several are.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>gmail.readonly</code></th>
+                      <td>Read messages, threads, labels and attachments in the connected mailbox.</td>
+                      <td>Triage and summarise the inbox, find the thread you're asking about, pull the invoice out of an attachment, answer "what did the supplier actually say?".</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>gmail.modify</code></th>
+                      <td>Apply and remove labels, mark as read, archive, and manage drafts.</td>
+                      <td>Keep the inbox in the state you asked for — label, file, archive, tidy up after a run.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>gmail.compose</code></th>
+                      <td>Create and edit drafts in the connected mailbox.</td>
+                      <td>Prepare a reply for you to read and approve before anything is sent.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>gmail.send</code></th>
+                      <td>Send a message from the connected mailbox.</td>
+                      <td>Actually send the reply or the payment reminder once you approve it — or automatically, if you put that job on autopilot yourself.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>contacts.readonly</code> <code>profile.emails.read</code></th>
+                      <td>Read your Google contacts and their email addresses.</td>
+                      <td>So "email Anna about the invoice" reaches the right Anna, without you looking the address up.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>calendar.events</code></th>
+                      <td>Read, create, change and delete events on the connected calendar.</td>
+                      <td>Answer "when am I free?", book the meeting, move it when the other side reschedules.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>drive</code></th>
+                      <td>Open, create, edit and organise files in the connected Drive.</td>
+                      <td>Do the work inside the actual document — reconcile the invoice sheet, update the deck, file the export where it belongs.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                We request the narrowest set of scopes that lets these features work end to end.
+                If a feature stops needing a permission, we drop the permission.
+              </p>
+
+              <h3>What we do with Google data</h3>
+              <ul>
+                <li>
+                  <strong>We use it only to provide the features you asked for.</strong> A run
+                  fetches what the task needs, does the task, and reports back.
+                </li>
+                <li>
+                  <strong>We do not keep a copy of your mailbox or your Drive.</strong> Ocur has no
+                  background mirror of your Google account. What persists afterwards is the record
+                  of the run inside your workspace: the conversation, the result, the audit entry —
+                  plus anything you or your admin explicitly chose to save into company memory or
+                  the knowledge base.
+                </li>
+                <li>
+                  <strong>Access and refresh tokens are encrypted at rest</strong> and used only to
+                  call Google on your behalf.
+                </li>
+                <li>
+                  <strong>Your workspace is isolated.</strong> Google data from your account is
+                  never mixed with another customer's, and never used to answer another
+                  customer's question.
+                </li>
+              </ul>
+
+              <div class="l-note">
+                <span class="l-note-label">Limited Use disclosure</span>
+                <p>
+                  Ocur's use and transfer of information received from Google APIs to any other app
+                  will adhere to the
+                  <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>,
+                  including the <a href="https://developers.google.com/terms/api-services-user-data-policy#additional-requirements-for-specific-api-scopes" target="_blank" rel="noopener">Limited Use requirements</a>.
+                </p>
+                <p>
+                  In particular, <strong>we do not use Google Workspace APIs, or any data obtained
+                  through them, to develop, improve or train generalized artificial intelligence or
+                  machine-learning models.</strong> Content from Gmail, Google Calendar, Google
+                  Drive or Google Contacts is passed to our AI model providers only to carry out the
+                  specific task you requested, under contracts that forbid them from training their
+                  models on it (see <a href="#ai">section 6</a>).
+                </p>
+              </div>
+
+              <h3>What we never do with Google data</h3>
+              <ul>
+                <li>We never sell it, and we never transfer it to data brokers or information resellers.</li>
+                <li>We never use it for advertising, ad targeting, or any purpose unrelated to the features you asked for.</li>
+                <li>We never use it to build a profile of you for anyone else's benefit.</li>
+                <li>
+                  No human at Ocur reads it, except in four narrow cases: with your explicit
+                  consent (for example when you ask us to look into a specific run), where it is
+                  strictly necessary for security or abuse investigations, where the law requires
+                  it, or where the data has been aggregated and anonymised so that it no longer
+                  identifies anyone.
+                </li>
+              </ul>
+            </section>
+
+            <section id="use">
+              <h2><span class="l-num">05</span>How we use data, and on what legal basis</h2>
+              <p>
+                Where your company is our customer, we process the content in your workspace
+                <strong>on your instructions, as a processor</strong> — your company decides what
+                goes in and what Ocur is allowed to do with it. Where we decide the purposes
+                ourselves (running accounts, billing, keeping the service secure, improving the
+                website), we are the controller. The legal bases under Article 6 GDPR:
+              </p>
+              <div class="l-tw">
+                <table class="l-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">What we do</th>
+                      <th scope="col">Legal basis</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Provide the product: run tasks, drive connectors, keep memory, deliver results</th>
+                      <td>Performance of the contract, Art. 6(1)(b) — and your instruction as the customer</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Connect a third-party account and act inside it</th>
+                      <td>Your consent, given per service at the moment you connect it, Art. 6(1)(a)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Keep the service secure, prevent abuse, debug failures</th>
+                      <td>Legitimate interests, Art. 6(1)(f)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Billing, invoicing, tax records</th>
+                      <td>Contract and legal obligation, Art. 6(1)(b) and (c)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Aggregate product analytics and service improvement</th>
+                      <td>Legitimate interests, Art. 6(1)(f) — aggregated, never content-level</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Service emails you can't opt out of (security, billing, outages)</th>
+                      <td>Contract, Art. 6(1)(b)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                We do not sell personal data, and we do not do behavioural advertising.
+              </p>
+            </section>
+
+            <section id="ai">
+              <h2><span class="l-num">06</span>AI models and how your content is processed</h2>
+              <p>
+                Ocur is built on large language models. To answer you or complete a task, the
+                relevant part of your content — your message, the document in question, the email
+                thread it needs to read — is sent to a model provider, processed, and the result
+                comes back. Today those providers are <strong>Anthropic</strong>,
+                <strong>OpenAI</strong> and <strong>Google</strong> (Gemini), with
+                <strong>ElevenLabs</strong> for speech when you use voice mode.
+              </p>
+              <ul>
+                <li>
+                  <strong>They do not train on your content.</strong> We use these providers under
+                  their business/API terms, which prohibit using data submitted through the API to
+                  train their models.
+                </li>
+                <li>
+                  <strong>We do not train models on your content either</strong> — not our own
+                  models, and not fine-tunes of anyone else's.
+                </li>
+                <li>
+                  <strong>Only what the task needs is sent.</strong> Ocur passes the relevant
+                  context for the job at hand, not your whole workspace.
+                </li>
+                <li>
+                  <strong>Model output can be wrong.</strong> That is exactly why anything
+                  consequential waits for a human sign-off unless you have deliberately put that
+                  job on autopilot.
+                </li>
+              </ul>
+            </section>
+
+            <section id="sharing">
+              <h2><span class="l-num">07</span>Who we share data with</h2>
+              <p>
+                We share data with the service providers that make Ocur work — nobody else. Each
+                one is bound by a data processing agreement, may only act on our instructions, and
+                gets only what it needs for its job. We never sell data, and we do not share it
+                with advertisers.
+              </p>
+              <div class="l-tw">
+                <table class="l-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Provider</th>
+                      <th scope="col">What it does for Ocur</th>
+                      <th scope="col">Where</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Amazon Web Services</th>
+                      <td>Hosting, databases, file storage, logs</td>
+                      <td>EU (Stockholm)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Vercel</th>
+                      <td>Hosting for the ocur.ai website</td>
+                      <td>Global CDN</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Clerk</th>
+                      <td>Sign-in, sessions and organisation membership</td>
+                      <td>EU / US</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Anthropic, OpenAI, Google</th>
+                      <td>The language models that do the reasoning</td>
+                      <td>EU / US</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">ElevenLabs</th>
+                      <td>Speech synthesis for voice mode</td>
+                      <td>EU / US</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Supermemory</th>
+                      <td>Company memory and semantic search, in a container isolated per workspace</td>
+                      <td>EU / US</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Exa</th>
+                      <td>Web search when Ocur needs to look something up</td>
+                      <td>US</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">E2B</th>
+                      <td>Sandboxed code execution when the task needs to run something</td>
+                      <td>EU / US</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Merge, Unified.to</th>
+                      <td>Connector infrastructure for some third-party business tools</td>
+                      <td>EU / US</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Stripe</th>
+                      <td>Payments, subscriptions and invoicing</td>
+                      <td>EU / US</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Sentry</th>
+                      <td>Error and crash diagnostics</td>
+                      <td>EU</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">PostHog</th>
+                      <td>Aggregate product analytics</td>
+                      <td>EU</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                This list is current as of the date at the top of this page and changes as we
+                change providers — write to <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a> for
+                the up-to-date sub-processor list or to be notified of changes.
+              </p>
+              <p>
+                Beyond these providers, we disclose data only where the law requires it (a valid,
+                binding legal request, which we review and push back on where we can), or in the
+                event of a merger or acquisition — in which case you will be told before your data
+                becomes subject to a different privacy policy.
+              </p>
+            </section>
+
+            <section id="transfers">
+              <h2><span class="l-num">08</span>Where your data lives</h2>
+              <p>
+                Ocur runs on infrastructure in the <strong>European Union</strong>. Some of the
+                providers above operate outside the EU, or support them from outside it. Where
+                data reaches a country without an EU adequacy decision, the transfer is covered by
+                the European Commission's Standard Contractual Clauses together with the technical
+                measures in <a href="#security">section 10</a>.
+              </p>
+            </section>
+
+            <section id="retention">
+              <h2><span class="l-num">09</span>How long we keep it</h2>
+              <div class="l-tw">
+                <table class="l-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Data</th>
+                      <th scope="col">Kept for</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Account and organisation data</th>
+                      <td>As long as the account exists; deleted when you delete it</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Conversations, files, memories, automations</th>
+                      <td>Until you delete them, or until the account is deleted</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Connector credentials and tokens</th>
+                      <td>Until you disconnect that service, or delete the account</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Audit log of actions taken on your behalf</th>
+                      <td>180 days by default</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Server and security logs</th>
+                      <td>Up to 90 days</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Invoices and tax records</th>
+                      <td>As long as commercial and tax law requires (up to 10 years in Germany)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Encrypted backups</th>
+                      <td>Rolling window, at most 35 days, then overwritten</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                When you delete something it is removed from the live systems immediately, and it
+                ages out of the encrypted backups within the window above.
+              </p>
+            </section>
+
+            <section id="security">
+              <h2><span class="l-num">10</span>How we protect it</h2>
+              <ul>
+                <li><strong>Encrypted in transit</strong> (TLS) and <strong>at rest</strong>.</li>
+                <li>
+                  <strong>Connector credentials get a second layer:</strong> every access and
+                  refresh token is separately encrypted before it is written to the database, with
+                  a key held outside it.
+                </li>
+                <li>
+                  <strong>Tenant isolation.</strong> Each workspace's data — including its memory
+                  container — is scoped to that workspace and cannot be reached from another.
+                </li>
+                <li>
+                  <strong>Least privilege inside Ocur.</strong> Access to production is limited to
+                  the people who need it, and it is logged.
+                </li>
+                <li>
+                  <strong>Guardrails in the product itself.</strong> Admins decide what may run
+                  unattended; everything else waits for approval, with a timeout, and every action
+                  is written to the audit trail.
+                </li>
+                <li>
+                  <strong>Breach notification.</strong> If a breach affects your personal data, we
+                  notify the competent supervisory authority within 72 hours where the GDPR
+                  requires it, and we tell you without undue delay.
+                </li>
+              </ul>
+              <p>
+                Found a security problem? Write to
+                <a href="mailto:security@ocur.ai">security@ocur.ai</a> — we will work with you and
+                we will not go after you for reporting it in good faith.
+              </p>
+            </section>
+
+            <section id="controls">
+              <h2><span class="l-num">11</span>Disconnecting and deleting</h2>
+              <h3>Disconnect one service</h3>
+              <p>
+                In Ocur, open the connectors settings and choose <strong>Disconnect</strong> on the
+                service in question. The credentials we hold for it are deleted, and Ocur loses
+                access immediately.
+              </p>
+              <h3>Revoke at Google</h3>
+              <p>
+                You can also withdraw Ocur's access from Google's side at any time, independently
+                of us, at
+                <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>.
+                The same is true of the equivalent settings at Microsoft, Slack, GitHub, Notion and
+                every other service you have connected.
+              </p>
+              <h3>Delete everything</h3>
+              <p>
+                Deleting your account removes your profile, conversations, files, knowledge,
+                memories, automations and stored credentials from our live systems, and they age
+                out of the encrypted backups within the window in
+                <a href="#retention">section 9</a>. If you would rather we did it for you, or you
+                want written confirmation that it is done, email
+                <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a> and we will action it within
+                30 days. What we keep afterwards is only what the law forces us to keep, such as
+                invoices.
+              </p>
+            </section>
+
+            <section id="rights">
+              <h2><span class="l-num">12</span>Your rights</h2>
+              <p>Under the GDPR you have the right to:</p>
+              <ul>
+                <li><strong>Access</strong> the personal data we hold about you, and get a copy.</li>
+                <li><strong>Rectify</strong> anything inaccurate.</li>
+                <li><strong>Erase</strong> your data (“the right to be forgotten”).</li>
+                <li><strong>Restrict</strong> or <strong>object to</strong> processing based on our legitimate interests.</li>
+                <li><strong>Portability</strong> — receive your data in a structured, machine-readable format.</li>
+                <li><strong>Withdraw consent</strong> at any time, without affecting what was lawful before.</li>
+                <li><strong>Complain</strong> to a data protection supervisory authority in your country.</li>
+              </ul>
+              <p>
+                Write to <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a> and we will respond
+                within 30 days. If you are an employee at a company that uses Ocur, your employer
+                controls that workspace — we will point you to them and help them answer you.
+              </p>
+              <h3>Automated decisions</h3>
+              <p>
+                Ocur acts on the instructions you give it. It does not make decisions that produce
+                legal effects concerning you or similarly significantly affect you within the
+                meaning of Article 22 GDPR. Consequential actions wait for a human sign-off unless
+                your organisation has explicitly put that specific job on autopilot, and everything
+                Ocur does is recorded and reversible by the humans who own the account.
+              </p>
+            </section>
+
+            <section id="cookies">
+              <h2><span class="l-num">13</span>Cookies and analytics</h2>
+              <p>The website at ocur.ai is deliberately light:</p>
+              <ul>
+                <li>
+                  <code>ocur-theme</code> and <code>ocur-lang</code> — remember your dark/light and
+                  language choice. Strictly functional, set only when you make a choice.
+                </li>
+                <li>
+                  <strong>PostHog</strong> product analytics, configured cookie-free: it keeps its
+                  state in memory only, writes nothing to your device, and tells us how many people
+                  read a section — not who they are. That is why you get no cookie banner here.
+                </li>
+                <li>
+                  No advertising cookies, no tracking pixels, no cross-site profiling. Ever.
+                </li>
+              </ul>
+              <p>
+                The application at app.ocur.ai additionally sets the session cookies it needs to
+                keep you signed in.
+              </p>
+            </section>
+
+            <section id="children">
+              <h2><span class="l-num">14</span>Children</h2>
+              <p>
+                Ocur is a product for companies and is not directed at children. We do not
+                knowingly collect data from anyone under 16. If you believe a child has given us
+                data, write to <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a> and we will
+                delete it.
+              </p>
+            </section>
+
+            <section id="changes">
+              <h2><span class="l-num">15</span>Changes to this policy</h2>
+              <p>
+                We update this policy when the product changes. The date at the top always tells
+                you which version you are reading. For material changes — a new category of data, a
+                new purpose, a new kind of recipient — we notify account holders by email or in the
+                product before the change takes effect. We never apply a materially different
+                handling of previously collected data without asking you first.
+              </p>
+            </section>
+
+            <section id="contact">
+              <h2><span class="l-num">16</span>Contact us</h2>
+              <p>
+                Privacy questions, data requests, complaints, or anything on this page you find
+                unclear:
+              </p>
+              <ul>
+                <li>Email: <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a></li>
+                <li>Security: <a href="mailto:security@ocur.ai">security@ocur.ai</a></li>
+                <li>Post: [[ LEGAL ENTITY NAME ]], [[ STREET ADDRESS ]], [[ POSTCODE AND CITY ]], [[ COUNTRY ]]</li>
+              </ul>
+              <p>
+                See also our <a href="/terms">Terms of Service</a>.
+              </p>
+              <a class="l-back g-btn-glass lg magnetic" href="/">← Back to ocur.ai</a>
+            </section>
+          </article>
+        </div>
+
+        <footer class="l-foot">
+          <span>Ocur © <span id="g-year">2026</span></span>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+          <a href="/">Home</a>
+          <span class="l-foot-sep"></span>
+          <a href="https://x.com/ocur_ai" target="_blank" rel="noopener">Ocur on X</a>
+        </footer>
+      </div>
+    </main>
+
+    <script type="module" src="/src/legal.js"></script>
+  </body>
+</html>

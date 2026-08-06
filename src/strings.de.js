@@ -165,7 +165,7 @@ export const DE = [
       'Nein. Ocur läuft im Browser — und du erreichst es genauso aus WhatsApp, Telegram, Slack oder Discord. Soll es auch auf deinem Rechner arbeiten? Eine kleine Begleit-App verbindet ihn in unter einer Minute.',
       'Nur, wo du es erlaubst. Standardmäßig wartet alles Wichtige auf deine Freigabe. Erst auf Autopilot erledigt Ocur ganze Abläufe von selbst — jeder Schritt protokolliert. Was allein laufen darf, bestimmst du jederzeit, Ruhezeiten inklusive.',
       'Gmail, Google Kalender &amp; Drive, Notion, GitHub, WhatsApp, Telegram, Slack und Discord — dazu das Web und auf Wunsch deinen eigenen Rechner. Konten verbindest du einzeln und trennst sie jederzeit wieder.',
-      'Dein Workspace ist strikt von jedem anderen Kunden getrennt. Ocur sieht nur die Konten, die du verbindest — und jede Verbindung kappst du mit einem Klick.',
+      'Dein Workspace ist strikt von jedem anderen Kunden getrennt. Ocur sieht nur die Konten, die du verbindest — und jede Verbindung kappst du mit einem Klick. Wir verkaufen deine Daten nie und trainieren keine Modelle damit — die <a href="/de/privacy">Datenschutzerklärung</a> sagt genau, was mit allem passiert, was Ocur anfasst, Google Workspace inklusive.',
       'Ja — genau dafür ist es gemacht. Alle delegieren an ein gemeinsames Ocur mit geteiltem Wissen. Admins regeln, wer was darf, und an einem Ort siehst du, was erledigt wurde.',
       'Minuten, nicht Monate. Ocur läuft im Browser, verbindet sich Login für Login mit deinen Tools und braucht kein IT-Projekt. Die meisten Teams geben ihm schon am ersten Tag echte Arbeit.',
     ],
@@ -175,6 +175,7 @@ export const DE = [
   ['.g-final-h', 'Führ dein Unternehmen —<br /><span class="g-grad">nicht deinen Posteingang.</span>'],
   ['.g-final .g-btn', 'Kostenlos starten'],
   ['.g-foot em', 'Sag es — oder nicht. Es passiert. Du behältst die Kontrolle.'],
+  ['.g-foot-links a', ['Datenschutz', 'AGB']],
   ['#g-dock strong', 'Kostenlos starten'],
   ['.g-dock-sub', 'ohne Kreditkarte'],
 ];
@@ -184,4 +185,9 @@ export const DE_ATTRS = [
   ['.g-links', 'aria-label', 'Hauptnavigation'],
   ['.g-social-x', 'aria-label', 'Ocur auf X'],
   ['.g-social-x', 'title', 'Ocur auf X'],
+  // the German page points at the German legal pages (/de/privacy, /de/terms);
+  // matched on the English href, so this stays correct however the footer moves
+  ['.g-foot-links', 'aria-label', 'Rechtliches'],
+  ['.g-foot-links a[href="/privacy"]', 'href', '/de/privacy'],
+  ['.g-foot-links a[href="/terms"]', 'href', '/de/terms'],
 ];
