@@ -105,10 +105,7 @@ Two things to keep in mind when changing a card:
 
 - **Bump the `?v=` query** on `og:image`/`twitter:image` (in `index.html` and
   `scripts/prerender-de.mjs`) — every crawler caches the image by URL, so
-  without a new URL the old art keeps unfurling. Re-scrape at
-  [cards-dev.twitter.com/validator](https://cards-dev.twitter.com/validator)
-  and [developers.facebook.com/tools/debug](https://developers.facebook.com/tools/debug/)
-  (WhatsApp shares Meta's scraper cache).
+  without a new URL the old art keeps unfurling.
 - **Keep it well under 300 KB.** WhatsApp silently drops the preview on heavy
   images. That's why the home cards are JPEG q96 (~130 KB, no visible
   difference on art that's mostly a smooth gradient) while `/be-ai` keeps the
@@ -116,6 +113,36 @@ Two things to keep in mind when changing a card:
 
 The German page gets its own card, `og:url`, `og:locale` and Twitter copy,
 swapped in by `scripts/prerender-de.mjs` from `src/strings.de.js`.
+
+### When a post shows no image
+
+Almost always a cache, not a bug — check the markup is actually live before
+changing anything:
+
+```bash
+curl -s -A "Twitterbot/1.0" https://ocur.ai/ | grep -E 'og:image|twitter:card'
+curl -sI https://ocur.ai/og.jpg | grep -iE 'HTTP|content-type'
+```
+
+If those look right, it's the platform's cache:
+
+- **X** snapshots a link card **when the post is composed** — editing the post
+  afterwards does not re-fetch it, so a post written before a deploy keeps the
+  old card forever. X also caches card data per URL for roughly a week. The
+  Card Validator that used to force a re-scrape (`cards-dev.twitter.com/validator`)
+  was retired and now just redirects to a login page; there is no official
+  replacement. To get a fresh crawl before the cache expires, post the link
+  with a distinct query string — a `?utm_source=x` is a different URL to the
+  crawler, and `canonical`/`og:url` still point at the clean one, so SEO is
+  unaffected.
+- **WhatsApp / iMessage / LinkedIn** share Meta's scraper cache, which
+  [developers.facebook.com/tools/debug](https://developers.facebook.com/tools/debug/)
+  can still refresh on demand.
+
+Worth knowing what X will drop a card over: `twitter:title` > 70 chars,
+`twitter:description` > 200, `twitter:image:alt` > 420, a relative or
+non-HTTPS image URL, or an image the crawler can't fetch (check `robots.txt`
+and any bot protection in front of the domain).
 
 ## Deploy (Vercel)
 
