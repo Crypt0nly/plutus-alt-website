@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#060608" />
+    <title>Datenschutzerklärung — Ocur</title>
+    <meta
+      name="description"
+      content="Wie Ocur Daten erhebt, verwendet, speichert und weitergibt — inklusive der genauen Angaben dazu, was Ocur mit Google-Nutzerdaten aus Gmail, Google Kalender, Google Drive und Google Kontakte macht, und unserer Limited-Use-Erklärung."
+    />
+    <meta name="application-name" content="Ocur" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Ocur" />
+    <meta property="og:url" content="https://ocur.ai/de/privacy" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:title" content="Datenschutzerklärung — Ocur" />
+    <meta
+      property="og:description"
+      content="Wie Ocur Daten erhebt, verwendet, speichert und weitergibt — inklusive der Limited-Use-Erklärung für Google-Nutzerdaten."
+    />
+    <meta property="og:image" content="https://ocur.ai/og-de.jpg?v=1" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ocur_ai" />
+    <meta name="twitter:image" content="https://ocur.ai/og-de.jpg?v=1" />
+    <link rel="canonical" href="https://ocur.ai/de/privacy" />
+    <link rel="alternate" hreflang="en" href="https://ocur.ai/privacy" />
+    <link rel="alternate" hreflang="de" href="https://ocur.ai/de/privacy" />
+    <link rel="alternate" hreflang="x-default" href="https://ocur.ai/privacy" />
+    <script>
+      document.documentElement.classList.add('js');
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('motion');
+      }
+      // Theme vor dem ersten Paint auflösen: gespeicherte Wahl, dann OS-Einstellung
+      try {
+        var t = localStorage.getItem('ocur-theme');
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.dataset.theme = t;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    </script>
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="g">
+    <div class="g-grain" aria-hidden="true"></div>
+
+    <header class="g-nav lg glare" id="g-nav">
+      <a class="g-brand" href="/de/"><img src="/logo.svg" alt="" /> Ocur</a>
+      <nav class="g-links" aria-label="Hauptnavigation">
+        <a href="/de/">Start</a>
+        <a href="/de/#features">Funktionen</a>
+        <a href="/de/#pricing">Preise</a>
+        <a href="/de/privacy" aria-current="page">Datenschutz</a>
+        <a href="/de/terms">AGB</a>
+        <a href="/de/impressum">Impressum</a>
+      </nav>
+      <a class="g-btn g-btn-sm magnetic" href="https://app.ocur.ai">Kostenlos starten</a>
+    </header>
+
+    <main class="l-page">
+      <div class="l-glow" aria-hidden="true"></div>
+      <div class="g-wrap">
+        <div class="l-head">
+          <p class="l-eyebrow">Rechtliches</p>
+          <h1 class="l-h1">Datenschutzerklärung</h1>
+          <p class="l-lede">
+            Ocur arbeitet direkt in den Tools, die dein Unternehmen ohnehin nutzt. Das ergibt nur
+            Sinn, wenn völlig klar ist, worauf Ocur zugreift, warum, wohin die Daten gehen und wie
+            du den Zugriff wieder entziehst. Genau das steht hier — in verständlicher Sprache.
+          </p>
+          <p class="l-dates">
+            <span>Zuletzt aktualisiert <strong>6. August 2026</strong></span>
+            <span>Gültig ab <strong>6. August 2026</strong></span>
+            <span>Gilt für <strong>ocur.ai · app.ocur.ai · die Ocur-Desktop-App</strong></span>
+          </p>
+        </div>
+
+        <div class="l-key lg glare">
+          <h2>Die Kurzfassung</h2>
+          <ul>
+            <li>Wir verkaufen deine Daten nicht und nutzen sie nie für Werbung.</li>
+            <li>
+              Wir trainieren keine allgemeinen KI- oder Machine-Learning-Modelle mit deinen
+              Inhalten — und erst recht nicht mit dem, was Ocur aus Google Workspace liest.
+            </li>
+            <li>
+              Ocur greift erst auf ein Konto zu, wenn du es verbindest, und macht nur das, worum du
+              gebeten hast. Alles, was du nicht ausdrücklich für den Autopilot freigegeben hast,
+              wartet auf deine Freigabe.
+            </li>
+            <li>
+              Dein Workspace ist von dem jedes anderen Kunden getrennt. Zugangsdaten liegen
+              verschlüsselt.
+            </li>
+            <li>Dienste trennen oder alles löschen — jederzeit, mit einem Klick.</li>
+            <li>Deine Daten liegen in der Europäischen Union.</li>
+          </ul>
+        </div>
+
+        <details class="l-toc-m lg">
+          <summary>Inhalt</summary>
+          <nav aria-label="Inhalt (mobil)">
+            <ol>
+              <li><a href="#who">Wer wir sind</a></li>
+              <li><a href="#scope">Wofür diese Erklärung gilt</a></li>
+              <li><a href="#data">Welche Daten wir verarbeiten</a></li>
+              <li><a href="#google">Google-Nutzerdaten</a></li>
+              <li><a href="#use">Zwecke und Rechtsgrundlagen</a></li>
+              <li><a href="#ai">KI-Modelle und Verarbeitung deiner Inhalte</a></li>
+              <li><a href="#sharing">Empfänger und Auftragsverarbeiter</a></li>
+              <li><a href="#transfers">Wo deine Daten liegen</a></li>
+              <li><a href="#retention">Speicherdauer</a></li>
+              <li><a href="#security">Sicherheit</a></li>
+              <li><a href="#controls">Trennen und löschen</a></li>
+              <li><a href="#rights">Deine Rechte</a></li>
+              <li><a href="#cookies">Cookies und Analyse</a></li>
+              <li><a href="#children">Kinder</a></li>
+              <li><a href="#changes">Änderungen</a></li>
+              <li><a href="#contact">Kontakt</a></li>
+            </ol>
+          </nav>
+        </details>
+
+        <div class="l-layout">
+          <nav class="l-toc lg" aria-label="Inhalt">
+            <h2>Inhalt</h2>
+            <ol>
+              <li><a href="#who">Wer wir sind</a></li>
+              <li><a href="#scope">Geltungsbereich</a></li>
+              <li><a href="#data">Welche Daten</a></li>
+              <li><a href="#google">Google-Nutzerdaten</a></li>
+              <li><a href="#use">Zwecke &amp; Rechtsgrundlagen</a></li>
+              <li><a href="#ai">KI-Modelle</a></li>
+              <li><a href="#sharing">Empfänger</a></li>
+              <li><a href="#transfers">Wo die Daten liegen</a></li>
+              <li><a href="#retention">Speicherdauer</a></li>
+              <li><a href="#security">Sicherheit</a></li>
+              <li><a href="#controls">Trennen &amp; löschen</a></li>
+              <li><a href="#rights">Deine Rechte</a></li>
+              <li><a href="#cookies">Cookies</a></li>
+              <li><a href="#children">Kinder</a></li>
+              <li><a href="#changes">Änderungen</a></li>
+              <li><a href="#contact">Kontakt</a></li>
+            </ol>
+          </nav>
+
+          <article class="l-prose">
+            <section id="who">
+              <h2><span class="l-num">01</span>Wer wir sind</h2>
+              <p>
+                <strong>Ocur</strong> ist das KI-Betriebssystem für Unternehmen. Es klinkt sich in
+                die Plattformen ein, die ein Unternehmen ohnehin nutzt — E-Mail, Kalender, Dateien,
+                Chat, das Web — und erledigt die Arbeit direkt darin, auf Zuruf oder auf Autopilot.
+              </p>
+              <!-- OCUR_LEGAL_ENTITY — Betreiberangaben. In allen vier Rechtsseiten
+                   gleich halten: /privacy, /terms, /de/privacy, /de/terms. -->
+              <p>
+                Betreiberin von Ocur ist die <strong>OcurAI, Inc.</strong>, eine Delaware C
+                Corporation, eingetragener Sitz 131 Continental Dr, Suite 305, Newark, DE 19713,
+                USA, Hauptgeschäftssitz Luisenstraße 8, 38448 Wolfsburg, Deutschland
+                („Ocur“, „wir“, „uns“). Für alles hier
+                Beschriebene sind wir <strong>Verantwortliche</strong> im Sinne der
+                Datenschutz-Grundverordnung (DSGVO) — außer dort, wo wir Daten in deinem Auftrag als
+                <strong>Auftragsverarbeiter</strong> verarbeiten, was für die Inhalte gilt, die dein
+                Unternehmen ins Produkt gibt (siehe <a href="#use">Abschnitt 5</a>).
+              </p>
+              <p>
+                Fragen, Anträge und Beschwerden zum Datenschutz:
+                <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a>. Wir beantworten jede einzelne.
+              </p>
+
+              <h3>Angaben zur App</h3>
+              <p>
+                Unter diesen Angaben ist unsere Anwendung registriert — auch bei Google, für den
+                OAuth-Zustimmungsbildschirm, den du beim Verbinden eines Google-Kontos siehst:
+              </p>
+              <div class="l-tw">
+                <table class="l-table">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Name der Anwendung</th>
+                      <td>Ocur</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Anbieterin</th>
+                      <td>OcurAI, Inc.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Startseite</th>
+                      <td><a href="https://ocur.ai/">https://ocur.ai</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Anwendung</th>
+                      <td><a href="https://app.ocur.ai">https://app.ocur.ai</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Datenschutzerklärung</th>
+                      <td><a href="https://ocur.ai/privacy">https://ocur.ai/privacy</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Nutzungsbedingungen</th>
+                      <td><a href="https://ocur.ai/terms">https://ocur.ai/terms</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Kontakt</th>
+                      <td><a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="scope">
+              <h2><span class="l-num">02</span>Wofür diese Erklärung gilt</h2>
+              <p>Diese Erklärung gilt für:</p>
+              <ul>
+                <li>die Website <a href="https://ocur.ai/de/">ocur.ai</a> samt dem Spiel unter <a href="/be-ai">ocur.ai/be-ai</a>;</li>
+                <li>die Anwendung <a href="https://app.ocur.ai">app.ocur.ai</a> und ihre API;</li>
+                <li>die Ocur-Desktop-App, die deinen eigenen Rechner mit Ocur verbindet;</li>
+                <li>die Messaging-Kanäle, über die du Ocur erreichst (WhatsApp, Telegram, Slack, Discord).</li>
+              </ul>
+              <p>
+                Nicht erfasst sind die Drittdienste, die du mit Ocur verbindest. Wenn Ocur auf deine
+                Anweisung hin dein Gmail liest oder ein Google Sheet bearbeitet, gilt für das, was
+                Google selbst mit diesen Daten macht, weiterhin Googles eigene Datenschutzerklärung.
+              </p>
+            </section>
+
+            <section id="data">
+              <h2><span class="l-num">03</span>Welche Daten wir verarbeiten</h2>
+
+              <h3>Kontodaten</h3>
+              <p>
+                Name, E-Mail-Adresse, Profilbild, die Organisation, zu der du gehörst, und deine
+                Rolle darin. Die Anmeldung übernimmt Clerk für uns; wir speichern das daraus
+                entstehende Profil, damit klar ist, wem welcher Workspace gehört.
+              </p>
+
+              <h3>Die Inhalte, die du Ocur gibst</h3>
+              <p>
+                Alles, was du hineingibst, und alles, was dabei entsteht: Chatnachrichten und
+                Spracheingaben, hochgeladene Dateien und Dokumente, dein Wissensspeicher, die
+                Automatisierungen und Aufgaben, die du einrichtest, die Erinnerungen, die du (oder
+                deine Admins) ausdrücklich speicherst, und das Protokoll jedes Durchlaufs.
+              </p>
+
+              <h3>Daten aus den Konten, die du verbindest</h3>
+              <p>
+                Ocur lässt sich mit Google (Gmail, Kalender, Drive, Kontakte), Microsoft 365, Slack,
+                GitHub, Notion, Trello, Telegram, WhatsApp und Discord verbinden — und mit allem,
+                was du über einen eigenen Konnektor oder einen MCP-Server ergänzt. Nach dem
+                Verbinden liest und schreibt Ocur dort ausschließlich, um die Arbeit zu erledigen,
+                um die du gebeten hast. <a href="#google">Abschnitt 4</a> beschreibt den Fall Google
+                vollständig.
+              </p>
+
+              <h3>Nutzungs- und technische Daten</h3>
+              <p>
+                Server-Logs (IP-Adresse, Browser- und Gerätetyp, Zeitstempel, aufgerufener
+                Endpunkt), Fehlerdiagnosen, die pro Durchlauf verbrauchten Tokens und ein
+                Prüfprotokoll aller Aktionen, die Ocur für dich ausgeführt hat — genau das macht
+                das Versprechen „jeder Schritt protokolliert“ real.
+              </p>
+
+              <h3>Zahlungsdaten</h3>
+              <p>
+                Tarif, Rechnungen, Rechnungsland, Umsatzsteuerstatus. Kartenzahlungen laufen über
+                Stripe — <strong>vollständige Kartennummern sehen und speichern wir nie</strong>.
+              </p>
+
+              <h3>Website-Daten</h3>
+              <p>
+                Aggregierte, cookiefreie Produktanalyse auf ocur.ai. Siehe
+                <a href="#cookies">Abschnitt 13</a>.
+              </p>
+            </section>
+
+            <section id="google">
+              <h2><span class="l-num">04</span>Google-Nutzerdaten</h2>
+              <p>
+                Ocur ist ein Client der Google-API-Dienste. Weil Gmail, Kalender und Drive zum
+                Sensibelsten gehören, was ein Unternehmen aus der Hand gibt, steht hier genau, worum
+                wir bitten, was wir damit tun — und was wir damit niemals tun.
+              </p>
+
+              <h3>Nichts ist verbunden, bevor du es verbindest</h3>
+              <p>
+                Der Google-Zugriff ist dienstweise und freiwillig. Gmail zu verbinden verbindet
+                nicht Drive; den Kalender zu verbinden verbindet nicht Gmail. Du erteilst jede
+                Berechtigung einzeln in den Konnektor-Einstellungen, siehst dabei Googles eigenen
+                Zustimmungsbildschirm mit der Liste der Berechtigungen und kannst jede davon
+                jederzeit zurücknehmen (<a href="#controls">Abschnitt 11</a>).
+              </p>
+
+              <h3>Die Berechtigungen, um die wir bitten — und wofür</h3>
+              <div class="l-tw">
+                <table class="l-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Scope</th>
+                      <th scope="col">Was er erlaubt</th>
+                      <th scope="col">Wofür Ocur ihn braucht</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row"><code>openid</code> <code>userinfo.email</code> <code>userinfo.profile</code></th>
+                      <td>E-Mail-Adresse, Name und Profilbild des verbundenen Google-Kontos lesen.</td>
+                      <td>Damit sichtbar ist, welches Konto verbunden ist, und bei mehreren das richtige verwendet wird.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>gmail.readonly</code></th>
+                      <td>Nachrichten, Threads, Labels und Anhänge im verbundenen Postfach lesen.</td>
+                      <td>Posteingang sichten und zusammenfassen, den gefragten Thread finden, die Rechnung aus dem Anhang ziehen, „was hat der Lieferant wirklich geschrieben?“ beantworten.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>gmail.modify</code></th>
+                      <td>Labels setzen und entfernen, als gelesen markieren, archivieren, Entwürfe verwalten.</td>
+                      <td>Den Posteingang in den Zustand bringen, um den du gebeten hast — einsortieren, archivieren, nach einem Durchlauf aufräumen.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>gmail.compose</code></th>
+                      <td>Entwürfe im verbundenen Postfach erstellen und bearbeiten.</td>
+                      <td>Eine Antwort vorbereiten, die du erst liest und freigibst, bevor irgendetwas rausgeht.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>gmail.send</code></th>
+                      <td>Eine Nachricht aus dem verbundenen Postfach senden.</td>
+                      <td>Die Antwort oder die Zahlungserinnerung tatsächlich verschicken, sobald du freigibst — oder automatisch, wenn du diese Aufgabe selbst auf Autopilot gestellt hast.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>contacts.readonly</code> <code>profile.emails.read</code></th>
+                      <td>Deine Google-Kontakte und deren E-Mail-Adressen lesen.</td>
+                      <td>Damit „schreib Anna wegen der Rechnung“ bei der richtigen Anna landet, ohne dass du die Adresse nachschlägst.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>calendar.events</code></th>
+                      <td>Termine im verbundenen Kalender lesen, anlegen, ändern und löschen.</td>
+                      <td>„Wann habe ich Zeit?“ beantworten, das Meeting buchen, es verschieben, wenn die Gegenseite umplant.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>drive</code></th>
+                      <td>Dateien im verbundenen Drive öffnen, anlegen, bearbeiten und organisieren.</td>
+                      <td>Die Arbeit im echten Dokument erledigen — die Rechnungstabelle abgleichen, das Deck aktualisieren, den Export dort ablegen, wo er hingehört.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Wir fragen den engsten Satz an Berechtigungen ab, mit dem diese Funktionen
+                durchgängig arbeiten. Braucht eine Funktion eine Berechtigung nicht mehr, fällt die
+                Berechtigung weg.
+              </p>
+
+              <h3>Was wir mit Google-Daten tun</h3>
+              <ul>
+                <li>
+                  <strong>Wir nutzen sie ausschließlich für die Funktionen, um die du gebeten
+                  hast.</strong> Ein Durchlauf holt, was die Aufgabe braucht, erledigt sie und
+                  meldet das Ergebnis zurück.
+                </li>
+                <li>
+                  <strong>Wir legen keine Kopie deines Postfachs oder deines Drive an.</strong> Ocur
+                  hält keine laufende Spiegelung deines Google-Kontos. Was danach bleibt, ist das
+                  Protokoll des Durchlaufs in deinem Workspace: die Unterhaltung, das Ergebnis, der
+                  Prüfeintrag — dazu das, was du oder deine Admins ausdrücklich ins
+                  Unternehmensgedächtnis oder den Wissensspeicher übernommen haben.
+                </li>
+                <li>
+                  <strong>Access- und Refresh-Tokens liegen verschlüsselt</strong> und werden nur
+                  benutzt, um in deinem Auftrag mit Google zu sprechen.
+                </li>
+                <li>
+                  <strong>Dein Workspace ist isoliert.</strong> Google-Daten aus deinem Konto werden
+                  nie mit denen anderer Kunden vermischt und nie verwendet, um die Frage eines
+                  anderen Kunden zu beantworten.
+                </li>
+              </ul>
+
+              <div class="l-note">
+                <span class="l-note-label">Limited-Use-Erklärung</span>
+                <p>
+                  Die Verwendung und Weitergabe von Informationen, die Ocur über Google-APIs
+                  erhält, an andere Anwendungen erfolgt im Einklang mit der
+                  <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>
+                  einschließlich der
+                  <a href="https://developers.google.com/terms/api-services-user-data-policy#additional-requirements-for-specific-api-scopes" target="_blank" rel="noopener">Limited-Use-Anforderungen</a>.
+                </p>
+                <p>
+                  Insbesondere gilt: <strong>Wir verwenden weder Google-Workspace-APIs noch darüber
+                  erhaltene Daten, um allgemeine Modelle künstlicher Intelligenz oder des
+                  maschinellen Lernens zu entwickeln, zu verbessern oder zu trainieren.</strong>
+                  Inhalte aus Gmail, Google Kalender, Google Drive oder Google Kontakte gehen nur an
+                  unsere KI-Anbieter, um die konkrete Aufgabe zu erledigen, um die du gebeten hast
+                  — auf Basis von Verträgen, die ein Training ihrer Modelle damit untersagen (siehe
+                  <a href="#ai">Abschnitt 6</a>).
+                </p>
+              </div>
+
+              <h3>Was wir mit Google-Daten niemals tun</h3>
+              <ul>
+                <li>Wir verkaufen sie nicht und geben sie nicht an Datenhändler oder Adresshändler weiter.</li>
+                <li>Wir nutzen sie nicht für Werbung, Ad-Targeting oder irgendeinen Zweck, der nichts mit den von dir gewünschten Funktionen zu tun hat.</li>
+                <li>Wir bauen daraus kein Profil von dir zum Nutzen Dritter.</li>
+                <li>
+                  Kein Mensch bei Ocur liest sie — außer in vier engen Fällen: mit deiner
+                  ausdrücklichen Einwilligung (etwa wenn du uns bittest, einen bestimmten Durchlauf
+                  anzusehen), soweit zwingend für Sicherheits- oder Missbrauchsuntersuchungen
+                  erforderlich, soweit gesetzlich vorgeschrieben, oder wenn die Daten so aggregiert
+                  und anonymisiert sind, dass sie niemanden mehr identifizieren.
+                </li>
+              </ul>
+            </section>
+
+            <section id="use">
+              <h2><span class="l-num">05</span>Zwecke und Rechtsgrundlagen</h2>
+              <p>
+                Soweit dein Unternehmen unser Kunde ist, verarbeiten wir die Inhalte in deinem
+                Workspace <strong>auf deine Weisung als Auftragsverarbeiter</strong> — dein
+                Unternehmen entscheidet, was hineingeht und was Ocur damit tun darf. Wo wir die
+                Zwecke selbst bestimmen (Konten betreiben, abrechnen, den Dienst absichern, die
+                Website verbessern), sind wir Verantwortliche. Die Rechtsgrundlagen nach Art. 6
+                DSGVO:
+              </p>
+              <div class="l-tw">
+                <table class="l-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Was wir tun</th>
+                      <th scope="col">Rechtsgrundlage</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Das Produkt bereitstellen: Aufgaben ausführen, Konnektoren bedienen, Gedächtnis führen, Ergebnisse liefern</th>
+                      <td>Vertragserfüllung, Art. 6 Abs. 1 lit. b — sowie deine Weisung als Kunde</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Ein Drittkonto verbinden und darin handeln</th>
+                      <td>Deine Einwilligung, erteilt je Dienst im Moment des Verbindens, Art. 6 Abs. 1 lit. a</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Dienst absichern, Missbrauch verhindern, Fehler beheben</th>
+                      <td>Berechtigte Interessen, Art. 6 Abs. 1 lit. f</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Abrechnung, Rechnungsstellung, steuerliche Aufzeichnungen</th>
+                      <td>Vertrag und rechtliche Verpflichtung, Art. 6 Abs. 1 lit. b und c</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Aggregierte Produktanalyse und Verbesserung des Dienstes</th>
+                      <td>Berechtigte Interessen, Art. 6 Abs. 1 lit. f — aggregiert, nie auf Inhaltsebene</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Service-E-Mails ohne Abmeldemöglichkeit (Sicherheit, Abrechnung, Störungen)</th>
+                      <td>Vertrag, Art. 6 Abs. 1 lit. b</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>Wir verkaufen keine personenbezogenen Daten und betreiben keine verhaltensbasierte Werbung.</p>
+            </section>
+
+            <section id="ai">
+              <h2><span class="l-num">06</span>KI-Modelle und Verarbeitung deiner Inhalte</h2>
+              <p>
+                Ocur basiert auf großen Sprachmodellen. Um zu antworten oder eine Aufgabe zu
+                erledigen, geht der relevante Teil deiner Inhalte — deine Nachricht, das betreffende
+                Dokument, der zu lesende E-Mail-Thread — an einen Modellanbieter, wird dort
+                verarbeitet, und das Ergebnis kommt zurück. Diese Anbieter sind derzeit
+                <strong>Anthropic</strong>, <strong>OpenAI</strong> und <strong>Google</strong>
+                (Gemini), dazu <strong>ElevenLabs</strong> für Sprache im Voice-Modus.
+              </p>
+              <ul>
+                <li>
+                  <strong>Sie trainieren nicht mit deinen Inhalten.</strong> Wir nutzen diese
+                  Anbieter unter ihren Geschäfts-/API-Bedingungen, die ein Training mit über die API
+                  übermittelten Daten untersagen.
+                </li>
+                <li>
+                  <strong>Auch wir trainieren keine Modelle mit deinen Inhalten</strong> — weder
+                  eigene noch Fine-Tunes fremder Modelle.
+                </li>
+                <li>
+                  <strong>Es geht nur raus, was die Aufgabe braucht.</strong> Ocur übergibt den
+                  Kontext für die konkrete Aufgabe, nicht deinen gesamten Workspace.
+                </li>
+                <li>
+                  <strong>Modellausgaben können falsch sein.</strong> Genau deshalb wartet alles
+                  Folgenreiche auf eine menschliche Freigabe, solange du diese Aufgabe nicht bewusst
+                  auf Autopilot gestellt hast.
+                </li>
+              </ul>
+            </section>
+
+            <section id="sharing">
+              <h2><span class="l-num">07</span>Empfänger und Auftragsverarbeiter</h2>
+              <p>
+                Wir geben Daten an die Dienstleister weiter, die Ocur funktionieren lassen — an
+                sonst niemanden. Jeder von ihnen ist über einen Auftragsverarbeitungsvertrag
+                gebunden, darf nur auf unsere Weisung handeln und erhält nur, was er für seine
+                Aufgabe braucht. Wir verkaufen keine Daten und geben sie nicht an Werbetreibende.
+              </p>
+              <div class="l-tw">
+                <table class="l-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Anbieter</th>
+                      <th scope="col">Aufgabe für Ocur</th>
+                      <th scope="col">Ort</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Amazon Web Services</th>
+                      <td>Hosting, Datenbanken, Dateispeicher, Logs</td>
+                      <td>EU (Stockholm)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Vercel</th>
+                      <td>Hosting der Website ocur.ai</td>
+                      <td>Globales CDN</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Clerk</th>
+                      <td>Anmeldung, Sitzungen, Organisationszugehörigkeit</td>
+                      <td>EU / USA</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Anthropic, OpenAI, Google</th>
+                      <td>Die Sprachmodelle, die die eigentliche Arbeit denken</td>
+                      <td>EU / USA</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">ElevenLabs</th>
+                      <td>Sprachsynthese für den Voice-Modus</td>
+                      <td>EU / USA</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Supermemory</th>
+                      <td>Unternehmensgedächtnis und semantische Suche, je Workspace isoliert</td>
+                      <td>EU / USA</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Exa</th>
+                      <td>Websuche, wenn Ocur etwas nachschlagen muss</td>
+                      <td>USA</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">E2B</th>
+                      <td>Ausführung von Code in einer Sandbox, wenn die Aufgabe es erfordert</td>
+                      <td>EU / USA</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Merge, Unified.to</th>
+                      <td>Konnektor-Infrastruktur für einige Business-Tools</td>
+                      <td>EU / USA</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Stripe</th>
+                      <td>Zahlungen, Abonnements, Rechnungen</td>
+                      <td>EU / USA</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Sentry</th>
+                      <td>Fehler- und Absturzdiagnose</td>
+                      <td>EU</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">PostHog</th>
+                      <td>Aggregierte Produktanalyse</td>
+                      <td>EU</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Diese Liste ist auf dem Stand des Datums oben und ändert sich, wenn wir Anbieter
+                wechseln — die aktuelle Unterauftragsverarbeiter-Liste oder eine Benachrichtigung
+                über Änderungen gibt es unter
+                <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a>.
+              </p>
+              <p>
+                Darüber hinaus geben wir Daten nur weiter, wenn das Gesetz es verlangt (ein
+                wirksames, bindendes Ersuchen, das wir prüfen und dem wir widersprechen, wo wir
+                können), oder im Fall einer Fusion oder Übernahme — dann erfährst du es, bevor deine
+                Daten einer anderen Datenschutzerklärung unterliegen.
+              </p>
+            </section>
+
+            <section id="transfers">
+              <h2><span class="l-num">08</span>Wo deine Daten liegen</h2>
+              <p>
+                Ocur läuft auf Infrastruktur in der <strong>Europäischen Union</strong>. Einige der
+                oben genannten Anbieter arbeiten außerhalb der EU oder unterstützen von dort. Wo
+                Daten in ein Land ohne EU-Angemessenheitsbeschluss gelangen, ist die Übermittlung
+                durch die Standardvertragsklauseln der EU-Kommission zusammen mit den technischen
+                Maßnahmen aus <a href="#security">Abschnitt 10</a> abgesichert.
+              </p>
+              <p>
+                Die OcurAI, Inc. ist in Delaware eingetragen — das verschiebt deine Daten aber
+                nicht: Die Systeme, die sie halten, laufen in der EU, und die US-Rechtsform gibt
+                niemandem automatisch Zugriff darauf. An Behörden geben wir Daten nur auf ein
+                wirksames, bindendes Ersuchen heraus, das wir prüfen und dem wir widersprechen,
+                wo wir können.
+              </p>
+            </section>
+
+            <section id="retention">
+              <h2><span class="l-num">09</span>Speicherdauer</h2>
+              <div class="l-tw">
+                <table class="l-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Daten</th>
+                      <th scope="col">Gespeichert</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Konto- und Organisationsdaten</th>
+                      <td>Solange das Konto besteht; gelöscht, wenn du es löschst</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Unterhaltungen, Dateien, Erinnerungen, Automatisierungen</th>
+                      <td>Bis du sie löschst oder das Konto gelöscht wird</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Konnektor-Zugangsdaten und Tokens</th>
+                      <td>Bis du den Dienst trennst oder das Konto löschst</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Prüfprotokoll der für dich ausgeführten Aktionen</th>
+                      <td>Standardmäßig 180 Tage</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Server- und Sicherheits-Logs</th>
+                      <td>Bis zu 90 Tage</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Rechnungen und steuerliche Unterlagen</th>
+                      <td>Solange handels- und steuerrechtliche Fristen es verlangen (in Deutschland bis zu 10 Jahre)</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Verschlüsselte Backups</th>
+                      <td>Rollierendes Fenster von höchstens 35 Tagen, danach überschrieben</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Was du löschst, verschwindet sofort aus den Live-Systemen und läuft innerhalb des
+                oben genannten Fensters aus den verschlüsselten Backups.
+              </p>
+            </section>
+
+            <section id="security">
+              <h2><span class="l-num">10</span>Sicherheit</h2>
+              <ul>
+                <li><strong>Verschlüsselt bei der Übertragung</strong> (TLS) <strong>und im Ruhezustand</strong>.</li>
+                <li>
+                  <strong>Konnektor-Zugangsdaten bekommen eine zweite Schicht:</strong> Jeder Access-
+                  und Refresh-Token wird zusätzlich verschlüsselt, bevor er in die Datenbank
+                  geschrieben wird — mit einem Schlüssel, der außerhalb der Datenbank liegt.
+                </li>
+                <li>
+                  <strong>Mandantentrennung.</strong> Die Daten jedes Workspace — auch sein
+                  Gedächtnis-Container — sind auf diesen Workspace begrenzt und aus keinem anderen
+                  erreichbar.
+                </li>
+                <li>
+                  <strong>Minimalprinzip intern.</strong> Zugriff auf die Produktivumgebung haben
+                  nur die Personen, die ihn brauchen, und er wird protokolliert.
+                </li>
+                <li>
+                  <strong>Schutzmechanismen im Produkt selbst.</strong> Admins entscheiden, was
+                  unbeaufsichtigt laufen darf; alles andere wartet mit Zeitlimit auf Freigabe, und
+                  jede Aktion landet im Prüfprotokoll.
+                </li>
+                <li>
+                  <strong>Meldung von Verletzungen.</strong> Betrifft eine Datenschutzverletzung
+                  deine personenbezogenen Daten, melden wir sie der zuständigen Aufsichtsbehörde
+                  innerhalb von 72 Stunden, soweit die DSGVO das verlangt, und informieren dich
+                  unverzüglich.
+                </li>
+              </ul>
+              <p>
+                Sicherheitslücke gefunden? Schreib an
+                <a href="mailto:security@ocur.ai">security@ocur.ai</a> — wir arbeiten mit dir daran
+                und gehen nicht gegen dich vor, wenn du sie in gutem Glauben meldest.
+              </p>
+            </section>
+
+            <section id="controls">
+              <h2><span class="l-num">11</span>Trennen und löschen</h2>
+              <h3>Einen Dienst trennen</h3>
+              <p>
+                Öffne in Ocur die Konnektor-Einstellungen und wähle beim betreffenden Dienst
+                <strong>Trennen</strong>. Die dafür gespeicherten Zugangsdaten werden gelöscht, und
+                Ocur verliert den Zugriff sofort.
+              </p>
+              <h3>Bei Google widerrufen</h3>
+              <p>
+                Du kannst Ocur den Zugriff jederzeit auch direkt bei Google entziehen, unabhängig
+                von uns, unter
+                <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>.
+                Dasselbe gilt für die entsprechenden Einstellungen bei Microsoft, Slack, GitHub,
+                Notion und jedem anderen Dienst, den du verbunden hast.
+              </p>
+              <h3>Alles löschen</h3>
+              <p>
+                Mit dem Löschen deines Kontos verschwinden Profil, Unterhaltungen, Dateien, Wissen,
+                Erinnerungen, Automatisierungen und gespeicherte Zugangsdaten aus unseren
+                Live-Systemen und laufen innerhalb des Fensters aus
+                <a href="#retention">Abschnitt 9</a> aus den verschlüsselten Backups. Wenn wir das
+                für dich übernehmen sollen oder du eine schriftliche Bestätigung möchtest, schreib
+                an <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a> — wir erledigen es innerhalb
+                von 30 Tagen. Es bleibt nur, was wir gesetzlich aufbewahren müssen, etwa Rechnungen.
+              </p>
+            </section>
+
+            <section id="rights">
+              <h2><span class="l-num">12</span>Deine Rechte</h2>
+              <p>Nach der DSGVO hast du das Recht auf:</p>
+              <ul>
+                <li><strong>Auskunft</strong> über die zu dir gespeicherten personenbezogenen Daten und eine Kopie davon.</li>
+                <li><strong>Berichtigung</strong> unrichtiger Daten.</li>
+                <li><strong>Löschung</strong> („Recht auf Vergessenwerden“).</li>
+                <li><strong>Einschränkung</strong> der Verarbeitung und <strong>Widerspruch</strong> gegen Verarbeitungen auf Basis berechtigter Interessen.</li>
+                <li><strong>Datenübertragbarkeit</strong> — Herausgabe in einem strukturierten, maschinenlesbaren Format.</li>
+                <li><strong>Widerruf einer Einwilligung</strong> jederzeit, ohne dass die bisherige Rechtmäßigkeit berührt wird.</li>
+                <li><strong>Beschwerde</strong> bei einer Datenschutz-Aufsichtsbehörde.</li>
+              </ul>
+              <p>
+                Schreib an <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a>; wir antworten
+                innerhalb von 30 Tagen. Bist du Mitarbeiterin oder Mitarbeiter eines Unternehmens,
+                das Ocur nutzt, kontrolliert dein Arbeitgeber diesen Workspace — wir verweisen dich
+                dorthin und helfen ihm, dir zu antworten.
+              </p>
+              <h3>Wenn du in Kalifornien lebst</h3>
+              <p>
+                Wir verkaufen keine personenbezogenen Daten und geben sie nicht für
+                kontextübergreifende Werbung weiter — weder nach CCPA/CPRA noch sonst.
+                Einwohnerinnen und Einwohner Kaliforniens können Auskunft, Berichtigung oder
+                Löschung verlangen; Nachteile entstehen daraus nicht. Dieselbe Adresse:
+                <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a>.
+              </p>
+
+              <h3>Automatisierte Entscheidungen</h3>
+              <p>
+                Ocur handelt auf deine Anweisung. Es trifft keine Entscheidungen, die dir gegenüber
+                rechtliche Wirkung entfalten oder dich in ähnlicher Weise erheblich beeinträchtigen
+                im Sinne von Art. 22 DSGVO. Folgenreiche Aktionen warten auf eine menschliche
+                Freigabe, sofern deine Organisation die betreffende Aufgabe nicht ausdrücklich auf
+                Autopilot gestellt hat, und alles, was Ocur tut, ist protokolliert und von den
+                Menschen, denen das Konto gehört, umkehrbar.
+              </p>
+            </section>
+
+            <section id="cookies">
+              <h2><span class="l-num">13</span>Cookies und Analyse</h2>
+              <p>Die Website ocur.ai ist bewusst schlank:</p>
+              <ul>
+                <li>
+                  <code>ocur-theme</code> und <code>ocur-lang</code> — merken sich deine Wahl von
+                  Hell/Dunkel und Sprache. Rein funktional, gesetzt nur, wenn du eine Wahl triffst.
+                </li>
+                <li>
+                  <strong>PostHog</strong>-Produktanalyse, cookiefrei konfiguriert: Der Zustand
+                  bleibt im Arbeitsspeicher, es wird nichts auf deinem Gerät abgelegt, und wir
+                  erfahren, wie viele Menschen einen Abschnitt lesen — nicht, wer sie sind. Deshalb
+                  gibt es hier auch kein Cookie-Banner.
+                </li>
+                <li>Keine Werbe-Cookies, keine Tracking-Pixel, kein seitenübergreifendes Profiling. Nie.</li>
+              </ul>
+              <p>
+                Die Anwendung app.ocur.ai setzt zusätzlich die Sitzungs-Cookies, die nötig sind, um
+                dich angemeldet zu halten.
+              </p>
+            </section>
+
+            <section id="children">
+              <h2><span class="l-num">14</span>Kinder</h2>
+              <p>
+                Ocur ist ein Produkt für Unternehmen und richtet sich nicht an Kinder. Wir erheben
+                wissentlich keine Daten von Personen unter 16 Jahren. Wenn du glaubst, dass uns ein
+                Kind Daten gegeben hat, schreib an
+                <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a> — wir löschen sie.
+              </p>
+            </section>
+
+            <section id="changes">
+              <h2><span class="l-num">15</span>Änderungen dieser Erklärung</h2>
+              <p>
+                Wir aktualisieren diese Erklärung, wenn sich das Produkt ändert. Das Datum oben
+                sagt dir, welche Fassung du liest. Bei wesentlichen Änderungen — eine neue
+                Datenkategorie, ein neuer Zweck, eine neue Empfängerart — informieren wir
+                Kontoinhaber per E-Mail oder im Produkt, bevor die Änderung wirksam wird. Eine
+                wesentlich andere Verarbeitung bereits erhobener Daten führen wir nie ohne deine
+                vorherige Zustimmung ein.
+              </p>
+            </section>
+
+            <section id="contact">
+              <h2><span class="l-num">16</span>Kontakt</h2>
+              <p>
+                Fragen zum Datenschutz, Anträge, Beschwerden oder alles, was hier unklar geblieben
+                ist:
+              </p>
+              <ul>
+                <li>E-Mail: <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a></li>
+                <li>Sicherheit: <a href="mailto:security@ocur.ai">security@ocur.ai</a></li>
+                <li>Telefon: <a href="tel:+491712189405">+49 171 2189405</a></li>
+                <li>Post: OcurAI, Inc., Luisenstraße 8, 38448 Wolfsburg, Deutschland</li>
+              </ul>
+              <p>
+                Siehe auch unsere <a href="/de/terms">Nutzungsbedingungen</a> und das
+                <a href="/de/impressum">Impressum</a>. Maßgeblich ist im Zweifel die
+                <a href="/privacy">englische Fassung</a> dieser Erklärung.
+              </p>
+              <a class="l-back g-btn-glass lg magnetic" href="/de/">← Zurück zu ocur.ai</a>
+            </section>
+          </article>
+        </div>
+
+        <footer class="l-foot">
+          <span>Ocur © <span id="g-year">2026</span> · ein Produkt der OcurAI, Inc.</span>
+          <a href="/de/privacy">Datenschutz</a>
+          <a href="/de/terms">AGB</a>
+          <a href="/de/impressum">Impressum</a>
+          <a href="/de/">Start</a>
+          <span class="l-foot-sep"></span>
+          <a href="https://x.com/ocur_ai" target="_blank" rel="noopener">Ocur auf X</a>
+        </footer>
+      </div>
+    </main>
+
+    <script type="module" src="/src/legal.js"></script>
+  </body>
+</html>

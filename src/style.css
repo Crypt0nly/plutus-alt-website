@@ -1270,6 +1270,24 @@ html.motion .g-eq i {
   color: var(--g-dim);
 }
 
+/* legal links — every page has to carry these: the privacy policy has to be
+   reachable from the home page for Google's OAuth verification, and it's the
+   first thing anyone connecting a mailbox goes looking for. */
+.g-foot-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+.g-foot-links a {
+  color: var(--g-dim);
+  transition: color 0.2s ease;
+}
+
+.g-foot-links a:hover {
+  color: var(--g-orange);
+}
+
 /* social icon button — same hairline-circle language as the nav theme toggle */
 .g-social {
   flex: 0 0 auto;
