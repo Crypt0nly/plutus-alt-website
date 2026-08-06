@@ -9,6 +9,14 @@ export const OG_TITLE_DE = 'Ocur — das KI-Betriebssystem für Unternehmen';
 export const DESC_DE =
   'Ocur erledigt die Arbeit direkt in deinen Tools — E-Mail, Kalender, Dateien, Chat, Web. Auf Zuruf oder voll automatisch. Du gibst frei, Ocur macht den Rest. Jetzt kostenlos starten.';
 
+// Link-Vorschau (X, WhatsApp, iMessage, LinkedIn). Kürzer als DESC_DE, weil X
+// die Beschreibung in der Karte hart abschneidet. Das Kartenbild dazu ist
+// public/og-de.jpg (siehe scripts/gen-og.mjs).
+export const TWITTER_DESC_DE =
+  'Ocur erledigt die Arbeit direkt in deinen Tools — E-Mail, Kalender, Dateien, Chat, Web. Auf Zuruf oder voll automatisch. Jetzt kostenlos testen.';
+export const OG_ALT_DE =
+  'Ocur — „Deine KI redet nicht. Sie erledigt.“ Ein Ocur-Fenster auf Autopilot: überfällige Rechnungen anmahnen und die Tabelle aktualisieren — 14 Erinnerungen raus, Tabelle aktualisiert, 2 schon bezahlt.';
+
 // selector → replacement innerHTML. A string applies to every match; an
 // array applies element-by-element in DOM order.
 export const DE = [
