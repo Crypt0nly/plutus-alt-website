@@ -77,6 +77,46 @@ hero until the final section.
   and beats browser language. `?lang=de` force-applies German client-side on
   the dev server, where `/de/` doesn't exist.
 
+## Link previews
+
+Every page unfurls with a full-bleed card when it's pasted into X, WhatsApp,
+iMessage, LinkedIn, Slack or Discord — `summary_large_image` plus a 1200×630
+image, `og:url`, `og:site_name` and `og:locale`:
+
+| Page | Card |
+| --- | --- |
+| `ocur.ai/` | `public/og.jpg` |
+| `ocur.ai/de/` | `public/og-de.jpg` |
+| `ocur.ai/be-ai` | `public/be-ai-og.png` |
+
+The cards are rendered from HTML through Playwright's Chromium — the real
+Obsidian-Glass look, not a hand-rolled bitmap — and the outputs are committed,
+so the production build never touches them:
+
+```bash
+npm i -D playwright && npm run gen:og     # all three
+npm run gen:og og.jpg                     # just one
+```
+
+Playwright is a one-off tool, deliberately not a shipped dependency (it would
+pull a browser download into every install and Vercel build).
+
+Two things to keep in mind when changing a card:
+
+- **Bump the `?v=` query** on `og:image`/`twitter:image` (in `index.html` and
+  `scripts/prerender-de.mjs`) — every crawler caches the image by URL, so
+  without a new URL the old art keeps unfurling. Re-scrape at
+  [cards-dev.twitter.com/validator](https://cards-dev.twitter.com/validator)
+  and [developers.facebook.com/tools/debug](https://developers.facebook.com/tools/debug/)
+  (WhatsApp shares Meta's scraper cache).
+- **Keep it well under 300 KB.** WhatsApp silently drops the preview on heavy
+  images. That's why the home cards are JPEG q96 (~130 KB, no visible
+  difference on art that's mostly a smooth gradient) while `/be-ai` keeps the
+  PNG it was already shared with.
+
+The German page gets its own card, `og:url`, `og:locale` and Twitter copy,
+swapped in by `scripts/prerender-de.mjs` from `src/strings.de.js`.
+
 ## Deploy (Vercel)
 
 The repo is connected to Vercel (build `npm run build`, output `dist/`).
@@ -139,10 +179,8 @@ a sitemap entry; it is English-only (no `/de/` variant yet).
 
 **Share cards.** Each result renders to a 1200×630 card client-side (canvas) and
 shares via the native sheet where supported, else an X / LinkedIn / Save modal —
-every card stamped "Made with Ocur". The static OG image at
-`public/be-ai-og.png` is committed; regenerate it with
-`npm i -D playwright && npm run gen:og` (Playwright is a one-off tool,
-deliberately not a shipped dependency).
+every card stamped "Made with Ocur". The page's static OG image is
+`public/be-ai-og.png` — see [Link previews](#link-previews).
 
 **Analytics.** Funnel events fire through PostHog (`be_ai_role`, `be_ai_ask`,
 `be_ai_respond`, `be_ai_guess`, `be_ai_cta_click`, `be_ai_share*`) — the metric
@@ -175,7 +213,7 @@ src/
   be-ai-share.js   # /be-ai share card (canvas) + native share / modal
 scripts/
   prerender-de.mjs    # bakes dist/de/index.html after the Vite build
-  gen-be-ai-og.mjs    # renders public/be-ai-og.png (the /be-ai OG image)
+  gen-og.mjs          # renders the OG share cards into public/
 ```
 
 ## Notes
