@@ -231,9 +231,14 @@ page stops linking to its privacy policy and terms, or if the Limited Use
 disclosure vanishes from a policy — and **warns** while the operator
 placeholders are still unfilled.
 
-`docs/google-oauth-verification.md` has the rest: the scope-by-scope
-justifications, the exact values for the consent screen, and the items that
-have to be set outside this repo.
+The German side additionally carries an **Impressum** at `/de/impressum` (§ 5
+DDG — the company's principal place of business is in Wolfsburg). It's linked
+from every German page; the home page link is appended by
+`scripts/prerender-de.mjs`, since the English page has no counterpart.
+
+`docs/google-oauth-verification.md` has the rest: the operator details as
+published, the scope-by-scope justifications, the exact values for the consent
+screen, and the items that have to be set outside this repo.
 
 ## Run
 
@@ -256,6 +261,7 @@ be-ai/index.html   # the reverse Turing test game (ocur.ai/be-ai)
 privacy/index.html # the privacy policy (ocur.ai/privacy)
 terms/index.html   # the terms of service (ocur.ai/terms)
 de/privacy/, de/terms/   # their German twins (/de/privacy, /de/terms)
+de/impressum/      # Anbieterkennzeichnung § 5 DDG (German pages only)
 src/
   main.js          # GSAP/Lenis choreography, pinned demo, micro-interactions
   style.css        # the liquid-glass design system (theme tokens at the top)

@@ -49,6 +49,10 @@ DE_ATTRS.forEach(([sel, attr, value]) => {
   $(sel).attr(attr, value);
 });
 
+// §5 DDG: the German page needs an Impressum link in the footer. It has no
+// English counterpart, so it's appended here rather than living in index.html.
+$('.g-foot-links').append('<a href="/de/impressum">Impressum</a>');
+
 mkdirSync('dist/de', { recursive: true });
 writeFileSync('dist/de/index.html', $.html());
 console.log('✓ prerendered dist/de/index.html');

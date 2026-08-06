@@ -35,7 +35,7 @@ for (const path of ['privacy/index.html', 'de/privacy/index.html']) {
     errors.push(`${path} no longer contains the Google API Services User Data Policy (Limited Use) disclosure`);
   }
 }
-for (const path of ['terms/index.html', 'de/terms/index.html']) {
+for (const path of ['terms/index.html', 'de/terms/index.html', 'de/impressum/index.html']) {
   read(path);
 }
 
@@ -43,7 +43,7 @@ for (const path of ['terms/index.html', 'de/terms/index.html']) {
 //    failed Ocur's first verification attempt
 const homes = [
   ['index.html', ['/privacy', '/terms']],
-  ['de/index.html', ['/de/privacy', '/de/terms']],
+  ['de/index.html', ['/de/privacy', '/de/terms', '/de/impressum']],
 ];
 for (const [path, hrefs] of homes) {
   const html = read(path);
@@ -56,7 +56,7 @@ for (const [path, hrefs] of homes) {
 }
 
 // 3. the operator details still need filling in
-for (const path of ['privacy/index.html', 'terms/index.html', 'de/privacy/index.html', 'de/terms/index.html']) {
+for (const path of ['privacy/index.html', 'terms/index.html', 'de/privacy/index.html', 'de/terms/index.html', 'de/impressum/index.html']) {
   const html = existsSync(`${DIST}/${path}`) ? readFileSync(`${DIST}/${path}`, 'utf8') : '';
   const found = [...new Set(html.match(PLACEHOLDER) || [])];
   if (found.length) warnings.push(`${path}: ${found.join(', ')}`);

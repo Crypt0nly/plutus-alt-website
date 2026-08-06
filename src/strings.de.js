@@ -176,6 +176,7 @@ export const DE = [
   ['.g-final .g-btn', 'Kostenlos starten'],
   ['.g-foot em', 'Sag es — oder nicht. Es passiert. Du behältst die Kontrolle.'],
   ['.g-foot-links a', ['Datenschutz', 'AGB']],
+  ['.g-foot-org', 'ein Produkt der OcurAI, Inc.'],
   ['#g-dock strong', 'Kostenlos starten'],
   ['.g-dock-sub', 'ohne Kreditkarte'],
 ];
