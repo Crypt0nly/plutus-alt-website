@@ -19,7 +19,7 @@ import {
 const $ = load(readFileSync('dist/index.html', 'utf8'));
 
 // keep in step with the ?v= on index.html's og:image — bump both together
-const OG_IMAGE_DE = 'https://ocur.ai/og-de.jpg?v=1';
+const OG_IMAGE_DE = 'https://ocur.ai/og-de.jpg?v=2';
 
 $('html').attr('lang', 'de');
 $('title').text(TITLE_DE);

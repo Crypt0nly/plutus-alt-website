@@ -115,13 +115,14 @@ const homeCard = (c) => `<!doctype html><html><head><meta charset="utf-8" />${FO
   </div>
 </body></html>`;
 
-// Copy mirrors the live hero on each page (see index.html / src/strings.de.js).
+// Copy mirrors the live hero + pinned demo on each page (see index.html /
+// src/strings.de.js): the supplier-call story — Ocur really phones.
 const HOME_EN = homeCard({
   kicker: 'The AI operating system for companies',
   h1: 'What if your company<br /><span class="grad">ran itself?</span>',
-  ask: '“Chase the overdue invoices and update the sheet.”',
-  pill: 'Autopilot on',
-  steps: ['14 reminders sent', 'Sheet updated', '2 already paid'],
+  ask: '“Friday’s delivery came in 40 units short — sort it out.”',
+  pill: 'Live call',
+  steps: ['Contract checked', 'Supplier called — 02:41', '€312 recovered'],
   micro: 'Free pilot · No credit card · No IT project',
   cta: 'Start free',
 });
@@ -129,9 +130,9 @@ const HOME_EN = homeCard({
 const HOME_DE = homeCard({
   kicker: 'Das KI-Betriebssystem für Unternehmen',
   h1: 'Deine KI redet nicht.<br /><span class="grad">Sie erledigt.</span>',
-  ask: '„Mahne die überfälligen Rechnungen an und aktualisiere die Tabelle.“',
-  pill: 'Autopilot an',
-  steps: ['14 Erinnerungen raus', 'Tabelle aktualisiert', '2 schon bezahlt'],
+  ask: '„In der Lieferung fehlen 40 Stück — klär das.“',
+  pill: 'Live-Anruf',
+  steps: ['Vertrag geprüft', 'Lieferant angerufen — 02:41', '€312 zurückgeholt'],
   micro: 'Kostenlos testen · Keine Kreditkarte · Kein IT-Projekt',
   cta: 'Kostenlos starten',
 });
