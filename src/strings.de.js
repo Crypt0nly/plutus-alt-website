@@ -48,35 +48,51 @@ export const DE = [
     '…und allem, was eine API hat. Keine API? Dann steuert Ocur die App direkt auf deinem Rechner — wie ein Mensch.',
   ],
 
-  // pinned demo
+  // pinned demo (four scenes: ask → fan-out → sign-off → payoff)
   ['#demo .g-h2', 'Gesagt. <span class="g-grad">Getan.</span>'],
   ['.g-win-pill', '<i class="g-kdot"></i> Autopilot an'],
-  ['.g-bubble-you', 'Mahne die überfälligen Rechnungen an und aktualisiere die Tabelle.'],
-  ['.g-working', 'Mach ich — der Ablauf läuft.'],
+  ['.g-type', 'Mahne die überfälligen Rechnungen an und aktualisiere die Tabelle.'],
+  ['.g-fan', '<i class="g-kdot" aria-hidden="true"></i>Mach ich — drei Worker, parallel.'],
+  ['.g-act-tag', ['Gmail', 'Tabelle', 'Bücher', 'CRM']],
   [
-    '.g-step',
+    '.g-act-txt',
     [
-      '✓&nbsp; 14 Zahlungserinnerungen verschickt',
-      '✓&nbsp; Tabelle aktualisiert — 12 Zeilen abgeglichen',
-      '✓&nbsp; 2 Zahlungen schon da',
+      'Zahlungserinnerung — Rechnung #247 · Anders &amp; Co',
+      '12 Zeilen abgeglichen — <em>überfällig → erinnert</em>',
+      '2 Zahlungen schon da — <strong data-cc="1850" data-cc-prefix="€">€1.850</strong>',
+      'Anders &amp; Co — 90 Tage, keine Antwort',
     ],
   ],
+  ['.g-act-ok', ['✓ 14× raus', '✓ sauber', '✓ verbucht', '→ an dich']],
   [
     '.g-stamp',
     [
       'Du · 09:41',
-      'Ocur · 09:43',
-      'Jeder Schritt protokolliert · nichts Wichtiges ohne deine Freigabe',
+      'Ocur · 09:43 · E-Mail, Tabelle und Bücher gleichzeitig',
+      'Nichts Wichtiges ohne deine Freigabe',
+      'Ocur · 12:30 · jeder Schritt im Protokoll',
     ],
   ],
   ['.g-approve p', 'Anders &amp; Co ist 90 Tage überfällig — <strong>letzte Mahnung senden?</strong>'],
   ['.g-approve-btns span', ['Freigeben', 'Halten']],
+  ['.g-sent', '✓ Letzte Mahnung gesendet — protokolliert'],
+  ['.g-report-kicker', 'Während dein Tag weiterlief'],
+  ['.g-report-big', '<strong class="g-grad" data-cc="4280" data-cc-prefix="€">€4.280</strong><span> eingesammelt</span>'],
+  [
+    '.g-report-lines li',
+    [
+      '14 Rechnungen angemahnt — 5 bis mittags bezahlt',
+      'Tabelle und Bücher stimmen überein',
+      '1 Entscheidung getroffen — deine',
+    ],
+  ],
   [
     '.g-cap',
     [
       'Einmal sagen — in ganz normaler Sprache. Kein Prompt-Engineering.',
-      'Ocur erledigt den ganzen Ablauf — die E-Mail, die Tabelle, die Bücher, das Web.',
-      'Alles Wichtige wartet auf deine Freigabe. Ein Klick, fertig.',
+      'Worker schwärmen aus — E-Mail, Tabelle, Bücher, parallel.',
+      'Die eine Entscheidung, die zählte, hat auf dich gewartet. Ein Fingertipp.',
+      'Du bekommst das Ergebnis. Ocur behält die Belege.',
     ],
   ],
 
