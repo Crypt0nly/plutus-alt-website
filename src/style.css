@@ -889,6 +889,27 @@ html.motion .g-caret {
   white-space: nowrap;
 }
 
+/* the live-call badge breathes while the call runs */
+html.motion .g-act-live {
+  animation: g-live 1.5s ease-in-out infinite;
+}
+
+@keyframes g-live {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* the line quoted from the call — spoken words, set apart from the log */
+.g-act-quote .g-act-txt {
+  font-style: italic;
+  color: var(--g-ink);
+}
+
 /* scene 3 — the Approve button "presses itself" (your tap), then the receipt */
 html.motion .g-demo[data-scene='3'] .g-approve-btns .yes {
   animation: g-press 0.55s ease 0.75s both;
