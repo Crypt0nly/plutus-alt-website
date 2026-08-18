@@ -202,20 +202,35 @@
               <span class="g-win-pill"><i class="g-kdot"></i> Autopilot on</span>
             </div>
             <div class="g-win-body">
-              <!-- scene 1: the ask -->
+              <!-- scene 1: the ask (typed out live by main.js) -->
               <div class="g-scene g-s1">
-                <div class="g-bubble g-bubble-you">Chase the overdue invoices and update the sheet.</div>
+                <div class="g-bubble g-bubble-you"><span class="g-type">Chase the overdue invoices and update the sheet.</span><span class="g-caret" aria-hidden="true"></span></div>
                 <div class="g-stamp">You · 09:41</div>
               </div>
-              <!-- scene 2: the work -->
+              <!-- scene 2: the fan-out -->
               <div class="g-scene g-s2">
-                <div class="g-bubble g-bubble-ocur">
-                  <span class="g-working">On it — running the loop.</span>
-                  <span class="g-step" style="--sd: 0.1s">✓&nbsp; 14 payment reminders sent</span>
-                  <span class="g-step" style="--sd: 0.3s">✓&nbsp; Sheet updated — 12 rows reconciled</span>
-                  <span class="g-step" style="--sd: 0.5s">✓&nbsp; 2 payments already in</span>
+                <div class="g-fan"><i class="g-kdot" aria-hidden="true"></i>On it — three workers, in parallel.</div>
+                <div class="g-act" style="--sd: 0.15s">
+                  <span class="g-act-tag">Gmail</span>
+                  <span class="g-act-txt">Reminder — invoice #247 · Anders &amp; Co</span>
+                  <span class="g-act-ok">✓ ×14 sent</span>
                 </div>
-                <div class="g-stamp">Ocur · 09:43</div>
+                <div class="g-act" style="--sd: 0.35s">
+                  <span class="g-act-tag">Sheet</span>
+                  <span class="g-act-txt">12 rows reconciled — <em>overdue → reminded</em></span>
+                  <span class="g-act-ok">✓ clean</span>
+                </div>
+                <div class="g-act" style="--sd: 0.55s">
+                  <span class="g-act-tag">Books</span>
+                  <span class="g-act-txt">2 payments already in — <strong data-cc="1850" data-cc-prefix="€">€1,850</strong></span>
+                  <span class="g-act-ok">✓ booked</span>
+                </div>
+                <div class="g-act" style="--sd: 0.75s">
+                  <span class="g-act-tag">CRM</span>
+                  <span class="g-act-txt">Anders &amp; Co — 90 days, gone quiet</span>
+                  <span class="g-act-ok">→ you</span>
+                </div>
+                <div class="g-stamp">Ocur · 09:43 · email, sheet and books at once</div>
               </div>
               <!-- scene 3: the sign-off -->
               <div class="g-scene g-s3">
@@ -223,15 +238,30 @@
                   <p>Anders &amp; Co is 90 days overdue — <strong>send the final notice?</strong></p>
                   <div class="g-approve-btns"><span class="yes">Approve</span><span>Hold</span></div>
                 </div>
-                <div class="g-stamp">Every step logged · nothing important without your sign-off</div>
+                <div class="g-sent" style="--sd: 1.15s">✓ Final notice sent — logged, on the record</div>
+                <div class="g-stamp">Nothing important without your sign-off</div>
+              </div>
+              <!-- scene 4: the payoff -->
+              <div class="g-scene g-s4">
+                <div class="g-report">
+                  <p class="g-report-kicker">While you ran your day</p>
+                  <p class="g-report-big"><strong class="g-grad" data-cc="4280" data-cc-prefix="€">€4,280</strong><span> collected</span></p>
+                  <ul class="g-report-lines">
+                    <li style="--sd: 0.3s">14 invoices chased — 5 paid by lunch</li>
+                    <li style="--sd: 0.45s">Sheet and books already match</li>
+                    <li style="--sd: 0.6s">1 decision made — yours</li>
+                  </ul>
+                </div>
+                <div class="g-stamp">Ocur · 12:30 · every step on the record</div>
               </div>
             </div>
           </div>
 
           <div class="g-caps">
             <p class="g-cap g-cap-1">Say it once, in plain language. No prompts to engineer.</p>
-            <p class="g-cap g-cap-2">Ocur runs the whole loop — the email, the sheet, the books, the web.</p>
-            <p class="g-cap g-cap-3">Anything important waits for you. One tap, done.</p>
+            <p class="g-cap g-cap-2">Workers fan out — the email, the sheet, the books, in parallel.</p>
+            <p class="g-cap g-cap-3">The one call that mattered waited for you. One tap.</p>
+            <p class="g-cap g-cap-4">You get the outcome. Ocur keeps the receipts.</p>
           </div>
         </div>
       </section>

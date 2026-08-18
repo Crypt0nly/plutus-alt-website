@@ -32,9 +32,13 @@ with Vite, vanilla JS, and vanilla CSS.
    build yourself. CSS-only orbits; GitHub's mark uses `currentColor` to
    follow the theme.
 3. **Pinned product demo** — "Delegate it. *Watch it happen.*": a pinned
-   glass app window plays a three-scene story as you scroll — the ask → the
-   work → the sign-off (Approve / Hold). Without motion it shows the end
-   state so the story still reads.
+   glass app window plays a four-scene story as you scroll — the ask (typed
+   out live, blinking caret) → the fan-out (activity cards cascade in
+   across Gmail, the sheet, the books and the CRM, with the booked € counting
+   up) → the sign-off (the Approve button "presses itself", then the
+   final-notice receipt appears) → the payoff report ("While you ran your
+   day" with the collected total counting up). Without motion it shows the
+   payoff report so the story still reads.
 4. **The ledgers** (`#system`) — "Other AI answers. *Ocur keeps the
    books.*": six glass cards that make the "operating system" claim
    literal — commitments, money, the self-updating CRM, stock, the

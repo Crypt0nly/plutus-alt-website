@@ -35,8 +35,9 @@ if (finePointer) {
 }
 
 // without motion the demo window still tells the full story: end state
+// (the payoff report — scene 4 — with its final numbers baked into the HTML)
 if (!motion) {
-  document.querySelector('.g-demo').dataset.scene = '3';
+  document.querySelector('.g-demo').dataset.scene = '4';
 }
 
 if (motion) {
@@ -111,7 +112,7 @@ if (motion) {
     scrollTrigger: { trigger: '.g-logos', start: 'top 75%' },
   });
 
-  // --------------------------------------- pinned three-scene demo
+  // --------------------------------------- pinned four-scene demo
   const demo = document.querySelector('.g-demo');
   gsap.from('.g-win', {
     y: 80,
@@ -121,15 +122,54 @@ if (motion) {
     ease: 'power3.out',
     scrollTrigger: { trigger: '.g-demo', start: 'top 70%' },
   });
+
+  // the ask types itself out as the window arrives
+  const typeChars = new SplitText('.g-type', { type: 'chars' }).chars;
+  gsap.from(typeChars, {
+    autoAlpha: 0,
+    duration: 0.01,
+    stagger: 0.03,
+    ease: 'none',
+    scrollTrigger: { trigger: '.g-demo', start: 'top 70%' },
+  });
+
+  // count-up numbers (the booked €, the collected total) — fired once per
+  // element the first time its scene activates. The HTML carries the final
+  // values, so no-motion and no-JS still read correctly.
+  const ccLocale = document.documentElement.lang === 'de' ? 'de-DE' : 'en-US';
+  const ccDone = new Set();
+  const runCounters = (scene) => {
+    document.querySelectorAll(`.g-s${scene} [data-cc]`).forEach((el) => {
+      if (ccDone.has(el)) return;
+      ccDone.add(el);
+      const target = parseInt(el.dataset.cc, 10);
+      const prefix = el.dataset.ccPrefix || '';
+      const state = { v: 0 };
+      gsap.to(state, {
+        v: target,
+        duration: 1.4,
+        delay: 0.25,
+        ease: 'power2.out',
+        onUpdate: () => {
+          el.textContent = prefix + Math.round(state.v).toLocaleString(ccLocale);
+        },
+      });
+    });
+  };
+
   ScrollTrigger.create({
     trigger: '.g-demo',
     start: 'top top',
-    end: '+=240%',
+    end: '+=340%',
     pin: '.g-demo-stage',
     scrub: true,
     onUpdate: (self) => {
-      const scene = self.progress < 0.33 ? '1' : self.progress < 0.7 ? '2' : '3';
-      if (demo.dataset.scene !== scene) demo.dataset.scene = scene;
+      const p = self.progress;
+      const scene = p < 0.16 ? '1' : p < 0.52 ? '2' : p < 0.8 ? '3' : '4';
+      if (demo.dataset.scene !== scene) {
+        demo.dataset.scene = scene;
+        runCounters(scene);
+      }
     },
   });
 

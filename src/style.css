@@ -756,7 +756,7 @@ html.motion .g-stats {
 
 .g-win-body {
   position: relative;
-  height: clamp(280px, 38vh, 360px);
+  height: clamp(300px, 40vh, 380px);
   padding: 26px;
 }
 
@@ -775,9 +775,14 @@ html.motion .g-stats {
 
 .g-demo[data-scene='1'] .g-s1,
 .g-demo[data-scene='2'] .g-s2,
-.g-demo[data-scene='3'] .g-s3 {
+.g-demo[data-scene='3'] .g-s3,
+.g-demo[data-scene='4'] .g-s4 {
   opacity: 1;
   translate: 0 0;
+}
+
+.g-s2 {
+  gap: 9px;
 }
 
 .g-bubble {
@@ -806,19 +811,169 @@ html.motion .g-stats {
   border-bottom-left-radius: 6px;
 }
 
-.g-working {
-  font-weight: 600;
+/* scene 1 — the typed ask. main.js types the chars in; the caret blinks. */
+.g-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: -0.15em;
+  background: currentColor;
 }
 
-.g-step {
-  font-size: 14px;
+html.motion .g-caret {
+  animation: g-blink 1.05s steps(2, start) infinite;
+}
+
+@keyframes g-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* scene 2 — the fan-out: one activity card per surface, cascading in */
+.g-fan {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 600;
+  font-size: 14.5px;
+}
+
+.g-act {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  font-size: 13px;
+  background: var(--g-fill);
+  border: 1px solid var(--g-hair);
+  border-radius: 14px;
+  opacity: 0;
+  translate: 0 10px;
+  transition: opacity 0.4s ease var(--sd, 0s), translate 0.4s ease var(--sd, 0s);
+}
+
+.g-demo[data-scene='2'] .g-act {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.g-act-tag {
+  flex: 0 0 auto;
+  font-family: var(--g-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--g-peach);
+  border: 1px solid rgba(255, 198, 128, 0.25);
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+
+.g-act-txt {
+  flex: 1 1 auto;
+  min-width: 0;
   color: var(--g-dim);
+}
+
+.g-act-txt strong {
+  color: var(--g-ink);
+}
+
+.g-act-ok {
+  flex: 0 0 auto;
+  font-family: var(--g-mono);
+  font-size: 11px;
+  color: var(--g-orange);
+  white-space: nowrap;
+}
+
+/* scene 3 — the Approve button "presses itself" (your tap), then the receipt */
+html.motion .g-demo[data-scene='3'] .g-approve-btns .yes {
+  animation: g-press 0.55s ease 0.75s both;
+}
+
+@keyframes g-press {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(242, 148, 46, 0);
+  }
+  45% {
+    transform: scale(0.92);
+    box-shadow: 0 0 34px rgba(242, 148, 46, 0.55);
+  }
+}
+
+.g-sent {
+  align-self: center;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--g-orange);
   opacity: 0;
   translate: 0 8px;
   transition: opacity 0.4s ease var(--sd, 0s), translate 0.4s ease var(--sd, 0s);
 }
 
-.g-demo[data-scene='2'] .g-step {
+.g-demo[data-scene='3'] .g-sent {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* scene 4 — the payoff report; the € total counts up (main.js) */
+.g-report {
+  align-self: center;
+  text-align: center;
+}
+
+.g-report-kicker {
+  font-family: var(--g-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--g-dim);
+  margin-bottom: 8px;
+}
+
+.g-report-big {
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.g-report-big span {
+  font-size: 0.5em;
+  font-weight: 600;
+  color: var(--g-dim);
+  letter-spacing: -0.01em;
+}
+
+.g-report-lines {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 14px;
+  color: var(--g-dim);
+}
+
+.g-report-lines li {
+  opacity: 0;
+  translate: 0 8px;
+  transition: opacity 0.4s ease var(--sd, 0s), translate 0.4s ease var(--sd, 0s);
+}
+
+.g-report-lines li::before {
+  content: '✓';
+  color: var(--g-orange);
+  font-weight: 700;
+  margin-right: 9px;
+}
+
+.g-demo[data-scene='4'] .g-report-lines li {
   opacity: 1;
   translate: 0 0;
 }
@@ -891,7 +1046,8 @@ html.motion .g-stats {
 
 .g-demo[data-scene='1'] .g-cap-1,
 .g-demo[data-scene='2'] .g-cap-2,
-.g-demo[data-scene='3'] .g-cap-3 {
+.g-demo[data-scene='3'] .g-cap-3,
+.g-demo[data-scene='4'] .g-cap-4 {
   opacity: 1;
   translate: 0 0;
 }
@@ -1491,7 +1647,26 @@ html.motion .g-dock::before {
   }
 
   .g-win-body {
-    height: 320px;
+    height: 372px;
+  }
+
+  .g-scene {
+    inset: 18px;
+  }
+
+  .g-act {
+    gap: 8px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .g-act-tag {
+    font-size: 9px;
+    padding: 3px 7px;
+  }
+
+  .g-act-ok {
+    font-size: 10px;
   }
 
   .g-caps {
