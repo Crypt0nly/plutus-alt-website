@@ -15,7 +15,7 @@ export const DESC_DE =
 export const TWITTER_DESC_DE =
   'Ocur beantwortet E-Mails und Anrufe, erledigt die Arbeit direkt in deinen Tools und führt Versprechen, Geld und Pipeline als lebende Register. Jetzt kostenlos testen.';
 export const OG_ALT_DE =
-  'Ocur — „Deine KI redet nicht. Sie erledigt.“ Ein Ocur-Fenster auf Autopilot: überfällige Rechnungen anmahnen und die Tabelle aktualisieren — 14 Erinnerungen raus, Tabelle aktualisiert, 2 schon bezahlt.';
+  'Ocur — „Deine KI redet nicht. Sie erledigt.“ Ein Ocur-Fenster im Live-Anruf: In der Lieferung fehlen 40 Stück, klär das — Vertrag geprüft, Lieferant angerufen, €312 zurückgeholt.';
 
 // selector → replacement innerHTML. A string applies to every match; an
 // array applies element-by-element in DOM order.
@@ -68,7 +68,7 @@ export const DE = [
     '.g-stamp',
     [
       'Du · 09:41',
-      'Ocur · 09:47 · ja, es telefoniert wirklich',
+      'Ocur · 09:47 · ja, Ocur telefoniert wirklich',
       'Nichts Wichtiges ohne deine Freigabe',
       'Ocur · 10:02 · das ganze Gespräch im Protokoll',
     ],
@@ -90,8 +90,8 @@ export const DE = [
     '.g-cap',
     [
       'Einmal sagen — in ganz normaler Sprache. Kein Prompt-Engineering.',
-      'Erst prüft es die Fakten — dann greift es zum Hörer.',
-      'Es verhandelt. Die letzte Entscheidung bleibt deine.',
+      'Erst die Fakten — dann greift Ocur zum Hörer.',
+      'Ocur verhandelt. Die letzte Entscheidung bleibt deine.',
       'Geld zurück, Termin fix, jedes Wort im Protokoll.',
     ],
   ],
@@ -110,7 +110,7 @@ export const DE = [
       'Zahlen mit Substanz',
       'Ein CRM, das sich selbst pflegt',
       'Nie wieder leere Regale verkaufen',
-      'Es baut deine Datenbank',
+      'Ocur baut deine Datenbank',
       'Die ganze Firma auf einen Blick',
     ],
   ],
@@ -137,7 +137,7 @@ export const DE = [
     [
       'Autopilot rund um die Uhr',
       'Beantwortet E-Mails selbst',
-      'Reden statt tippen',
+      'Sprich mit Ocur',
       'Geht ans Telefon',
       'Zehn Jobs auf einmal',
       'Einmal zeigen genügt',
@@ -152,13 +152,13 @@ export const DE = [
     '.g-tile p',
     [
       'Ocur wacht über den Tag immer wieder von selbst auf, prüft, was ansteht, erledigt es und protokolliert jeden Schritt. Du wachst auf — und findest einen Bericht, keinen Rückstand.',
-      'Gib Ocur ein eigenes Postfach. Es kennt zu jedem Absender die ganze Vorgeschichte und antwortet in deinem Ton — oder legt dir Entwürfe zur Freigabe vor.',
-      'Per Sprache, wie mit einem Kollegen — ein echtes Gespräch, kein Diktat. Unterbrich es mitten im Satz; es kommt mit.',
+      'Ocur bekommt ein eigenes Postfach, kennt zu jedem Absender die ganze Vorgeschichte und antwortet in deinem Ton — oder legt dir Entwürfe zur Freigabe vor.',
+      'Wie mit einem Kollegen — ein echtes Gespräch, kein Diktat. Unterbrich Ocur mitten im Satz; es kommt mit.',
       'Ocur bekommt eine eigene Nummer, nimmt die Anrufe an, auf die du keine Lust hast, sagt nur, was du erlaubst — und legt dir das Protokoll hin.',
       'Übergib den ganzen Rückstand in einer Nachricht. Parallele Worker arbeiten nebeneinander und melden sich, sobald ein Job fertig ist.',
       'Nimm die Routineaufgabe als Bildschirmvideo auf und erklär dabei, was du tust. Ocur macht daraus eine Fähigkeit, die es für immer wiederholt — genau auf deine Art.',
-      '„Was haben wir im März vereinbart?“ — einmal gefragt, für immer beantwortet. Gib ihm eure Dokumente; es fragt nie zweimal.',
-      'Öffnet Apps, klickt, tippt, liest den Bildschirm — mit deinem Okay.',
+      '„Was haben wir im März vereinbart?“ — einmal gefragt, für immer beantwortet. Gib Ocur eure Dokumente; nichts wird zweimal gefragt.',
+      'Ocur öffnet Apps, klickt, tippt, liest den Bildschirm — mit deinem Okay.',
       'Du legst fest, was allein laufen darf. Der Rest wartet auf Freigabe — jede Aktion protokolliert.',
       'Fehlt ein Tracker, ein Portal, ein Rechner? Ocur schreibt die App selbst, hält sie neben dem Chat am Laufen — und teilt sie mit dem Team.',
       'Echte Arbeit — von Anfang bis Ende. Ein Ocur, an das die ganze Firma delegiert.',
@@ -225,7 +225,7 @@ export const DE = [
     [
       'Ja, wirklich. Der Free-Plan ist das volle Betriebssystem mit monatlichem Arbeitsvolumen — genug, um Ocur an echten Aufgaben zu testen. Keine Kreditkarte, keine Frist. Überzeugt es, ist das Upgrade einen Klick entfernt.',
       'Ein Chat-Assistent gibt dir eine Antwort — die Arbeit bleibt trotzdem bei dir. Ocur macht den Job fertig, dort, wo er hingehört: mit eigenem Postfach und eigener Telefonnummer, auf Autopilot auch wenn du weg bist, mit lebenden Registern für Versprechen, Geld, Pipeline und Lager. Das Ergebnis landet in deinen Tools — nicht in deiner Zwischenablage.',
-      'Nein. Ocur läuft im Browser — und du erreichst es genauso aus WhatsApp, Telegram, Slack oder Discord. Soll es auch auf deinem Rechner arbeiten? Eine kleine Begleit-App verbindet ihn in unter einer Minute.',
+      'Nein. Ocur läuft im Browser — und du erreichst Ocur genauso aus WhatsApp, Telegram, Slack oder Discord. Soll es auch auf deinem Rechner arbeiten? Eine kleine Begleit-App verbindet ihn in unter einer Minute.',
       'Nur, wo du es erlaubst. Standardmäßig wartet alles Wichtige auf deine Freigabe. Erst auf Autopilot erledigt Ocur ganze Abläufe von selbst — jeder Schritt protokolliert. Was allein laufen darf, bestimmst du jederzeit, Ruhezeiten inklusive.',
       'Dann siehst du ihn — jede Aktion steht im Protokoll, mit dem Was und dem Warum. Alles Wichtige hat ohnehin auf deine Freigabe gewartet. Korrigier es in ganz normaler Sprache — Ocur merkt sich die Korrektur, und derselbe Fehler passiert kein zweites Mal.',
       'Gmail, Google Kalender &amp; Drive, Notion, GitHub, WhatsApp, Telegram, Slack und Discord — dazu das Web und auf Wunsch deinen eigenen Rechner. Konten verbindest du einzeln und trennst sie jederzeit wieder.',

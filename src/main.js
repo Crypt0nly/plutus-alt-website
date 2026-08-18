@@ -123,8 +123,9 @@ if (motion) {
     scrollTrigger: { trigger: '.g-demo', start: 'top 70%' },
   });
 
-  // the ask types itself out as the window arrives
-  const typeChars = new SplitText('.g-type', { type: 'chars' }).chars;
+  // the ask types itself out as the window arrives. Split words AND chars:
+  // char-only spans destroy word boundaries and let "out" break as "ou|t".
+  const typeChars = new SplitText('.g-type', { type: 'words,chars' }).chars;
   gsap.from(typeChars, {
     autoAlpha: 0,
     duration: 0.01,
