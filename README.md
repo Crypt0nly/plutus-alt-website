@@ -32,13 +32,19 @@ with Vite, vanilla JS, and vanilla CSS.
    build yourself. CSS-only orbits; GitHub's mark uses `currentColor` to
    follow the theme.
 3. **Pinned product demo** — "Delegate it. *Watch it happen.*": a pinned
-   glass app window plays a four-scene story as you scroll — the ask (typed
-   out live, blinking caret) → the fan-out (activity cards cascade in
-   across Gmail, the sheet, the books and the CRM, with the booked € counting
-   up) → the sign-off (the Approve button "presses itself", then the
-   final-notice receipt appears) → the payoff report ("While you ran your
-   day" with the collected total counting up). Without motion it shows the
-   payoff report so the story still reads.
+   glass app window plays a four-scene story as you scroll, built around
+   the "no way" capability — Ocur makes a real phone call. The ask ("40
+   units short — sort it out with the supplier", typed out live with a
+   blinking caret) → the facts, then the call (stock ledger vs. delivery
+   note, the contract clause from Drive, then a pulsing "● live" card:
+   Ocur is on the phone with the supplier, plus a quoted line from the
+   call) → the deal ("€312 credit + Thursday redelivery — take it?"; the
+   button presses itself, the written confirmation goes out) → the payoff
+   report ("While you stayed in your meeting — €312 recovered" counting
+   up; credit booked, redelivery on the calendar, transcript filed).
+   Without motion it shows the payoff report so the story still reads.
+   Outbound calling is a real shipped capability (see plutus-cloud's
+   `phone_service.py` — outbound-call intents, transcripts).
 4. **The ledgers** (`#system`) — "Other AI answers. *Ocur keeps the
    books.*": six glass cards that make the "operating system" claim
    literal — commitments, money, the self-updating CRM, stock, the
