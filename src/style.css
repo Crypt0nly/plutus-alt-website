@@ -167,6 +167,14 @@ a {
   background: radial-gradient(closest-side, rgba(242, 148, 46, 0.26), transparent 72%);
 }
 
+.g-glow-os {
+  top: 10%;
+  right: -14vw;
+  width: 48vw;
+  aspect-ratio: 1;
+  background: radial-gradient(closest-side, rgba(255, 198, 128, 0.16), transparent 72%);
+}
+
 .g-glow-bento {
   top: 16%;
   left: -16vw;
@@ -890,6 +898,63 @@ html.motion .g-stats {
 
 /* ------------------------------------------------------ bento features */
 
+/* ------------------------------------------- the ledgers ("the system") */
+
+.g-os {
+  position: relative;
+  padding: clamp(100px, 15vh, 170px) 0;
+  border-top: 1px solid var(--g-hair);
+  overflow: hidden;
+}
+
+.g-os-sub {
+  max-width: 620px;
+  margin: -26px auto 46px;
+  text-align: center;
+  color: var(--g-dim);
+  font-size: 16.5px;
+}
+
+.g-os-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.g-os-card {
+  padding: 28px 26px;
+  border-radius: 24px;
+}
+
+.g-os-tag {
+  font-family: var(--g-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--g-peach);
+  margin-bottom: 12px;
+}
+
+.g-os-card h3 {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.g-os-card p:not(.g-os-tag) {
+  font-size: 14.5px;
+  color: var(--g-dim);
+}
+
+.g-os-note {
+  max-width: 640px;
+  margin: 40px auto 0;
+  text-align: center;
+  color: var(--g-dim);
+  font-size: 14.5px;
+}
+
 .g-features {
   position: relative;
   padding: clamp(100px, 15vh, 170px) 0;
@@ -901,9 +966,11 @@ html.motion .g-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
-    'a a d'
-    'a a v'
-    'm c gd';
+    'pilot pilot mail'
+    'pilot pilot voice'
+    'phone work  skill'
+    'mem   comp  ctrl'
+    'apps  dept  dept';
   gap: 16px;
 }
 
@@ -925,7 +992,7 @@ html.motion .g-stats {
 }
 
 .g-tile-auto {
-  grid-area: a;
+  grid-area: pilot;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -941,24 +1008,44 @@ html.motion .g-stats {
   max-width: 40ch;
 }
 
-.g-bento .g-tile:nth-child(2) {
-  grid-area: d;
+.g-tile-mail {
+  grid-area: mail;
 }
 
-.g-bento .g-tile:nth-child(3) {
-  grid-area: v;
+.g-tile-voice {
+  grid-area: voice;
 }
 
-.g-bento .g-tile:nth-child(4) {
-  grid-area: m;
+.g-tile-phone {
+  grid-area: phone;
 }
 
-.g-bento .g-tile:nth-child(5) {
-  grid-area: c;
+.g-tile-work {
+  grid-area: work;
 }
 
-.g-bento .g-tile:nth-child(6) {
-  grid-area: gd;
+.g-tile-skill {
+  grid-area: skill;
+}
+
+.g-tile-mem {
+  grid-area: mem;
+}
+
+.g-tile-comp {
+  grid-area: comp;
+}
+
+.g-tile-ctrl {
+  grid-area: ctrl;
+}
+
+.g-tile-apps {
+  grid-area: apps;
+}
+
+.g-tile-dept {
+  grid-area: dept;
 }
 
 .g-ekg {
@@ -1371,12 +1458,25 @@ html.motion .g-dock::before {
   .g-bento {
     grid-template-columns: 1fr;
     grid-template-areas:
-      'a'
-      'd'
-      'v'
-      'm'
-      'c'
-      'gd';
+      'pilot'
+      'mail'
+      'voice'
+      'phone'
+      'work'
+      'skill'
+      'mem'
+      'comp'
+      'ctrl'
+      'apps'
+      'dept';
+  }
+
+  .g-os-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .g-os-sub {
+    margin-top: -10px;
   }
 
   .g-cards {

@@ -13,8 +13,12 @@ with Vite, vanilla JS, and vanilla CSS.
 > [plutus-cloud](https://github.com/Crypt0nly/plutus-cloud) app actually
 > ships: connectors, voice, company memory, the autonomous heartbeat
 > autopilot, scheduled automations, parallel workers, desktop control,
-> image generation, autonomous email replies, org/role guardrails, and
-> the Free / Team ($1,500) / Business ($5,000) plans.
+> image generation, autonomous email replies (Ocur's own inboxes), the
+> phone connector (Ocur's own number, inbound calls, transcripts), the
+> business ledgers (commitments, money, CRM, stock, agent-designed
+> business objects, the Command Center), Live Apps, record-a-skill,
+> org/role guardrails, and the Free / Team ($1,500) / Business ($5,000)
+> plans.
 
 ## Page tour
 
@@ -23,25 +27,32 @@ with Vite, vanilla JS, and vanilla CSS.
    credit card · no IT project), and three count-up stats.
 2. **Connector solar system** — Ocur as a glowing glass sun, the connectors
    orbiting in two counter-rotating rings (Gmail, Google Calendar, Drive,
-   Notion, GitHub inner; Telegram, WhatsApp, Discord, email, your computer,
-   the web outer) plus a dashed **"+"** slot for connectors you build
-   yourself. CSS-only orbits; GitHub's mark uses `currentColor` to follow
-   the theme.
+   Notion, GitHub inner; Telegram, WhatsApp, Slack, Discord, email, your
+   computer, the web outer) plus a dashed **"+"** slot for connectors you
+   build yourself. CSS-only orbits; GitHub's mark uses `currentColor` to
+   follow the theme.
 3. **Pinned product demo** — "Delegate it. *Watch it happen.*": a pinned
    glass app window plays a three-scene story as you scroll — the ask → the
    work → the sign-off (Approve / Hold). Without motion it shows the end
    state so the story still reads.
-4. **Bento features** — "One system. *Every job.*": six liquid-glass tiles
-   (autopilot heartbeat, every department, talk to it, company memory,
-   drives your computer, built for control), each with a pointer-tracked
-   glare.
-5. **Pricing** — Free ("for the pilot") / Team ($1,500, "most popular") /
+4. **The ledgers** (`#system`) — "Other AI answers. *Ocur keeps the
+   books.*": six glass cards that make the "operating system" claim
+   literal — commitments, money, the self-updating CRM, stock, the
+   agent-designed business database, and the Command Center — closed by
+   the one-graph line (a won deal books its receivable, a promise is
+   already a commitment).
+5. **Bento features** — "One system. *Every job.*": eleven liquid-glass
+   tiles (autopilot heartbeat, answers its own email, talk to it, answers
+   the phone, parallel workers, record-a-skill, company memory, drives
+   your computer, built for control, builds its own tools/Live Apps, every
+   department), each with a pointer-tracked glare.
+6. **Pricing** — Free ("for the pilot") / Team ($1,500, "most popular") /
    Business ($5,000), mirroring the in-app plans and token allowances, with
    an Enterprise note.
-6. **FAQ** — seven `<details>` accordions answering the classic objections:
-   free?, install?, autonomy/approval, integrations, privacy, company-wide
-   use, rollout time.
-7. **Final CTA** — "Run the company. *Not the busywork.*" → **Start free**.
+7. **FAQ** — nine `<details>` accordions answering the classic objections:
+   free?, vs. a chat assistant?, install?, autonomy/approval, what if it's
+   wrong?, integrations, privacy, company-wide use, rollout time.
+8. **Final CTA** — "Run the company. *Not the busywork.*" → **Start free**.
 
 A persistent floating glass **CTA dock** rides along from just past the
 hero until the final section.
