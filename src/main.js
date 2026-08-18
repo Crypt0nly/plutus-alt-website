@@ -91,6 +91,7 @@ if (motion) {
   // glow meshes breathe and drift
   gsap.to('.g-glow-hero', { y: 90, scale: 1.08, duration: 14, yoyo: true, repeat: -1, ease: 'sine.inOut' });
   gsap.to('.g-glow-demo', { x: -70, y: 60, duration: 17, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  gsap.to('.g-glow-os', { x: -55, y: 65, duration: 18, yoyo: true, repeat: -1, ease: 'sine.inOut' });
   gsap.to('.g-glow-bento', { x: 60, y: -50, duration: 19, yoyo: true, repeat: -1, ease: 'sine.inOut' });
   gsap.to('.g-glow-price', { y: 70, scale: 1.06, duration: 16, yoyo: true, repeat: -1, ease: 'sine.inOut' });
 
@@ -132,15 +133,31 @@ if (motion) {
     },
   });
 
-  // ------------------------------------------------------ bento tiles
-  gsap.from('.g-tile', {
+  // ------------------------------------------------- ledger cards
+  gsap.from('.g-os-card', {
     y: 60,
     opacity: 0,
     scale: 0.97,
     duration: 0.8,
     stagger: 0.09,
     ease: 'power3.out',
-    scrollTrigger: { trigger: '.g-bento', start: 'top 80%' },
+    scrollTrigger: { trigger: '.g-os-grid', start: 'top 80%' },
+  });
+  gsap.from('.g-os-note', {
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.g-os-note', start: 'top 88%' },
+  });
+
+  // ------------------------------------------------------ bento tiles
+  // batched: the grid is now ~two viewports tall, so each row reveals
+  // as it enters rather than all at once when the grid's top shows up
+  ScrollTrigger.batch('.g-tile', {
+    start: 'top 85%',
+    once: true,
+    onEnter: (tiles) =>
+      gsap.from(tiles, { y: 60, opacity: 0, scale: 0.97, duration: 0.8, stagger: 0.09, ease: 'power3.out' }),
   });
 
   // ----------------------------------------------------- pricing

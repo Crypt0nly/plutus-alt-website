@@ -7,13 +7,13 @@
 export const TITLE_DE = 'Ocur — das KI-Betriebssystem für Unternehmen | Kostenlos starten';
 export const OG_TITLE_DE = 'Ocur — das KI-Betriebssystem für Unternehmen';
 export const DESC_DE =
-  'Ocur erledigt die Arbeit direkt in deinen Tools — E-Mail, Kalender, Dateien, Chat, Web. Auf Zuruf oder voll automatisch. Du gibst frei, Ocur macht den Rest. Jetzt kostenlos starten.';
+  'Das KI-Betriebssystem für Unternehmen: Ocur beantwortet E-Mails und Anrufe, erledigt die Arbeit direkt in deinen Tools und führt Versprechen, Geld und Pipeline als lebende Register. Jetzt kostenlos starten.';
 
 // Link-Vorschau (X, WhatsApp, iMessage, LinkedIn). Kürzer als DESC_DE, weil X
 // die Beschreibung in der Karte hart abschneidet. Das Kartenbild dazu ist
 // public/og-de.jpg (siehe scripts/gen-og.mjs).
 export const TWITTER_DESC_DE =
-  'Ocur erledigt die Arbeit direkt in deinen Tools — E-Mail, Kalender, Dateien, Chat, Web. Auf Zuruf oder voll automatisch. Jetzt kostenlos testen.';
+  'Ocur beantwortet E-Mails und Anrufe, erledigt die Arbeit direkt in deinen Tools und führt Versprechen, Geld und Pipeline als lebende Register. Jetzt kostenlos testen.';
 export const OG_ALT_DE =
   'Ocur — „Deine KI redet nicht. Sie erledigt.“ Ein Ocur-Fenster auf Autopilot: überfällige Rechnungen anmahnen und die Tabelle aktualisieren — 14 Erinnerungen raus, Tabelle aktualisiert, 2 schon bezahlt.';
 
@@ -22,14 +22,14 @@ export const OG_ALT_DE =
 export const DE = [
   // nav
   ['header .g-btn-sm', 'Kostenlos starten'],
-  ['.g-links a', ['In Aktion', 'Funktionen', 'Preise', 'FAQ']],
+  ['.g-links a', ['In Aktion', 'Das System', 'Funktionen', 'Preise', 'FAQ']],
 
   // hero
   ['.g-kicker', '<span class="g-kdot" aria-hidden="true"></span>Das KI-Betriebssystem für Unternehmen'],
   ['.g-h1', 'Deine KI redet nicht.<br /><span class="g-grad">Sie erledigt.</span>'],
   [
     '.g-sub',
-    'Sag, was zu tun ist — Ocur erledigt es direkt in deinen Tools. Auf Zuruf oder komplett auf Autopilot.',
+    'Ocur beantwortet deine E-Mails und geht ans Telefon, mahnt offene Rechnungen an, vergisst kein Versprechen — und erledigt die Arbeit direkt in deinen Tools. Auf Zuruf oder komplett auf Autopilot.',
   ],
   ['.g-ctas a', ['Kostenlos starten', 'Demo ansehen']],
   [
@@ -75,9 +75,43 @@ export const DE = [
     '.g-cap',
     [
       'Einmal sagen — in ganz normaler Sprache. Kein Prompt-Engineering.',
-      'Ocur erledigt den ganzen Ablauf — über E-Mail, Tabellen und das Web.',
+      'Ocur erledigt den ganzen Ablauf — die E-Mail, die Tabelle, die Bücher, das Web.',
       'Alles Wichtige wartet auf deine Freigabe. Ein Klick, fertig.',
     ],
+  ],
+
+  // the ledgers ("the system")
+  ['#system .g-h2', 'Andere KI antwortet. <span class="g-grad">Ocur führt die Bücher.</span>'],
+  [
+    '.g-os-sub',
+    '„Betriebssystem“ ist wörtlich gemeint: Ocur führt lebende Register über alles, was dein Unternehmen verspricht, besitzt, schuldet und verkauft — abgeleitet aus dem, was wirklich passiert ist, nie aus Formularfeldern.',
+  ],
+  ['.g-os-tag', ['Versprechen', 'Geld', 'Pipeline', 'Lager', 'Deine Datenbank', 'Kommandozentrale']],
+  [
+    '.g-os-card h3',
+    [
+      'Jedes Versprechen im Blick',
+      'Zahlen mit Substanz',
+      'Ein CRM, das sich selbst pflegt',
+      'Nie wieder leere Regale verkaufen',
+      'Es baut deine Datenbank',
+      'Die ganze Firma auf einen Blick',
+    ],
+  ],
+  [
+    '.g-os-card p:not(.g-os-tag)',
+    [
+      'Ocur liest Zusagen direkt aus E-Mails und Chats — was ihr schuldet, was man euch schuldet, das „Mach ich!“ tief im Thread — und verfolgt jede einzelne bis zur Erledigung. Nichts geht mehr unter.',
+      'Kasse, Forderungen, Verbindlichkeiten, Runway — live aus dem echten Geschehen. Ocur nennt nie eine Zahl, die die Daten nicht hergeben, und lässt dich kein Geld versprechen, das nicht da ist.',
+      'Deals und Beziehungen, deren Zustand sich aus dem echten Verlauf ergibt. Ocur geht in jedes Gespräch und weiß schon, welcher Deal hakt und wer still geworden ist.',
+      'Bestand als Bewegungsjournal statt als irgendwann überschriebene Zahl. Ocur prüft, was wirklich da ist, bevor es den Auftrag bestätigt.',
+      'Bewerber, Aufträge, Patienten — worauf dein Geschäft auch läuft: Ocur entwirft die Tabellen, entwickelt sie mit dir weiter und arbeitet selbst darin. Das nächste SaaS-Abo kannst du dir womöglich sparen.',
+      'Ein Live-Dashboard, das Ocur für dich zusammenstellt — was Aufmerksamkeit braucht, welche Zahlen sich bewegt haben und welche Entscheidungen auf dich warten.',
+    ],
+  ],
+  [
+    '.g-os-note',
+    'Ein Graph verbindet alles: Der gewonnene Deal bucht seine Forderung, das Versprechen an den Interessenten steht schon im Register — und hinter beidem steht derselbe Kontakt. Nichts wird zweimal gefragt.',
   ],
 
   // bento features
@@ -86,22 +120,32 @@ export const DE = [
     '.g-tile h3',
     [
       'Autopilot rund um die Uhr',
-      'Für jede Abteilung',
+      'Beantwortet E-Mails selbst',
       'Reden statt tippen',
+      'Geht ans Telefon',
+      'Zehn Jobs auf einmal',
+      'Einmal zeigen genügt',
       'Unternehmensgedächtnis',
       'Steuert deinen Rechner',
       'Volle Kontrolle',
+      'Baut eigene Tools',
+      'Für jede Abteilung',
     ],
   ],
   [
     '.g-tile p',
     [
       'Ocur wacht über den Tag immer wieder von selbst auf, prüft, was ansteht, erledigt es und protokolliert jeden Schritt. Du wachst auf — und findest einen Bericht, keinen Rückstand.',
-      'Echte Arbeit — von Anfang bis Ende.',
-      'Per Sprache, wie mit einem Kollegen — unterbrich es mitten im Satz.',
-      '„Was haben wir im März vereinbart?“ — einmal gefragt, für immer beantwortet.',
+      'Gib Ocur ein eigenes Postfach. Es kennt zu jedem Absender die ganze Vorgeschichte und antwortet in deinem Ton — oder legt dir Entwürfe zur Freigabe vor.',
+      'Per Sprache, wie mit einem Kollegen — ein echtes Gespräch, kein Diktat. Unterbrich es mitten im Satz; es kommt mit.',
+      'Ocur bekommt eine eigene Nummer, nimmt die Anrufe an, auf die du keine Lust hast, sagt nur, was du erlaubst — und legt dir das Protokoll hin.',
+      'Übergib den ganzen Rückstand in einer Nachricht. Parallele Worker arbeiten nebeneinander und melden sich, sobald ein Job fertig ist.',
+      'Nimm die Routineaufgabe als Bildschirmvideo auf und erklär dabei, was du tust. Ocur macht daraus eine Fähigkeit, die es für immer wiederholt — genau auf deine Art.',
+      '„Was haben wir im März vereinbart?“ — einmal gefragt, für immer beantwortet. Gib ihm eure Dokumente; es fragt nie zweimal.',
       'Öffnet Apps, klickt, tippt, liest den Bildschirm — mit deinem Okay.',
       'Du legst fest, was allein laufen darf. Der Rest wartet auf Freigabe — jede Aktion protokolliert.',
+      'Fehlt ein Tracker, ein Portal, ein Rechner? Ocur schreibt die App selbst, hält sie neben dem Chat am Laufen — und teilt sie mit dem Team.',
+      'Echte Arbeit — von Anfang bis Ende. Ein Ocur, an das die ganze Firma delegiert.',
     ],
   ],
   ['.g-times span', ['06:00 Posteingang', '06:15 Rechnungen', '07:12 baut ein Tool', '08:00 Bericht']],
@@ -150,8 +194,10 @@ export const DE = [
     '.g-faq summary',
     [
       'Ist der Start wirklich kostenlos?',
+      'Was unterscheidet Ocur von einem Chat-Assistenten?',
       'Muss ich etwas installieren?',
       'Macht Ocur etwas ohne mein Okay?',
+      'Und wenn es einen Fehler macht?',
       'Mit welchen Tools funktioniert es?',
       'Sind unsere Daten sicher?',
       'Kann das ganze Unternehmen mitmachen?',
@@ -162,8 +208,10 @@ export const DE = [
     '.g-faq p',
     [
       'Ja, wirklich. Der Free-Plan ist das volle Betriebssystem mit monatlichem Arbeitsvolumen — genug, um Ocur an echten Aufgaben zu testen. Keine Kreditkarte, keine Frist. Überzeugt es, ist das Upgrade einen Klick entfernt.',
+      'Ein Chat-Assistent gibt dir eine Antwort — die Arbeit bleibt trotzdem bei dir. Ocur macht den Job fertig, dort, wo er hingehört: mit eigenem Postfach und eigener Telefonnummer, auf Autopilot auch wenn du weg bist, mit lebenden Registern für Versprechen, Geld, Pipeline und Lager. Das Ergebnis landet in deinen Tools — nicht in deiner Zwischenablage.',
       'Nein. Ocur läuft im Browser — und du erreichst es genauso aus WhatsApp, Telegram, Slack oder Discord. Soll es auch auf deinem Rechner arbeiten? Eine kleine Begleit-App verbindet ihn in unter einer Minute.',
       'Nur, wo du es erlaubst. Standardmäßig wartet alles Wichtige auf deine Freigabe. Erst auf Autopilot erledigt Ocur ganze Abläufe von selbst — jeder Schritt protokolliert. Was allein laufen darf, bestimmst du jederzeit, Ruhezeiten inklusive.',
+      'Dann siehst du ihn — jede Aktion steht im Protokoll, mit dem Was und dem Warum. Alles Wichtige hat ohnehin auf deine Freigabe gewartet. Korrigier es in ganz normaler Sprache — Ocur merkt sich die Korrektur, und derselbe Fehler passiert kein zweites Mal.',
       'Gmail, Google Kalender &amp; Drive, Notion, GitHub, WhatsApp, Telegram, Slack und Discord — dazu das Web und auf Wunsch deinen eigenen Rechner. Konten verbindest du einzeln und trennst sie jederzeit wieder.',
       'Dein Workspace ist strikt von jedem anderen Kunden getrennt. Ocur sieht nur die Konten, die du verbindest — und jede Verbindung kappst du mit einem Klick. Wir verkaufen deine Daten nie und trainieren keine Modelle damit — die <a href="/de/privacy">Datenschutzerklärung</a> sagt genau, was mit allem passiert, was Ocur anfasst, Google Workspace inklusive.',
       'Ja — genau dafür ist es gemacht. Alle delegieren an ein gemeinsames Ocur mit geteiltem Wissen. Admins regeln, wer was darf, und an einem Ort siehst du, was erledigt wurde.',
@@ -184,6 +232,11 @@ export const DE = [
 // selector → [attribute, value]
 export const DE_ATTRS = [
   ['.g-links', 'aria-label', 'Hauptnavigation'],
+  [
+    '.g-system',
+    'aria-label',
+    'Ocur im Zentrum eines Sonnensystems, umkreist von Gmail, Google Kalender, Google Drive, Notion, GitHub, Telegram, WhatsApp, Slack, Discord, E-Mail, deinem Rechner und dem Web — plus ein freier Platz für Konnektoren, die du selbst baust',
+  ],
   ['.g-social-x', 'aria-label', 'Ocur auf X'],
   ['.g-social-x', 'title', 'Ocur auf X'],
   // the German page points at the German legal pages (/de/privacy, /de/terms);
