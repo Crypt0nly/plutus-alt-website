@@ -73,6 +73,15 @@ hero until the final section.
   **GSAP + ScrollTrigger + SplitText + Lenis** (~59 KB gz). Vanilla CSS,
   with the liquid-glass and theme tokens at the top of `src/style.css`.
 - Fonts: Inter (body) + JetBrains Mono (labels), via Google Fonts.
+- **Analytics & ads**: PostHog product analytics, lazy-loaded and env-gated
+  (`VITE_POSTHOG_KEY`, see `src/analytics.js`), cookie-free with memory-only
+  persistence. The **X Ads conversion pixel** (`reji3`) sits inline in every
+  page's `<head>` (all seven HTML entry points — `/de/` inherits it through
+  the prerender), gated to the production hostname so localhost and Vercel
+  previews don't pollute conversion data. The base pixel only reports page
+  visits; define conversion events on it in X Ads Manager, then fire them
+  with `twq('event', 'tw-reji3-…', {…})` (safe everywhere — off-prod `twq`
+  is a no-op stub).
 - **Motion gates behind `html.motion`** (set in `<head>` unless the visitor
   prefers reduced motion), so the page reads fine without JS or with
   reduced motion. The pinned demo falls back to its end state; the connector
