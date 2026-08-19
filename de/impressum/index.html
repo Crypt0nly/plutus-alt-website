@@ -47,6 +47,23 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap"
       rel="stylesheet"
     />
+    <!-- X conversion tracking base code — X Ads pixel "reji3". The base pixel
+         only reports page visits; conversion events are defined on top of it
+         in X Ads Manager. Guarded to the production host so localhost and
+         Vercel previews don't pollute ad reporting (same idea as the
+         env-gated PostHog key in src/analytics.js). -->
+    <script>
+      if (/(^|\.)ocur\.ai$/.test(location.hostname)) {
+        !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+        },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
+        a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+        twq('config','reji3');
+      } else {
+        // no-op stub so twq('event', …) calls stay safe off-prod
+        window.twq = function () {};
+      }
+    </script>
+    <!-- End X conversion tracking base code -->
   </head>
   <body class="g">
     <div class="g-grain" aria-hidden="true"></div>
