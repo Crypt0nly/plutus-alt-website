@@ -81,8 +81,16 @@ hero until the final section.
   host-gated: X's Pixel Helper and Events Manager can then verify the
   install on previews and localhost too (an earlier hostname guard made the
   helper report "script detected but no pixel fired" on non-prod hosts).
-  The base pixel only reports page visits; define conversion events on it
-  in X Ads Manager, then fire them with `twq('event', 'tw-reji3-…', {…})`.
+  The base pixel only reports page visits. Conversions ride on top:
+  `src/xads.js` captures the `twclid` from ad-click landings (30-day
+  window), passes it through on every app.ocur.ai link (so the app backend
+  can report the real signup conversion later), and on Start-free clicks
+  fires the event twice with one `conversion_id` for dedup — through the
+  pixel (`twq('event', …)`, blocked by ad blockers) and through the
+  serverless Conversions API relay `api/x-conversions.js` (not blocked;
+  the `X_PIXEL_TOKEN` secret never leaves Vercel). Both legs stay dormant
+  until the `X_EVENT_ID`/`VITE_X_EVENT_ID` vars in `.env.example` are set
+  with a real event id from X Events Manager.
 - **Motion gates behind `html.motion`** (set in `<head>` unless the visitor
   prefers reduced motion), so the page reads fine without JS or with
   reduced motion. The pinned demo falls back to its end state; the connector
@@ -302,10 +310,13 @@ src/
   strings.de.js    # the entire German dictionary (data only)
   theme.js         # dark/light toggle
   analytics.js     # PostHog (lazy, env-gated) + a small track() helper
+  xads.js          # X Ads conversions: twclid capture + CTA dual-fire
   be-ai.js         # /be-ai live game: WebSocket client + view state machine
   be-ai.css        # /be-ai styling — Ocur glass + hand-drawn "sketch" accents
   be-ai-draw.js    # /be-ai drawing pad (answer a prompt with a scribble)
   be-ai-share.js   # /be-ai share card (canvas) + native share / modal
+api/
+  x-conversions.js    # Vercel function: X Conversions API relay (token stays server-side)
 scripts/
   prerender-de.mjs    # bakes dist/de/index.html after the Vite build
   check-legal.mjs     # guards the Google-OAuth requirements (see below)

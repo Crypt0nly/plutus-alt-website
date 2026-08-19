@@ -6,6 +6,7 @@ import './style.css';
 import { initLangRouting, applyLang, initLangToggle } from './i18n.js';
 import { initThemeToggle } from './theme.js';
 import { initAnalytics } from './analytics.js';
+import { initXAds } from './xads.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
@@ -15,6 +16,7 @@ import Lenis from 'lenis';
 // fallback) before SplitText below caches the hero markup.
 initLangRouting();
 initAnalytics();
+initXAds();
 applyLang();
 initLangToggle();
 initThemeToggle();
