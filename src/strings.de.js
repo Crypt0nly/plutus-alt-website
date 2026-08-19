@@ -155,7 +155,7 @@ export const DE = [
       'Ocur bekommt ein eigenes Postfach, kennt zu jedem Absender die ganze Vorgeschichte und antwortet in deinem Ton — oder legt dir Entwürfe zur Freigabe vor.',
       'Wie mit einem Kollegen — ein echtes Gespräch, kein Diktat. Unterbrich Ocur mitten im Satz; es kommt mit.',
       'Ocur bekommt eine eigene Nummer, nimmt die Anrufe an, auf die du keine Lust hast, sagt nur, was du erlaubst — und legt dir das Protokoll hin.',
-      'Übergib den ganzen Rückstand in einer Nachricht. Parallele Worker arbeiten nebeneinander und melden sich, sobald ein Job fertig ist.',
+      'Übergib den ganzen Rückstand in einer Nachricht. Parallele Worker arbeiten nebeneinander — und sobald ein Job fertig ist, greift Ocur das Ergebnis von selbst auf und macht weiter.',
       'Nimm die Routineaufgabe als Bildschirmvideo auf und erklär dabei, was du tust. Ocur macht daraus eine Fähigkeit, die es für immer wiederholt — genau auf deine Art.',
       '„Was haben wir im März vereinbart?“ — einmal gefragt, für immer beantwortet. Gib Ocur eure Dokumente; nichts wird zweimal gefragt.',
       'Ocur öffnet Apps, klickt, tippt, liest den Bildschirm — mit deinem Okay.',
