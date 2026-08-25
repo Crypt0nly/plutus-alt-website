@@ -5,7 +5,7 @@
 import './style.css';
 import { initLangRouting, applyLang, initLangToggle } from './i18n.js';
 import { initThemeToggle } from './theme.js';
-import { initAnalytics } from './analytics.js';
+import { initAnalytics, track } from './analytics.js';
 import { initXAds } from './xads.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -40,6 +40,42 @@ if (finePointer) {
 // (the payoff report — scene 4 — with its final numbers baked into the HTML)
 if (!motion) {
   document.querySelector('.g-demo').dataset.scene = '4';
+}
+
+// --------------------------------------------- pricing audience switch
+// Solo and company are priced on different units, so the section carries two
+// ladders (see style.css); the switch decides which one is on screen. The
+// .seg-ready class is what hides the off-screen ladder — set here, so a page
+// whose bundle never ran shows both instead of losing half the prices.
+const seg = document.querySelector('.g-seg');
+if (seg) {
+  const tabs = [...seg.querySelectorAll('.g-seg-btn')];
+  const ladders = [...document.querySelectorAll('.g-tiers')];
+  document.querySelector('.g-pricing').classList.add('seg-ready');
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const aud = tab.dataset.aud;
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.classList.toggle('on', on);
+        t.setAttribute('aria-pressed', String(on));
+      });
+      ladders.forEach((ladder) => {
+        const on = ladder.dataset.aud === aud;
+        ladder.classList.toggle('on', on);
+        if (on && motion) {
+          gsap.fromTo(
+            ladder.querySelectorAll('.g-card'),
+            { y: 26, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: 'power3.out' },
+          );
+        }
+      });
+      track('pricing_audience', { audience: aud });
+      // the ladders are different heights — everything pinned below moves
+      if (motion) ScrollTrigger.refresh();
+    });
+  });
 }
 
 if (motion) {
@@ -204,13 +240,14 @@ if (motion) {
   });
 
   // ----------------------------------------------------- pricing
-  gsap.from('.g-card', {
+  // the ladder that's on screen at load; a switch fades its own cards in
+  gsap.from('.g-tiers.on .g-card', {
     y: 70,
     opacity: 0,
     duration: 0.9,
     stagger: 0.12,
     ease: 'power3.out',
-    scrollTrigger: { trigger: '.g-cards', start: 'top 78%' },
+    scrollTrigger: { trigger: '.g-seg', start: 'top 78%' },
   });
 
   // --------------------------------------------------------- faq

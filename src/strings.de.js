@@ -167,42 +167,145 @@ export const DE = [
   ['.g-times span', ['06:00 Posteingang', '06:15 Rechnungen', '07:12 baut ein Tool', '08:00 Bericht']],
   ['.g-chips span', ['Vertrieb', 'Support', 'Finanzen', 'Marketing', 'Betrieb', 'Wissen']],
 
-  // pricing (euro for the German market)
+  // pricing (euro for the German market — same numbers, other symbol)
   ['#pricing .g-h2', 'Kostenlos starten. Skalieren, <span class="g-grad">wenn’s überzeugt.</span>'],
-  ['.g-eyebrow', ['Zum Ausprobieren', 'Für wachsende Teams', 'Für den vollen Betrieb']],
+  [
+    '.g-price-lede',
+    'Zwei Leitern, ein Ocur. Allein zahlst du für dein eigenes Ocur. Als Unternehmen kommen alle Menschen kostenlos dazu — bezahlt werden die KI-Worker und die Arbeit, die sie erledigen.',
+  ],
+  ['.g-seg-t', ['Nur ich', 'Mein Unternehmen']],
+  ['.g-seg-s', ['Solo-Pläne', 'Business-Pläne']],
+  [
+    '.g-worker-note',
+    '<strong>Was ist ein KI-Worker?</strong> Ein Kollege, den Ocur für dich laufen lässt — mit Namen, Aufgabe und Zeitplan. Er arbeitet parallel, während du etwas anderes tust.',
+  ],
+  [
+    '.g-tier-lede',
+    [
+      '<span class="g-tier-tag">Solo</span> Eine Person delegiert — dein eigenes Ocur, dazu KI-Worker, die weitermachen, auch wenn du weg bist.',
+      '<span class="g-tier-tag g-tier-tag-hot">Business</span> Das ganze Unternehmen auf einem Ocur: ein gemeinsamer Pool, ein gemeinsames Gedächtnis — und unbegrenzt viele Menschen, immer kostenlos.',
+    ],
+  ],
+  [
+    '.g-eyebrow',
+    [
+      'Zum Ausprobieren',
+      'Für den Einstieg',
+      'Für alle, die viel delegieren',
+      'Für den ganzen Tag',
+      'Euer erstes gemeinsames Gehirn',
+      'Für ambitionierte Unternehmen',
+      'Für Unternehmen &amp; Agenturen',
+    ],
+  ],
   ['.g-badge', 'Am beliebtesten'],
-  ['.g-price', ['€0<span>/Monat</span>', '€1.500<span>/Monat</span>', '€5.000<span>/Monat</span>']],
+  [
+    '.g-price',
+    [
+      '€0<span>/Monat</span>',
+      '€29<span>/Monat</span>',
+      '€149<span>/Monat</span>',
+      '€299<span>/Monat</span>',
+      '€399<span>/Monat</span>',
+      '€1.500<span>/Monat</span>',
+      '€5.000<span>/Monat</span>',
+    ],
+  ],
+  [
+    '.g-price-alt',
+    [
+      'Keine Kreditkarte. Keine Frist.',
+      'oder €290 im Jahr — 2 Monate geschenkt',
+      'oder €1.490 im Jahr — 2 Monate geschenkt',
+      'oder €2.990 im Jahr — 2 Monate geschenkt',
+      'oder €4.389 im Jahr — 1 Monat geschenkt',
+      'oder €16.500 im Jahr — 1 Monat geschenkt',
+      'oder €55.000 im Jahr — 1 Monat geschenkt',
+    ],
+  ],
   [
     '.g-card li',
     [
       // Free
       'Das volle Betriebssystem',
       'E-Mail, Kalender, Dateien, Chat &amp; das Web',
-      'Gedächtnis, Sprache, Bilder &amp; Automatisierungen',
-      'Ohne Kreditkarte',
-      // Team
+      'Ocur in WhatsApp, Telegram, Slack &amp; Discord',
+      'Auf Zuruf: du fragst, Ocur erledigt',
+      // Starter
       'Alles aus Free',
-      '300× so viel Arbeitsvolumen wie Free',
-      'Gemeinsames Wissen fürs ganze Team',
-      'Eigene Tools &amp; Automatisierungen',
-      'Standard-Support',
-      // Business
+      '3× so viel Arbeitsvolumen wie Free',
+      'Autopilot — Ocur arbeitet, auch wenn du weg bist',
+      'Eigene Telefonnummer und eigenes Postfach',
+      'Geplante Jobs, Morgenbriefings, Automatisierungen',
+      // Pro
+      'Alles aus Starter',
+      '5× so viel Volumen wie Starter',
+      'Bis zu 10 KI-Worker gleichzeitig',
+      'Den ganzen Rückstand in einer Nachricht übergeben',
+      // Pro Plus
+      'Alles aus Pro',
+      'Doppeltes Volumen von Pro',
+      'Unbegrenzt viele KI-Worker',
+      // Team
+      'Unbegrenzt viele Menschen — Einladungen sind gratis',
+      '2 KI-Worker mit echten Aufgaben und Zeitplänen',
+      'Ein gemeinsamer Pool für das ganze Team',
+      'Gemeinsames Firmenwissen und Gedächtnis',
+      'Ocur in WhatsApp, Telegram, Slack, Teams &amp; E-Mail',
+      // Growth
       'Alles aus Team',
-      'Doppeltes Volumen von Team',
-      'Mehr Automatisierungen &amp; parallele Worker',
-      'Priority-Support',
+      '5× so viel Pool-Volumen wie Team',
+      '5 KI-Worker mit echten Aufgaben und Zeitplänen',
+      'Firmenweites Gedächtnis, Leitplanken &amp; Governance',
+      'Eigene Tools, Live Apps und Automatisierungen',
+      // Scale
+      'Alles aus Growth',
+      'Fast 3× der Pool von Growth',
+      '15 KI-Worker über Teams und Abteilungen hinweg',
+      'Intelligence-Digest für die Führung',
+      'Priority-Support und Onboarding',
     ],
   ],
   [
     '.g-meta',
     [
-      '250K Tokens Ocur-Arbeit / Monat — genug für echte Aufgaben',
-      '75M Tokens Ocur-Arbeit / Monat',
-      '150M Tokens Ocur-Arbeit / Monat',
+      '1,5M Tokens Ocur-Arbeit / Monat',
+      '5M Tokens Ocur-Arbeit / Monat',
+      '25M Tokens Ocur-Arbeit / Monat',
+      '50M Tokens Ocur-Arbeit / Monat',
+      '48M Tokens Ocur-Arbeit / Monat, geteilt',
+      '240M Tokens Ocur-Arbeit / Monat, geteilt',
+      '680M Tokens Ocur-Arbeit / Monat, geteilt',
     ],
   ],
-  ['.g-cards .g-btn', ['Kostenlos starten', 'Team starten', 'Business starten']],
-  ['.g-note', 'Mehr nötig? Enterprise läuft unbegrenzt — Upgrade direkt in der App.'],
+  [
+    '.g-cards .g-btn',
+    [
+      'Kostenlos starten',
+      'Starter holen',
+      'Pro holen',
+      'Pro Plus holen',
+      'Team holen',
+      'Growth holen',
+      'Scale holen',
+    ],
+  ],
+  ['.g-extra strong', ['+1 KI-Worker', 'Top-up', 'Enterprise']],
+  [
+    '.g-extra span',
+    [
+      '€199 im Monat — und bringt weitere 25M Tokens Arbeit mit',
+      '€100 legen 10M Tokens in den gemeinsamen Pool, jederzeit',
+      'Unbegrenztes Volumen, eigene Pool-Größe, eigene Konditionen',
+    ],
+  ],
+  [
+    '.g-note',
+    [
+      'Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Jährlich zahlen heißt zwei Monate geschenkt, und du kannst jederzeit wechseln, upgraden oder kündigen.',
+      'Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Jährlich zahlen heißt einen Monat geschenkt. Jedes Unternehmen startet kostenlos: erst selbst ausprobieren, dann die anderen dazu holen.',
+    ],
+  ],
 
   // FAQ
   ['#faq .g-h2', 'Fragen, <span class="g-grad">beantwortet.</span>'],
@@ -217,6 +320,7 @@ export const DE = [
       'Mit welchen Tools funktioniert es?',
       'Sind unsere Daten sicher?',
       'Kann das ganze Unternehmen mitmachen?',
+      'Zahlen wir pro Person?',
       'Wie schnell sind wir startklar?',
     ],
   ],
@@ -231,6 +335,7 @@ export const DE = [
       'Gmail, Google Kalender &amp; Drive, Notion, GitHub, WhatsApp, Telegram, Slack und Discord — dazu das Web und auf Wunsch deinen eigenen Rechner. Konten verbindest du einzeln und trennst sie jederzeit wieder.',
       'Dein Workspace ist strikt von jedem anderen Kunden getrennt. Ocur sieht nur die Konten, die du verbindest — und jede Verbindung kappst du mit einem Klick. Wir verkaufen deine Daten nie und trainieren keine Modelle damit — die <a href="/de/privacy">Datenschutzerklärung</a> sagt genau, was mit allem passiert, was Ocur anfasst, Google Workspace inklusive.',
       'Ja — genau dafür ist es gemacht. Alle delegieren an ein gemeinsames Ocur mit geteiltem Wissen. Admins regeln, wer was darf, und an einem Ort siehst du, was erledigt wurde.',
+      'Nein. Menschen sind immer kostenlos, egal wie viele ihr seid — eine Kollegin einzuladen kostet nichts. Bezahlt wird Ocurs Arbeit: ein monatliches Volumen davon und die KI-Worker, die eigenständig nach Zeitplan arbeiten. Noch ein Paar Hände? Ein zusätzlicher KI-Worker kostet €199 im Monat und bringt 25M Tokens Arbeit mit.',
       'Minuten, nicht Monate. Ocur läuft im Browser, verbindet sich Login für Login mit deinen Tools und braucht kein IT-Projekt. Die meisten Teams geben ihm schon am ersten Tag echte Arbeit.',
     ],
   ],

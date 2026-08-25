@@ -17,8 +17,9 @@ with Vite, vanilla JS, and vanilla CSS.
 > phone connector (Ocur's own number, inbound calls, transcripts), the
 > business ledgers (commitments, money, CRM, stock, agent-designed
 > business objects, the Command Center), Live Apps, record-a-skill,
-> org/role guardrails, and the Free / Team ($1,500) / Business ($5,000)
-> plans.
+> org/role guardrails, and both plan ladders — solo (Free / Starter $29 /
+> Pro $149 / Pro Plus $299) and company (Team $399 / Growth $1,500 / Scale
+> $5,000, humans free, AI workers $199 each).
 
 ## Page tour
 
@@ -56,12 +57,21 @@ with Vite, vanilla JS, and vanilla CSS.
    the phone, parallel workers, record-a-skill, company memory, drives
    your computer, built for control, builds its own tools/Live Apps, every
    department), each with a pointer-tracked glare.
-6. **Pricing** — Free ("for the pilot") / Team ($1,500, "most popular") /
-   Business ($5,000), mirroring the in-app plans and token allowances, with
-   an Enterprise note.
-7. **FAQ** — nine `<details>` accordions answering the classic objections:
+6. **Pricing** — two ladders behind one switch ("Just me" / "My company"),
+   because the two are priced on different units. **Solo**: Free (1.5M
+   tokens) / Starter $29 (5M) / Pro $149 (25M, "most popular") / Pro Plus
+   $299 (50M), each with its annual price (2 months free). **Company**:
+   Team $399 (48M pooled) / Growth $1,500 (240M, "most popular") / Scale
+   $5,000 (680M), annual at one month free, unlimited human members, plus
+   an extras row (+1 AI worker $199/mo, $100 top-ups, Enterprise). Both
+   ladders are in the DOM — the switch only decides which is on screen, so
+   crawlers, the German prerender and a page whose bundle never ran all
+   still see every price. Mirrors the in-app plans and token allowances
+   (plutus-cloud's `PLAN_LIMITS` / `ORG_PLAN_LIMITS`).
+7. **FAQ** — ten `<details>` accordions answering the classic objections:
    free?, vs. a chat assistant?, install?, autonomy/approval, what if it's
-   wrong?, integrations, privacy, company-wide use, rollout time.
+   wrong?, integrations, privacy, company-wide use, pay-per-person?,
+   rollout time.
 8. **Final CTA** — "Run the company. *Not the busywork.*" → **Start free**.
 
 A persistent floating glass **CTA dock** rides along from just past the

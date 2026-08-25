@@ -1387,7 +1387,7 @@ html.motion .g-eq i {
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.1;
-  margin: 8px 0 20px;
+  margin: 8px 0 6px;
 }
 
 .g-price span {
@@ -1440,6 +1440,207 @@ html.motion .g-eq i {
   max-width: 620px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.g-price-alt {
+  margin: 0 0 18px;
+  font-size: 12.5px;
+  color: var(--g-dim);
+}
+
+/* ------------------------------------------- the two pricing ladders */
+/* Solo and company are priced on different units — one Ocur for you, vs.
+   a shared pool where humans are free and AI workers are the meter — so
+   they get their own ladders instead of one confusing row of seven cards.
+   Both live in the DOM (crawlable, and the German prerender bakes both);
+   the switch only decides which one is on screen. Without JS they simply
+   stack, so the page still sells both. */
+
+.g-price-lede {
+  max-width: 660px;
+  margin: 20px auto 0;
+  text-align: center;
+  color: var(--g-dim);
+  font-size: 16.5px;
+}
+
+.g-seg {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  width: max-content;
+  max-width: 100%;
+  margin: 32px auto 0;
+  padding: 6px;
+  border-radius: 999px;
+  background: var(--g-fill);
+  border: 1px solid var(--g-hair);
+}
+
+/* the switch only appears once main.js has wired it — if the bundle never
+   runs, both ladders stay stacked instead of half the prices vanishing */
+.g-pricing:not(.seg-ready) .g-seg {
+  display: none;
+}
+
+.g-seg-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 10px 28px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--g-dim);
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.g-seg-t {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.g-seg-s {
+  font-family: var(--g-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.g-seg-btn:hover {
+  color: var(--g-ink);
+}
+
+.g-seg-btn.on {
+  color: #14100b;
+  background: linear-gradient(95deg, var(--g-orange), var(--g-ember));
+  box-shadow: 0 10px 30px rgba(242, 148, 46, 0.28);
+}
+
+.g-worker-note {
+  max-width: 620px;
+  margin: 20px auto 0;
+  text-align: center;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--g-dim);
+}
+
+.g-worker-note strong {
+  color: var(--g-ink);
+  font-weight: 600;
+}
+
+.g-tiers {
+  margin-top: 46px;
+}
+
+.seg-ready .g-tiers:not(.on) {
+  display: none;
+}
+
+.g-tier-lede {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 740px;
+  margin: 0 auto 28px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--g-dim);
+}
+
+.g-tier-tag {
+  font-family: var(--g-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+  color: var(--g-ink);
+  background: var(--g-fill);
+  border: 1px solid var(--g-hair);
+}
+
+.g-tier-tag-hot {
+  color: #14100b;
+  background: linear-gradient(95deg, var(--g-orange), var(--g-ember));
+  border-color: transparent;
+}
+
+/* four rungs on the solo ladder — tighter cards than the three-up grid */
+.g-cards-4 {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.g-cards-4 .g-card {
+  padding: 28px 22px 24px;
+}
+
+.g-cards-4 .g-price {
+  font-size: 38px;
+}
+
+.g-cards-4 .g-card ul {
+  font-size: 14px;
+}
+
+/* the company cards carry a warm rail, so the two ladders never blur
+   together in a screenshot or a scroll-past */
+.g-tiers[data-aud='company'] .g-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 26px;
+  right: 26px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(90deg, transparent, var(--g-orange), transparent);
+  box-shadow: 0 0 18px rgba(242, 148, 46, 0.45);
+}
+
+/* what a company buys on top of a plan: workers, top-ups, enterprise */
+.g-extras {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.g-extra {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 20px;
+  border-radius: 20px;
+}
+
+.g-extra strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.g-extra span {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--g-dim);
+}
+
+@media (max-width: 1080px) {
+  .g-cards-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
 }
 
 /* --------------------------------------------------------------- faq */
@@ -1665,6 +1866,26 @@ html.motion .g-dock::before {
 
   .g-card-hot {
     order: -1;
+  }
+
+  .g-extras {
+    grid-template-columns: 1fr;
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .g-tier-lede {
+    margin-bottom: 38px;
+  }
+
+  .g-seg {
+    width: 100%;
+  }
+
+  .g-seg-btn {
+    flex: 1;
+    padding: 10px 12px;
   }
 
   .g-win-body {
