@@ -24,13 +24,13 @@
       property="og:description"
       content="The AI operating system for companies: Ocur answers your email and phone, does the work inside the tools you already run on, and keeps your promises, money and pipeline on live ledgers. You set the limits. Pilot it free."
     />
-    <meta property="og:image" content="https://ocur.ai/og.jpg?v=1" />
+    <meta property="og:image" content="https://ocur.ai/og.jpg?v=2" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Ocur — “What if your company ran itself?” An Ocur window on autopilot: chase the overdue invoices and update the sheet, 14 reminders sent, sheet updated, 2 already paid."
+      content="Ocur — “What if your company ran itself?” An Ocur window on a live call: Friday's delivery came in 40 units short, sort it out — contract checked, supplier called, €312 recovered."
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@ocur_ai" />
@@ -40,10 +40,10 @@
       name="twitter:description"
       content="Ocur answers your email and phone, does the work inside your tools, and keeps your promises, money and pipeline on live ledgers. On demand, or on full autopilot. Pilot it free."
     />
-    <meta name="twitter:image" content="https://ocur.ai/og.jpg?v=1" />
+    <meta name="twitter:image" content="https://ocur.ai/og.jpg?v=2" />
     <meta
       name="twitter:image:alt"
-      content="Ocur — “What if your company ran itself?” An Ocur window on autopilot: chase the overdue invoices and update the sheet, 14 reminders sent, sheet updated, 2 already paid."
+      content="Ocur — “What if your company ran itself?” An Ocur window on a live call: Friday's delivery came in 40 units short, sort it out — contract checked, supplier called, €312 recovered."
     />
     <link rel="canonical" href="https://ocur.ai/" />
     <link rel="alternate" hreflang="en" href="https://ocur.ai/" />
@@ -119,6 +119,17 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap"
       rel="stylesheet"
     />
+    <!-- X conversion tracking base code — X Ads pixel "reji3". The base pixel
+         only reports page visits; conversion events are defined on top of it
+         in X Ads Manager. Kept verbatim (no host gating) so X's Pixel Helper
+         and Events Manager can verify the install on any deployment. -->
+    <script>
+      !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+      },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
+      a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+      twq('config','reji3');
+    </script>
+    <!-- End X conversion tracking base code -->
   </head>
   <body class="g">
     <div class="g-grain" aria-hidden="true"></div>
@@ -134,7 +145,7 @@
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
       </nav>
-      <a class="g-btn g-btn-sm magnetic" href="https://app.ocur.ai">Start free</a>
+      <a class="g-btn g-btn-sm magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
     </header>
 
     <main>
@@ -150,7 +161,7 @@
             run on. On demand, or on full autopilot.
           </p>
           <div class="g-ctas">
-            <a class="g-btn g-btn-lg magnetic" href="https://app.ocur.ai">Start free</a>
+            <a class="g-btn g-btn-lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
             <a class="g-btn g-btn-glass lg magnetic" href="#demo">Watch it work</a>
           </div>
           <p class="g-micro">Free pilot&nbsp;&nbsp;·&nbsp;&nbsp;No credit card&nbsp;&nbsp;·&nbsp;&nbsp;No IT project</p>
@@ -202,36 +213,66 @@
               <span class="g-win-pill"><i class="g-kdot"></i> Autopilot on</span>
             </div>
             <div class="g-win-body">
-              <!-- scene 1: the ask -->
+              <!-- scene 1: the ask (typed out live by main.js) -->
               <div class="g-scene g-s1">
-                <div class="g-bubble g-bubble-you">Chase the overdue invoices and update the sheet.</div>
+                <div class="g-bubble g-bubble-you"><span class="g-type">Friday's delivery came in 40 units short — sort it out with the supplier.</span><span class="g-caret" aria-hidden="true"></span></div>
                 <div class="g-stamp">You · 09:41</div>
               </div>
-              <!-- scene 2: the work -->
+              <!-- scene 2: facts first, then the phone call -->
               <div class="g-scene g-s2">
-                <div class="g-bubble g-bubble-ocur">
-                  <span class="g-working">On it — running the loop.</span>
-                  <span class="g-step" style="--sd: 0.1s">✓&nbsp; 14 payment reminders sent</span>
-                  <span class="g-step" style="--sd: 0.3s">✓&nbsp; Sheet updated — 12 rows reconciled</span>
-                  <span class="g-step" style="--sd: 0.5s">✓&nbsp; 2 payments already in</span>
+                <div class="g-fan"><i class="g-kdot" aria-hidden="true"></i>On it — facts first, then the call.</div>
+                <div class="g-act" style="--sd: 0.15s">
+                  <span class="g-act-tag">Stock</span>
+                  <span class="g-act-txt">Order 500 · delivery note 460 — 40 short, confirmed</span>
+                  <span class="g-act-ok">✓ checked</span>
                 </div>
-                <div class="g-stamp">Ocur · 09:43</div>
+                <div class="g-act" style="--sd: 0.35s">
+                  <span class="g-act-tag">Drive</span>
+                  <span class="g-act-txt">Supply contract, §7 — 4% credit on shortfalls</span>
+                  <span class="g-act-ok">✓ found</span>
+                </div>
+                <div class="g-act" style="--sd: 0.55s">
+                  <span class="g-act-tag">Phone</span>
+                  <span class="g-act-txt">Calling Meier Logistik — procurement</span>
+                  <span class="g-act-ok g-act-live">● live</span>
+                </div>
+                <div class="g-act g-act-quote" style="--sd: 0.8s">
+                  <span class="g-act-tag">Call</span>
+                  <span class="g-act-txt">“We'll credit the 4% and redeliver Thursday morning.”</span>
+                  <span class="g-act-ok">02:41</span>
+                </div>
+                <div class="g-stamp">Ocur · 09:47 · yes, Ocur is really on the phone</div>
               </div>
-              <!-- scene 3: the sign-off -->
+              <!-- scene 3: the deal, waiting for you -->
               <div class="g-scene g-s3">
                 <div class="g-approve lg">
-                  <p>Anders &amp; Co is 90 days overdue — <strong>send the final notice?</strong></p>
-                  <div class="g-approve-btns"><span class="yes">Approve</span><span>Hold</span></div>
+                  <p>Meier offers a €312 credit + Thursday redelivery — <strong>take the deal?</strong></p>
+                  <div class="g-approve-btns"><span class="yes">Take it</span><span>Push back</span></div>
                 </div>
-                <div class="g-stamp">Every step logged · nothing important without your sign-off</div>
+                <div class="g-sent" style="--sd: 1.15s">✓ Accepted on the call — written confirmation sent</div>
+                <div class="g-stamp">Nothing important without your sign-off</div>
+              </div>
+              <!-- scene 4: the payoff -->
+              <div class="g-scene g-s4">
+                <div class="g-report">
+                  <p class="g-report-kicker">While you stayed in your meeting</p>
+                  <p class="g-report-big"><strong class="g-grad" data-cc="312" data-cc-prefix="€">€312</strong><span> recovered</span></p>
+                  <ul class="g-report-lines">
+                    <li style="--sd: 0.3s">Credit note booked — the books already match</li>
+                    <li style="--sd: 0.45s">Redelivery Thu 08:00 — on your calendar</li>
+                    <li style="--sd: 0.6s">Call transcript + confirmation, filed</li>
+                  </ul>
+                </div>
+                <div class="g-stamp">Ocur · 10:02 · the whole call on the record</div>
               </div>
             </div>
           </div>
 
           <div class="g-caps">
             <p class="g-cap g-cap-1">Say it once, in plain language. No prompts to engineer.</p>
-            <p class="g-cap g-cap-2">Ocur runs the whole loop — the email, the sheet, the books, the web.</p>
-            <p class="g-cap g-cap-3">Anything important waits for you. One tap, done.</p>
+            <p class="g-cap g-cap-2">Ocur checks the facts first — then picks up the phone.</p>
+            <p class="g-cap g-cap-3">Ocur negotiates. The final call stays yours.</p>
+            <p class="g-cap g-cap-4">Money back, date fixed, every word on the record.</p>
           </div>
         </div>
       </section>
@@ -269,7 +310,7 @@
             </article>
             <article class="g-os-card lg glare">
               <p class="g-os-tag">Your database</p>
-              <h3>It builds your database</h3>
+              <h3>Ocur builds your database</h3>
               <p>Candidates, orders, patients — whatever your business runs on, Ocur designs the tables, evolves them as you change, and works inside them. You may not need the next SaaS.</p>
             </article>
             <article class="g-os-card lg glare">
@@ -295,21 +336,21 @@
             <article class="g-tile g-tile-auto lg glare">
               <svg class="g-ekg" viewBox="0 0 220 40" aria-hidden="true"><polyline points="0,20 60,20 74,6 88,34 102,20 220,20" fill="none" stroke="#f2942e" stroke-width="2" stroke-linejoin="round" /></svg>
               <h3>Autopilot, with a heartbeat</h3>
-              <p>A heartbeat wakes Ocur through the day. It checks what needs doing, does it, and writes every step down. You wake up to a report, not a backlog.</p>
+              <p>A heartbeat wakes Ocur through the day. Ocur checks what needs doing, does it, writes every step down — you wake up to a report, not a backlog.</p>
               <div class="g-times"><span>06:00 inbox</span><span>06:15 invoices</span><span>07:12 builds a tool</span><span>08:00 digest</span></div>
             </article>
             <article class="g-tile g-tile-mail lg glare">
               <h3>Answers your email itself</h3>
-              <p>Give Ocur its own inbox. It knows every sender's whole history, replies in your voice — or drafts and waits for your OK.</p>
+              <p>Ocur gets its own inbox, knows every sender's whole history, and replies in your voice — or drafts and waits for your OK.</p>
             </article>
             <article class="g-tile g-tile-voice lg glare">
               <div class="g-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-              <h3>Talk to it</h3>
-              <p>Out loud, like a colleague — a real conversation, not dictation. Interrupt it mid-sentence; it keeps up.</p>
+              <h3>Talk to Ocur</h3>
+              <p>Out loud, like a colleague — a real conversation, not dictation. Interrupt Ocur mid-sentence; it keeps up.</p>
             </article>
             <article class="g-tile g-tile-phone lg glare">
               <h3>Answers the phone</h3>
-              <p>Ocur gets its own number. It takes the calls you'd rather not, says only what you allow — and hands you the transcript.</p>
+              <p>Ocur gets its own number, takes the calls you'd rather not, says only what you allow — and hands you the transcript.</p>
             </article>
             <article class="g-tile g-tile-work lg glare">
               <h3>Ten jobs at once</h3>
@@ -321,11 +362,11 @@
             </article>
             <article class="g-tile g-tile-mem lg glare">
               <h3>Company memory</h3>
-              <p>“What did we agree in March?” — asked once, answered forever. Feed it your documents; it never asks twice.</p>
+              <p>“What did we agree in March?” — asked once, answered forever. Give Ocur your documents; nothing gets asked twice.</p>
             </article>
             <article class="g-tile g-tile-comp lg glare">
               <h3>Drives your computer</h3>
-              <p>Opens apps, clicks, types, reads the screen — with your say-so.</p>
+              <p>Ocur opens apps, clicks, types, reads the screen — with your say-so.</p>
             </article>
             <article class="g-tile g-tile-ctrl lg glare">
               <h3>Built for control</h3>
@@ -349,50 +390,170 @@
         <div class="g-glow g-glow-price" aria-hidden="true"></div>
         <div class="g-wrap">
           <h2 class="g-h2">Pilot it free. Scale when <span class="g-grad">it proves itself.</span></h2>
-          <div class="g-cards">
-            <article class="g-card lg glare">
-              <p class="g-eyebrow">For the pilot</p>
-              <h3>Free</h3>
-              <p class="g-price">$0<span>/month</span></p>
-              <ul>
-                <li>The full operating system</li>
-                <li>Email, calendar, files, chat &amp; the web</li>
-                <li>Memory, voice, images and automations</li>
-                <li>No credit card to start</li>
-              </ul>
-              <p class="g-meta">250K tokens of Ocur-work each month</p>
-              <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai">Start free</a>
-            </article>
-            <article class="g-card g-card-hot lg glare">
-              <p class="g-badge">Most popular</p>
-              <p class="g-eyebrow">Best for growing teams</p>
-              <h3>Team</h3>
-              <p class="g-price">$1,500<span>/month</span></p>
-              <ul>
-                <li>Everything in Free</li>
-                <li>300× the monthly allowance</li>
-                <li>Shared company memory and knowledge</li>
-                <li>Custom tools and automations</li>
-                <li>Standard support</li>
-              </ul>
-              <p class="g-meta">75M tokens of Ocur-work each month</p>
-              <a class="g-btn magnetic" href="https://app.ocur.ai">Start Team</a>
-            </article>
-            <article class="g-card lg glare">
-              <p class="g-eyebrow">Built for operations</p>
-              <h3>Business</h3>
-              <p class="g-price">$5,000<span>/month</span></p>
-              <ul>
-                <li>Everything in Team</li>
-                <li>Double the monthly allowance</li>
-                <li>Higher automation &amp; worker limits</li>
-                <li>Priority support</li>
-              </ul>
-              <p class="g-meta">150M tokens of Ocur-work each month</p>
-              <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai">Go Business</a>
-            </article>
+          <p class="g-price-lede">
+            Two ladders, one Ocur. On your own, you pay for your own Ocur. As a company, every human
+            joins for free — you pay for the AI workers and the work they do.
+          </p>
+
+          <div class="g-seg" role="group" aria-label="Who is this for?">
+            <button class="g-seg-btn on" type="button" data-aud="solo" aria-pressed="true">
+              <span class="g-seg-t">Just me</span><span class="g-seg-s">Solo plans</span>
+            </button>
+            <button class="g-seg-btn" type="button" data-aud="company" aria-pressed="false">
+              <span class="g-seg-t">My company</span><span class="g-seg-s">Business plans</span>
+            </button>
           </div>
-          <p class="g-note">EU customers pay the same numbers in euro (€1,500 / €5,000). Enterprise goes unlimited — start free, upgrade inside Ocur.</p>
+
+          <p class="g-worker-note">
+            <strong>What's an AI worker?</strong> A teammate Ocur runs for you — it has a name, a job
+            and a schedule, and it works in parallel while you're doing something else.
+          </p>
+
+          <!-- solo ladder -->
+          <div class="g-tiers on" data-aud="solo">
+            <p class="g-tier-lede">
+              <span class="g-tier-tag">Solo</span> One person delegating — your own Ocur, plus AI
+              workers that keep going without you.
+            </p>
+            <div class="g-cards g-cards-4">
+              <article class="g-card lg glare">
+                <p class="g-eyebrow">Try it on real work</p>
+                <h3>Free</h3>
+                <p class="g-price">$0<span>/month</span></p>
+                <p class="g-price-alt">No credit card. No trial clock.</p>
+                <ul>
+                  <li>The full operating system</li>
+                  <li>Email, calendar, files, chat &amp; the web</li>
+                  <li>Ocur on WhatsApp, Telegram, Slack &amp; Discord</li>
+                  <li>On demand: you ask, Ocur does it</li>
+                </ul>
+                <p class="g-meta">1.5M tokens of Ocur-work / month</p>
+                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
+              </article>
+              <article class="g-card lg glare">
+                <p class="g-eyebrow">For getting hands-on</p>
+                <h3>Starter</h3>
+                <p class="g-price">$29<span>/month</span></p>
+                <p class="g-price-alt">or $290 a year — 2 months free</p>
+                <ul>
+                  <li>Everything in Free</li>
+                  <li>3× the monthly work of Free</li>
+                  <li>Autopilot — Ocur works while you're away</li>
+                  <li>Its own phone number and inbox</li>
+                  <li>Scheduled jobs, morning briefs, automations</li>
+                </ul>
+                <p class="g-meta">5M tokens of Ocur-work / month</p>
+                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Get Starter</a>
+              </article>
+              <article class="g-card g-card-hot lg glare">
+                <p class="g-badge">Most popular</p>
+                <p class="g-eyebrow">Best for power users</p>
+                <h3>Pro</h3>
+                <p class="g-price">$149<span>/month</span></p>
+                <p class="g-price-alt">or $1,490 a year — 2 months free</p>
+                <ul>
+                  <li>Everything in Starter</li>
+                  <li>5× the work of Starter</li>
+                  <li>Up to 10 AI workers at once</li>
+                  <li>Hand off a whole backlog in one message</li>
+                </ul>
+                <p class="g-meta">25M tokens of Ocur-work / month</p>
+                <a class="g-btn magnetic" href="https://app.ocur.ai/?auth=sign-up">Get Pro</a>
+              </article>
+              <article class="g-card lg glare">
+                <p class="g-eyebrow">For your whole day</p>
+                <h3>Pro Plus</h3>
+                <p class="g-price">$299<span>/month</span></p>
+                <p class="g-price-alt">or $2,990 a year — 2 months free</p>
+                <ul>
+                  <li>Everything in Pro</li>
+                  <li>Double the work of Pro</li>
+                  <li>Unlimited AI workers</li>
+                </ul>
+                <p class="g-meta">50M tokens of Ocur-work / month</p>
+                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Get Pro Plus</a>
+              </article>
+            </div>
+            <p class="g-note">
+              Prices in USD — EU customers pay the same number in euro. Annual billing gives you two
+              months free, and you can switch, upgrade or cancel any time.
+            </p>
+          </div>
+
+          <!-- company ladder -->
+          <div class="g-tiers" data-aud="company">
+            <p class="g-tier-lede">
+              <span class="g-tier-tag g-tier-tag-hot">Business</span> The whole company on one Ocur:
+              one shared pool, one shared memory — and unlimited human members, always free.
+            </p>
+            <div class="g-cards">
+              <article class="g-card lg glare">
+                <p class="g-eyebrow">Your first shared brain</p>
+                <h3>Team</h3>
+                <p class="g-price">$399<span>/month</span></p>
+                <p class="g-price-alt">or $4,389 a year — one month free</p>
+                <ul>
+                  <li>Unlimited human members — invites are free</li>
+                  <li>2 AI workers with real jobs and schedules</li>
+                  <li>One shared pool for the whole team</li>
+                  <li>Shared company memory and knowledge</li>
+                  <li>Ocur on WhatsApp, Telegram, Slack, Teams &amp; email</li>
+                </ul>
+                <p class="g-meta">48M tokens of Ocur-work a month, pooled</p>
+                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Get Team</a>
+              </article>
+              <article class="g-card g-card-hot lg glare">
+                <p class="g-badge">Most popular</p>
+                <p class="g-eyebrow">For companies getting serious</p>
+                <h3>Growth</h3>
+                <p class="g-price">$1,500<span>/month</span></p>
+                <p class="g-price-alt">or $16,500 a year — one month free</p>
+                <ul>
+                  <li>Everything in Team</li>
+                  <li>5× the pooled work of Team</li>
+                  <li>5 AI workers with real jobs and schedules</li>
+                  <li>Org-wide memory, guardrails &amp; governance</li>
+                  <li>Custom tools, Live Apps and automations</li>
+                </ul>
+                <p class="g-meta">240M tokens of Ocur-work a month, pooled</p>
+                <a class="g-btn magnetic" href="https://app.ocur.ai/?auth=sign-up">Get Growth</a>
+              </article>
+              <article class="g-card lg glare">
+                <p class="g-eyebrow">For companies &amp; agencies</p>
+                <h3>Scale</h3>
+                <p class="g-price">$5,000<span>/month</span></p>
+                <p class="g-price-alt">or $55,000 a year — one month free</p>
+                <ul>
+                  <li>Everything in Growth</li>
+                  <li>Nearly 3× the pool of Growth</li>
+                  <li>15 AI workers across teams and departments</li>
+                  <li>Org intelligence digest for leadership</li>
+                  <li>Priority support and onboarding</li>
+                </ul>
+                <p class="g-meta">680M tokens of Ocur-work a month, pooled</p>
+                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Get Scale</a>
+              </article>
+            </div>
+            <div class="g-extras">
+              <div class="g-extra lg">
+                <strong>+1 AI worker</strong>
+                <span>$199 a month — and it brings another 25M tokens of work with it</span>
+              </div>
+              <div class="g-extra lg">
+                <strong>Top-up</strong>
+                <span>$100 adds 10M tokens to the shared pool, any time</span>
+              </div>
+              <div class="g-extra lg">
+                <strong>Enterprise</strong>
+                <span>Unlimited work, custom pool sizing, its own terms</span>
+              </div>
+            </div>
+            <p class="g-note">
+              Prices in USD — EU customers pay the same number in euro. Annual billing gives you a
+              month free. Every company starts free: pilot Ocur yourself, invite the others once it
+              proves itself.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -407,11 +568,11 @@
             </details>
             <details class="lg" name="g-faq">
               <summary>How is this different from a chat assistant?</summary>
-              <p>A chat assistant gives you an answer — the work is still yours. Ocur finishes the job where it lives: it holds its own inbox and phone line, runs on a heartbeat while you're away, keeps your promises, money, pipeline and stock on live ledgers, and puts the result in your tools — not your clipboard.</p>
+              <p>A chat assistant gives you an answer — the work is still yours. Ocur finishes the job where it lives: with its own inbox and phone line, a heartbeat that keeps running while you're away, and live ledgers for your promises, money, pipeline and stock. The result lands in your tools — not your clipboard.</p>
             </details>
             <details class="lg" name="g-faq">
               <summary>Do I need to install anything?</summary>
-              <p>No — Ocur runs in your browser, and you can message it from WhatsApp, Telegram, Slack or Discord too. Want it to work on your own computer as well? A small companion app connects your machine in about a minute.</p>
+              <p>No — Ocur runs in your browser, and you can message Ocur from WhatsApp, Telegram, Slack or Discord too. Want it working on your own computer as well? A small companion app connects your machine in about a minute.</p>
             </details>
             <details class="lg" name="g-faq">
               <summary>Will it do things without asking?</summary>
@@ -434,6 +595,10 @@
               <p>Yes — that's the point. Everyone delegates to one shared Ocur with shared memory and knowledge, admins decide who may do what, and there's one place to see everything that got done.</p>
             </details>
             <details class="lg" name="g-faq">
+              <summary>Do we pay per person?</summary>
+              <p>No. Human members are always free, however many of you there are — inviting a colleague costs nothing. What you pay for is Ocur's work: a monthly allowance of it, and the AI workers that run jobs on their own schedule. Need another pair of hands? An extra AI worker is $199 a month, and it brings 25M tokens of work with it.</p>
+            </details>
+            <details class="lg" name="g-faq">
               <summary>How long does rollout take?</summary>
               <p>Minutes, not months. Ocur runs in the browser, connects to your tools one sign-in at a time, and needs no IT project. Most teams hand it real work on day one.</p>
             </details>
@@ -446,7 +611,7 @@
         <div class="g-glow g-glow-final" aria-hidden="true"></div>
         <div class="g-wrap">
           <h2 class="g-final-h">Run the company.<br /><span class="g-grad">Not the busywork.</span></h2>
-          <a class="g-btn g-btn-lg magnetic" href="https://app.ocur.ai">Start free</a>
+          <a class="g-btn g-btn-lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
           <p class="g-micro">Free pilot&nbsp;&nbsp;·&nbsp;&nbsp;No credit card&nbsp;&nbsp;·&nbsp;&nbsp;Live in minutes</p>
           <footer class="g-foot">
             <span>Ocur © <span id="g-year">2026</span> · <span class="g-foot-org">a product of OcurAI, Inc.</span></span>
@@ -471,7 +636,7 @@
     </main>
 
     <!-- floating glass CTA dock -->
-    <a class="g-dock lg magnetic" id="g-dock" href="https://app.ocur.ai">
+    <a class="g-dock lg magnetic" id="g-dock" href="https://app.ocur.ai/?auth=sign-up">
       <span class="g-kdot" aria-hidden="true"></span>
       <strong>Start free</strong>
       <span class="g-dock-sub">no credit card</span>

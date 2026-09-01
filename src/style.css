@@ -756,7 +756,7 @@ html.motion .g-stats {
 
 .g-win-body {
   position: relative;
-  height: clamp(280px, 38vh, 360px);
+  height: clamp(300px, 40vh, 380px);
   padding: 26px;
 }
 
@@ -775,9 +775,14 @@ html.motion .g-stats {
 
 .g-demo[data-scene='1'] .g-s1,
 .g-demo[data-scene='2'] .g-s2,
-.g-demo[data-scene='3'] .g-s3 {
+.g-demo[data-scene='3'] .g-s3,
+.g-demo[data-scene='4'] .g-s4 {
   opacity: 1;
   translate: 0 0;
+}
+
+.g-s2 {
+  gap: 9px;
 }
 
 .g-bubble {
@@ -806,19 +811,190 @@ html.motion .g-stats {
   border-bottom-left-radius: 6px;
 }
 
-.g-working {
-  font-weight: 600;
+/* scene 1 — the typed ask. main.js types the chars in; the caret blinks. */
+.g-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: -0.15em;
+  background: currentColor;
 }
 
-.g-step {
-  font-size: 14px;
+html.motion .g-caret {
+  animation: g-blink 1.05s steps(2, start) infinite;
+}
+
+@keyframes g-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* scene 2 — the fan-out: one activity card per surface, cascading in */
+.g-fan {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 600;
+  font-size: 14.5px;
+}
+
+.g-act {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  font-size: 13px;
+  background: var(--g-fill);
+  border: 1px solid var(--g-hair);
+  border-radius: 14px;
+  opacity: 0;
+  translate: 0 10px;
+  transition: opacity 0.4s ease var(--sd, 0s), translate 0.4s ease var(--sd, 0s);
+}
+
+.g-demo[data-scene='2'] .g-act {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.g-act-tag {
+  flex: 0 0 auto;
+  font-family: var(--g-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--g-peach);
+  border: 1px solid rgba(255, 198, 128, 0.25);
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+
+.g-act-txt {
+  flex: 1 1 auto;
+  min-width: 0;
   color: var(--g-dim);
+}
+
+.g-act-txt strong {
+  color: var(--g-ink);
+}
+
+.g-act-ok {
+  flex: 0 0 auto;
+  font-family: var(--g-mono);
+  font-size: 11px;
+  color: var(--g-orange);
+  white-space: nowrap;
+}
+
+/* the live-call badge breathes while the call runs */
+html.motion .g-act-live {
+  animation: g-live 1.5s ease-in-out infinite;
+}
+
+@keyframes g-live {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* the line quoted from the call — spoken words, set apart from the log */
+.g-act-quote .g-act-txt {
+  font-style: italic;
+  color: var(--g-ink);
+}
+
+/* scene 3 — the Approve button "presses itself" (your tap), then the receipt */
+html.motion .g-demo[data-scene='3'] .g-approve-btns .yes {
+  animation: g-press 0.55s ease 0.75s both;
+}
+
+@keyframes g-press {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(242, 148, 46, 0);
+  }
+  45% {
+    transform: scale(0.92);
+    box-shadow: 0 0 34px rgba(242, 148, 46, 0.55);
+  }
+}
+
+.g-sent {
+  align-self: center;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--g-orange);
   opacity: 0;
   translate: 0 8px;
   transition: opacity 0.4s ease var(--sd, 0s), translate 0.4s ease var(--sd, 0s);
 }
 
-.g-demo[data-scene='2'] .g-step {
+.g-demo[data-scene='3'] .g-sent {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* scene 4 — the payoff report; the € total counts up (main.js) */
+.g-report {
+  align-self: center;
+  text-align: center;
+}
+
+.g-report-kicker {
+  font-family: var(--g-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--g-dim);
+  margin-bottom: 8px;
+}
+
+.g-report-big {
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.g-report-big span {
+  font-size: 0.5em;
+  font-weight: 600;
+  color: var(--g-dim);
+  letter-spacing: -0.01em;
+}
+
+.g-report-lines {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 14px;
+  color: var(--g-dim);
+}
+
+.g-report-lines li {
+  opacity: 0;
+  translate: 0 8px;
+  transition: opacity 0.4s ease var(--sd, 0s), translate 0.4s ease var(--sd, 0s);
+}
+
+.g-report-lines li::before {
+  content: '✓';
+  color: var(--g-orange);
+  font-weight: 700;
+  margin-right: 9px;
+}
+
+.g-demo[data-scene='4'] .g-report-lines li {
   opacity: 1;
   translate: 0 0;
 }
@@ -891,7 +1067,8 @@ html.motion .g-stats {
 
 .g-demo[data-scene='1'] .g-cap-1,
 .g-demo[data-scene='2'] .g-cap-2,
-.g-demo[data-scene='3'] .g-cap-3 {
+.g-demo[data-scene='3'] .g-cap-3,
+.g-demo[data-scene='4'] .g-cap-4 {
   opacity: 1;
   translate: 0 0;
 }
@@ -1210,7 +1387,7 @@ html.motion .g-eq i {
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.1;
-  margin: 8px 0 20px;
+  margin: 8px 0 6px;
 }
 
 .g-price span {
@@ -1263,6 +1440,207 @@ html.motion .g-eq i {
   max-width: 620px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.g-price-alt {
+  margin: 0 0 18px;
+  font-size: 12.5px;
+  color: var(--g-dim);
+}
+
+/* ------------------------------------------- the two pricing ladders */
+/* Solo and company are priced on different units — one Ocur for you, vs.
+   a shared pool where humans are free and AI workers are the meter — so
+   they get their own ladders instead of one confusing row of seven cards.
+   Both live in the DOM (crawlable, and the German prerender bakes both);
+   the switch only decides which one is on screen. Without JS they simply
+   stack, so the page still sells both. */
+
+.g-price-lede {
+  max-width: 660px;
+  margin: 20px auto 0;
+  text-align: center;
+  color: var(--g-dim);
+  font-size: 16.5px;
+}
+
+.g-seg {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  width: max-content;
+  max-width: 100%;
+  margin: 32px auto 0;
+  padding: 6px;
+  border-radius: 999px;
+  background: var(--g-fill);
+  border: 1px solid var(--g-hair);
+}
+
+/* the switch only appears once main.js has wired it — if the bundle never
+   runs, both ladders stay stacked instead of half the prices vanishing */
+.g-pricing:not(.seg-ready) .g-seg {
+  display: none;
+}
+
+.g-seg-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 10px 28px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--g-dim);
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.g-seg-t {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.g-seg-s {
+  font-family: var(--g-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.g-seg-btn:hover {
+  color: var(--g-ink);
+}
+
+.g-seg-btn.on {
+  color: #14100b;
+  background: linear-gradient(95deg, var(--g-orange), var(--g-ember));
+  box-shadow: 0 10px 30px rgba(242, 148, 46, 0.28);
+}
+
+.g-worker-note {
+  max-width: 620px;
+  margin: 20px auto 0;
+  text-align: center;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--g-dim);
+}
+
+.g-worker-note strong {
+  color: var(--g-ink);
+  font-weight: 600;
+}
+
+.g-tiers {
+  margin-top: 46px;
+}
+
+.seg-ready .g-tiers:not(.on) {
+  display: none;
+}
+
+.g-tier-lede {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 740px;
+  margin: 0 auto 28px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--g-dim);
+}
+
+.g-tier-tag {
+  font-family: var(--g-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+  color: var(--g-ink);
+  background: var(--g-fill);
+  border: 1px solid var(--g-hair);
+}
+
+.g-tier-tag-hot {
+  color: #14100b;
+  background: linear-gradient(95deg, var(--g-orange), var(--g-ember));
+  border-color: transparent;
+}
+
+/* four rungs on the solo ladder — tighter cards than the three-up grid */
+.g-cards-4 {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.g-cards-4 .g-card {
+  padding: 28px 22px 24px;
+}
+
+.g-cards-4 .g-price {
+  font-size: 38px;
+}
+
+.g-cards-4 .g-card ul {
+  font-size: 14px;
+}
+
+/* the company cards carry a warm rail, so the two ladders never blur
+   together in a screenshot or a scroll-past */
+.g-tiers[data-aud='company'] .g-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 26px;
+  right: 26px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(90deg, transparent, var(--g-orange), transparent);
+  box-shadow: 0 0 18px rgba(242, 148, 46, 0.45);
+}
+
+/* what a company buys on top of a plan: workers, top-ups, enterprise */
+.g-extras {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.g-extra {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 20px;
+  border-radius: 20px;
+}
+
+.g-extra strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.g-extra span {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--g-dim);
+}
+
+@media (max-width: 1080px) {
+  .g-cards-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
 }
 
 /* --------------------------------------------------------------- faq */
@@ -1490,8 +1868,47 @@ html.motion .g-dock::before {
     order: -1;
   }
 
+  .g-extras {
+    grid-template-columns: 1fr;
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .g-tier-lede {
+    margin-bottom: 38px;
+  }
+
+  .g-seg {
+    width: 100%;
+  }
+
+  .g-seg-btn {
+    flex: 1;
+    padding: 10px 12px;
+  }
+
   .g-win-body {
-    height: 320px;
+    height: 372px;
+  }
+
+  .g-scene {
+    inset: 18px;
+  }
+
+  .g-act {
+    gap: 8px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .g-act-tag {
+    font-size: 9px;
+    padding: 3px 7px;
+  }
+
+  .g-act-ok {
+    font-size: 10px;
   }
 
   .g-caps {

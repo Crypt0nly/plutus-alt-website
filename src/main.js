@@ -5,7 +5,8 @@
 import './style.css';
 import { initLangRouting, applyLang, initLangToggle } from './i18n.js';
 import { initThemeToggle } from './theme.js';
-import { initAnalytics } from './analytics.js';
+import { initAnalytics, track } from './analytics.js';
+import { initXAds } from './xads.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
@@ -15,6 +16,7 @@ import Lenis from 'lenis';
 // fallback) before SplitText below caches the hero markup.
 initLangRouting();
 initAnalytics();
+initXAds();
 applyLang();
 initLangToggle();
 initThemeToggle();
@@ -35,8 +37,45 @@ if (finePointer) {
 }
 
 // without motion the demo window still tells the full story: end state
+// (the payoff report — scene 4 — with its final numbers baked into the HTML)
 if (!motion) {
-  document.querySelector('.g-demo').dataset.scene = '3';
+  document.querySelector('.g-demo').dataset.scene = '4';
+}
+
+// --------------------------------------------- pricing audience switch
+// Solo and company are priced on different units, so the section carries two
+// ladders (see style.css); the switch decides which one is on screen. The
+// .seg-ready class is what hides the off-screen ladder — set here, so a page
+// whose bundle never ran shows both instead of losing half the prices.
+const seg = document.querySelector('.g-seg');
+if (seg) {
+  const tabs = [...seg.querySelectorAll('.g-seg-btn')];
+  const ladders = [...document.querySelectorAll('.g-tiers')];
+  document.querySelector('.g-pricing').classList.add('seg-ready');
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const aud = tab.dataset.aud;
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.classList.toggle('on', on);
+        t.setAttribute('aria-pressed', String(on));
+      });
+      ladders.forEach((ladder) => {
+        const on = ladder.dataset.aud === aud;
+        ladder.classList.toggle('on', on);
+        if (on && motion) {
+          gsap.fromTo(
+            ladder.querySelectorAll('.g-card'),
+            { y: 26, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: 'power3.out' },
+          );
+        }
+      });
+      track('pricing_audience', { audience: aud });
+      // the ladders are different heights — everything pinned below moves
+      if (motion) ScrollTrigger.refresh();
+    });
+  });
 }
 
 if (motion) {
@@ -111,7 +150,7 @@ if (motion) {
     scrollTrigger: { trigger: '.g-logos', start: 'top 75%' },
   });
 
-  // --------------------------------------- pinned three-scene demo
+  // --------------------------------------- pinned four-scene demo
   const demo = document.querySelector('.g-demo');
   gsap.from('.g-win', {
     y: 80,
@@ -121,15 +160,55 @@ if (motion) {
     ease: 'power3.out',
     scrollTrigger: { trigger: '.g-demo', start: 'top 70%' },
   });
+
+  // the ask types itself out as the window arrives. Split words AND chars:
+  // char-only spans destroy word boundaries and let "out" break as "ou|t".
+  const typeChars = new SplitText('.g-type', { type: 'words,chars' }).chars;
+  gsap.from(typeChars, {
+    autoAlpha: 0,
+    duration: 0.01,
+    stagger: 0.03,
+    ease: 'none',
+    scrollTrigger: { trigger: '.g-demo', start: 'top 70%' },
+  });
+
+  // count-up numbers (the booked €, the collected total) — fired once per
+  // element the first time its scene activates. The HTML carries the final
+  // values, so no-motion and no-JS still read correctly.
+  const ccLocale = document.documentElement.lang === 'de' ? 'de-DE' : 'en-US';
+  const ccDone = new Set();
+  const runCounters = (scene) => {
+    document.querySelectorAll(`.g-s${scene} [data-cc]`).forEach((el) => {
+      if (ccDone.has(el)) return;
+      ccDone.add(el);
+      const target = parseInt(el.dataset.cc, 10);
+      const prefix = el.dataset.ccPrefix || '';
+      const state = { v: 0 };
+      gsap.to(state, {
+        v: target,
+        duration: 1.4,
+        delay: 0.25,
+        ease: 'power2.out',
+        onUpdate: () => {
+          el.textContent = prefix + Math.round(state.v).toLocaleString(ccLocale);
+        },
+      });
+    });
+  };
+
   ScrollTrigger.create({
     trigger: '.g-demo',
     start: 'top top',
-    end: '+=240%',
+    end: '+=340%',
     pin: '.g-demo-stage',
     scrub: true,
     onUpdate: (self) => {
-      const scene = self.progress < 0.33 ? '1' : self.progress < 0.7 ? '2' : '3';
-      if (demo.dataset.scene !== scene) demo.dataset.scene = scene;
+      const p = self.progress;
+      const scene = p < 0.16 ? '1' : p < 0.52 ? '2' : p < 0.8 ? '3' : '4';
+      if (demo.dataset.scene !== scene) {
+        demo.dataset.scene = scene;
+        runCounters(scene);
+      }
     },
   });
 
@@ -161,13 +240,14 @@ if (motion) {
   });
 
   // ----------------------------------------------------- pricing
-  gsap.from('.g-card', {
+  // the ladder that's on screen at load; a switch fades its own cards in
+  gsap.from('.g-tiers.on .g-card', {
     y: 70,
     opacity: 0,
     duration: 0.9,
     stagger: 0.12,
     ease: 'power3.out',
-    scrollTrigger: { trigger: '.g-cards', start: 'top 78%' },
+    scrollTrigger: { trigger: '.g-seg', start: 'top 78%' },
   });
 
   // --------------------------------------------------------- faq

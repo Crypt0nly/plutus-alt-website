@@ -17,8 +17,9 @@ with Vite, vanilla JS, and vanilla CSS.
 > phone connector (Ocur's own number, inbound calls, transcripts), the
 > business ledgers (commitments, money, CRM, stock, agent-designed
 > business objects, the Command Center), Live Apps, record-a-skill,
-> org/role guardrails, and the Free / Team ($1,500) / Business ($5,000)
-> plans.
+> org/role guardrails, and both plan ladders — solo (Free / Starter $29 /
+> Pro $149 / Pro Plus $299) and company (Team $399 / Growth $1,500 / Scale
+> $5,000, humans free, AI workers $199 each).
 
 ## Page tour
 
@@ -32,9 +33,19 @@ with Vite, vanilla JS, and vanilla CSS.
    build yourself. CSS-only orbits; GitHub's mark uses `currentColor` to
    follow the theme.
 3. **Pinned product demo** — "Delegate it. *Watch it happen.*": a pinned
-   glass app window plays a three-scene story as you scroll — the ask → the
-   work → the sign-off (Approve / Hold). Without motion it shows the end
-   state so the story still reads.
+   glass app window plays a four-scene story as you scroll, built around
+   the "no way" capability — Ocur makes a real phone call. The ask ("40
+   units short — sort it out with the supplier", typed out live with a
+   blinking caret) → the facts, then the call (stock ledger vs. delivery
+   note, the contract clause from Drive, then a pulsing "● live" card:
+   Ocur is on the phone with the supplier, plus a quoted line from the
+   call) → the deal ("€312 credit + Thursday redelivery — take it?"; the
+   button presses itself, the written confirmation goes out) → the payoff
+   report ("While you stayed in your meeting — €312 recovered" counting
+   up; credit booked, redelivery on the calendar, transcript filed).
+   Without motion it shows the payoff report so the story still reads.
+   Outbound calling is a real shipped capability (see plutus-cloud's
+   `phone_service.py` — outbound-call intents, transcripts).
 4. **The ledgers** (`#system`) — "Other AI answers. *Ocur keeps the
    books.*": six glass cards that make the "operating system" claim
    literal — commitments, money, the self-updating CRM, stock, the
@@ -46,12 +57,21 @@ with Vite, vanilla JS, and vanilla CSS.
    the phone, parallel workers, record-a-skill, company memory, drives
    your computer, built for control, builds its own tools/Live Apps, every
    department), each with a pointer-tracked glare.
-6. **Pricing** — Free ("for the pilot") / Team ($1,500, "most popular") /
-   Business ($5,000), mirroring the in-app plans and token allowances, with
-   an Enterprise note.
-7. **FAQ** — nine `<details>` accordions answering the classic objections:
+6. **Pricing** — two ladders behind one switch ("Just me" / "My company"),
+   because the two are priced on different units. **Solo**: Free (1.5M
+   tokens) / Starter $29 (5M) / Pro $149 (25M, "most popular") / Pro Plus
+   $299 (50M), each with its annual price (2 months free). **Company**:
+   Team $399 (48M pooled) / Growth $1,500 (240M, "most popular") / Scale
+   $5,000 (680M), annual at one month free, unlimited human members, plus
+   an extras row (+1 AI worker $199/mo, $100 top-ups, Enterprise). Both
+   ladders are in the DOM — the switch only decides which is on screen, so
+   crawlers, the German prerender and a page whose bundle never ran all
+   still see every price. Mirrors the in-app plans and token allowances
+   (plutus-cloud's `PLAN_LIMITS` / `ORG_PLAN_LIMITS`).
+7. **FAQ** — ten `<details>` accordions answering the classic objections:
    free?, vs. a chat assistant?, install?, autonomy/approval, what if it's
-   wrong?, integrations, privacy, company-wide use, rollout time.
+   wrong?, integrations, privacy, company-wide use, pay-per-person?,
+   rollout time.
 8. **Final CTA** — "Run the company. *Not the busywork.*" → **Start free**.
 
 A persistent floating glass **CTA dock** rides along from just past the
@@ -63,6 +83,24 @@ hero until the final section.
   **GSAP + ScrollTrigger + SplitText + Lenis** (~59 KB gz). Vanilla CSS,
   with the liquid-glass and theme tokens at the top of `src/style.css`.
 - Fonts: Inter (body) + JetBrains Mono (labels), via Google Fonts.
+- **Analytics & ads**: PostHog product analytics, lazy-loaded and env-gated
+  (`VITE_POSTHOG_KEY`, see `src/analytics.js`), cookie-free with memory-only
+  persistence. The **X Ads conversion pixel** (`reji3`) sits inline in every
+  page's `<head>` (all seven HTML entry points — `/de/` inherits it through
+  the prerender), verbatim from X Ads Manager and deliberately not
+  host-gated: X's Pixel Helper and Events Manager can then verify the
+  install on previews and localhost too (an earlier hostname guard made the
+  helper report "script detected but no pixel fired" on non-prod hosts).
+  The base pixel only reports page visits. Conversions ride on top:
+  `src/xads.js` captures the `twclid` from ad-click landings (30-day
+  window), passes it through on every app.ocur.ai link (so the app backend
+  can report the real signup conversion later), and on Start-free clicks
+  fires the event twice with one `conversion_id` for dedup — through the
+  pixel (`twq('event', …)`, blocked by ad blockers) and through the
+  serverless Conversions API relay `api/x-conversions.js` (not blocked;
+  the `X_PIXEL_TOKEN` secret never leaves Vercel). Both legs stay dormant
+  until the `X_EVENT_ID`/`VITE_X_EVENT_ID` vars in `.env.example` are set
+  with a real event id from X Events Manager.
 - **Motion gates behind `html.motion`** (set in `<head>` unless the visitor
   prefers reduced motion), so the page reads fine without JS or with
   reduced motion. The pinned demo falls back to its end state; the connector
@@ -282,10 +320,13 @@ src/
   strings.de.js    # the entire German dictionary (data only)
   theme.js         # dark/light toggle
   analytics.js     # PostHog (lazy, env-gated) + a small track() helper
+  xads.js          # X Ads conversions: twclid capture + CTA dual-fire
   be-ai.js         # /be-ai live game: WebSocket client + view state machine
   be-ai.css        # /be-ai styling — Ocur glass + hand-drawn "sketch" accents
   be-ai-draw.js    # /be-ai drawing pad (answer a prompt with a scribble)
   be-ai-share.js   # /be-ai share card (canvas) + native share / modal
+api/
+  x-conversions.js    # Vercel function: X Conversions API relay (token stays server-side)
 scripts/
   prerender-de.mjs    # bakes dist/de/index.html after the Vite build
   check-legal.mjs     # guards the Google-OAuth requirements (see below)
@@ -296,8 +337,13 @@ docs/
 
 ## Notes
 
-- The brand and site are **Ocur** (ocur.ai); every CTA points to
-  app.ocur.ai.
+- The brand and site are **Ocur** (ocur.ai); every CTA points to the app's
+  sign-up route, `https://app.ocur.ai/?auth=sign-up`. A bare `app.ocur.ai`
+  shows the app's *sign-in* card, which sent new visitors hunting for the
+  "Sign up" link. The legal pages' in-text mentions of app.ocur.ai stay bare
+  on purpose — they name the application, they don't sell it. Where Clerk
+  sends people *after* they sign up is a Clerk Dashboard setting, documented
+  in plutus-cloud's README ("Clerk Dashboard: redirect settings").
 - Copy is drafted from Ocur's public description; the demo conversation and
   the stat figures are illustrative placeholders — swap in real examples
   before launch.

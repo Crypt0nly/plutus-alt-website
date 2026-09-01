@@ -15,7 +15,7 @@ export const DESC_DE =
 export const TWITTER_DESC_DE =
   'Ocur beantwortet E-Mails und Anrufe, erledigt die Arbeit direkt in deinen Tools und führt Versprechen, Geld und Pipeline als lebende Register. Jetzt kostenlos testen.';
 export const OG_ALT_DE =
-  'Ocur — „Deine KI redet nicht. Sie erledigt.“ Ein Ocur-Fenster auf Autopilot: überfällige Rechnungen anmahnen und die Tabelle aktualisieren — 14 Erinnerungen raus, Tabelle aktualisiert, 2 schon bezahlt.';
+  'Ocur — „Deine KI redet nicht. Sie erledigt.“ Ein Ocur-Fenster im Live-Anruf: In der Lieferung fehlen 40 Stück, klär das — Vertrag geprüft, Lieferant angerufen, €312 zurückgeholt.';
 
 // selector → replacement innerHTML. A string applies to every match; an
 // array applies element-by-element in DOM order.
@@ -48,35 +48,51 @@ export const DE = [
     '…und allem, was eine API hat. Keine API? Dann steuert Ocur die App direkt auf deinem Rechner — wie ein Mensch.',
   ],
 
-  // pinned demo
+  // pinned demo (four scenes: ask → facts + the call → the deal → payoff)
   ['#demo .g-h2', 'Gesagt. <span class="g-grad">Getan.</span>'],
   ['.g-win-pill', '<i class="g-kdot"></i> Autopilot an'],
-  ['.g-bubble-you', 'Mahne die überfälligen Rechnungen an und aktualisiere die Tabelle.'],
-  ['.g-working', 'Mach ich — der Ablauf läuft.'],
+  ['.g-type', 'In der Freitagslieferung fehlen 40 Stück — klär das mit dem Lieferanten.'],
+  ['.g-fan', '<i class="g-kdot" aria-hidden="true"></i>Mach ich — erst die Fakten, dann der Anruf.'],
+  ['.g-act-tag', ['Lager', 'Drive', 'Telefon', 'Anruf']],
   [
-    '.g-step',
+    '.g-act-txt',
     [
-      '✓&nbsp; 14 Zahlungserinnerungen verschickt',
-      '✓&nbsp; Tabelle aktualisiert — 12 Zeilen abgeglichen',
-      '✓&nbsp; 2 Zahlungen schon da',
+      'Bestellt 500 · Lieferschein 460 — 40 fehlen, bestätigt',
+      'Liefervertrag, §7 — 4&nbsp;% Gutschrift bei Fehlmenge',
+      'Ruft Meier Logistik an — Einkauf',
+      '„Wir schreiben die 4&nbsp;% gut und liefern Donnerstag früh nach.“',
     ],
   ],
+  ['.g-act-ok', ['✓ geprüft', '✓ gefunden', '● live', '02:41']],
   [
     '.g-stamp',
     [
       'Du · 09:41',
-      'Ocur · 09:43',
-      'Jeder Schritt protokolliert · nichts Wichtiges ohne deine Freigabe',
+      'Ocur · 09:47 · ja, Ocur telefoniert wirklich',
+      'Nichts Wichtiges ohne deine Freigabe',
+      'Ocur · 10:02 · das ganze Gespräch im Protokoll',
     ],
   ],
-  ['.g-approve p', 'Anders &amp; Co ist 90 Tage überfällig — <strong>letzte Mahnung senden?</strong>'],
-  ['.g-approve-btns span', ['Freigeben', 'Halten']],
+  ['.g-approve p', 'Meier bietet €312 Gutschrift + Nachlieferung am Donnerstag — <strong>Deal annehmen?</strong>'],
+  ['.g-approve-btns span', ['Annehmen', 'Nachverhandeln']],
+  ['.g-sent', '✓ Am Telefon zugesagt — schriftliche Bestätigung ist raus'],
+  ['.g-report-kicker', 'Während du im Meeting warst'],
+  ['.g-report-big', '<strong class="g-grad" data-cc="312" data-cc-prefix="€">€312</strong><span> zurückgeholt</span>'],
+  [
+    '.g-report-lines li',
+    [
+      'Gutschrift verbucht — die Bücher stimmen schon',
+      'Nachlieferung Do 08:00 — steht in deinem Kalender',
+      'Gesprächsprotokoll + Bestätigung, abgelegt',
+    ],
+  ],
   [
     '.g-cap',
     [
       'Einmal sagen — in ganz normaler Sprache. Kein Prompt-Engineering.',
-      'Ocur erledigt den ganzen Ablauf — die E-Mail, die Tabelle, die Bücher, das Web.',
-      'Alles Wichtige wartet auf deine Freigabe. Ein Klick, fertig.',
+      'Erst die Fakten — dann greift Ocur zum Hörer.',
+      'Ocur verhandelt. Die letzte Entscheidung bleibt deine.',
+      'Geld zurück, Termin fix, jedes Wort im Protokoll.',
     ],
   ],
 
@@ -94,7 +110,7 @@ export const DE = [
       'Zahlen mit Substanz',
       'Ein CRM, das sich selbst pflegt',
       'Nie wieder leere Regale verkaufen',
-      'Es baut deine Datenbank',
+      'Ocur baut deine Datenbank',
       'Die ganze Firma auf einen Blick',
     ],
   ],
@@ -121,7 +137,7 @@ export const DE = [
     [
       'Autopilot rund um die Uhr',
       'Beantwortet E-Mails selbst',
-      'Reden statt tippen',
+      'Sprich mit Ocur',
       'Geht ans Telefon',
       'Zehn Jobs auf einmal',
       'Einmal zeigen genügt',
@@ -136,13 +152,13 @@ export const DE = [
     '.g-tile p',
     [
       'Ocur wacht über den Tag immer wieder von selbst auf, prüft, was ansteht, erledigt es und protokolliert jeden Schritt. Du wachst auf — und findest einen Bericht, keinen Rückstand.',
-      'Gib Ocur ein eigenes Postfach. Es kennt zu jedem Absender die ganze Vorgeschichte und antwortet in deinem Ton — oder legt dir Entwürfe zur Freigabe vor.',
-      'Per Sprache, wie mit einem Kollegen — ein echtes Gespräch, kein Diktat. Unterbrich es mitten im Satz; es kommt mit.',
+      'Ocur bekommt ein eigenes Postfach, kennt zu jedem Absender die ganze Vorgeschichte und antwortet in deinem Ton — oder legt dir Entwürfe zur Freigabe vor.',
+      'Wie mit einem Kollegen — ein echtes Gespräch, kein Diktat. Unterbrich Ocur mitten im Satz; es kommt mit.',
       'Ocur bekommt eine eigene Nummer, nimmt die Anrufe an, auf die du keine Lust hast, sagt nur, was du erlaubst — und legt dir das Protokoll hin.',
       'Übergib den ganzen Rückstand in einer Nachricht. Parallele Worker arbeiten nebeneinander und melden sich, sobald ein Job fertig ist.',
       'Nimm die Routineaufgabe als Bildschirmvideo auf und erklär dabei, was du tust. Ocur macht daraus eine Fähigkeit, die es für immer wiederholt — genau auf deine Art.',
-      '„Was haben wir im März vereinbart?“ — einmal gefragt, für immer beantwortet. Gib ihm eure Dokumente; es fragt nie zweimal.',
-      'Öffnet Apps, klickt, tippt, liest den Bildschirm — mit deinem Okay.',
+      '„Was haben wir im März vereinbart?“ — einmal gefragt, für immer beantwortet. Gib Ocur eure Dokumente; nichts wird zweimal gefragt.',
+      'Ocur öffnet Apps, klickt, tippt, liest den Bildschirm — mit deinem Okay.',
       'Du legst fest, was allein laufen darf. Der Rest wartet auf Freigabe — jede Aktion protokolliert.',
       'Fehlt ein Tracker, ein Portal, ein Rechner? Ocur schreibt die App selbst, hält sie neben dem Chat am Laufen — und teilt sie mit dem Team.',
       'Echte Arbeit — von Anfang bis Ende. Ein Ocur, an das die ganze Firma delegiert.',
@@ -151,42 +167,145 @@ export const DE = [
   ['.g-times span', ['06:00 Posteingang', '06:15 Rechnungen', '07:12 baut ein Tool', '08:00 Bericht']],
   ['.g-chips span', ['Vertrieb', 'Support', 'Finanzen', 'Marketing', 'Betrieb', 'Wissen']],
 
-  // pricing (euro for the German market)
+  // pricing (euro for the German market — same numbers, other symbol)
   ['#pricing .g-h2', 'Kostenlos starten. Skalieren, <span class="g-grad">wenn’s überzeugt.</span>'],
-  ['.g-eyebrow', ['Zum Ausprobieren', 'Für wachsende Teams', 'Für den vollen Betrieb']],
+  [
+    '.g-price-lede',
+    'Zwei Leitern, ein Ocur. Allein zahlst du für dein eigenes Ocur. Als Unternehmen kommen alle Menschen kostenlos dazu — bezahlt werden die KI-Worker und die Arbeit, die sie erledigen.',
+  ],
+  ['.g-seg-t', ['Nur ich', 'Mein Unternehmen']],
+  ['.g-seg-s', ['Solo-Pläne', 'Business-Pläne']],
+  [
+    '.g-worker-note',
+    '<strong>Was ist ein KI-Worker?</strong> Ein Kollege, den Ocur für dich laufen lässt — mit Namen, Aufgabe und Zeitplan. Er arbeitet parallel, während du etwas anderes tust.',
+  ],
+  [
+    '.g-tier-lede',
+    [
+      '<span class="g-tier-tag">Solo</span> Eine Person delegiert — dein eigenes Ocur, dazu KI-Worker, die weitermachen, auch wenn du weg bist.',
+      '<span class="g-tier-tag g-tier-tag-hot">Business</span> Das ganze Unternehmen auf einem Ocur: ein gemeinsamer Pool, ein gemeinsames Gedächtnis — und unbegrenzt viele Menschen, immer kostenlos.',
+    ],
+  ],
+  [
+    '.g-eyebrow',
+    [
+      'Zum Ausprobieren',
+      'Für den Einstieg',
+      'Für alle, die viel delegieren',
+      'Für den ganzen Tag',
+      'Euer erstes gemeinsames Gehirn',
+      'Für ambitionierte Unternehmen',
+      'Für Unternehmen &amp; Agenturen',
+    ],
+  ],
   ['.g-badge', 'Am beliebtesten'],
-  ['.g-price', ['€0<span>/Monat</span>', '€1.500<span>/Monat</span>', '€5.000<span>/Monat</span>']],
+  [
+    '.g-price',
+    [
+      '€0<span>/Monat</span>',
+      '€29<span>/Monat</span>',
+      '€149<span>/Monat</span>',
+      '€299<span>/Monat</span>',
+      '€399<span>/Monat</span>',
+      '€1.500<span>/Monat</span>',
+      '€5.000<span>/Monat</span>',
+    ],
+  ],
+  [
+    '.g-price-alt',
+    [
+      'Keine Kreditkarte. Keine Frist.',
+      'oder €290 im Jahr — 2 Monate geschenkt',
+      'oder €1.490 im Jahr — 2 Monate geschenkt',
+      'oder €2.990 im Jahr — 2 Monate geschenkt',
+      'oder €4.389 im Jahr — 1 Monat geschenkt',
+      'oder €16.500 im Jahr — 1 Monat geschenkt',
+      'oder €55.000 im Jahr — 1 Monat geschenkt',
+    ],
+  ],
   [
     '.g-card li',
     [
       // Free
       'Das volle Betriebssystem',
       'E-Mail, Kalender, Dateien, Chat &amp; das Web',
-      'Gedächtnis, Sprache, Bilder &amp; Automatisierungen',
-      'Ohne Kreditkarte',
-      // Team
+      'Ocur in WhatsApp, Telegram, Slack &amp; Discord',
+      'Auf Zuruf: du fragst, Ocur erledigt',
+      // Starter
       'Alles aus Free',
-      '300× so viel Arbeitsvolumen wie Free',
-      'Gemeinsames Wissen fürs ganze Team',
-      'Eigene Tools &amp; Automatisierungen',
-      'Standard-Support',
-      // Business
+      '3× so viel Arbeitsvolumen wie Free',
+      'Autopilot — Ocur arbeitet, auch wenn du weg bist',
+      'Eigene Telefonnummer und eigenes Postfach',
+      'Geplante Jobs, Morgenbriefings, Automatisierungen',
+      // Pro
+      'Alles aus Starter',
+      '5× so viel Volumen wie Starter',
+      'Bis zu 10 KI-Worker gleichzeitig',
+      'Den ganzen Rückstand in einer Nachricht übergeben',
+      // Pro Plus
+      'Alles aus Pro',
+      'Doppeltes Volumen von Pro',
+      'Unbegrenzt viele KI-Worker',
+      // Team
+      'Unbegrenzt viele Menschen — Einladungen sind gratis',
+      '2 KI-Worker mit echten Aufgaben und Zeitplänen',
+      'Ein gemeinsamer Pool für das ganze Team',
+      'Gemeinsames Firmenwissen und Gedächtnis',
+      'Ocur in WhatsApp, Telegram, Slack, Teams &amp; E-Mail',
+      // Growth
       'Alles aus Team',
-      'Doppeltes Volumen von Team',
-      'Mehr Automatisierungen &amp; parallele Worker',
-      'Priority-Support',
+      '5× so viel Pool-Volumen wie Team',
+      '5 KI-Worker mit echten Aufgaben und Zeitplänen',
+      'Firmenweites Gedächtnis, Leitplanken &amp; Governance',
+      'Eigene Tools, Live Apps und Automatisierungen',
+      // Scale
+      'Alles aus Growth',
+      'Fast 3× der Pool von Growth',
+      '15 KI-Worker über Teams und Abteilungen hinweg',
+      'Intelligence-Digest für die Führung',
+      'Priority-Support und Onboarding',
     ],
   ],
   [
     '.g-meta',
     [
-      '250K Tokens Ocur-Arbeit / Monat — genug für echte Aufgaben',
-      '75M Tokens Ocur-Arbeit / Monat',
-      '150M Tokens Ocur-Arbeit / Monat',
+      '1,5M Tokens Ocur-Arbeit / Monat',
+      '5M Tokens Ocur-Arbeit / Monat',
+      '25M Tokens Ocur-Arbeit / Monat',
+      '50M Tokens Ocur-Arbeit / Monat',
+      '48M Tokens Ocur-Arbeit / Monat, geteilt',
+      '240M Tokens Ocur-Arbeit / Monat, geteilt',
+      '680M Tokens Ocur-Arbeit / Monat, geteilt',
     ],
   ],
-  ['.g-cards .g-btn', ['Kostenlos starten', 'Team starten', 'Business starten']],
-  ['.g-note', 'Mehr nötig? Enterprise läuft unbegrenzt — Upgrade direkt in der App.'],
+  [
+    '.g-cards .g-btn',
+    [
+      'Kostenlos starten',
+      'Starter holen',
+      'Pro holen',
+      'Pro Plus holen',
+      'Team holen',
+      'Growth holen',
+      'Scale holen',
+    ],
+  ],
+  ['.g-extra strong', ['+1 KI-Worker', 'Top-up', 'Enterprise']],
+  [
+    '.g-extra span',
+    [
+      '€199 im Monat — und bringt weitere 25M Tokens Arbeit mit',
+      '€100 legen 10M Tokens in den gemeinsamen Pool, jederzeit',
+      'Unbegrenztes Volumen, eigene Pool-Größe, eigene Konditionen',
+    ],
+  ],
+  [
+    '.g-note',
+    [
+      'Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Jährlich zahlen heißt zwei Monate geschenkt, und du kannst jederzeit wechseln, upgraden oder kündigen.',
+      'Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Jährlich zahlen heißt einen Monat geschenkt. Jedes Unternehmen startet kostenlos: erst selbst ausprobieren, dann die anderen dazu holen.',
+    ],
+  ],
 
   // FAQ
   ['#faq .g-h2', 'Fragen, <span class="g-grad">beantwortet.</span>'],
@@ -201,6 +320,7 @@ export const DE = [
       'Mit welchen Tools funktioniert es?',
       'Sind unsere Daten sicher?',
       'Kann das ganze Unternehmen mitmachen?',
+      'Zahlen wir pro Person?',
       'Wie schnell sind wir startklar?',
     ],
   ],
@@ -209,12 +329,13 @@ export const DE = [
     [
       'Ja, wirklich. Der Free-Plan ist das volle Betriebssystem mit monatlichem Arbeitsvolumen — genug, um Ocur an echten Aufgaben zu testen. Keine Kreditkarte, keine Frist. Überzeugt es, ist das Upgrade einen Klick entfernt.',
       'Ein Chat-Assistent gibt dir eine Antwort — die Arbeit bleibt trotzdem bei dir. Ocur macht den Job fertig, dort, wo er hingehört: mit eigenem Postfach und eigener Telefonnummer, auf Autopilot auch wenn du weg bist, mit lebenden Registern für Versprechen, Geld, Pipeline und Lager. Das Ergebnis landet in deinen Tools — nicht in deiner Zwischenablage.',
-      'Nein. Ocur läuft im Browser — und du erreichst es genauso aus WhatsApp, Telegram, Slack oder Discord. Soll es auch auf deinem Rechner arbeiten? Eine kleine Begleit-App verbindet ihn in unter einer Minute.',
+      'Nein. Ocur läuft im Browser — und du erreichst Ocur genauso aus WhatsApp, Telegram, Slack oder Discord. Soll es auch auf deinem Rechner arbeiten? Eine kleine Begleit-App verbindet ihn in unter einer Minute.',
       'Nur, wo du es erlaubst. Standardmäßig wartet alles Wichtige auf deine Freigabe. Erst auf Autopilot erledigt Ocur ganze Abläufe von selbst — jeder Schritt protokolliert. Was allein laufen darf, bestimmst du jederzeit, Ruhezeiten inklusive.',
       'Dann siehst du ihn — jede Aktion steht im Protokoll, mit dem Was und dem Warum. Alles Wichtige hat ohnehin auf deine Freigabe gewartet. Korrigier es in ganz normaler Sprache — Ocur merkt sich die Korrektur, und derselbe Fehler passiert kein zweites Mal.',
       'Gmail, Google Kalender &amp; Drive, Notion, GitHub, WhatsApp, Telegram, Slack und Discord — dazu das Web und auf Wunsch deinen eigenen Rechner. Konten verbindest du einzeln und trennst sie jederzeit wieder.',
       'Dein Workspace ist strikt von jedem anderen Kunden getrennt. Ocur sieht nur die Konten, die du verbindest — und jede Verbindung kappst du mit einem Klick. Wir verkaufen deine Daten nie und trainieren keine Modelle damit — die <a href="/de/privacy">Datenschutzerklärung</a> sagt genau, was mit allem passiert, was Ocur anfasst, Google Workspace inklusive.',
       'Ja — genau dafür ist es gemacht. Alle delegieren an ein gemeinsames Ocur mit geteiltem Wissen. Admins regeln, wer was darf, und an einem Ort siehst du, was erledigt wurde.',
+      'Nein. Menschen sind immer kostenlos, egal wie viele ihr seid — eine Kollegin einzuladen kostet nichts. Bezahlt wird Ocurs Arbeit: ein monatliches Volumen davon und die KI-Worker, die eigenständig nach Zeitplan arbeiten. Noch ein Paar Hände? Ein zusätzlicher KI-Worker kostet €199 im Monat und bringt 25M Tokens Arbeit mit.',
       'Minuten, nicht Monate. Ocur läuft im Browser, verbindet sich Login für Login mit deinen Tools und braucht kein IT-Projekt. Die meisten Teams geben ihm schon am ersten Tag echte Arbeit.',
     ],
   ],
