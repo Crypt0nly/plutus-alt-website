@@ -337,8 +337,13 @@ docs/
 
 ## Notes
 
-- The brand and site are **Ocur** (ocur.ai); every CTA points to
-  app.ocur.ai.
+- The brand and site are **Ocur** (ocur.ai); every CTA points to the app's
+  sign-up route, `https://app.ocur.ai/?auth=sign-up`. A bare `app.ocur.ai`
+  shows the app's *sign-in* card, which sent new visitors hunting for the
+  "Sign up" link. The legal pages' in-text mentions of app.ocur.ai stay bare
+  on purpose — they name the application, they don't sell it. Where Clerk
+  sends people *after* they sign up is a Clerk Dashboard setting, documented
+  in plutus-cloud's README ("Clerk Dashboard: redirect settings").
 - Copy is drafted from Ocur's public description; the demo conversation and
   the stat figures are illustrative placeholders — swap in real examples
   before launch.
