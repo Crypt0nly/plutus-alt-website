@@ -17,11 +17,16 @@ export const TWITTER_DESC_DE =
 export const OG_ALT_DE =
   'Ocur — „Deine KI redet nicht. Sie erledigt.“ Ein Ocur-Fenster im Live-Anruf: In der Lieferung fehlen 40 Stück, klär das — Vertrag geprüft, Lieferant angerufen, €312 zurückgeholt.';
 
+// The founder's booking page — the same href every data-book link in
+// index.html carries. Only the FAQ answer needs it here (its link is inline
+// in the sentence); the other German labels swap text inside existing links.
+const BOOK_URL = 'https://api.ocur.ai/api/book/gJM0Hx8-5SY';
+
 // selector → replacement innerHTML. A string applies to every match; an
 // array applies element-by-element in DOM order.
 export const DE = [
-  // nav
-  ['header .g-btn-sm', 'Kostenlos starten'],
+  // nav ("Book a demo", then "Start free")
+  ['header .g-btn-sm', ['Demo buchen', 'Kostenlos starten']],
   ['.g-links a', ['In Aktion', 'Das System', 'Funktionen', 'Preise', 'FAQ']],
 
   // hero
@@ -307,6 +312,17 @@ export const DE = [
     ],
   ],
 
+  // book a demo — the band under both ladders, and the Enterprise extra's link
+  ['.g-book-kicker', '<span class="g-kdot" aria-hidden="true"></span>Live-Demo'],
+  ['.g-book h3', 'Lieber erst mal ansehen?'],
+  [
+    '.g-book-text',
+    'Buch dir 30 Minuten mit dem Gründer — eine Live-Führung durch Ocur an der Arbeit deines eigenen Unternehmens, und klare Antworten auf die harten Fragen.',
+  ],
+  ['.g-book .g-btn', 'Demo buchen'],
+  ['.g-book-sub', '30 Minuten · Videocall · Termin frei wählbar'],
+  ['.g-extra-link', 'Sprich mit uns →'],
+
   // FAQ
   ['#faq .g-h2', 'Fragen, <span class="g-grad">beantwortet.</span>'],
   [
@@ -322,6 +338,7 @@ export const DE = [
       'Kann das ganze Unternehmen mitmachen?',
       'Zahlen wir pro Person?',
       'Wie schnell sind wir startklar?',
+      'Kann ich vorher eine Demo bekommen?',
     ],
   ],
   [
@@ -337,12 +354,15 @@ export const DE = [
       'Ja — genau dafür ist es gemacht. Alle delegieren an ein gemeinsames Ocur mit geteiltem Wissen. Admins regeln, wer was darf, und an einem Ort siehst du, was erledigt wurde.',
       'Nein. Menschen sind immer kostenlos, egal wie viele ihr seid — eine Kollegin einzuladen kostet nichts. Bezahlt wird Ocurs Arbeit: ein monatliches Volumen davon und die KI-Worker, die eigenständig nach Zeitplan arbeiten. Noch ein Paar Hände? Ein zusätzlicher KI-Worker kostet €199 im Monat und bringt 25M Tokens Arbeit mit.',
       'Minuten, nicht Monate. Ocur läuft im Browser, verbindet sich Login für Login mit deinen Tools und braucht kein IT-Projekt. Die meisten Teams geben ihm schon am ersten Tag echte Arbeit.',
+      `Ja. <a href="${BOOK_URL}" target="_blank" rel="noopener" data-book="faq">Buch ein 30-minütiges Gespräch</a> — der Gründer führt dich live durch Ocur, an der Arbeit deines eigenen Unternehmens. Bring deine Fragen mit. Oder du überspringst den Termin: Der Free-Plan ist das volle System — teste Ocur heute an echten Aufgaben und sprich mit uns, sobald du es gesehen hast.`,
     ],
   ],
 
   // final + dock
   ['.g-final-h', 'Führ dein Unternehmen —<br /><span class="g-grad">nicht deinen Posteingang.</span>'],
   ['.g-final .g-btn', 'Kostenlos starten'],
+  ['.g-final-alt span', 'Lieber erst eine Führung?'],
+  ['.g-final-alt a', 'Live-Demo buchen'],
   ['.g-foot em', 'Sag es — oder nicht. Es passiert. Du behältst die Kontrolle.'],
   ['.g-foot-links a', ['Datenschutz', 'AGB']],
   ['.g-foot-org', 'ein Produkt der OcurAI, Inc.'],
