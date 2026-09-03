@@ -42,6 +42,31 @@ if (!motion) {
   document.querySelector('.g-demo').dataset.scene = '4';
 }
 
+// --------------------------------------------------- phone menu
+// Below 880px the nav links vanish (see style.css); the burger opens a
+// glass sheet under the nav with the links, both doors into the app and
+// the language switch (i18n.js clones it in). A tap on any link closes it.
+const burger = document.querySelector('.g-burger');
+const menu = document.getElementById('g-menu');
+if (burger && menu) {
+  const setOpen = (open) => {
+    menu.hidden = !open;
+    burger.setAttribute('aria-expanded', String(open));
+    document.documentElement.classList.toggle('menu-open', open);
+    if (open) track('mobile_menu_open');
+  };
+  burger.addEventListener('click', () => setOpen(menu.hidden));
+  menu.addEventListener('click', (e) => {
+    if (e.target.closest('a')) setOpen(false);
+  });
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !menu.hidden) setOpen(false);
+  });
+  matchMedia('(min-width: 881px)').addEventListener('change', (e) => {
+    if (e.matches) setOpen(false);
+  });
+}
+
 // --------------------------------------------- pricing audience switch
 // Solo and company are priced on different units, so the section carries two
 // ladders (see style.css); the switch decides which one is on screen. The
@@ -87,7 +112,7 @@ if (motion) {
   gsap.ticker.lagSmoothing(0);
 
   // nav anchors glide
-  document.querySelectorAll('.g-links a[href^="#"], .g-ctas a[href^="#"]').forEach((a) => {
+  document.querySelectorAll('.g-links a[href^="#"], .g-menu-links a[href^="#"], .g-ctas a[href^="#"]').forEach((a) => {
     a.addEventListener('click', (e) => {
       e.preventDefault();
       lenis.scrollTo(a.getAttribute('href'), { offset: -20, duration: 1.2 });
@@ -111,10 +136,15 @@ if (motion) {
     .to('.g-micro', { opacity: 1, duration: 0.8 }, 0.95)
     .to('.g-stats', { opacity: 1, duration: 0.8 }, 1.05);
 
+  // The HTML carries the final values (1.5M, 60s), so no-motion and no-JS
+  // read right; with motion each counts up from zero. data-decimals keeps
+  // "1.5" from rounding to "2" on the way, in the page's own number format.
+  const statLocale = document.documentElement.lang === 'de' ? 'de-DE' : 'en-US';
   document.querySelectorAll('.g-stat strong').forEach((el) => {
-    const target = parseInt(el.dataset.count, 10);
+    const target = parseFloat(el.dataset.count);
     if (Number.isNaN(target)) return; // static value (e.g. ∞) — don't animate
     const suffix = el.dataset.suffix || '';
+    const decimals = Number(el.dataset.decimals || 0);
     const state = { v: 0 };
     gsap.to(state, {
       v: target,
@@ -122,7 +152,9 @@ if (motion) {
       delay: 1.05,
       ease: 'power2.out',
       onUpdate: () => {
-        el.textContent = Math.round(state.v) + suffix;
+        el.textContent =
+          state.v.toLocaleString(statLocale, { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) +
+          suffix;
       },
     });
   });

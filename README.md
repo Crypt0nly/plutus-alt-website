@@ -289,6 +289,34 @@ from every German page; the home page link is appended by
 published, the scope-by-scope justifications, the exact values for the consent
 screen, and the items that have to be set outside this repo.
 
+## Nav, phone menu and the doors into the app
+
+- **Log in** sits next to *Start free*: `app.ocur.ai/?auth=sign-in`. Every
+  *Start free* button (nav, hero, dock, final) lands on the sign-up card
+  (`/?auth=sign-up`) instead of the sign-in card's small "Sign up" link.
+- **Pricing buttons deep-link into sign-up with the plan picked**:
+  `?auth=sign-up&plan=starter|pro|pro-plus|team|growth|scale`. The app
+  keeps the `plan` through sign-up and opens its plan picker on that plan.
+- **Below 880px** the nav links, the *Log in* link and the language switch
+  leave the pill and a burger opens a glass sheet (`#g-menu`): the section
+  links, *Log in* and *Start free* side by side, the EN | DE switch (cloned
+  in by `src/i18n.js`). `mobile_menu_open` is tracked.
+- **On phones both pricing ladders stack** under their own ledes instead of
+  hiding one behind the *Just me / My company* switch.
+- **"Your first ten minutes"** (`#start`, between features and pricing)
+  prepares visitors for the desk they land on: sign in → say the first job
+  → connect one tool → put it on autopilot.
+
+## Where your data goes (`/data`, `/de/data`)
+
+A plain map of which external service receives customer content, when,
+and what stays put — the customer-facing edition of the app repo's
+`docs/DATA_FLOWS.md`, in the legal-page shell (`src/legal.js`,
+`src/legal.css`). Linked from the FAQ's privacy answer, the footer, and
+the app's Settings › Guardrails. Both pages are Vite entries and the build
+guard checks they exist. Keep it in step with `DATA_FLOWS.md` when a flow
+changes.
+
 ## Run
 
 ```bash

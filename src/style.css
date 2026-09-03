@@ -310,6 +310,137 @@ html.motion .g-cursor {
   color: var(--g-ink);
 }
 
+/* the way in for people who already have an account — a quiet link next
+   to the loud "Start free" */
+.g-login {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--g-dim);
+  transition: color 0.2s ease;
+}
+
+.g-login:hover {
+  color: var(--g-ink);
+}
+
+/* -------------------------------------------------------- phone menu */
+
+/* the burger: two bars that become a cross; only exists below 880px */
+.g-burger {
+  display: none;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid var(--g-hair);
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.g-burger span {
+  position: absolute;
+  left: 10px;
+  width: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--g-ink);
+  transition: transform 0.25s ease, top 0.25s ease;
+}
+
+.g-burger span:first-child {
+  top: 13px;
+}
+
+.g-burger span:last-child {
+  top: 21px;
+}
+
+.g-burger[aria-expanded='true'] span:first-child {
+  top: 17px;
+  transform: rotate(45deg);
+}
+
+.g-burger[aria-expanded='true'] span:last-child {
+  top: 17px;
+  transform: rotate(-45deg);
+}
+
+/* the sheet under the nav: links, both doors, the language switch */
+.g-menu {
+  position: fixed;
+  top: 86px;
+  left: 16px;
+  right: 16px;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px 18px 20px;
+  border-radius: 26px;
+  animation: g-menu-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.g-menu[hidden] {
+  display: none;
+}
+
+@media (min-width: 881px) {
+  .g-menu {
+    display: none;
+  }
+}
+
+@keyframes g-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.g-menu-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.g-menu-links a {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  padding: 12px 6px;
+  border-bottom: 1px solid var(--g-hair);
+}
+
+.g-menu-links a:last-child {
+  border-bottom: 0;
+}
+
+.g-menu-ctas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.g-menu-ctas .g-btn {
+  text-align: center;
+  padding: 13px 16px;
+  font-size: 15px;
+}
+
+.g-menu-foot {
+  display: flex;
+  justify-content: center;
+}
+
+html.menu-open {
+  overflow: hidden;
+}
+
 /* ----------------------------------------- nav language + theme toggles */
 
 .g-lang {
@@ -1321,6 +1452,65 @@ html.motion .g-eq i {
   }
 }
 
+/* ------------------------------------------------- the first ten minutes */
+
+.g-start {
+  position: relative;
+  padding: clamp(100px, 15vh, 170px) 0;
+  border-top: 1px solid var(--g-hair);
+  text-align: center;
+}
+
+.g-start-sub {
+  max-width: 620px;
+  margin: -6px auto 46px;
+  font-size: clamp(16px, 1.8vw, 19px);
+  line-height: 1.6;
+  color: var(--g-dim);
+}
+
+.g-steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  text-align: left;
+}
+
+.g-step {
+  position: relative;
+  padding: 26px 24px 28px;
+  border-radius: 22px;
+}
+
+.g-step-n {
+  display: block;
+  font-family: var(--g-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: var(--g-orange);
+  margin-bottom: 16px;
+}
+
+.g-step h3 {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.g-step p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--g-dim);
+}
+
+.g-start-note {
+  margin-top: 28px;
+  font-size: 14px;
+  color: var(--g-dim);
+}
+
 /* ----------------------------------------------------------- pricing */
 
 .g-pricing {
@@ -1641,6 +1831,10 @@ html.motion .g-eq i {
     grid-template-columns: repeat(2, 1fr);
     gap: 18px;
   }
+
+  .g-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* --------------------------------------------------------------- faq */
@@ -1829,8 +2023,41 @@ html.motion .g-dock::before {
 /* -------------------------------------------------------- responsive */
 
 @media (max-width: 880px) {
-  .g-links {
+  .g-links,
+  .g-login,
+  .g-nav > .g-lang {
     display: none;
+  }
+
+  .g-burger {
+    display: grid;
+  }
+
+  .g-nav {
+    gap: 10px;
+    padding-right: 8px;
+  }
+
+  .g-steps {
+    grid-template-columns: 1fr;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+
+  /* one screen at a time on a phone: no switch, both ladders in a row,
+     each under its own lede */
+  .g-seg {
+    display: none;
+  }
+
+  .seg-ready .g-tiers:not(.on) {
+    display: block;
+  }
+
+  .g-tiers + .g-tiers {
+    margin-top: 56px;
+    padding-top: 48px;
+    border-top: 1px solid var(--g-hair);
   }
 
   .g-bento {
