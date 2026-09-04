@@ -67,15 +67,77 @@ with Vite, vanilla JS, and vanilla CSS.
    ladders are in the DOM — the switch only decides which is on screen, so
    crawlers, the German prerender and a page whose bundle never ran all
    still see every price. Mirrors the in-app plans and token allowances
-   (plutus-cloud's `PLAN_LIMITS` / `ORG_PLAN_LIMITS`).
-7. **FAQ** — ten `<details>` accordions answering the classic objections:
+   (plutus-cloud's `PLAN_LIMITS` / `ORG_PLAN_LIMITS`). Below both ladders
+   sits the **Book a demo** band — see [Book a demo](#book-a-demo).
+7. **FAQ** — eleven `<details>` accordions answering the classic objections:
    free?, vs. a chat assistant?, install?, autonomy/approval, what if it's
    wrong?, integrations, privacy, company-wide use, pay-per-person?,
-   rollout time.
-8. **Final CTA** — "Run the company. *Not the busywork.*" → **Start free**.
+   rollout time, a demo first?
+8. **Final CTA** — "Run the company. *Not the busywork.*" → **Start free**,
+   with a quieter *Book a live demo* line beneath it.
 
 A persistent floating glass **CTA dock** rides along from just past the
 hero until the final section.
+
+## Book a demo
+
+The louder of the two calls to action that don't lead to sign-up (the other
+is the form, next section). Four doors, one destination: the founder's
+booking page, which is Ocur's own calendar feature served by the app backend
+(`https://api.ocur.ai/api/book/<slug>` — see plutus-cloud's `calendar.py`;
+the link's title, length and video-call location are edited in the app, not
+here).
+
+- a glass **Book a demo** pill in the nav beside Start free (desktop only —
+  below 1000px the nav pill has no room for two buttons, and the other doors
+  carry the phone);
+- the **band under both pricing ladders** ("Rather see it first?"), the main
+  one — on screen whichever audience the switch shows, beside the form;
+- the last **FAQ** entry ("Can I get a demo first?");
+- a *Book a live demo* line under the **final** Start free.
+
+Every door opens in a new tab and carries `data-book="<placement>"`, which is
+what the analytics key on: PostHog gets `book_demo_click` with the placement
+(`src/main.js`), and X Ads gets a `book_demo` conversion through the same
+dual-fire path as Start free (`src/xads.js`; event id
+`VITE_X_EVENT_ID_BOOK_DEMO` / `X_EVENT_ID_BOOK_DEMO`, dormant until set). The
+href is repeated on every link on purpose — the page has to work with no JS,
+and the German prerender copies the markup — so when the booking link
+changes, grep for `data-book` in `index.html` and update `BOOK_URL` in
+`src/strings.de.js` (the German FAQ answer carries its own inline link).
+
+## Talk to us
+
+The quieter door, for everyone not ready to block 30 minutes: a short form
+beside the demo band under the pricing ladders (`#talk`), reached from
+**Contact** in the nav and the footer, **Talk to us** in the phone menu, a
+**Talk to sales →** line under Team, Growth and Scale, the **Enterprise**
+extra, and the demo FAQ. Work email, company, name, an **optional phone
+number** ("so we can call you"), and one line on what Ocur should take off
+their plate; the sales links carry the plan into a hidden field.
+
+It posts to the app backend's `POST /api/leads/<slug>` — the same slug as
+the booking page, so one identifier on the site and the lead reaches
+whoever owns that link (plutus-cloud's `leads.py`; `docs/CRM.md` → Website
+leads). There it becomes a CRM contact tagged `lead` with what they wrote as
+a dated fact, a notification on the founder's channel with the phone number
+first, and an acknowledgement to the visitor from the founder's own inbox
+(English or German). With JS the script posts JSON through the same-origin
+rewrite in `vercel.json` (`/leads/api/<slug>`, so ad blockers that stop
+cross-origin API calls don't lose leads) and shows the answer inline; the
+form's own `action` is the direct URL, so with no JS the backend takes the
+plain post and sends the visitor back to `/?sent=1#talk` (`/de/…` on the
+German page), which the script renders as the same thank-you. A hidden
+honeypot field, per-address and per-link rate limits live on the backend.
+
+Analytics: PostHog gets `talk_open` (a sales link, with the plan) and
+`lead_submit` (with plan and whether a phone and a company were given);
+X Ads gets a `lead` conversion through the same dual-fire path as the
+other two (`VITE_X_EVENT_ID_LEAD` / `X_EVENT_ID_LEAD`, dormant until set).
+German copy: the labels and lines in `src/strings.de.js` (the status
+messages are in `src/main.js`, keyed on the page language), and the hidden
+`locale` field flips to `de` in the prerender so a no-JS post comes back
+to the German page.
 
 ## Tech notes
 
@@ -98,9 +160,10 @@ hero until the final section.
   fires the event twice with one `conversion_id` for dedup — through the
   pixel (`twq('event', …)`, blocked by ad blockers) and through the
   serverless Conversions API relay `api/x-conversions.js` (not blocked;
-  the `X_PIXEL_TOKEN` secret never leaves Vercel). Both legs stay dormant
-  until the `X_EVENT_ID`/`VITE_X_EVENT_ID` vars in `.env.example` are set
-  with a real event id from X Events Manager.
+  the `X_PIXEL_TOKEN` secret never leaves Vercel). Demo bookings are the
+  second conversion: every `data-book` link fires `book_demo` the same way.
+  Both legs stay dormant until the `X_EVENT_ID_*`/`VITE_X_EVENT_ID_*` vars in
+  `.env.example` are set with real event ids from X Events Manager.
 - **Motion gates behind `html.motion`** (set in `<head>` unless the visitor
   prefers reduced motion), so the page reads fine without JS or with
   reduced motion. The pinned demo falls back to its end state; the connector
@@ -289,6 +352,34 @@ from every German page; the home page link is appended by
 published, the scope-by-scope justifications, the exact values for the consent
 screen, and the items that have to be set outside this repo.
 
+## Nav, phone menu and the doors into the app
+
+- **Log in** sits next to *Start free*: `app.ocur.ai/?auth=sign-in`. Every
+  *Start free* button (nav, hero, dock, final) lands on the sign-up card
+  (`/?auth=sign-up`) instead of the sign-in card's small "Sign up" link.
+- **Pricing buttons deep-link into sign-up with the plan picked**:
+  `?auth=sign-up&plan=starter|pro|pro-plus|team|growth|scale`. The app
+  keeps the `plan` through sign-up and opens its plan picker on that plan.
+- **Below 880px** the nav links, the *Log in* link and the language switch
+  leave the pill and a burger opens a glass sheet (`#g-menu`): the section
+  links, *Log in* and *Start free* side by side, the EN | DE switch (cloned
+  in by `src/i18n.js`). `mobile_menu_open` is tracked.
+- **On phones both pricing ladders stack** under their own ledes instead of
+  hiding one behind the *Just me / My company* switch.
+- **"Your first ten minutes"** (`#start`, between features and pricing)
+  prepares visitors for the desk they land on: sign in → say the first job
+  → connect one tool → put it on autopilot.
+
+## Where your data goes (`/data`, `/de/data`)
+
+A plain map of which external service receives customer content, when,
+and what stays put — the customer-facing edition of the app repo's
+`docs/DATA_FLOWS.md`, in the legal-page shell (`src/legal.js`,
+`src/legal.css`). Linked from the FAQ's privacy answer, the footer, and
+the app's Settings › Guardrails. Both pages are Vite entries and the build
+guard checks they exist. Keep it in step with `DATA_FLOWS.md` when a flow
+changes.
+
 ## Run
 
 ```bash
@@ -337,8 +428,14 @@ docs/
 
 ## Notes
 
-- The brand and site are **Ocur** (ocur.ai); every CTA points to
-  app.ocur.ai.
+- The brand and site are **Ocur** (ocur.ai); every CTA except *Book a demo*
+  (see above) points to the app's sign-up route,
+  `https://app.ocur.ai/?auth=sign-up`. A bare `app.ocur.ai`
+  shows the app's *sign-in* card, which sent new visitors hunting for the
+  "Sign up" link. The legal pages' in-text mentions of app.ocur.ai stay bare
+  on purpose — they name the application, they don't sell it. Where Clerk
+  sends people *after* they sign up is a Clerk Dashboard setting, documented
+  in plutus-cloud's README ("Clerk Dashboard: redirect settings").
 - Copy is drafted from Ocur's public description; the demo conversation and
   the stat figures are illustrative placeholders — swap in real examples
   before launch.

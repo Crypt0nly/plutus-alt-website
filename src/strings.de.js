@@ -17,12 +17,20 @@ export const TWITTER_DESC_DE =
 export const OG_ALT_DE =
   'Ocur — „Deine KI redet nicht. Sie erledigt.“ Ein Ocur-Fenster im Live-Anruf: In der Lieferung fehlen 40 Stück, klär das — Vertrag geprüft, Lieferant angerufen, €312 zurückgeholt.';
 
+// The founder's booking page — the same href every data-book link in
+// index.html carries. Only the FAQ answer needs it here (its link is inline
+// in the sentence); the other German labels swap text inside existing links.
+const BOOK_URL = 'https://api.ocur.ai/api/book/gJM0Hx8-5SY';
+
 // selector → replacement innerHTML. A string applies to every match; an
 // array applies element-by-element in DOM order.
 export const DE = [
-  // nav
-  ['header .g-btn-sm', 'Kostenlos starten'],
-  ['.g-links a', ['In Aktion', 'Das System', 'Funktionen', 'Preise', 'FAQ']],
+  // nav ("Book a demo", then "Start free") + the phone menu
+  ['header .g-btn-sm', ['Demo buchen', 'Kostenlos starten']],
+  ['.g-login', 'Anmelden'],
+  ['.g-links a', ['In Aktion', 'Das System', 'Funktionen', 'Preise', 'FAQ', 'Kontakt']],
+  ['.g-menu-links a', ['In Aktion', 'Das System', 'Funktionen', 'Deine ersten zehn Minuten', 'Preise', 'FAQ', 'Schreib uns']],
+  ['.g-menu-ctas a', ['Anmelden', 'Kostenlos starten', 'Demo buchen']],
 
   // hero
   ['.g-kicker', '<span class="g-kdot" aria-hidden="true"></span>Das KI-Betriebssystem für Unternehmen'],
@@ -39,6 +47,7 @@ export const DE = [
       'Kostenlos testen&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte&nbsp;&nbsp;·&nbsp;&nbsp;In Minuten live',
     ],
   ],
+  ['.g-stat strong', ['1,5M', '60s', '∞']],
   ['.g-stat span', ['Gratis-Tokens / Monat', 'bis live', 'Konnektoren — beliebig erweiterbar']],
 
   // connector strip
@@ -166,6 +175,30 @@ export const DE = [
   ],
   ['.g-times span', ['06:00 Posteingang', '06:15 Rechnungen', '07:12 baut ein Tool', '08:00 Bericht']],
   ['.g-chips span', ['Vertrieb', 'Support', 'Finanzen', 'Marketing', 'Betrieb', 'Wissen']],
+
+  // the first ten minutes
+  ['#start .g-h2', 'Deine ersten <span class="g-grad">zehn Minuten.</span>'],
+  [
+    '.g-start-sub',
+    'Ocur ist kein Chatfenster. Es ist ein Schreibtisch — Apps, ein Dock und Ocur in der Mitte. So laufen die ersten zehn Minuten.',
+  ],
+  [
+    '.g-step h3',
+    ['Anmelden. Du sitzt am Schreibtisch.', 'Den ersten Job sagen.', 'Ein Tool verbinden.', 'Auf Autopilot stellen.'],
+  ],
+  [
+    '.g-step p',
+    [
+      'Chat, Konnektoren, Einstellungen und der App Store sind schon da. Jede weitere App erscheint, sobald Ocur etwas hineinzulegen hat.',
+      '„Such die drei Rechnungen, die noch offen sind, und entwirf die Erinnerungen.“ Ocur arbeitet in einem Fenster neben dem Chat und zeigt dir, was es tut.',
+      'Gmail, WhatsApp, Notion — je ein Login. Ocur liest nur, was du verbindest, und mit einem Klick nimmst du es wieder weg.',
+      'Mach aus dem Job eine Automatisierung mit Zeitplan. Ocur führt sie aus, während du weg bist, und meldet sich im Chat — oder auf WhatsApp.',
+    ],
+  ],
+  [
+    '.g-start-note',
+    'Jedes Fenster hat seinen eigenen Link — teil einen Thread, eine Liste oder einen Deal mit einer Kollegin, und sie landet genau dort.',
+  ],
 
   // pricing (euro for the German market — same numbers, other symbol)
   ['#pricing .g-h2', 'Kostenlos starten. Skalieren, <span class="g-grad">wenn’s überzeugt.</span>'],
@@ -307,6 +340,37 @@ export const DE = [
     ],
   ],
 
+  // the two doors under both ladders: book a demo, or write to us (the
+  // form — labels and copy; the status lines live in main.js)
+  ['.g-book-kicker', '<span class="g-kdot" aria-hidden="true"></span>Live-Demo'],
+  ['.g-book h3', 'Lieber erst mal ansehen?'],
+  [
+    '.g-book-text',
+    'Buch dir 30 Minuten mit dem Gründer — eine Live-Führung durch Ocur an der Arbeit deines eigenen Unternehmens, und klare Antworten auf die harten Fragen.',
+  ],
+  ['.g-book .g-btn', 'Demo buchen'],
+  ['.g-book-sub', '30 Minuten · Videocall · Termin frei wählbar'],
+  ['.g-extra-link', 'Sprich mit uns →'],
+  ['.g-card-talk', 'Mit dem Vertrieb sprechen →'],
+  ['.g-talk-kicker', '<span class="g-kdot" aria-hidden="true"></span>Schreib uns'],
+  ['.g-talk h3', 'Noch kein Termin? Schreib uns.'],
+  [
+    '.g-talk-text',
+    'Erzähl uns, was Ocur als Erstes übernehmen soll. Du hörst innerhalb eines Werktags von uns — per E-Mail, oder per Anruf, wenn du eine Nummer dalässt.',
+  ],
+  [
+    '.g-talk .g-field > span',
+    [
+      'Geschäftliche E-Mail',
+      'Unternehmen',
+      'Name',
+      'Telefon <em>optional — damit wir dich anrufen können</em>',
+      'Was soll Ocur dir als Erstes abnehmen?',
+    ],
+  ],
+  ['.g-talk button[type="submit"]', 'Senden'],
+  ['.g-talk-sub', 'Liest der Gründer persönlich. <a href="/de/privacy">Datenschutz</a>'],
+
   // FAQ
   ['#faq .g-h2', 'Fragen, <span class="g-grad">beantwortet.</span>'],
   [
@@ -322,6 +386,7 @@ export const DE = [
       'Kann das ganze Unternehmen mitmachen?',
       'Zahlen wir pro Person?',
       'Wie schnell sind wir startklar?',
+      'Kann ich vorher eine Demo bekommen?',
     ],
   ],
   [
@@ -333,18 +398,21 @@ export const DE = [
       'Nur, wo du es erlaubst. Standardmäßig wartet alles Wichtige auf deine Freigabe. Erst auf Autopilot erledigt Ocur ganze Abläufe von selbst — jeder Schritt protokolliert. Was allein laufen darf, bestimmst du jederzeit, Ruhezeiten inklusive.',
       'Dann siehst du ihn — jede Aktion steht im Protokoll, mit dem Was und dem Warum. Alles Wichtige hat ohnehin auf deine Freigabe gewartet. Korrigier es in ganz normaler Sprache — Ocur merkt sich die Korrektur, und derselbe Fehler passiert kein zweites Mal.',
       'Gmail, Google Kalender &amp; Drive, Notion, GitHub, WhatsApp, Telegram, Slack und Discord — dazu das Web und auf Wunsch deinen eigenen Rechner. Konten verbindest du einzeln und trennst sie jederzeit wieder.',
-      'Dein Workspace ist strikt von jedem anderen Kunden getrennt. Ocur sieht nur die Konten, die du verbindest — und jede Verbindung kappst du mit einem Klick. Wir verkaufen deine Daten nie und trainieren keine Modelle damit — die <a href="/de/privacy">Datenschutzerklärung</a> sagt genau, was mit allem passiert, was Ocur anfasst, Google Workspace inklusive.',
+      'Dein Workspace ist strikt von jedem anderen Kunden getrennt. Ocur sieht nur die Konten, die du verbindest — und jede Verbindung kappst du mit einem Klick. Wir verkaufen deine Daten nie und trainieren keine Modelle damit — die <a href="/de/privacy">Datenschutzerklärung</a> sagt genau, was mit allem passiert, was Ocur anfasst, Google Workspace inklusive. Welcher Dienst was bekommt, und wann, steht in <a href="/de/data">Wohin deine Daten gehen</a>.',
       'Ja — genau dafür ist es gemacht. Alle delegieren an ein gemeinsames Ocur mit geteiltem Wissen. Admins regeln, wer was darf, und an einem Ort siehst du, was erledigt wurde.',
       'Nein. Menschen sind immer kostenlos, egal wie viele ihr seid — eine Kollegin einzuladen kostet nichts. Bezahlt wird Ocurs Arbeit: ein monatliches Volumen davon und die KI-Worker, die eigenständig nach Zeitplan arbeiten. Noch ein Paar Hände? Ein zusätzlicher KI-Worker kostet €199 im Monat und bringt 25M Tokens Arbeit mit.',
       'Minuten, nicht Monate. Ocur läuft im Browser, verbindet sich Login für Login mit deinen Tools und braucht kein IT-Projekt. Die meisten Teams geben ihm schon am ersten Tag echte Arbeit.',
+      `Ja. <a href="${BOOK_URL}" target="_blank" rel="noopener" data-book="faq">Buch ein 30-minütiges Gespräch</a> — der Gründer führt dich live durch Ocur, an der Arbeit deines eigenen Unternehmens. Bring deine Fragen mit. Oder du überspringst den Termin: Der Free-Plan ist das volle System — teste Ocur heute an echten Aufgaben und sprich mit uns, sobald du es gesehen hast. Oder <a href="#talk">schreib uns</a> — das Formular unter den Preisen dauert eine Minute.`,
     ],
   ],
 
   // final + dock
   ['.g-final-h', 'Führ dein Unternehmen —<br /><span class="g-grad">nicht deinen Posteingang.</span>'],
   ['.g-final .g-btn', 'Kostenlos starten'],
+  ['.g-final-alt span', 'Lieber erst eine Führung?'],
+  ['.g-final-alt a', 'Live-Demo buchen'],
   ['.g-foot em', 'Sag es — oder nicht. Es passiert. Du behältst die Kontrolle.'],
-  ['.g-foot-links a', ['Datenschutz', 'AGB']],
+  ['.g-foot-links a', ['Datenschutz', 'AGB', 'Wohin deine Daten gehen', 'Sei die KI — das Spiel', 'Kontakt']],
   ['.g-foot-org', 'ein Produkt der OcurAI, Inc.'],
   ['#g-dock strong', 'Kostenlos starten'],
   ['.g-dock-sub', 'ohne Kreditkarte'],
@@ -353,11 +421,16 @@ export const DE = [
 // selector → [attribute, value]
 export const DE_ATTRS = [
   ['.g-links', 'aria-label', 'Hauptnavigation'],
+  ['.g-menu-links', 'aria-label', 'Menü'],
+  ['.g-burger', 'aria-label', 'Menü'],
   [
     '.g-system',
     'aria-label',
     'Ocur im Zentrum eines Sonnensystems, umkreist von Gmail, Google Kalender, Google Drive, Notion, GitHub, Telegram, WhatsApp, Slack, Discord, E-Mail, deinem Rechner und dem Web — plus ein freier Platz für Konnektoren, die du selbst baust',
   ],
+  ['.g-talk', 'aria-label', 'Schreib uns'],
+  // the no-JS post tells the backend which language to send the visitor back in
+  ['.g-talk input[name="locale"]', 'value', 'de'],
   ['.g-social-x', 'aria-label', 'Ocur auf X'],
   ['.g-social-x', 'title', 'Ocur auf X'],
   // the German page points at the German legal pages (/de/privacy, /de/terms);
@@ -365,4 +438,5 @@ export const DE_ATTRS = [
   ['.g-foot-links', 'aria-label', 'Rechtliches'],
   ['.g-foot-links a[href="/privacy"]', 'href', '/de/privacy'],
   ['.g-foot-links a[href="/terms"]', 'href', '/de/terms'],
+  ['.g-foot-links a[href="/data"]', 'href', '/de/data'],
 ];

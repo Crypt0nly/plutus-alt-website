@@ -3,6 +3,10 @@
     {
       "source": "/be-ai/api/:path*",
       "destination": "https://api.ocur.ai/api/be-ai/:path*"
+    },
+    {
+      "source": "/leads/api/:slug",
+      "destination": "https://api.ocur.ai/api/leads/:slug"
     }
   ],
   "redirects": [
