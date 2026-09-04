@@ -1867,7 +1867,8 @@ html.motion .g-eq i {
   border-radius: 24px;
 }
 
-.g-book-kicker {
+.g-book-kicker,
+.g-talk-kicker {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -2322,5 +2323,213 @@ html.motion .g-dock::before {
   .g-dock {
     opacity: 1;
     visibility: visible;
+  }
+}
+
+/* ------------------------------------------------- talk to us (the second door) */
+/* The message-shaped twin of the demo band: beside it under the ladders on
+   wide screens, under it on phones. Inputs in the glass language; the
+   labels in the page's mono eyebrow style. The optional phone field says
+   what it's for. On success the fields give way to the thank-you line. */
+.g-doors {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.28fr);
+  gap: 22px;
+  max-width: 1080px;
+  margin: 56px auto 0;
+  scroll-margin-top: 96px;
+}
+
+.g-doors .g-book {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 26px;
+  max-width: none;
+  margin: 0;
+}
+
+.g-doors .g-book-cta {
+  align-items: flex-start;
+}
+
+.g-doors .g-book-sub {
+  white-space: normal;
+}
+
+.g-talk {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 36px;
+  border-radius: 24px;
+}
+
+.g-talk h3 {
+  font-size: clamp(22px, 2.4vw, 26px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.g-talk-text {
+  margin-top: 8px;
+  font-size: 15px;
+  color: var(--g-dim);
+}
+
+.g-talk-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 14px;
+  margin-top: 20px;
+}
+
+.g-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.g-field-wide {
+  grid-column: 1 / -1;
+}
+
+.g-field > span {
+  font-family: var(--g-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--g-dim);
+}
+
+.g-field em {
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  color: var(--g-peach);
+}
+
+.g-field input,
+.g-field textarea {
+  width: 100%;
+  padding: 11px 13px;
+  border-radius: 12px;
+  border: 1px solid var(--g-glass-bd);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--g-ink);
+  font: inherit;
+  font-size: 14.5px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+html[data-theme='light'] .g-field input,
+html[data-theme='light'] .g-field textarea {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.g-field input:focus,
+.g-field textarea:focus {
+  border-color: rgba(242, 148, 46, 0.7);
+  box-shadow: 0 0 0 3px rgba(242, 148, 46, 0.18);
+}
+
+.g-field textarea {
+  resize: vertical;
+  min-height: 84px;
+}
+
+/* the honeypot: out of sight, out of the tab order, in the markup */
+.g-hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.g-talk-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.g-talk-foot .g-btn {
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.g-talk-foot .g-btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.g-talk-sub {
+  font-size: 12.5px;
+  color: var(--g-dim);
+}
+
+.g-talk-sub a {
+  color: var(--g-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.g-talk-status {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--g-peach);
+}
+
+.g-talk-status:empty {
+  display: none;
+}
+
+.g-talk.is-sent .g-talk-grid,
+.g-talk.is-sent .g-talk-foot {
+  display: none;
+}
+
+.g-talk.is-sent .g-talk-status {
+  margin-top: 18px;
+  font-size: 16px;
+  color: var(--g-ink);
+}
+
+/* the business tiers' quiet second door, under each Get button */
+.g-card-talk {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--g-dim);
+  transition: color 0.2s ease;
+}
+
+.g-card-talk:hover {
+  color: var(--g-ink);
+}
+
+@media (max-width: 1000px) {
+  .g-doors {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+    margin-top: 40px;
+  }
+
+  .g-talk {
+    padding: 26px 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .g-talk-grid {
+    grid-template-columns: 1fr;
   }
 }

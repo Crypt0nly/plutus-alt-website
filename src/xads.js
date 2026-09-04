@@ -10,8 +10,8 @@
 //     X deduplicates: through the pixel (twq('event'), works while uwt.js
 //     isn't ad-blocked) and through our serverless Conversions API relay
 //     (api/x-conversions.js, survives ad blockers). Two events ride this
-//     path: cta_click (Start free → app.ocur.ai) and book_demo (any
-//     data-book link → the founder's booking page).
+//     path: cta_click (Start free → app.ocur.ai), book_demo (any data-book
+//     link → the founder's booking page) and lead (a sent Talk-to-us form).
 //
 // Event ids come from X Events Manager. The VITE_X_EVENT_ID_* vars gate the
 // browser leg at build time (event ids are public by design — they ship in
@@ -20,6 +20,8 @@
 
 const CTA_EVENT_ID = import.meta.env.VITE_X_EVENT_ID_CTA_CLICK;
 const BOOK_EVENT_ID = import.meta.env.VITE_X_EVENT_ID_BOOK_DEMO;
+// The third conversion: a sent "Talk to us" form (main.js fires it).
+export const LEAD_EVENT_ID = import.meta.env.VITE_X_EVENT_ID_LEAD;
 const TWCLID_KEY = 'ocur-twclid';
 const CLICK_WINDOW_MS = 30 * 24 * 60 * 60 * 1000;
 

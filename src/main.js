@@ -6,7 +6,7 @@ import './style.css';
 import { initLangRouting, applyLang, initLangToggle } from './i18n.js';
 import { initThemeToggle } from './theme.js';
 import { initAnalytics, track } from './analytics.js';
-import { initXAds } from './xads.js';
+import { initXAds, trackXConversion, LEAD_EVENT_ID } from './xads.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
@@ -104,12 +104,95 @@ if (seg) {
 }
 
 // --------------------------------------------------- book a demo
-// Every data-book link (nav, pricing band, Enterprise extra, FAQ, final)
-// opens the founder's booking page in a new tab; count the click by where
-// on the page it came from. The X Ads conversion rides in xads.js.
+// Every data-book link (nav, pricing band, FAQ, final) opens the founder's
+// booking page in a new tab; count the click by where on the page it came
+// from. The X Ads conversion rides in xads.js.
 document.querySelectorAll('a[data-book]').forEach((a) => {
   a.addEventListener('click', () => track('book_demo_click', { placement: a.dataset.book }));
 });
+
+// --------------------------------------------------- talk to us
+// The second door under the ladders: a message instead of a booked slot.
+// Posts JSON to the app backend through the same-origin rewrite in
+// vercel.json (/leads/api/<slug> → api.ocur.ai/api/leads/<slug>); the
+// form's own action is the direct URL, so it still works with no JS (the
+// backend sends that post back here with ?sent=1). The "Talk to sales"
+// links on the business tiers and the Enterprise extra scroll here and
+// carry the plan into the hidden field, which the lead lands with.
+const talk = document.getElementById('g-talk');
+if (talk) {
+  const de = document.documentElement.lang === 'de';
+  const status = talk.querySelector('.g-talk-status');
+  const planField = talk.querySelector('input[name="plan"]');
+  const emailField = talk.querySelector('input[name="email"]');
+  const say = (text) => {
+    status.textContent = text;
+  };
+  const thanks = (withPhone) =>
+    de
+      ? `Danke! Deine Nachricht ist da. Du hörst innerhalb eines Werktags von uns${withPhone ? ' — per Anruf oder E-Mail' : ''}.`
+      : `Thanks — your message is in. You'll hear from us within one business day${withPhone ? ', by phone or email' : ''}.`;
+
+  document.querySelectorAll('a[data-talk]').forEach((a) => {
+    a.addEventListener('click', () => {
+      planField.value = a.dataset.talk;
+      track('talk_open', { plan: a.dataset.talk });
+      window.setTimeout(() => emailField.focus({ preventScroll: true }), 900);
+    });
+  });
+
+  // back from a no-JS post: the backend redirects to ?sent=1#talk
+  if (new URLSearchParams(location.search).get('sent') === '1') {
+    talk.classList.add('is-sent');
+    say(thanks(false));
+  }
+
+  talk.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(talk).entries());
+    const email = String(data.email || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      say(de ? 'Bitte gib eine gültige E-Mail-Adresse an.' : 'Please enter a valid email address.');
+      emailField.focus();
+      return;
+    }
+    const button = talk.querySelector('button[type="submit"]');
+    button.disabled = true;
+    say(de ? 'Wird gesendet…' : 'Sending…');
+    try {
+      const res = await fetch(talk.dataset.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...data, locale: de ? 'de' : 'en', page: location.pathname }),
+      });
+      if (!res.ok) {
+        let detail = '';
+        try {
+          detail = (await res.json()).detail || '';
+        } catch {
+          /* not JSON */
+        }
+        throw new Error(typeof detail === 'string' ? detail : '');
+      }
+      talk.classList.add('is-sent');
+      say(thanks(Boolean(String(data.phone || '').trim())));
+      track('lead_submit', {
+        plan: data.plan || '',
+        phone: Boolean(String(data.phone || '').trim()),
+        company: Boolean(String(data.company || '').trim()),
+      });
+      trackXConversion('lead', LEAD_EVENT_ID);
+    } catch (err) {
+      button.disabled = false;
+      say(
+        (err && err.message) ||
+          (de
+            ? 'Das hat nicht geklappt — bitte versuch es gleich noch einmal, oder buch stattdessen ein Gespräch.'
+            : "That didn't go through — please try again in a moment, or book a call instead."),
+      );
+    }
+  });
+}
 
 if (motion) {
   gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -120,7 +203,11 @@ if (motion) {
   gsap.ticker.lagSmoothing(0);
 
   // nav anchors glide
-  document.querySelectorAll('.g-links a[href^="#"], .g-menu-links a[href^="#"], .g-ctas a[href^="#"]').forEach((a) => {
+  document
+    .querySelectorAll(
+      '.g-links a[href^="#"], .g-menu-links a[href^="#"], .g-ctas a[href^="#"], a[data-talk][href^="#"], .g-faq a[href^="#"], .g-foot-links a[href^="#"]',
+    )
+    .forEach((a) => {
     a.addEventListener('click', (e) => {
       e.preventDefault();
       lenis.scrollTo(a.getAttribute('href'), { offset: -20, duration: 1.2 });
