@@ -432,7 +432,7 @@ html.motion .g-cursor {
   font-size: 15px;
 }
 
-.g-menu-ctas .g-menu-book {
+.g-menu-ctas .g-menu-talk {
   grid-column: 1 / -1;
 }
 
@@ -541,7 +541,7 @@ html.menu-open {
    "Start free". Flat (no drop shadow) so it sits inside the nav's own
    glass instead of floating above it; hidden on narrower screens, where the
    nav pill has no room for two buttons. */
-.g-nav-book {
+.g-nav-talk {
   box-shadow: inset 0 1px 0 var(--g-edge);
 }
 
@@ -1851,63 +1851,6 @@ html.motion .g-eq i {
   color: var(--g-orange);
 }
 
-/* ------------------------------------------------- book a demo band */
-/* The founder's booking page (Ocur's own calendar link, served by the app
-   backend) — the one CTA on the page that doesn't lead to sign-up. Sits
-   below both ladders, so it's on screen whichever audience the switch
-   shows: copy on the left, the button and its small print on the right. */
-.g-book {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 32px;
-  max-width: 920px;
-  margin: 56px auto 0;
-  padding: 30px 36px;
-  border-radius: 24px;
-}
-
-.g-book-kicker,
-.g-talk-kicker {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-  font-family: var(--g-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--g-peach);
-}
-
-.g-book h3 {
-  font-size: clamp(22px, 2.4vw, 26px);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-}
-
-.g-book-text {
-  max-width: 520px;
-  margin-top: 8px;
-  font-size: 15px;
-  color: var(--g-dim);
-}
-
-.g-book-cta {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.g-book-sub {
-  font-size: 12.5px;
-  color: var(--g-dim);
-  white-space: nowrap;
-}
-
 @media (max-width: 1080px) {
   .g-cards-4 {
     grid-template-columns: repeat(2, 1fr);
@@ -2136,7 +2079,7 @@ html.motion .g-dock::before {
 
 /* two buttons don't fit the nav pill beside the links at tablet widths */
 @media (max-width: 1000px) {
-  .g-nav-book {
+  .g-nav-talk {
     display: none;
   }
 }
@@ -2163,43 +2106,6 @@ html.motion .g-dock::before {
     margin: 0 auto;
   }
 
-  /* one screen at a time on a phone: no switch, both ladders in a row,
-     each under its own lede */
-  .g-seg {
-    display: none;
-  }
-
-  .seg-ready .g-tiers:not(.on) {
-    display: block;
-  }
-
-  .g-tiers + .g-tiers {
-    margin-top: 56px;
-    padding-top: 48px;
-    border-top: 1px solid var(--g-hair);
-  }
-
-  .g-book {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 22px;
-    max-width: 460px;
-    margin-top: 40px;
-    padding: 26px 24px;
-  }
-
-  .g-book-cta {
-    align-items: stretch;
-  }
-
-  .g-book-cta .g-btn {
-    text-align: center;
-  }
-
-  .g-book-sub {
-    white-space: normal;
-    text-align: center;
-  }
 
   .g-bento {
     grid-template-columns: 1fr;
@@ -2331,30 +2237,44 @@ html.motion .g-dock::before {
    wide screens, under it on phones. Inputs in the glass language; the
    labels in the page's mono eyebrow style. The optional phone field says
    what it's for. On success the fields give way to the thank-you line. */
-.g-doors {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.28fr);
-  gap: 22px;
-  max-width: 1080px;
+.g-talk-wrap {
+  max-width: 720px;
   margin: 56px auto 0;
   scroll-margin-top: 96px;
 }
 
-.g-doors .g-book {
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 26px;
-  max-width: none;
-  margin: 0;
+.g-talk-kicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-family: var(--g-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--g-peach);
 }
 
-.g-doors .g-book-cta {
-  align-items: flex-start;
+/* the booking page, one line at the foot of the form */
+.g-talk-book {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--g-dim);
 }
 
-.g-doors .g-book-sub {
-  white-space: normal;
+.g-talk-book a {
+  color: var(--g-ink);
+  border-bottom: 1px solid var(--g-hair);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.g-talk-book a:hover {
+  color: var(--g-orange);
+  border-color: var(--g-orange);
+}
+
+.g-talk.is-sent .g-talk-book {
+  display: none;
 }
 
 .g-talk {
@@ -2517,9 +2437,7 @@ html[data-theme='light'] .g-field textarea {
 }
 
 @media (max-width: 1000px) {
-  .g-doors {
-    grid-template-columns: 1fr;
-    max-width: 560px;
+  .g-talk-wrap {
     margin-top: 40px;
   }
 
@@ -2531,5 +2449,135 @@ html[data-theme='light'] .g-field textarea {
 @media (max-width: 560px) {
   .g-talk-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------------------------------------- hero: the demo, one line */
+.g-micro-watch {
+  color: var(--g-ink);
+  border-bottom: 1px solid var(--g-hair);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.g-micro-watch:hover {
+  color: var(--g-orange);
+  border-color: var(--g-orange);
+}
+
+/* --------------------------------------- plan cards: the feature lists */
+/* Each list sits in a <details> that's open in the markup, so desktop,
+   crawlers and a page without JS all see it. On phones main.js folds it
+   behind "What's included", and the summary line appears. */
+.g-card-more {
+  display: block;
+}
+
+.g-card-more > summary {
+  display: none;
+  list-style: none;
+}
+
+.g-card-more > summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (max-width: 880px) {
+  /* the ladder, one screen at a time: the switch stays (its sub-labels say
+     what the lede said), cards keep their price order, and the feature
+     lists fold — four short cards instead of four screens */
+  .g-price-lede {
+    display: none;
+  }
+
+  .g-worker-note {
+    margin-top: 18px;
+    font-size: 13px;
+  }
+
+  .g-seg {
+    margin-top: 26px;
+  }
+
+  .g-tiers {
+    margin-top: 30px;
+  }
+
+  .g-tier-lede {
+    margin-bottom: 22px;
+    font-size: 14px;
+  }
+
+  .g-cards {
+    gap: 14px;
+  }
+
+  .g-card,
+  .g-cards-4 .g-card {
+    padding: 22px 20px 20px;
+  }
+
+  .g-card-hot {
+    order: 0;
+  }
+
+  .g-price,
+  .g-cards-4 .g-price {
+    font-size: 36px;
+    margin: 6px 0 4px;
+  }
+
+  .g-price-alt {
+    margin-bottom: 12px;
+  }
+
+  .g-card-more > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 0;
+    border-top: 1px solid var(--g-hair);
+    border-bottom: 1px solid var(--g-hair);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--g-ink);
+    cursor: pointer;
+  }
+
+  .g-card-more > summary::after {
+    content: '+';
+    font-size: 18px;
+    line-height: 1;
+    color: var(--g-dim);
+  }
+
+  .g-card-more[open] > summary::after {
+    content: '−';
+  }
+
+  .g-card-more[open] > summary {
+    border-bottom: 0;
+  }
+
+  .g-card-more ul {
+    padding: 12px 0 4px;
+    border-bottom: 1px solid var(--g-hair);
+  }
+
+  .g-meta {
+    margin: 12px 0 12px;
+    padding-top: 0;
+  }
+
+  .g-extras {
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .g-extra {
+    padding: 14px 16px;
+  }
+
+  .g-card-talk {
+    margin-top: 8px;
   }
 }
