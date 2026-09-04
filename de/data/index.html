@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#060608" />
+    <title>Wohin deine Daten gehen — Ocur</title>
+    <meta
+      name="description"
+      content="Eine klare Karte: welcher externe Dienst deine Inhalte bekommt, wenn du Ocur nutzt, wann er sie bekommt, was bei uns bleibt und was du abschalten kannst. Kein Zero-Egress-Versprechen — nur die ehrliche Liste."
+    />
+    <meta name="application-name" content="Ocur" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Ocur" />
+    <meta property="og:url" content="https://ocur.ai/de/data" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:title" content="Wohin deine Daten gehen — Ocur" />
+    <meta
+      property="og:description"
+      content="Welcher externe Dienst deine Inhalte bekommt, wenn du Ocur nutzt, wann, was bei uns bleibt und was du abschalten kannst."
+    />
+    <meta property="og:image" content="https://ocur.ai/og-de.jpg?v=2" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ocur_ai" />
+    <meta name="twitter:image" content="https://ocur.ai/og-de.jpg?v=2" />
+    <link rel="canonical" href="https://ocur.ai/de/data" />
+    <link rel="alternate" hreflang="en" href="https://ocur.ai/data" />
+    <link rel="alternate" hreflang="de" href="https://ocur.ai/de/data" />
+    <link rel="alternate" hreflang="x-default" href="https://ocur.ai/data" />
+    <script>
+      document.documentElement.classList.add('js');
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('motion');
+      }
+      // Theme vor dem ersten Paint auflösen: gespeicherte Wahl, dann Systemeinstellung
+      try {
+        var t = localStorage.getItem('ocur-theme');
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.dataset.theme = t;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    </script>
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="g">
+    <div class="g-grain" aria-hidden="true"></div>
+
+    <header class="g-nav lg glare" id="g-nav">
+      <a class="g-brand" href="/de/"><img src="/logo.svg" alt="" /> Ocur</a>
+      <nav class="g-links" aria-label="Hauptnavigation">
+        <a href="/de/">Start</a>
+        <a href="/de/#features">Funktionen</a>
+        <a href="/de/#pricing">Preise</a>
+        <a href="/de/privacy">Datenschutz</a>
+        <a href="/de/data" aria-current="page">Deine Daten</a>
+      </nav>
+      <a class="g-btn g-btn-sm magnetic" href="https://app.ocur.ai/?auth=sign-up">Kostenlos starten</a>
+    </header>
+
+    <main class="l-page">
+      <div class="l-glow" aria-hidden="true"></div>
+      <div class="g-wrap">
+        <div class="l-head">
+          <p class="l-eyebrow">Vertrauen</p>
+          <h1 class="l-h1">Wohin deine Daten gehen</h1>
+          <p class="l-lede">
+            Ocur arbeitet mit deinen E-Mails, deinen Dateien und deinen Gesprächen — und diese
+            Arbeit läuft auf Diensten, die wir nicht selbst betreiben. Diese Seite ist die klare
+            Karte dazu: welcher Dienst was bekommt, wann er es bekommt, was bei uns bleibt und was du
+            abschalten kannst. Sie ist aus dem Code geschrieben und ändert sich mit ihm.
+          </p>
+          <p class="l-dates">
+            <span>Zuletzt aktualisiert <strong>3. September 2026</strong></span>
+            <span>Gilt für <strong>app.ocur.ai · die Ocur-Apps für Handy und Desktop</strong></span>
+            <span>Ergänzt die <strong><a href="/de/privacy">Datenschutzerklärung</a></strong></span>
+          </p>
+        </div>
+
+        <div class="l-key lg glare">
+          <h2>Die ehrliche Kurzfassung</h2>
+          <ul>
+            <li><span>Ocur ist ein <strong>Cloud-Produkt</strong>. Das Denken passiert auf gehosteten
+              KI-Modellen, Code- und Dokumentenarbeit in einer gehosteten Sandbox. Einen lokalen
+              Modus gibt es nicht.</span></li>
+            <li><span>Nichts, was du verbindest, wird gelesen, bevor du es verbindest — und jede Verbindung
+              kappst du mit einem Klick. Ocur greift nur auf das zu, worum du gebeten hast.</span></li>
+            <li><span>Wir verkaufen deine Daten nie und trainieren keine Modelle damit — und jeder Anbieter
+              unten ist für die Inhalte, die wir ihm schicken, genauso gebunden.</span></li>
+            <li><span>Für Daten, die deine eigene Infrastruktur nicht verlassen dürfen, ist die Antwort heute
+              ehrlich: Gib sie nicht in Ocur. Self-Hosting behält die <em>Speicherung</em> im Haus,
+              nicht die <em>Verarbeitung</em>.</span></li>
+          </ul>
+        </div>
+
+        <details class="l-toc-m lg">
+          <summary>Inhalt</summary>
+          <nav aria-label="Inhalt (mobil)">
+            <ol>
+              <li><a href="#always">Immer dabei — jede Chat-Runde</a></li>
+              <li><a href="#features">Wenn du eine Funktion nutzt</a></li>
+              <li><a href="#rest">Was bei uns bleibt</a></li>
+              <li><a href="#levers">Was du abschalten kannst</a></li>
+              <li><a href="#examples">Zwei Alltagsjobs, nachverfolgt</a></li>
+              <li><a href="#promise">Was wir nicht versprechen</a></li>
+              <li><a href="#contact">Fragen</a></li>
+            </ol>
+          </nav>
+        </details>
+
+        <div class="l-layout">
+          <nav class="l-toc lg" aria-label="Inhalt">
+            <h2>Inhalt</h2>
+            <ol>
+              <li><a href="#always">Jede Chat-Runde</a></li>
+              <li><a href="#features">Wenn du eine Funktion nutzt</a></li>
+              <li><a href="#rest">Was bei uns bleibt</a></li>
+              <li><a href="#levers">Was du abschalten kannst</a></li>
+              <li><a href="#examples">Zwei Jobs, nachverfolgt</a></li>
+              <li><a href="#promise">Was wir nicht versprechen</a></li>
+              <li><a href="#contact">Fragen</a></li>
+            </ol>
+          </nav>
+
+          <article class="l-prose">
+            <section id="always">
+              <h2><span class="l-num">01</span>Immer dabei — jede Chat-Runde</h2>
+              <p>
+                Jede Nachricht, die du Ocur schickst, und jede Nachricht, die Ocur für dich auf einem
+                verbundenen Kanal beantwortet, geht an ein gehostetes KI-Modell. Diese Dienste sind
+                bei jeder Runde beteiligt:
+              </p>
+              <div class="l-tw">
+                <table class="l-table">
+                  <thead>
+                    <tr>
+                      <th>Dienst</th>
+                      <th>Was er bekommt</th>
+                      <th>Gut zu wissen</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Dein Chat-Modell — <strong>Moonshot (Kimi)</strong>, solange du kein anderes wählst; Anthropic, OpenAI und Google Gemini lassen sich in der App auswählen</td>
+                      <td>Das ganze Gespräch, Ocurs Anweisungen, Tool-Ergebnisse und den Text von Anhängen</td>
+                      <td>Fällt ein Anbieter aus, wird die Runde beim nächsten Anbieter einer festen Kette wiederholt — beim Standard beginnt sie bei Anthropic. Moonshot sitzt in der Volksrepublik China; eine Installation, die keinen Verkehr dorthin will, ändert den Standard.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>OpenAI</strong></td>
+                      <td>Jedes Gespräch, das Ocur auf einem verbundenen Kanal führt — WhatsApp, Telegram, Discord, Slack, Teams, E-Mail und Social-Plattformen — unabhängig von deiner Modellwahl; dazu die unbeaufsichtigte Hintergrundarbeit: Dashboard- und Widget-Aktualisierungen, Digests, Heartbeats, Zahlungserinnerungen, Zusammenfassungen langer Gespräche, das Destillieren von Skills und die Extraktoren für Versprechen, Feedback und Wettbewerber</td>
+                      <td>Pro Installation fest eingestellt. Anthropic ist der erste Ersatz, damit der Ausfall eines Anbieters nicht deine Kanäle lahmlegt.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Supermemory</strong></td>
+                      <td>Nur, was Ocur ausdrücklich mit seinem Gedächtnis-Tool speichert — kurze, verdichtete Fakten — plus eine Zusammenfassung je etwa 15.000 Tokens eines langen Chats. Speicherungen für Team oder Organisation warten erst auf eine menschliche Freigabe.</td>
+                      <td>Es gibt keinen Hintergrund-Upload pro Runde. Bleibt der Gedächtnis-Dienst unkonfiguriert, ist das Gedächtnis ganz aus.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Clerk</strong></td>
+                      <td>Identität: deine E-Mail-Adresse und Sitzungs-Tokens</td>
+                      <td>Ohne Clerk funktioniert der Login nicht.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Sentry</strong></td>
+                      <td>Fehlerberichte, standardmäßig ohne Anfrageinhalte</td>
+                      <td>Aus, wenn unkonfiguriert. Die Fehlermeldung eines Anbieters kann Bruchstücke der Anfrage in eine Logzeile tragen.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="features">
+              <h2><span class="l-num">02</span>Wenn du eine Funktion nutzt</h2>
+              <p>
+                Diese Dienste sehen deine Inhalte nur, wenn die Funktion läuft, die sie braucht.
+                Nutzt du eine Funktion nicht, bekommt ihr Dienst nichts.
+              </p>
+              <div class="l-tw">
+                <table class="l-table">
+                  <thead>
+                    <tr>
+                      <th>Dienst</th>
+                      <th>Ausgelöst durch</th>
+                      <th>Was er bekommt</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>E2B</strong> (Cloud-Sandboxes)</td>
+                      <td>Jede Code-, Datei- oder Dokumentenarbeit — Code ausführen, Shell-Befehle, Anhänge</td>
+                      <td>Anhänge, erzeugte Dateien, den Dateibaum deines Workspace und für die Dauer des Jobs die Zugangsdaten der Konnektoren als Umgebungsvariablen</td>
+                    </tr>
+                    <tr>
+                      <td><strong>AgentMail</strong></td>
+                      <td>Das Ocur-Postfach</td>
+                      <td>Hostet das Postfach selbst — jede ein- und ausgehende Mail</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Microsoft Graph / Google APIs</strong></td>
+                      <td>Ein verbundenes Outlook, Gmail, ein Kalender oder Drive</td>
+                      <td>Mails, Termine und Dateien fließen in beide Richtungen, im Rahmen der Einwilligung, die du beim Verbinden gegeben hast</td>
+                    </tr>
+                    <tr>
+                      <td><strong>OpenAI Vector Stores</strong></td>
+                      <td>Uploads in die Wissensbasis (Standard-Backend für Wissen)</td>
+                      <td>Das vollständige Dokument, gespeichert bei OpenAI. Eine Installation kann neues Wissen stattdessen in der eigenen Datenbank halten; dann durchläuft nur Text in Stücken OpenAIs Embeddings-API, und dort wird nichts gespeichert.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>OpenAI Realtime</strong></td>
+                      <td>Sprachmodus</td>
+                      <td>Rohes Mikrofon-Audio, direkt aus deinem Browser zu OpenAI gestreamt</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Browserbase</strong></td>
+                      <td>Ocur surft für dich im Web</td>
+                      <td>Seiteninhalte, Screenshots und URLs</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Exa</strong></td>
+                      <td>Websuche</td>
+                      <td>Die Suchanfragen, die Ocur formuliert</td>
+                    </tr>
+                    <tr>
+                      <td><strong>ElevenLabs</strong></td>
+                      <td>Gesprochene Antworten</td>
+                      <td>Den Text der Antwort</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Zernio, Merge.dev, Slack, Telegram, GitHub, Notion, Stripe, Higgsfield</strong></td>
+                      <td>Der jeweilige Konnektor</td>
+                      <td>Die Nachricht oder den Inhalt für diesen Kanal</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="rest">
+              <h2><span class="l-num">03</span>Was bei uns bleibt</h2>
+              <ul>
+                <li>
+                  <strong>Unsere Datenbank</strong> (selbst hostbar, in der EU): Gespräche, Nachrichten,
+                  Erinnerungen, Kontakte, Workflows, das Protokoll, Freigaben — und Ocurs Lernakte: ein
+                  Register der folgenreichen Aktionen, die es ausgeführt hat, der Änderungen, die
+                  Menschen auf Freigabekarten gemacht haben, und dessen, was daraus wurde. Das Register
+                  speichert bereinigte Anzeigewerte, nie Zugangsdaten, und wird mit der Organisation
+                  gelöscht.
+                </li>
+                <li><strong>Unser Dateispeicher</strong>: Dateien, die du hochlädst, und Dateien, die Ocur erzeugt.</li>
+                <li><strong>AgentMail</strong>: das Postfach-Archiv. <strong>OpenAI</strong>: Wissensdokumente, in der Standardkonfiguration.</li>
+                <li><strong>Dein Rechner</strong>: nur die kleine eigene Zustandsdatei der Begleit-App.</li>
+                <li>Zugangsdaten von Konnektoren sind im Ruhezustand verschlüsselt.</li>
+              </ul>
+            </section>
+
+            <section id="levers">
+              <h2><span class="l-num">04</span>Was du abschalten kannst</h2>
+              <ul>
+                <li>
+                  <strong>Entwurfsmodus und Freigabe-Warteschlange</strong> regeln <em>Aktionen</em>,
+                  nicht Datenflüsse: Damit liest Ocur weiterhin, was es zum Entwerfen braucht, sendet
+                  und postet aber nichts ohne dein Okay.
+                </li>
+                <li>
+                  <strong>Leitplanken.</strong> Neue Konten starten auf der Stufe <em>Operator</em>:
+                  Aktionen nach außen — Senden, Posten, deinen Rechner steuern — zeigen eine
+                  Freigabekarte; Sandbox-Arbeit und Entwürfe laufen frei. In Einstellungen › Leitplanken
+                  weitest du das pro Tool aus oder engst es ein.
+                </li>
+                <li>
+                  <strong>Trennen.</strong> Ein verbundenes Konto wegzunehmen stoppt sofort jeden Fluss,
+                  der davon abhing.
+                </li>
+                <li>
+                  <strong>Pro Installation</strong> schaltet ein unkonfigurierter Dienst diesen Dienst und
+                  seine Funktion ab, und Wissen kann in der eigenen Datenbank der Installation bleiben.
+                </li>
+                <li>
+                  <strong>Self-Hosting</strong> behält die App und die Datenbank im Haus; die
+                  KI-Anbieter, die Sandbox, die Identität und das Gedächtnis bleiben externe Dienste.
+                </li>
+              </ul>
+            </section>
+
+            <section id="examples">
+              <h2><span class="l-num">05</span>Zwei Alltagsjobs, nachverfolgt</h2>
+              <p><strong>E-Mail und Kalender.</strong> Eine eingehende Mail kommt bei AgentMail an → unser Backend → das Chat-Modell. Ocurs Gedächtnis-Dienst sieht sie nur, wenn Ocur ausdrücklich einen Fakt daraus speichert — und eine Speicherung fürs Team wartet erst auf einen Menschen. Kalendertermine reisen Google oder Microsoft → unser Backend → das Chat-Modell. Entwürfe werden ins Postfach zurückgeschrieben; im Entwurfsmodus — Standard für neue Postfächer — sendet Ocur nichts.</p>
+              <p><strong>Ein Dokument erzeugen.</strong> Vorlage und Falldaten, die du anhängst, gehen an unser Backend (gespeichert in unserem Dateispeicher) → in die Sandbox zur Verarbeitung → zum Chat-Modell mit dem extrahierten Text → das fertige Dokument zurück über unser Backend in deinen Browser. Wird die Wissensbasis genutzt, liegen diese Dokumente in der Standardkonfiguration zusätzlich bei OpenAI.</p>
+            </section>
+
+            <section id="promise">
+              <h2><span class="l-num">06</span>Was wir nicht versprechen</h2>
+              <div class="l-note">
+                <span class="l-note-label">Kein Zero-Egress-Schalter</span>
+                <p>
+                  Es gibt keine Einstellung, die deine Inhalte von jedem externen Dienst fernhält, und
+                  wir behaupten das auch nicht. Wenn ein Ablauf deine eigene Infrastruktur nicht
+                  verlassen darf, gehört er heute nicht in Ocur. Alles andere auf dieser Seite ist ein
+                  Hebel, den du wirklich umlegen kannst.
+                </p>
+              </div>
+            </section>
+
+            <section id="contact">
+              <h2><span class="l-num">07</span>Fragen</h2>
+              <p>
+                Ist ein Fluss hier unklar, oder braucht eure Compliance-Prüfung ihn in anderer Form,
+                schreib uns. Wir antworten mit Details, nicht mit einer Broschüre.
+              </p>
+              <ul>
+                <li>Datenschutz: <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a></li>
+                <li>Sicherheit: <a href="mailto:security@ocur.ai">security@ocur.ai</a></li>
+              </ul>
+              <p>
+                Siehe auch die <a href="/de/privacy">Datenschutzerklärung</a> und die
+                <a href="/de/terms">AGB</a>.
+              </p>
+              <a class="l-back g-btn-glass lg magnetic" href="/de/">← Zurück zu ocur.ai</a>
+            </section>
+          </article>
+        </div>
+
+        <footer class="l-foot">
+          <span>Ocur © <span id="g-year">2026</span> · ein Produkt der OcurAI, Inc.</span>
+          <a href="/de/privacy">Datenschutz</a>
+          <a href="/de/terms">AGB</a>
+          <a href="/de/impressum">Impressum</a>
+          <a href="/de/data">Deine Daten</a>
+          <a href="/de/">Start</a>
+          <span class="l-foot-sep"></span>
+          <a href="https://x.com/ocur_ai" target="_blank" rel="noopener">Ocur auf X</a>
+        </footer>
+      </div>
+    </main>
+
+    <script type="module" src="/src/legal.js"></script>
+  </body>
+</html>

@@ -10,6 +10,7 @@ import { resolve } from 'node:path';
 //   be-ai/index.html    → the reverse Turing test game (ocur.ai/be-ai)
 //   privacy/, terms/    → the legal pages (ocur.ai/privacy, ocur.ai/terms)
 //   de/privacy/, de/terms/ → their German twins, plus de/impressum/ (§5 DDG)
+//   data/, de/data/     → "Where your data goes": which service receives what
 //
 // The legal pages are hand-written HTML rather than prerendered from the
 // dictionary: they're long-form prose that changes on its own schedule, and
@@ -43,6 +44,8 @@ export default defineConfig({
         privacyDe: resolve(__dirname, 'de/privacy/index.html'),
         termsDe: resolve(__dirname, 'de/terms/index.html'),
         impressumDe: resolve(__dirname, 'de/impressum/index.html'),
+        data: resolve(__dirname, 'data/index.html'),
+        dataDe: resolve(__dirname, 'de/data/index.html'),
       },
     },
   },

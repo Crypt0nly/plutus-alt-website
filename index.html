@@ -145,12 +145,33 @@
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
       </nav>
+      <a class="g-login" href="https://app.ocur.ai/?auth=sign-in">Log in</a>
       <!-- Book a demo: the founder's own booking page (Ocur's calendar feature,
            served by the app backend). Every data-book link on the page carries
            the same href — grep data-book when the slug changes. -->
       <a class="g-btn g-btn-sm g-btn-glass g-nav-book lg magnetic" href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="nav">Book a demo</a>
       <a class="g-btn g-btn-sm magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
+      <button class="g-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="g-menu">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
     </header>
+    <!-- phone menu: the nav links, both doors into the app, the language switch -->
+    <div class="g-menu lg" id="g-menu" hidden>
+      <nav class="g-menu-links" aria-label="Menu">
+        <a href="#demo">See it work</a>
+        <a href="#system">The system</a>
+        <a href="#features">Features</a>
+        <a href="#start">Your first ten minutes</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="g-menu-ctas">
+        <a class="g-btn g-btn-glass lg" href="https://app.ocur.ai/?auth=sign-in">Log in</a>
+        <a class="g-btn" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
+        <a class="g-btn g-btn-glass lg g-menu-book" href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="menu">Book a demo</a>
+      </div>
+      <div class="g-menu-foot"></div>
+    </div>
 
     <main>
       <!-- hero -->
@@ -170,8 +191,8 @@
           </div>
           <p class="g-micro">Free pilot&nbsp;&nbsp;·&nbsp;&nbsp;No credit card&nbsp;&nbsp;·&nbsp;&nbsp;No IT project</p>
           <div class="g-stats">
-            <div class="g-stat"><strong data-count="250" data-suffix="K">0K</strong><span>free tokens / month</span></div>
-            <div class="g-stat"><strong data-count="60" data-suffix="s">0s</strong><span>to roll out</span></div>
+            <div class="g-stat"><strong data-count="1.5" data-decimals="1" data-suffix="M">1.5M</strong><span>free tokens / month</span></div>
+            <div class="g-stat"><strong data-count="60" data-suffix="s">60s</strong><span>to roll out</span></div>
             <div class="g-stat"><strong>∞</strong><span>connectors — build your own</span></div>
           </div>
         </div>
@@ -389,6 +410,43 @@
         </div>
       </section>
 
+      <!-- the first ten minutes: what the desk is, before you meet it -->
+      <section class="g-start" id="start">
+        <div class="g-wrap">
+          <h2 class="g-h2">Your first <span class="g-grad">ten minutes.</span></h2>
+          <p class="g-start-sub">
+            Ocur isn't a chat box. It's a desk — apps, a dock, and Ocur in the middle. Here's
+            how the first ten minutes go.
+          </p>
+          <ol class="g-steps">
+            <li class="g-step lg glare">
+              <span class="g-step-n">01</span>
+              <h3>Sign in. You're at a desk.</h3>
+              <p>Chat, Connectors, Settings and the App Store are already there. Every other app appears the moment Ocur has something to put in it.</p>
+            </li>
+            <li class="g-step lg glare">
+              <span class="g-step-n">02</span>
+              <h3>Say the first job.</h3>
+              <p>“Find the three invoices we're still owed and draft the reminders.” Ocur works in a window beside the chat and shows you what it's doing.</p>
+            </li>
+            <li class="g-step lg glare">
+              <span class="g-step-n">03</span>
+              <h3>Connect one tool.</h3>
+              <p>Gmail, WhatsApp, Notion — one sign-in each. Ocur reads only what you connect, and you can take it away again in a click.</p>
+            </li>
+            <li class="g-step lg glare">
+              <span class="g-step-n">04</span>
+              <h3>Put it on autopilot.</h3>
+              <p>Turn the job into an automation with a schedule. Ocur runs it while you're away and reports back in your chat — or on WhatsApp.</p>
+            </li>
+          </ol>
+          <p class="g-start-note">
+            Every window has its own link — share a thread, a list or a deal with a colleague and
+            they land right on it.
+          </p>
+        </div>
+      </section>
+
       <!-- pricing -->
       <section class="g-pricing" id="pricing">
         <div class="g-glow g-glow-price" aria-hidden="true"></div>
@@ -447,7 +505,7 @@
                   <li>Scheduled jobs, morning briefs, automations</li>
                 </ul>
                 <p class="g-meta">5M tokens of Ocur-work / month</p>
-                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Get Starter</a>
+                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=starter">Get Starter</a>
               </article>
               <article class="g-card g-card-hot lg glare">
                 <p class="g-badge">Most popular</p>
@@ -462,7 +520,7 @@
                   <li>Hand off a whole backlog in one message</li>
                 </ul>
                 <p class="g-meta">25M tokens of Ocur-work / month</p>
-                <a class="g-btn magnetic" href="https://app.ocur.ai/?auth=sign-up">Get Pro</a>
+                <a class="g-btn magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=pro">Get Pro</a>
               </article>
               <article class="g-card lg glare">
                 <p class="g-eyebrow">For your whole day</p>
@@ -475,7 +533,7 @@
                   <li>Unlimited AI workers</li>
                 </ul>
                 <p class="g-meta">50M tokens of Ocur-work / month</p>
-                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Get Pro Plus</a>
+                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=pro-plus">Get Pro Plus</a>
               </article>
             </div>
             <p class="g-note">
@@ -504,7 +562,7 @@
                   <li>Ocur on WhatsApp, Telegram, Slack, Teams &amp; email</li>
                 </ul>
                 <p class="g-meta">48M tokens of Ocur-work a month, pooled</p>
-                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Get Team</a>
+                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=team">Get Team</a>
               </article>
               <article class="g-card g-card-hot lg glare">
                 <p class="g-badge">Most popular</p>
@@ -520,7 +578,7 @@
                   <li>Custom tools, Live Apps and automations</li>
                 </ul>
                 <p class="g-meta">240M tokens of Ocur-work a month, pooled</p>
-                <a class="g-btn magnetic" href="https://app.ocur.ai/?auth=sign-up">Get Growth</a>
+                <a class="g-btn magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=growth">Get Growth</a>
               </article>
               <article class="g-card lg glare">
                 <p class="g-eyebrow">For companies &amp; agencies</p>
@@ -535,7 +593,7 @@
                   <li>Priority support and onboarding</li>
                 </ul>
                 <p class="g-meta">680M tokens of Ocur-work a month, pooled</p>
-                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Get Scale</a>
+                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=scale">Get Scale</a>
               </article>
             </div>
             <div class="g-extras">
@@ -610,7 +668,7 @@
             </details>
             <details class="lg" name="g-faq">
               <summary>Is our data private?</summary>
-              <p>Your company’s workspace is sealed off from every other customer’s. Ocur can only reach the accounts you’ve chosen to connect, and you can take any of them away in one click. We never sell your data and never train models on it — the <a href="/privacy">privacy policy</a> spells out exactly what happens to everything Ocur touches, Google Workspace included.</p>
+              <p>Your company’s workspace is sealed off from every other customer’s. Ocur can only reach the accounts you’ve chosen to connect, and you can take any of them away in one click. We never sell your data and never train models on it — the <a href="/privacy">privacy policy</a> spells out exactly what happens to everything Ocur touches, Google Workspace included. For the plain map of which service receives what, and when, see <a href="/data">where your data goes</a>.</p>
             </details>
             <details class="lg" name="g-faq">
               <summary>Can the whole company use it?</summary>
@@ -645,6 +703,8 @@
             <nav class="g-foot-links" aria-label="Legal">
               <a href="/privacy">Privacy Policy</a>
               <a href="/terms">Terms of Service</a>
+              <a href="/data">Where your data goes</a>
+              <a href="/be-ai/">Be the AI — the game</a>
             </nav>
             <span><em>Say it — or don’t. It happens. You stay in charge.</em></span>
             <a

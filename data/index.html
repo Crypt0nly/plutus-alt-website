@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#060608" />
+    <title>Where your data goes — Ocur</title>
+    <meta
+      name="description"
+      content="A plain map of which external service receives your content when you use Ocur, when it does, what stays put, and what you can switch off. No zero-egress promise — just the honest list."
+    />
+    <meta name="application-name" content="Ocur" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Ocur" />
+    <meta property="og:url" content="https://ocur.ai/data" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:title" content="Where your data goes — Ocur" />
+    <meta
+      property="og:description"
+      content="Which external service receives your content when you use Ocur, when, what stays put, and what you can switch off."
+    />
+    <meta property="og:image" content="https://ocur.ai/og.jpg?v=1" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ocur_ai" />
+    <meta name="twitter:image" content="https://ocur.ai/og.jpg?v=1" />
+    <link rel="canonical" href="https://ocur.ai/data" />
+    <link rel="alternate" hreflang="en" href="https://ocur.ai/data" />
+    <link rel="alternate" hreflang="de" href="https://ocur.ai/de/data" />
+    <link rel="alternate" hreflang="x-default" href="https://ocur.ai/data" />
+    <script>
+      document.documentElement.classList.add('js');
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('motion');
+      }
+      // resolve the theme before first paint: stored choice, then OS preference
+      try {
+        var t = localStorage.getItem('ocur-theme');
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.dataset.theme = t;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    </script>
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="g">
+    <div class="g-grain" aria-hidden="true"></div>
+
+    <header class="g-nav lg glare" id="g-nav">
+      <a class="g-brand" href="/"><img src="/logo.svg" alt="" /> Ocur</a>
+      <nav class="g-links" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/data" aria-current="page">Your data</a>
+      </nav>
+      <a class="g-btn g-btn-sm magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
+    </header>
+
+    <main class="l-page">
+      <div class="l-glow" aria-hidden="true"></div>
+      <div class="g-wrap">
+        <div class="l-head">
+          <p class="l-eyebrow">Trust</p>
+          <h1 class="l-h1">Where your data goes</h1>
+          <p class="l-lede">
+            Ocur does real work with your email, your files and your conversations, and that work
+            runs on services we don't operate ourselves. This page is the plain map: which service
+            receives what, when it does, what stays put, and what you can switch off. It is written
+            from the code, and it changes when the code does.
+          </p>
+          <p class="l-dates">
+            <span>Last updated <strong>3 September 2026</strong></span>
+            <span>Applies to <strong>app.ocur.ai · the Ocur mobile and desktop apps</strong></span>
+            <span>Companion to the <strong><a href="/privacy">privacy policy</a></strong></span>
+          </p>
+        </div>
+
+        <div class="l-key lg glare">
+          <h2>The honest headline</h2>
+          <ul>
+            <li><span>Ocur is a <strong>cloud product</strong>. Reasoning happens on hosted AI models, code
+              and document work happens in a hosted sandbox. There is no local-inference mode.</span></li>
+            <li><span>Nothing you connect is read until you connect it, and every connection can be taken
+              away in one click. Ocur only reaches what you asked it to reach.</span></li>
+            <li><span>We never sell your data and never train models on it — and every provider below is
+              bound the same way for the content we send it.</span></li>
+            <li><span>For data that must not leave your own infrastructure, the answer today is honest:
+              don't put it into Ocur. Self-hosting keeps <em>storage</em> in-house, not
+              <em>processing</em>.</span></li>
+          </ul>
+        </div>
+
+        <details class="l-toc-m lg">
+          <summary>Contents</summary>
+          <nav aria-label="Contents (mobile)">
+            <ol>
+              <li><a href="#always">Always on — every chat turn</a></li>
+              <li><a href="#features">When you use a feature</a></li>
+              <li><a href="#rest">What stays put</a></li>
+              <li><a href="#levers">What you can switch off</a></li>
+              <li><a href="#examples">Two everyday jobs, traced</a></li>
+              <li><a href="#promise">What we will not promise</a></li>
+              <li><a href="#contact">Questions</a></li>
+            </ol>
+          </nav>
+        </details>
+
+        <div class="l-layout">
+          <nav class="l-toc lg" aria-label="Contents">
+            <h2>Contents</h2>
+            <ol>
+              <li><a href="#always">Every chat turn</a></li>
+              <li><a href="#features">When you use a feature</a></li>
+              <li><a href="#rest">What stays put</a></li>
+              <li><a href="#levers">What you can switch off</a></li>
+              <li><a href="#examples">Two jobs, traced</a></li>
+              <li><a href="#promise">What we won't promise</a></li>
+              <li><a href="#contact">Questions</a></li>
+            </ol>
+          </nav>
+
+          <article class="l-prose">
+            <section id="always">
+              <h2><span class="l-num">01</span>Always on — every chat turn</h2>
+              <p>
+                Every message you send Ocur, and every message Ocur handles for you on a connected
+                channel, is answered by a hosted AI model. These services take part in every turn:
+              </p>
+              <div class="l-tw">
+                <table class="l-table">
+                  <thead>
+                    <tr>
+                      <th>Service</th>
+                      <th>What it receives</th>
+                      <th>Good to know</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Your chat model — <strong>Moonshot (Kimi)</strong> unless you pick another; Anthropic, OpenAI and Google Gemini are selectable in the app</td>
+                      <td>The full conversation, Ocur's instructions, tool results and the text of attachments</td>
+                      <td>If a provider errors, the turn is retried on the next provider in a fixed chain, which for the default starts at Anthropic. Moonshot is based in the PRC; a deployment that must keep traffic off it changes the default.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>OpenAI</strong></td>
+                      <td>Every conversation Ocur holds on a connected channel — WhatsApp, Telegram, Discord, Slack, Teams, email and social platforms — regardless of your model pick; and the unattended background work: dashboard and widget refreshes, digests, heartbeats, collection chases, long-conversation summaries, skill distillation and the extractors for commitments, feedback and competitors</td>
+                      <td>Pinned per deployment. Anthropic is the first fallback so one vendor's outage doesn't take your channels down.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Supermemory</strong></td>
+                      <td>Only what Ocur explicitly saves with its memory tool — short, distilled facts — plus one rollup summary per roughly 15,000 tokens of a long chat. Team- and organization-scoped saves wait for a human approve/deny first.</td>
+                      <td>There is no background per-turn upload. Leaving the memory service unconfigured switches memory off entirely.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Clerk</strong></td>
+                      <td>Identity: your email address and session tokens</td>
+                      <td>Login does not work without it.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Sentry</strong></td>
+                      <td>Error reports, without request bodies by default</td>
+                      <td>Off when unconfigured. A provider's error body can echo request fragments into a log line.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="features">
+              <h2><span class="l-num">02</span>When you use a feature</h2>
+              <p>
+                These services only see your content when the feature that needs them runs. Leave
+                a feature unused and its service receives nothing.
+              </p>
+              <div class="l-tw">
+                <table class="l-table">
+                  <thead>
+                    <tr>
+                      <th>Service</th>
+                      <th>Triggered by</th>
+                      <th>What it receives</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>E2B</strong> (cloud sandboxes)</td>
+                      <td>Any code, file or document work — running code, shell commands, attachments</td>
+                      <td>Attachment bytes, generated files, your workspace's file tree, and connector secrets as environment variables for the duration of the job</td>
+                    </tr>
+                    <tr>
+                      <td><strong>AgentMail</strong></td>
+                      <td>The Ocur inbox</td>
+                      <td>Hosts the mailbox itself — every inbound and outbound mail body</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Microsoft Graph / Google APIs</strong></td>
+                      <td>A connected Outlook, Gmail, Calendar or Drive</td>
+                      <td>Mail, events and files flow both ways under the consent you gave when connecting</td>
+                    </tr>
+                    <tr>
+                      <td><strong>OpenAI Vector Stores</strong></td>
+                      <td>Knowledge-base uploads (the default knowledge backend)</td>
+                      <td>The complete document, stored at OpenAI. A deployment can keep new knowledge in its own database instead; then only chunk text transits OpenAI's embeddings API and nothing is stored there.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>OpenAI Realtime</strong></td>
+                      <td>Voice mode</td>
+                      <td>Raw microphone audio, streamed from your browser straight to OpenAI</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Browserbase</strong></td>
+                      <td>Ocur browsing the web for you</td>
+                      <td>Page contents, screenshots and URLs</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Exa</strong></td>
+                      <td>Web search</td>
+                      <td>The search queries Ocur composes</td>
+                    </tr>
+                    <tr>
+                      <td><strong>ElevenLabs</strong></td>
+                      <td>Spoken replies</td>
+                      <td>The text of the reply</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Zernio, Merge.dev, Slack, Telegram, GitHub, Notion, Stripe, Higgsfield</strong></td>
+                      <td>The respective connector</td>
+                      <td>The message or content for that channel</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="rest">
+              <h2><span class="l-num">03</span>What stays put</h2>
+              <ul>
+                <li>
+                  <strong>Our database</strong> (self-hostable, in the EU): conversations, messages,
+                  memories, contacts, workflows, the audit log, approvals — and Ocur's learning record:
+                  a ledger of the consequential actions it took, the edits people made on approval
+                  cards, and what came of them. The ledger stores sanitized display-shape parameters,
+                  never credentials, and is deleted with the organization.
+                </li>
+                <li><strong>Our file storage</strong>: files you upload and files Ocur generates.</li>
+                <li><strong>AgentMail</strong>: the mailbox archive. <strong>OpenAI</strong>: knowledge documents, in the default configuration.</li>
+                <li><strong>Your computer</strong>: only the local companion's own small state file.</li>
+                <li>Connector credentials are encrypted at rest.</li>
+              </ul>
+            </section>
+
+            <section id="levers">
+              <h2><span class="l-num">04</span>What you can switch off</h2>
+              <ul>
+                <li>
+                  <strong>Draft-only mode and queued approvals</strong> gate <em>actions</em>, not
+                  data flows: with them on, Ocur still reads what it needs to draft, but sends and
+                  posts nothing without a sign-off.
+                </li>
+                <li>
+                  <strong>Guardrails.</strong> New accounts start on the <em>operator</em> tier: outward
+                  actions — sends, posts, controlling your machine — show an approval card; sandbox work
+                  and drafts run freely. You widen or narrow this per tool in Settings › Guardrails.
+                </li>
+                <li>
+                  <strong>Disconnect.</strong> Taking a connected account away stops every flow that
+                  depended on it, immediately.
+                </li>
+                <li>
+                  <strong>Per deployment</strong>, leaving a service unconfigured switches that service
+                  and its feature off, and knowledge can be kept in the deployment's own database.
+                </li>
+                <li>
+                  <strong>Self-hosting</strong> keeps the app and the database in-house; the AI
+                  providers, the sandbox, identity and memory remain external services.
+                </li>
+              </ul>
+            </section>
+
+            <section id="examples">
+              <h2><span class="l-num">05</span>Two everyday jobs, traced</h2>
+              <p><strong>Email and calendar.</strong> An inbound mail body arrives at AgentMail → our backend → the chat model. Ocur's memory service sees it only if Ocur explicitly saves a fact from it, and a team-scoped save waits for a human first. Calendar events travel Google or Microsoft → our backend → the chat model. Drafts are written back into the mailbox; with draft-only mode on — the default for new inboxes — nothing is sent by Ocur.</p>
+              <p><strong>Generating a document.</strong> The template and case data you attach go to our backend (at rest in our file storage) → the sandbox for processing → the chat model for the extracted text → the finished document back through our backend to your browser. If the knowledge base is used, those documents additionally live at OpenAI in the default configuration.</p>
+            </section>
+
+            <section id="promise">
+              <h2><span class="l-num">06</span>What we will not promise</h2>
+              <div class="l-note">
+                <span class="l-note-label">No zero-egress switch</span>
+                <p>
+                  There is no setting that keeps your content off every external service, and we
+                  won't say there is. If a workflow must not leave your own infrastructure, it does
+                  not belong in Ocur today. Everything else on this page is a lever you can actually
+                  pull.
+                </p>
+              </div>
+            </section>
+
+            <section id="contact">
+              <h2><span class="l-num">07</span>Questions</h2>
+              <p>
+                If a flow here is unclear, or your compliance review needs it in another form, write
+                to us. We answer with specifics, not a brochure.
+              </p>
+              <ul>
+                <li>Privacy: <a href="mailto:privacy@ocur.ai">privacy@ocur.ai</a></li>
+                <li>Security: <a href="mailto:security@ocur.ai">security@ocur.ai</a></li>
+              </ul>
+              <p>
+                See also the <a href="/privacy">privacy policy</a> and the
+                <a href="/terms">terms of service</a>.
+              </p>
+              <a class="l-back g-btn-glass lg magnetic" href="/">← Back to ocur.ai</a>
+            </section>
+          </article>
+        </div>
+
+        <footer class="l-foot">
+          <span>Ocur © <span id="g-year">2026</span> · a product of OcurAI, Inc.</span>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+          <a href="/data">Your data</a>
+          <a href="/">Home</a>
+          <span class="l-foot-sep"></span>
+          <a href="https://x.com/ocur_ai" target="_blank" rel="noopener">Ocur on X</a>
+        </footer>
+      </div>
+    </main>
+
+    <script type="module" src="/src/legal.js"></script>
+  </body>
+</html>

@@ -35,7 +35,14 @@ for (const path of ['privacy/index.html', 'de/privacy/index.html']) {
     errors.push(`${path} no longer contains the Google API Services User Data Policy (Limited Use) disclosure`);
   }
 }
-for (const path of ['terms/index.html', 'de/terms/index.html', 'de/impressum/index.html']) {
+for (const path of [
+  'terms/index.html',
+  'de/terms/index.html',
+  'de/impressum/index.html',
+  // the data map both privacy pages and the FAQ link to
+  'data/index.html',
+  'de/data/index.html',
+]) {
   read(path);
 }
 

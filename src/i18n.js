@@ -78,24 +78,31 @@ export function initLangToggle(paths) {
   const nav = document.querySelector('.g-nav');
   if (!nav) return;
   const { en = EN_PATH, de = DE_PATH } = paths || {};
-  const box = document.createElement('div');
-  box.className = 'g-lang';
-  box.setAttribute('role', 'group');
-  box.setAttribute('aria-label', currentLang === 'de' ? 'Sprache' : 'Language');
-  [
-    ['en', en],
-    ['de', de],
-  ].forEach(([lang, href]) => {
-    const a = document.createElement('a');
-    a.href = href;
-    a.textContent = lang.toUpperCase();
-    a.setAttribute('lang', lang);
-    if (lang === currentLang) {
-      a.classList.add('on');
-      a.setAttribute('aria-current', 'true');
-    }
-    a.addEventListener('click', () => writeStored(lang));
-    box.appendChild(a);
-  });
-  nav.insertBefore(box, nav.querySelector('.g-btn-sm'));
+  const build = () => {
+    const box = document.createElement('div');
+    box.className = 'g-lang';
+    box.setAttribute('role', 'group');
+    box.setAttribute('aria-label', currentLang === 'de' ? 'Sprache' : 'Language');
+    [
+      ['en', en],
+      ['de', de],
+    ].forEach(([lang, href]) => {
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = lang.toUpperCase();
+      a.setAttribute('lang', lang);
+      if (lang === currentLang) {
+        a.classList.add('on');
+        a.setAttribute('aria-current', 'true');
+      }
+      a.addEventListener('click', () => writeStored(lang));
+      box.appendChild(a);
+    });
+    return box;
+  };
+  nav.insertBefore(build(), nav.querySelector('.g-btn-sm'));
+  // The phone menu (home page only) carries its own copy: the nav hides
+  // the switch below 880px to make room for the burger.
+  const menuFoot = document.querySelector('#g-menu .g-menu-foot');
+  if (menuFoot) menuFoot.appendChild(build());
 }
