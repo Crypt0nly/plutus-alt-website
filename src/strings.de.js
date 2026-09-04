@@ -28,8 +28,8 @@ export const DE = [
   // nav ("Book a demo", then "Start free") + the phone menu
   ['header .g-btn-sm', ['Demo buchen', 'Kostenlos starten']],
   ['.g-login', 'Anmelden'],
-  ['.g-links a', ['In Aktion', 'Das System', 'Funktionen', 'Preise', 'FAQ']],
-  ['.g-menu-links a', ['In Aktion', 'Das System', 'Funktionen', 'Deine ersten zehn Minuten', 'Preise', 'FAQ']],
+  ['.g-links a', ['In Aktion', 'Das System', 'Funktionen', 'Preise', 'FAQ', 'Kontakt']],
+  ['.g-menu-links a', ['In Aktion', 'Das System', 'Funktionen', 'Deine ersten zehn Minuten', 'Preise', 'FAQ', 'Schreib uns']],
   ['.g-menu-ctas a', ['Anmelden', 'Kostenlos starten', 'Demo buchen']],
 
   // hero
@@ -340,7 +340,8 @@ export const DE = [
     ],
   ],
 
-  // book a demo — the band under both ladders, and the Enterprise extra's link
+  // the two doors under both ladders: book a demo, or write to us (the
+  // form — labels and copy; the status lines live in main.js)
   ['.g-book-kicker', '<span class="g-kdot" aria-hidden="true"></span>Live-Demo'],
   ['.g-book h3', 'Lieber erst mal ansehen?'],
   [
@@ -350,6 +351,25 @@ export const DE = [
   ['.g-book .g-btn', 'Demo buchen'],
   ['.g-book-sub', '30 Minuten · Videocall · Termin frei wählbar'],
   ['.g-extra-link', 'Sprich mit uns →'],
+  ['.g-card-talk', 'Mit dem Vertrieb sprechen →'],
+  ['.g-talk-kicker', '<span class="g-kdot" aria-hidden="true"></span>Schreib uns'],
+  ['.g-talk h3', 'Noch kein Termin? Schreib uns.'],
+  [
+    '.g-talk-text',
+    'Erzähl uns, was Ocur als Erstes übernehmen soll. Du hörst innerhalb eines Werktags von uns — per E-Mail, oder per Anruf, wenn du eine Nummer dalässt.',
+  ],
+  [
+    '.g-talk .g-field > span',
+    [
+      'Geschäftliche E-Mail',
+      'Unternehmen',
+      'Name',
+      'Telefon <em>optional — damit wir dich anrufen können</em>',
+      'Was soll Ocur dir als Erstes abnehmen?',
+    ],
+  ],
+  ['.g-talk button[type="submit"]', 'Senden'],
+  ['.g-talk-sub', 'Liest der Gründer persönlich. <a href="/de/privacy">Datenschutz</a>'],
 
   // FAQ
   ['#faq .g-h2', 'Fragen, <span class="g-grad">beantwortet.</span>'],
@@ -382,7 +402,7 @@ export const DE = [
       'Ja — genau dafür ist es gemacht. Alle delegieren an ein gemeinsames Ocur mit geteiltem Wissen. Admins regeln, wer was darf, und an einem Ort siehst du, was erledigt wurde.',
       'Nein. Menschen sind immer kostenlos, egal wie viele ihr seid — eine Kollegin einzuladen kostet nichts. Bezahlt wird Ocurs Arbeit: ein monatliches Volumen davon und die KI-Worker, die eigenständig nach Zeitplan arbeiten. Noch ein Paar Hände? Ein zusätzlicher KI-Worker kostet €199 im Monat und bringt 25M Tokens Arbeit mit.',
       'Minuten, nicht Monate. Ocur läuft im Browser, verbindet sich Login für Login mit deinen Tools und braucht kein IT-Projekt. Die meisten Teams geben ihm schon am ersten Tag echte Arbeit.',
-      `Ja. <a href="${BOOK_URL}" target="_blank" rel="noopener" data-book="faq">Buch ein 30-minütiges Gespräch</a> — der Gründer führt dich live durch Ocur, an der Arbeit deines eigenen Unternehmens. Bring deine Fragen mit. Oder du überspringst den Termin: Der Free-Plan ist das volle System — teste Ocur heute an echten Aufgaben und sprich mit uns, sobald du es gesehen hast.`,
+      `Ja. <a href="${BOOK_URL}" target="_blank" rel="noopener" data-book="faq">Buch ein 30-minütiges Gespräch</a> — der Gründer führt dich live durch Ocur, an der Arbeit deines eigenen Unternehmens. Bring deine Fragen mit. Oder du überspringst den Termin: Der Free-Plan ist das volle System — teste Ocur heute an echten Aufgaben und sprich mit uns, sobald du es gesehen hast. Oder <a href="#talk">schreib uns</a> — das Formular unter den Preisen dauert eine Minute.`,
     ],
   ],
 
@@ -392,7 +412,7 @@ export const DE = [
   ['.g-final-alt span', 'Lieber erst eine Führung?'],
   ['.g-final-alt a', 'Live-Demo buchen'],
   ['.g-foot em', 'Sag es — oder nicht. Es passiert. Du behältst die Kontrolle.'],
-  ['.g-foot-links a', ['Datenschutz', 'AGB', 'Wohin deine Daten gehen', 'Sei die KI — das Spiel']],
+  ['.g-foot-links a', ['Datenschutz', 'AGB', 'Wohin deine Daten gehen', 'Sei die KI — das Spiel', 'Kontakt']],
   ['.g-foot-org', 'ein Produkt der OcurAI, Inc.'],
   ['#g-dock strong', 'Kostenlos starten'],
   ['.g-dock-sub', 'ohne Kreditkarte'],
@@ -408,6 +428,9 @@ export const DE_ATTRS = [
     'aria-label',
     'Ocur im Zentrum eines Sonnensystems, umkreist von Gmail, Google Kalender, Google Drive, Notion, GitHub, Telegram, WhatsApp, Slack, Discord, E-Mail, deinem Rechner und dem Web — plus ein freier Platz für Konnektoren, die du selbst baust',
   ],
+  ['.g-talk', 'aria-label', 'Schreib uns'],
+  // the no-JS post tells the backend which language to send the visitor back in
+  ['.g-talk input[name="locale"]', 'value', 'de'],
   ['.g-social-x', 'aria-label', 'Ocur auf X'],
   ['.g-social-x', 'title', 'Ocur auf X'],
   // the German page points at the German legal pages (/de/privacy, /de/terms);

@@ -12,6 +12,7 @@
 //   X_PIXEL_TOKEN         Conversions API token — REQUIRED, secret.
 //   X_EVENT_ID_CTA_CLICK  tw-reji3-… id from Events Manager for 'cta_click'.
 //   X_EVENT_ID_BOOK_DEMO  same, for 'book_demo' (the Book-a-demo links).
+//   X_EVENT_ID_LEAD       same, for 'lead' (a sent Talk-to-us form).
 //   X_PIXEL_ID            defaults to 'reji3'.
 //   X_ADS_API_VERSION     defaults to '12'.
 //
@@ -54,6 +55,7 @@ export default async function handler(req, res) {
   const eventIds = {
     cta_click: process.env.X_EVENT_ID_CTA_CLICK,
     book_demo: process.env.X_EVENT_ID_BOOK_DEMO,
+    lead: process.env.X_EVENT_ID_LEAD,
   };
   const eventId = eventIds[body.event];
   if (!eventId) return res.status(400).json({ error: 'unknown or unconfigured event' });

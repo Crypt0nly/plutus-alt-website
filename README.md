@@ -81,18 +81,18 @@ hero until the final section.
 
 ## Book a demo
 
-The one call to action that doesn't lead to sign-up. Five doors, one
-destination: the founder's booking page, which is Ocur's own calendar feature
-served by the app backend (`https://api.ocur.ai/api/book/<slug>` — see
-plutus-cloud's `calendar.py`; the link's title, length and video-call
-location are edited in the app, not here).
+The louder of the two calls to action that don't lead to sign-up (the other
+is the form, next section). Four doors, one destination: the founder's
+booking page, which is Ocur's own calendar feature served by the app backend
+(`https://api.ocur.ai/api/book/<slug>` — see plutus-cloud's `calendar.py`;
+the link's title, length and video-call location are edited in the app, not
+here).
 
 - a glass **Book a demo** pill in the nav beside Start free (desktop only —
   below 1000px the nav pill has no room for two buttons, and the other doors
   carry the phone);
 - the **band under both pricing ladders** ("Rather see it first?"), the main
-  one — on screen whichever audience the switch shows;
-- a *Talk to us* link on the **Enterprise** extra;
+  one — on screen whichever audience the switch shows, beside the form;
 - the last **FAQ** entry ("Can I get a demo first?");
 - a *Book a live demo* line under the **final** Start free.
 
@@ -105,6 +105,39 @@ href is repeated on every link on purpose — the page has to work with no JS,
 and the German prerender copies the markup — so when the booking link
 changes, grep for `data-book` in `index.html` and update `BOOK_URL` in
 `src/strings.de.js` (the German FAQ answer carries its own inline link).
+
+## Talk to us
+
+The quieter door, for everyone not ready to block 30 minutes: a short form
+beside the demo band under the pricing ladders (`#talk`), reached from
+**Contact** in the nav and the footer, **Talk to us** in the phone menu, a
+**Talk to sales →** line under Team, Growth and Scale, the **Enterprise**
+extra, and the demo FAQ. Work email, company, name, an **optional phone
+number** ("so we can call you"), and one line on what Ocur should take off
+their plate; the sales links carry the plan into a hidden field.
+
+It posts to the app backend's `POST /api/leads/<slug>` — the same slug as
+the booking page, so one identifier on the site and the lead reaches
+whoever owns that link (plutus-cloud's `leads.py`; `docs/CRM.md` → Website
+leads). There it becomes a CRM contact tagged `lead` with what they wrote as
+a dated fact, a notification on the founder's channel with the phone number
+first, and an acknowledgement to the visitor from the founder's own inbox
+(English or German). With JS the script posts JSON through the same-origin
+rewrite in `vercel.json` (`/leads/api/<slug>`, so ad blockers that stop
+cross-origin API calls don't lose leads) and shows the answer inline; the
+form's own `action` is the direct URL, so with no JS the backend takes the
+plain post and sends the visitor back to `/?sent=1#talk` (`/de/…` on the
+German page), which the script renders as the same thank-you. A hidden
+honeypot field, per-address and per-link rate limits live on the backend.
+
+Analytics: PostHog gets `talk_open` (a sales link, with the plan) and
+`lead_submit` (with plan and whether a phone and a company were given);
+X Ads gets a `lead` conversion through the same dual-fire path as the
+other two (`VITE_X_EVENT_ID_LEAD` / `X_EVENT_ID_LEAD`, dormant until set).
+German copy: the labels and lines in `src/strings.de.js` (the status
+messages are in `src/main.js`, keyed on the page language), and the hidden
+`locale` field flips to `de` in the prerender so a no-JS post comes back
+to the German page.
 
 ## Tech notes
 
