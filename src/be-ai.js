@@ -22,7 +22,7 @@ import { ShapeChallenge } from './be-ai-shapes.js';
 
 const API = import.meta.env.VITE_BE_AI_API || '/be-ai/api';
 const WS_URL = import.meta.env.VITE_BE_AI_WS || 'wss://api.ocur.ai/api/be-ai/ws';
-const SIGNUP = 'https://app.ocur.ai?utm_source=be-ai&utm_medium=referral&utm_campaign=reverse-turing';
+const SIGNUP = 'https://app.ocur.ai/?auth=sign-up&utm_source=be-ai&utm_medium=referral&utm_campaign=reverse-turing';
 const PID_KEY = 'ocur-beai-pid';
 const NAME_KEY = 'ocur-beai-name';
 const MAX_Q = 280;

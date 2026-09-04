@@ -9,14 +9,17 @@
 //  3. On CTA click, fire the conversion both ways with one conversion_id so
 //     X deduplicates: through the pixel (twq('event'), works while uwt.js
 //     isn't ad-blocked) and through our serverless Conversions API relay
-//     (api/x-conversions.js, survives ad blockers).
+//     (api/x-conversions.js, survives ad blockers). Two events ride this
+//     path: cta_click (Start free → app.ocur.ai) and book_demo (any
+//     data-book link → the founder's booking page).
 //
-// Event ids come from X Events Manager. VITE_X_EVENT_ID_CTA_CLICK gates the
+// Event ids come from X Events Manager. The VITE_X_EVENT_ID_* vars gate the
 // browser leg at build time (event ids are public by design — they ship in
 // page source on every site that uses them); the relay is gated by its own
 // server-side env and just no-ops with 501 until configured.
 
 const CTA_EVENT_ID = import.meta.env.VITE_X_EVENT_ID_CTA_CLICK;
+const BOOK_EVENT_ID = import.meta.env.VITE_X_EVENT_ID_BOOK_DEMO;
 const TWCLID_KEY = 'ocur-twclid';
 const CLICK_WINDOW_MS = 30 * 24 * 60 * 60 * 1000;
 
@@ -90,5 +93,12 @@ export function initXAds() {
       } catch {}
     }
     a.addEventListener('click', () => trackXConversion('cta_click', CTA_EVENT_ID));
+  });
+
+  // demo bookings are the second conversion. The booking page lives on the
+  // app backend, not app.ocur.ai, so the link gets no twclid — the relay
+  // still attributes through the stored twclid or the ip/user-agent pair.
+  document.querySelectorAll('a[data-book]').forEach((a) => {
+    a.addEventListener('click', () => trackXConversion('book_demo', BOOK_EVENT_ID));
   });
 }

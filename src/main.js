@@ -103,6 +103,14 @@ if (seg) {
   });
 }
 
+// --------------------------------------------------- book a demo
+// Every data-book link (nav, pricing band, Enterprise extra, FAQ, final)
+// opens the founder's booking page in a new tab; count the click by where
+// on the page it came from. The X Ads conversion rides in xads.js.
+document.querySelectorAll('a[data-book]').forEach((a) => {
+  a.addEventListener('click', () => track('book_demo_click', { placement: a.dataset.book }));
+});
+
 if (motion) {
   gsap.registerPlugin(ScrollTrigger, SplitText);
 
