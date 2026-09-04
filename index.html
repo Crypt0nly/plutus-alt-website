@@ -144,13 +144,12 @@
         <a href="#features">Features</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
-        <a href="#talk">Contact</a>
       </nav>
       <a class="g-login" href="https://app.ocur.ai/?auth=sign-in">Log in</a>
-      <!-- Book a demo: the founder's own booking page (Ocur's calendar feature,
-           served by the app backend). Every data-book link on the page carries
-           the same href — grep data-book when the slug changes. -->
-      <a class="g-btn g-btn-sm g-btn-glass g-nav-book lg magnetic" href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="nav">Book a demo</a>
+      <!-- Talk to us: the lead form under the pricing (#talk). The founder's
+           booking page is one line inside that form — grep data-book when the
+           slug changes. -->
+      <a class="g-btn g-btn-sm g-btn-glass g-nav-talk lg magnetic" href="#talk" data-talk-from="nav">Talk to us</a>
       <a class="g-btn g-btn-sm magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
       <button class="g-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="g-menu">
         <span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -165,12 +164,11 @@
         <a href="#start">Your first ten minutes</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
-        <a href="#talk">Talk to us</a>
       </nav>
       <div class="g-menu-ctas">
         <a class="g-btn g-btn-glass lg" href="https://app.ocur.ai/?auth=sign-in">Log in</a>
         <a class="g-btn" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
-        <a class="g-btn g-btn-glass lg g-menu-book" href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="menu">Book a demo</a>
+        <a class="g-btn g-btn-glass lg g-menu-talk" href="#talk" data-talk-from="menu">Talk to us</a>
       </div>
       <div class="g-menu-foot"></div>
     </div>
@@ -189,9 +187,9 @@
           </p>
           <div class="g-ctas">
             <a class="g-btn g-btn-lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
-            <a class="g-btn g-btn-glass lg magnetic" href="#demo">Watch it work</a>
+            <a class="g-btn g-btn-glass lg magnetic g-hero-talk" href="#talk" data-talk-from="hero">Talk to us</a>
           </div>
-          <p class="g-micro">Free pilot&nbsp;&nbsp;·&nbsp;&nbsp;No credit card&nbsp;&nbsp;·&nbsp;&nbsp;No IT project</p>
+          <p class="g-micro"><a class="g-micro-watch" href="#demo">Watch it work ↓</a>&nbsp;&nbsp;·&nbsp;&nbsp;Free pilot&nbsp;&nbsp;·&nbsp;&nbsp;No credit card</p>
           <div class="g-stats">
             <div class="g-stat"><strong data-count="1.5" data-decimals="1" data-suffix="M">1.5M</strong><span>free tokens / month</span></div>
             <div class="g-stat"><strong data-count="60" data-suffix="s">60s</strong><span>to roll out</span></div>
@@ -485,12 +483,15 @@
                 <h3>Free</h3>
                 <p class="g-price">$0<span>/month</span></p>
                 <p class="g-price-alt">No credit card. No trial clock.</p>
-                <ul>
-                  <li>The full operating system</li>
-                  <li>Email, calendar, files, chat &amp; the web</li>
-                  <li>Ocur on WhatsApp, Telegram, Slack &amp; Discord</li>
-                  <li>On demand: you ask, Ocur does it</li>
-                </ul>
+                <details class="g-card-more" open>
+                  <summary>What's included</summary>
+                  <ul>
+                    <li>The full operating system</li>
+                    <li>Email, calendar, files, chat &amp; the web</li>
+                    <li>Ocur on WhatsApp, Telegram, Slack &amp; Discord</li>
+                    <li>On demand: you ask, Ocur does it</li>
+                  </ul>
+                </details>
                 <p class="g-meta">1.5M tokens of Ocur-work / month</p>
                 <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
               </article>
@@ -499,13 +500,16 @@
                 <h3>Starter</h3>
                 <p class="g-price">$29<span>/month</span></p>
                 <p class="g-price-alt">or $290 a year — 2 months free</p>
-                <ul>
-                  <li>Everything in Free</li>
-                  <li>3× the monthly work of Free</li>
-                  <li>Autopilot — Ocur works while you're away</li>
-                  <li>Its own phone number and inbox</li>
-                  <li>Scheduled jobs, morning briefs, automations</li>
-                </ul>
+                <details class="g-card-more" open>
+                  <summary>What's included</summary>
+                  <ul>
+                    <li>Everything in Free</li>
+                    <li>3× the monthly work of Free</li>
+                    <li>Autopilot — Ocur works while you're away</li>
+                    <li>Its own phone number and inbox</li>
+                    <li>Scheduled jobs, morning briefs, automations</li>
+                  </ul>
+                </details>
                 <p class="g-meta">5M tokens of Ocur-work / month</p>
                 <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=starter">Get Starter</a>
               </article>
@@ -515,12 +519,15 @@
                 <h3>Pro</h3>
                 <p class="g-price">$149<span>/month</span></p>
                 <p class="g-price-alt">or $1,490 a year — 2 months free</p>
-                <ul>
-                  <li>Everything in Starter</li>
-                  <li>5× the work of Starter</li>
-                  <li>Up to 10 AI workers at once</li>
-                  <li>Hand off a whole backlog in one message</li>
-                </ul>
+                <details class="g-card-more" open>
+                  <summary>What's included</summary>
+                  <ul>
+                    <li>Everything in Starter</li>
+                    <li>5× the work of Starter</li>
+                    <li>Up to 10 AI workers at once</li>
+                    <li>Hand off a whole backlog in one message</li>
+                  </ul>
+                </details>
                 <p class="g-meta">25M tokens of Ocur-work / month</p>
                 <a class="g-btn magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=pro">Get Pro</a>
               </article>
@@ -529,11 +536,14 @@
                 <h3>Pro Plus</h3>
                 <p class="g-price">$299<span>/month</span></p>
                 <p class="g-price-alt">or $2,990 a year — 2 months free</p>
-                <ul>
-                  <li>Everything in Pro</li>
-                  <li>Double the work of Pro</li>
-                  <li>Unlimited AI workers</li>
-                </ul>
+                <details class="g-card-more" open>
+                  <summary>What's included</summary>
+                  <ul>
+                    <li>Everything in Pro</li>
+                    <li>Double the work of Pro</li>
+                    <li>Unlimited AI workers</li>
+                  </ul>
+                </details>
                 <p class="g-meta">50M tokens of Ocur-work / month</p>
                 <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=pro-plus">Get Pro Plus</a>
               </article>
@@ -556,13 +566,16 @@
                 <h3>Team</h3>
                 <p class="g-price">$399<span>/month</span></p>
                 <p class="g-price-alt">or $4,389 a year — one month free</p>
-                <ul>
-                  <li>Unlimited human members — invites are free</li>
-                  <li>2 AI workers with real jobs and schedules</li>
-                  <li>One shared pool for the whole team</li>
-                  <li>Shared company memory and knowledge</li>
-                  <li>Ocur on WhatsApp, Telegram, Slack, Teams &amp; email</li>
-                </ul>
+                <details class="g-card-more" open>
+                  <summary>What's included</summary>
+                  <ul>
+                    <li>Unlimited human members — invites are free</li>
+                    <li>2 AI workers with real jobs and schedules</li>
+                    <li>One shared pool for the whole team</li>
+                    <li>Shared company memory and knowledge</li>
+                    <li>Ocur on WhatsApp, Telegram, Slack, Teams &amp; email</li>
+                  </ul>
+                </details>
                 <p class="g-meta">48M tokens of Ocur-work a month, pooled</p>
                 <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=team">Get Team</a>
                 <a class="g-card-talk" href="#talk" data-talk="team">Talk to sales →</a>
@@ -573,13 +586,16 @@
                 <h3>Growth</h3>
                 <p class="g-price">$1,500<span>/month</span></p>
                 <p class="g-price-alt">or $16,500 a year — one month free</p>
-                <ul>
-                  <li>Everything in Team</li>
-                  <li>5× the pooled work of Team</li>
-                  <li>5 AI workers with real jobs and schedules</li>
-                  <li>Org-wide memory, guardrails &amp; governance</li>
-                  <li>Custom tools, Live Apps and automations</li>
-                </ul>
+                <details class="g-card-more" open>
+                  <summary>What's included</summary>
+                  <ul>
+                    <li>Everything in Team</li>
+                    <li>5× the pooled work of Team</li>
+                    <li>5 AI workers with real jobs and schedules</li>
+                    <li>Org-wide memory, guardrails &amp; governance</li>
+                    <li>Custom tools, Live Apps and automations</li>
+                  </ul>
+                </details>
                 <p class="g-meta">240M tokens of Ocur-work a month, pooled</p>
                 <a class="g-btn magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=growth">Get Growth</a>
                 <a class="g-card-talk" href="#talk" data-talk="growth">Talk to sales →</a>
@@ -589,13 +605,16 @@
                 <h3>Scale</h3>
                 <p class="g-price">$5,000<span>/month</span></p>
                 <p class="g-price-alt">or $55,000 a year — one month free</p>
-                <ul>
-                  <li>Everything in Growth</li>
-                  <li>Nearly 3× the pool of Growth</li>
-                  <li>15 AI workers across teams and departments</li>
-                  <li>Org intelligence digest for leadership</li>
-                  <li>Priority support and onboarding</li>
-                </ul>
+                <details class="g-card-more" open>
+                  <summary>What's included</summary>
+                  <ul>
+                    <li>Everything in Growth</li>
+                    <li>Nearly 3× the pool of Growth</li>
+                    <li>15 AI workers across teams and departments</li>
+                    <li>Org intelligence digest for leadership</li>
+                    <li>Priority support and onboarding</li>
+                  </ul>
+                </details>
                 <p class="g-meta">680M tokens of Ocur-work a month, pooled</p>
                 <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=scale">Get Scale</a>
                 <a class="g-card-talk" href="#talk" data-talk="scale">Talk to sales →</a>
@@ -623,34 +642,19 @@
             </p>
           </div>
 
-          <!-- two doors that aren't sign-up, side by side under both ladders so
-               they're on screen whichever audience the switch is showing: a call
-               with the founder (his booking page), or a message that reaches him
-               the same minute (the "Talk to us" form — see README → Talk to us).
-               The form's own action is the app backend's direct URL, so it still
-               works with no JS; the script posts JSON through the same-origin
-               rewrite in vercel.json instead and shows the answer inline. -->
-          <div class="g-doors" id="talk">
-            <div class="g-book lg glare" id="book">
-              <div class="g-book-copy">
-                <p class="g-book-kicker"><span class="g-kdot" aria-hidden="true"></span>Live demo</p>
-                <h3>Rather see it first?</h3>
-                <p class="g-book-text">
-                  Book a 30-minute call with the founder — a live walkthrough of Ocur on your
-                  company's own work, and straight answers to the hard questions.
-                </p>
-              </div>
-              <div class="g-book-cta">
-                <a class="g-btn magnetic" href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="pricing">Book a demo</a>
-                <span class="g-book-sub">30 minutes · video call · pick your slot</span>
-              </div>
-            </div>
+          <!-- Talk to us — the one door that isn't sign-up, under both ladders
+               so it's on screen whichever audience the switch shows (and one
+               tap away from the hero, the nav and the phone menu). The founder's
+               booking page is a line inside it. The form's own action is the app
+               backend's direct URL, so it works with no JS; the script posts JSON
+               through the same-origin rewrite in vercel.json and shows the
+               answer inline (README → Talk to us). -->
+          <div class="g-talk-wrap" id="talk">
             <form class="g-talk lg glare" id="g-talk" action="https://api.ocur.ai/api/leads/gJM0Hx8-5SY" method="post" data-endpoint="/leads/api/gJM0Hx8-5SY" aria-label="Talk to us" novalidate>
               <p class="g-talk-kicker"><span class="g-kdot" aria-hidden="true"></span>Talk to us</p>
-              <h3>Not ready for a call? Write to us.</h3>
+              <h3>Tell us what you'd hand Ocur first.</h3>
               <p class="g-talk-text">
-                Tell us what you'd hand Ocur first. You'll hear back within one business day —
-                by email, or by phone if you leave a number.
+                You'll hear back within one business day — by email, or by phone if you leave a number.
               </p>
               <div class="g-talk-grid">
                 <label class="g-field"><span>Work email</span><input name="email" type="email" required autocomplete="email" inputmode="email" /></label>
@@ -665,9 +669,10 @@
               <div class="g-hp" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off" /></label></div>
               <div class="g-talk-foot">
                 <button class="g-btn magnetic" type="submit">Send</button>
-                <p class="g-talk-sub">Read by the founder personally. <a href="/privacy">Privacy</a></p>
+                <p class="g-talk-sub">Read by the founder personally · <a href="/privacy">Privacy</a></p>
               </div>
               <p class="g-talk-status" role="status" aria-live="polite"></p>
+              <p class="g-talk-book">Prefer a live walkthrough? <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="talk">Book a 30-minute call with the founder →</a></p>
             </form>
           </div>
         </div>
@@ -733,7 +738,7 @@
           <h2 class="g-final-h">Run the company.<br /><span class="g-grad">Not the busywork.</span></h2>
           <a class="g-btn g-btn-lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
           <p class="g-micro">Free pilot&nbsp;&nbsp;·&nbsp;&nbsp;No credit card&nbsp;&nbsp;·&nbsp;&nbsp;Live in minutes</p>
-          <p class="g-final-alt"><span>Prefer a walkthrough first?</span> <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="final">Book a live demo</a></p>
+          <p class="g-final-alt"><span>Questions first?</span> <a href="#talk" data-talk-from="final">Talk to us</a></p>
           <footer class="g-foot">
             <span>Ocur © <span id="g-year">2026</span> · <span class="g-foot-org">a product of OcurAI, Inc.</span></span>
             <nav class="g-foot-links" aria-label="Legal">
@@ -741,7 +746,7 @@
               <a href="/terms">Terms of Service</a>
               <a href="/data">Where your data goes</a>
               <a href="/be-ai/">Be the AI — the game</a>
-              <a href="#talk">Contact</a>
+              <a href="#talk" data-talk-from="footer">Contact</a>
             </nav>
             <span><em>Say it — or don’t. It happens. You stay in charge.</em></span>
             <a

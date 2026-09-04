@@ -103,24 +103,50 @@ if (seg) {
   });
 }
 
+// --------------------------------------------- plan cards on a phone
+// Each feature list sits in a <details> that's open in the markup (desktop,
+// crawlers and a page without JS all see it). On a phone the lists fold
+// behind "What's included", so a ladder is four short cards instead of
+// four screens; opening one is worth knowing.
+const folds = [...document.querySelectorAll('.g-card-more')];
+if (folds.length) {
+  const phone = matchMedia('(max-width: 880px)');
+  const fold = (compact) => folds.forEach((d) => (d.open = !compact));
+  fold(phone.matches);
+  phone.addEventListener('change', (e) => fold(e.matches));
+  folds.forEach((d) => {
+    d.addEventListener('toggle', () => {
+      if (d.open && phone.matches) {
+        track('pricing_features_open', { plan: d.closest('.g-card')?.querySelector('h3')?.textContent.trim() || '' });
+      }
+      if (motion) ScrollTrigger.refresh();
+    });
+  });
+}
+
 // --------------------------------------------------- book a demo
-// Every data-book link (nav, pricing band, FAQ, final) opens the founder's
-// booking page in a new tab; count the click by where on the page it came
-// from. The X Ads conversion rides in xads.js.
+// The founder's booking page is one line inside the Talk-to-us form and the
+// demo FAQ; every data-book link opens it in a new tab, counted by where on
+// the page it came from. The X Ads conversion rides in xads.js.
 document.querySelectorAll('a[data-book]').forEach((a) => {
   a.addEventListener('click', () => track('book_demo_click', { placement: a.dataset.book }));
 });
 
 // --------------------------------------------------- talk to us
-// The second door under the ladders: a message instead of a booked slot.
+// The one door that isn't sign-up: a message, under the ladders and one tap
+// from the hero, the nav pill, the phone menu and the final Start free.
 // Posts JSON to the app backend through the same-origin rewrite in
 // vercel.json (/leads/api/<slug> → api.ocur.ai/api/leads/<slug>); the
 // form's own action is the direct URL, so it still works with no JS (the
 // backend sends that post back here with ?sent=1). The "Talk to sales"
 // links on the business tiers and the Enterprise extra scroll here and
-// carry the plan into the hidden field, which the lead lands with.
+// carry the plan into the hidden field, which the lead lands with; the
+// other doors just say where they came from.
 const talk = document.getElementById('g-talk');
 if (talk) {
+  document.querySelectorAll('a[data-talk-from]').forEach((a) => {
+    a.addEventListener('click', () => track('talk_open', { from: a.dataset.talkFrom }));
+  });
   const de = document.documentElement.lang === 'de';
   const status = talk.querySelector('.g-talk-status');
   const planField = talk.querySelector('input[name="plan"]');
@@ -205,7 +231,7 @@ if (motion) {
   // nav anchors glide
   document
     .querySelectorAll(
-      '.g-links a[href^="#"], .g-menu-links a[href^="#"], .g-ctas a[href^="#"], a[data-talk][href^="#"], .g-faq a[href^="#"], .g-foot-links a[href^="#"]',
+      '.g-links a[href^="#"], .g-menu-links a[href^="#"], .g-menu-ctas a[href^="#"], .g-nav-talk, .g-ctas a[href^="#"], .g-micro a[href^="#"], a[data-talk][href^="#"], .g-final-alt a[href^="#"], .g-faq a[href^="#"], .g-foot-links a[href^="#"]',
     )
     .forEach((a) => {
     a.addEventListener('click', (e) => {

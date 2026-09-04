@@ -26,11 +26,11 @@ const BOOK_URL = 'https://api.ocur.ai/api/book/gJM0Hx8-5SY';
 // array applies element-by-element in DOM order.
 export const DE = [
   // nav ("Book a demo", then "Start free") + the phone menu
-  ['header .g-btn-sm', ['Demo buchen', 'Kostenlos starten']],
+  ['header .g-btn-sm', ['Schreib uns', 'Kostenlos starten']],
   ['.g-login', 'Anmelden'],
-  ['.g-links a', ['In Aktion', 'Das System', 'Funktionen', 'Preise', 'FAQ', 'Kontakt']],
-  ['.g-menu-links a', ['In Aktion', 'Das System', 'Funktionen', 'Deine ersten zehn Minuten', 'Preise', 'FAQ', 'Schreib uns']],
-  ['.g-menu-ctas a', ['Anmelden', 'Kostenlos starten', 'Demo buchen']],
+  ['.g-links a', ['In Aktion', 'Das System', 'Funktionen', 'Preise', 'FAQ']],
+  ['.g-menu-links a', ['In Aktion', 'Das System', 'Funktionen', 'Deine ersten zehn Minuten', 'Preise', 'FAQ']],
+  ['.g-menu-ctas a', ['Anmelden', 'Kostenlos starten', 'Schreib uns']],
 
   // hero
   ['.g-kicker', '<span class="g-kdot" aria-hidden="true"></span>Das KI-Betriebssystem für Unternehmen'],
@@ -39,11 +39,11 @@ export const DE = [
     '.g-sub',
     'Ocur beantwortet deine E-Mails und geht ans Telefon, mahnt offene Rechnungen an, vergisst kein Versprechen — und erledigt die Arbeit direkt in deinen Tools. Auf Zuruf oder komplett auf Autopilot.',
   ],
-  ['.g-ctas a', ['Kostenlos starten', 'Demo ansehen']],
+  ['.g-ctas a', ['Kostenlos starten', 'Schreib uns']],
   [
     '.g-micro',
     [
-      'Kostenlos testen&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte&nbsp;&nbsp;·&nbsp;&nbsp;Kein IT-Projekt',
+      '<a class="g-micro-watch" href="#demo">Demo ansehen ↓</a>&nbsp;&nbsp;·&nbsp;&nbsp;Kostenlos testen&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte',
       'Kostenlos testen&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte&nbsp;&nbsp;·&nbsp;&nbsp;In Minuten live',
     ],
   ],
@@ -340,23 +340,15 @@ export const DE = [
     ],
   ],
 
-  // the two doors under both ladders: book a demo, or write to us (the
-  // form — labels and copy; the status lines live in main.js)
-  ['.g-book-kicker', '<span class="g-kdot" aria-hidden="true"></span>Live-Demo'],
-  ['.g-book h3', 'Lieber erst mal ansehen?'],
-  [
-    '.g-book-text',
-    'Buch dir 30 Minuten mit dem Gründer — eine Live-Führung durch Ocur an der Arbeit deines eigenen Unternehmens, und klare Antworten auf die harten Fragen.',
-  ],
-  ['.g-book .g-btn', 'Demo buchen'],
-  ['.g-book-sub', '30 Minuten · Videocall · Termin frei wählbar'],
+  // the one door under both ladders: the Talk-to-us form (labels and copy;
+  // the status lines live in main.js) with the booking page as a line in it
   ['.g-extra-link', 'Sprich mit uns →'],
   ['.g-card-talk', 'Mit dem Vertrieb sprechen →'],
   ['.g-talk-kicker', '<span class="g-kdot" aria-hidden="true"></span>Schreib uns'],
-  ['.g-talk h3', 'Noch kein Termin? Schreib uns.'],
+  ['.g-talk h3', 'Erzähl uns, was Ocur als Erstes übernehmen soll.'],
   [
     '.g-talk-text',
-    'Erzähl uns, was Ocur als Erstes übernehmen soll. Du hörst innerhalb eines Werktags von uns — per E-Mail, oder per Anruf, wenn du eine Nummer dalässt.',
+    'Du hörst innerhalb eines Werktags von uns — per E-Mail, oder per Anruf, wenn du eine Nummer dalässt.',
   ],
   [
     '.g-talk .g-field > span',
@@ -369,7 +361,12 @@ export const DE = [
     ],
   ],
   ['.g-talk button[type="submit"]', 'Senden'],
-  ['.g-talk-sub', 'Liest der Gründer persönlich. <a href="/de/privacy">Datenschutz</a>'],
+  ['.g-talk-sub', 'Liest der Gründer persönlich · <a href="/de/privacy">Datenschutz</a>'],
+  [
+    '.g-talk-book',
+    `Lieber eine Live-Führung? <a href="${BOOK_URL}" target="_blank" rel="noopener" data-book="talk">30 Minuten mit dem Gründer buchen →</a>`,
+  ],
+  ['.g-card-more > summary', 'Was drin ist'],
 
   // FAQ
   ['#faq .g-h2', 'Fragen, <span class="g-grad">beantwortet.</span>'],
@@ -409,8 +406,8 @@ export const DE = [
   // final + dock
   ['.g-final-h', 'Führ dein Unternehmen —<br /><span class="g-grad">nicht deinen Posteingang.</span>'],
   ['.g-final .g-btn', 'Kostenlos starten'],
-  ['.g-final-alt span', 'Lieber erst eine Führung?'],
-  ['.g-final-alt a', 'Live-Demo buchen'],
+  ['.g-final-alt span', 'Erst noch Fragen?'],
+  ['.g-final-alt a', 'Schreib uns'],
   ['.g-foot em', 'Sag es — oder nicht. Es passiert. Du behältst die Kontrolle.'],
   ['.g-foot-links a', ['Datenschutz', 'AGB', 'Wohin deine Daten gehen', 'Sei die KI — das Spiel', 'Kontakt']],
   ['.g-foot-org', 'ein Produkt der OcurAI, Inc.'],
