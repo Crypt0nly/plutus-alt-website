@@ -386,7 +386,7 @@ html.motion .g-cursor {
   display: none;
 }
 
-@media (min-width: 881px) {
+@media (min-width: 1101px) {
   .g-menu {
     display: none;
   }
@@ -625,6 +625,28 @@ html.menu-open {
   font-size: 13.5px;
   color: var(--g-dim);
 }
+
+.g-desktop-download {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: 16px;
+  font-size: 0.875rem;
+}
+
+.g-desktop-download a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  color: var(--g-ink);
+  text-underline-offset: 4px;
+}
+
+.g-desktop-download a:hover { color: var(--g-orange); text-decoration: underline; }
+.g-desktop-platforms { color: var(--g-dim); }
 
 .g-stats {
   display: flex;
@@ -2135,13 +2157,13 @@ html.motion .g-dock::before {
 /* -------------------------------------------------------- responsive */
 
 /* two buttons don't fit the nav pill beside the links at tablet widths */
-@media (max-width: 1000px) {
+@media (max-width: 1280px) {
   .g-nav-book {
     display: none;
   }
 }
 
-@media (max-width: 880px) {
+@media (max-width: 1100px) {
   .g-links,
   .g-login,
   .g-nav > .g-lang {
@@ -2156,6 +2178,9 @@ html.motion .g-dock::before {
     gap: 10px;
     padding-right: 8px;
   }
+}
+
+@media (max-width: 880px) {
 
   .g-steps {
     grid-template-columns: 1fr;
