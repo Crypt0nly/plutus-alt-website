@@ -43,7 +43,7 @@ if (!motion) {
 }
 
 // --------------------------------------------------- phone menu
-// Below 880px the nav links vanish (see style.css); the burger opens a
+// Below 1100px the nav links move into the menu (see style.css); the burger opens a
 // glass sheet under the nav with the links, both doors into the app and
 // the language switch (i18n.js clones it in). A tap on any link closes it.
 const burger = document.querySelector('.g-burger');
@@ -62,7 +62,7 @@ if (burger && menu) {
   addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !menu.hidden) setOpen(false);
   });
-  matchMedia('(min-width: 881px)').addEventListener('change', (e) => {
+  matchMedia('(min-width: 1101px)').addEventListener('change', (e) => {
     if (e.matches) setOpen(false);
   });
 }

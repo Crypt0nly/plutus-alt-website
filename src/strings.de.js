@@ -28,8 +28,8 @@ export const DE = [
   // nav ("Book a demo", then "Start free") + the phone menu
   ['header .g-btn-sm', ['Demo buchen', 'Kostenlos starten']],
   ['.g-login', 'Anmelden'],
-  ['.g-links a', ['In Aktion', 'Das System', 'Funktionen', 'Preise', 'FAQ', 'Kontakt']],
-  ['.g-menu-links a', ['In Aktion', 'Das System', 'Funktionen', 'Deine ersten zehn Minuten', 'Preise', 'FAQ', 'Schreib uns']],
+  ['.g-links a', ['In Aktion', 'Das System', 'Funktionen', 'Preise', 'FAQ', 'Kontakt', 'Download']],
+  ['.g-menu-links a', ['In Aktion', 'Das System', 'Funktionen', 'Deine ersten zehn Minuten', 'Preise', 'FAQ', 'Schreib uns', 'Desktop-App herunterladen']],
   ['.g-menu-ctas a', ['Anmelden', 'Kostenlos starten', 'Demo buchen']],
 
   // hero
@@ -40,6 +40,7 @@ export const DE = [
     'Ocur beantwortet deine E-Mails und geht ans Telefon, mahnt offene Rechnungen an, vergisst kein Versprechen — und erledigt die Arbeit direkt in deinen Tools. Auf Zuruf oder komplett auf Autopilot.',
   ],
   ['.g-ctas a', ['Kostenlos starten', 'Demo ansehen']],
+  ['.g-desktop-download a', 'Ocur Desktop herunterladen <span aria-hidden="true">↗</span>'],
   [
     '.g-micro',
     [
@@ -394,7 +395,7 @@ export const DE = [
     [
       'Ja, wirklich. Der Free-Plan ist das volle Betriebssystem mit monatlichem Arbeitsvolumen — genug, um Ocur an echten Aufgaben zu testen. Keine Kreditkarte, keine Frist. Überzeugt es, ist das Upgrade einen Klick entfernt.',
       'Ein Chat-Assistent gibt dir eine Antwort — die Arbeit bleibt trotzdem bei dir. Ocur macht den Job fertig, dort, wo er hingehört: mit eigenem Postfach und eigener Telefonnummer, auf Autopilot auch wenn du weg bist, mit lebenden Registern für Versprechen, Geld, Pipeline und Lager. Das Ergebnis landet in deinen Tools — nicht in deiner Zwischenablage.',
-      'Nein. Ocur läuft im Browser — und du erreichst Ocur genauso aus WhatsApp, Telegram, Slack oder Discord. Soll es auch auf deinem Rechner arbeiten? Eine kleine Begleit-App verbindet ihn in unter einer Minute.',
+      'Nein — Ocur läuft im Browser. Lieber eine eigene App? <a href="https://app.ocur.ai/download" data-download="faq">Lade Ocur Desktop für Windows, macOS oder Linux herunter</a> und melde dich im selben Workspace an. Eine Internetverbindung ist erforderlich. Ocur Companion ist eine separate, optionale App, die die lokalen Tools deines Rechners verbindet.',
       'Nur, wo du es erlaubst. Standardmäßig wartet alles Wichtige auf deine Freigabe. Erst auf Autopilot erledigt Ocur ganze Abläufe von selbst — jeder Schritt protokolliert. Was allein laufen darf, bestimmst du jederzeit, Ruhezeiten inklusive.',
       'Dann siehst du ihn — jede Aktion steht im Protokoll, mit dem Was und dem Warum. Alles Wichtige hat ohnehin auf deine Freigabe gewartet. Korrigier es in ganz normaler Sprache — Ocur merkt sich die Korrektur, und derselbe Fehler passiert kein zweites Mal.',
       'Gmail, Google Kalender &amp; Drive, Notion, GitHub, WhatsApp, Telegram, Slack und Discord — dazu das Web und auf Wunsch deinen eigenen Rechner. Konten verbindest du einzeln und trennst sie jederzeit wieder.',
@@ -412,7 +413,7 @@ export const DE = [
   ['.g-final-alt span', 'Lieber erst eine Führung?'],
   ['.g-final-alt a', 'Live-Demo buchen'],
   ['.g-foot em', 'Sag es — oder nicht. Es passiert. Du behältst die Kontrolle.'],
-  ['.g-foot-links a', ['Datenschutz', 'AGB', 'Wohin deine Daten gehen', 'Sei die KI — das Spiel', 'Kontakt']],
+  ['.g-foot-links a', ['Datenschutz', 'AGB', 'Wohin deine Daten gehen', 'Sei die KI — das Spiel', 'Kontakt', 'Desktop-App herunterladen']],
   ['.g-foot-org', 'ein Produkt der OcurAI, Inc.'],
   ['#g-dock strong', 'Kostenlos starten'],
   ['.g-dock-sub', 'ohne Kreditkarte'],
@@ -435,7 +436,7 @@ export const DE_ATTRS = [
   ['.g-social-x', 'title', 'Ocur auf X'],
   // the German page points at the German legal pages (/de/privacy, /de/terms);
   // matched on the English href, so this stays correct however the footer moves
-  ['.g-foot-links', 'aria-label', 'Rechtliches'],
+  ['.g-foot-links', 'aria-label', 'Weiterführende Links'],
   ['.g-foot-links a[href="/privacy"]', 'href', '/de/privacy'],
   ['.g-foot-links a[href="/terms"]', 'href', '/de/terms'],
   ['.g-foot-links a[href="/data"]', 'href', '/de/data'],
