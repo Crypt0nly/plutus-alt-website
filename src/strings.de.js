@@ -29,7 +29,7 @@ export const DE = [
   ['header .g-btn-sm', ['Demo buchen', 'Kostenlos starten']],
   ['.g-login', 'Anmelden'],
   ['.g-links a', ['In Aktion', 'Das System', 'Funktionen', 'Preise', 'FAQ', 'Kontakt', 'Download']],
-  ['.g-menu-links a', ['In Aktion', 'Das System', 'Funktionen', 'Deine ersten zehn Minuten', 'Preise', 'FAQ', 'Schreib uns', 'Desktop-App herunterladen']],
+  ['.g-menu-links a', ['In Aktion', 'Das System', 'Funktionen', 'Deine ersten zehn Minuten', 'Preise', 'Beta testen', 'FAQ', 'Schreib uns', 'Desktop-App herunterladen']],
   ['.g-menu-ctas a', ['Anmelden', 'Kostenlos starten', 'Demo buchen']],
 
   // hero
@@ -372,6 +372,24 @@ export const DE = [
   ['.g-talk button[type="submit"]', 'Senden'],
   ['.g-talk-sub', 'Liest der Gründer persönlich. <a href="/de/privacy">Datenschutz</a>'],
 
+  // Beta-Warteliste
+  ['.g-beta-kicker', '<span class="g-kdot" aria-hidden="true"></span>Beta-Programm'],
+  ['.g-beta-h', 'Nutze Ocur <span class="g-grad">vor allen anderen.</span>'],
+  [
+    '.g-beta-text',
+    'Jeder neue Teil von Ocur geht zuerst an eine kleine Gruppe — die Konnektoren, die Autopiloten, alles, was noch zu frisch für eine Ankündigung ist. Lass deine E-Mail da, und du bekommst eine Einladung, sobald ein Platz frei wird.',
+  ],
+  ['.g-beta .g-field > span', 'E-Mail'],
+  ['.g-beta button[type="submit"]', 'Auf die Warteliste'],
+  [
+    '.g-beta-form > .g-beta-sub',
+    'Nur deine E-Mail, sonst nichts. Wir schreiben einmal, um sie zu bestätigen — und dann erst wieder, wenn deine Einladung bereit ist. <a href="/de/privacy">Datenschutz</a>',
+  ],
+  [
+    '.g-beta-nojs',
+    'Die Warteliste braucht JavaScript — statt dich einen Test lösen zu lassen, rechnet dein Browser eine kleine Aufgabe. <a href="#talk">Schreib uns</a> stattdessen, wir tragen dich von Hand ein.',
+  ],
+
   // FAQ
   ['#faq .g-h2', 'Fragen, <span class="g-grad">beantwortet.</span>'],
   [
@@ -413,7 +431,7 @@ export const DE = [
   ['.g-final-alt span', 'Lieber erst eine Führung?'],
   ['.g-final-alt a', 'Live-Demo buchen'],
   ['.g-foot em', 'Sag es — oder nicht. Es passiert. Du behältst die Kontrolle.'],
-  ['.g-foot-links a', ['Datenschutz', 'AGB', 'Wohin deine Daten gehen', 'Sei die KI — das Spiel', 'Kontakt', 'Desktop-App herunterladen']],
+  ['.g-foot-links a', ['Datenschutz', 'AGB', 'Wohin deine Daten gehen', 'Sei die KI — das Spiel', 'Beta testen', 'Kontakt', 'Desktop-App herunterladen']],
   ['.g-foot-org', 'ein Produkt der OcurAI, Inc.'],
   ['#g-dock strong', 'Kostenlos starten'],
   ['.g-dock-sub', 'ohne Kreditkarte'],
@@ -430,6 +448,8 @@ export const DE_ATTRS = [
     'Ocur im Zentrum eines Sonnensystems, umkreist von Gmail, Google Kalender, Google Drive, Notion, GitHub, Telegram, WhatsApp, Slack, Discord, E-Mail, deinem Rechner und dem Web — plus ein freier Platz für Konnektoren, die du selbst baust',
   ],
   ['.g-talk', 'aria-label', 'Schreib uns'],
+  ['.g-beta-form', 'aria-label', 'Auf die Beta-Warteliste'],
+  ['.g-beta input[name="email"]', 'placeholder', 'du@firma.de'],
   // the no-JS post tells the backend which language to send the visitor back in
   ['.g-talk input[name="locale"]', 'value', 'de'],
   ['.g-social-x', 'aria-label', 'Ocur auf X'],

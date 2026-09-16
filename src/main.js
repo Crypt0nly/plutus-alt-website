@@ -7,6 +7,7 @@ import { initLangRouting, applyLang, initLangToggle } from './i18n.js';
 import { initThemeToggle } from './theme.js';
 import { initAnalytics, track } from './analytics.js';
 import { initXAds, trackXConversion, LEAD_EVENT_ID } from './xads.js';
+import { initWaitlist } from './waitlist.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
@@ -20,6 +21,7 @@ initXAds();
 applyLang();
 initLangToggle();
 initThemeToggle();
+initWaitlist();
 document.getElementById('g-year').textContent = String(new Date().getFullYear());
 
 const motion = document.documentElement.classList.contains('motion');

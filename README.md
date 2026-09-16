@@ -69,11 +69,15 @@ with Vite, vanilla JS, and vanilla CSS.
    still see every price. Mirrors the in-app plans and token allowances
    (plutus-cloud's `PLAN_LIMITS` / `ORG_PLAN_LIMITS`). Below both ladders
    sits the **Book a demo** band — see [Book a demo](#book-a-demo).
-7. **FAQ** — eleven `<details>` accordions answering the classic objections:
+7. **Beta waitlist** (`#beta`) — "Use Ocur *before everyone else.*": one
+   glass card, one field, and an invitation when a seat opens. The
+   browser solves a small puzzle instead of the visitor solving a CAPTCHA
+   — see [Beta waitlist](#beta-waitlist).
+8. **FAQ** — eleven `<details>` accordions answering the classic objections:
    free?, vs. a chat assistant?, install?, autonomy/approval, what if it's
    wrong?, integrations, privacy, company-wide use, pay-per-person?,
    rollout time, a demo first?
-8. **Final CTA** — "Run the company. *Not the busywork.*" → **Start free**,
+9. **Final CTA** — "Run the company. *Not the busywork.*" → **Start free**,
    with a quieter *Book a live demo* line beneath it.
 
 A persistent floating glass **CTA dock** rides along from just past the
@@ -138,6 +142,52 @@ German copy: the labels and lines in `src/strings.de.js` (the status
 messages are in `src/main.js`, keyed on the page language), and the hidden
 `locale` field flips to `de` in the prerender so a no-JS post comes back
 to the German page.
+
+## Beta waitlist
+
+The third door, and the only one that asks for nothing but an address: a
+band between the pricing doors and the FAQ (`#beta`), reached from **Join
+the beta** in the phone menu and the footer. One field, one button, and a
+line about what happens next.
+
+It posts to `POST /api/waitlist/<slug>` — the same slug as the booking
+page and the lead form, so the site still carries one identifier and the
+list reaches whoever owns that link (plutus-cloud's `waitlist.py`;
+`docs/BETA_WAITLIST.md`). Nothing is on the list until the visitor clicks
+the link the backend mails them; that click comes back here as
+`/?confirmed=1#beta` (`/de/…` in German), which `src/waitlist.js` renders
+as the "you're on the list" state, the same way `?sent=1` works for the
+lead form.
+
+**Bot protection without a CAPTCHA.** Before the form may post, the page
+fetches a signed puzzle from the backend and burns a little CPU finding
+the number behind a hash (the ALTCHA scheme — plutus-cloud's
+`bot_shield.py` mints and verifies it). Nobody is asked to identify a
+traffic light and nothing leaves for a third party, which keeps the page's
+privacy story intact; one sign-up costs a fraction of a second, ten
+thousand cost real machine time. `src/waitlist.js` starts solving as soon
+as the section scrolls into view or the field is focused, so the answer is
+usually waiting before the address is typed, and it respects the floor the
+challenge publishes (`min_age_ms`) so a fast autofill is never refused for
+being quick. A puzzle is single-use: each attempt gets a fresh one, and a
+`400` (a puzzle that went stale while the visitor read the page) is
+retried once silently. There's a hidden honeypot field too, and the
+backend adds rate limits, throwaway-domain filtering and the double
+opt-in that actually decides.
+
+**No no-JS twin, on purpose**: the puzzle needs a browser. With JavaScript
+off, the `<noscript>` line says so and points at the Talk-to-us form,
+which does work without it. That line is the reason
+`scripts/prerender-de.mjs` loads cheerio with `scriptingEnabled: false` —
+otherwise `<noscript>` contents parse as one blob of text and the German
+dictionary can't reach inside.
+
+The request goes through the same-origin rewrite in `vercel.json`
+(`/waitlist/api/:path*`), so ad blockers that stop cross-origin API calls
+don't quietly lose sign-ups. Analytics: PostHog gets `waitlist_submit`
+(with the locale) and `waitlist_confirmed`. German copy lives in
+`src/strings.de.js` like everything else; the status messages are in
+`src/waitlist.js`, keyed on the page language.
 
 ## Tech notes
 
@@ -369,6 +419,11 @@ screen, and the items that have to be set outside this repo.
 - **"Your first ten minutes"** (`#start`, between features and pricing)
   prepares visitors for the desk they land on: sign in → say the first job
   → connect one tool → put it on autopilot.
+- **"Join the beta"** is in the phone menu and the footer, not the desktop
+  nav — that pill already carries seven links and two buttons, and the
+  band itself sits between pricing and the FAQ where nobody misses it.
+  Both link lists are translated element-by-element in `src/strings.de.js`,
+  so adding a link there means adding its German label at the same index.
 
 ## Where your data goes (`/data`, `/de/data`)
 
@@ -412,6 +467,7 @@ src/
   theme.js         # dark/light toggle
   analytics.js     # PostHog (lazy, env-gated) + a small track() helper
   xads.js          # X Ads conversions: twclid capture + CTA dual-fire
+  waitlist.js      # the beta waitlist: proof-of-work solver + submit
   be-ai.js         # /be-ai live game: WebSocket client + view state machine
   be-ai.css        # /be-ai styling — Ocur glass + hand-drawn "sketch" accents
   be-ai-draw.js    # /be-ai drawing pad (answer a prompt with a scribble)

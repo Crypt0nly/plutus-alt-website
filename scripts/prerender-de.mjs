@@ -16,7 +16,11 @@ import {
   DE_ATTRS,
 } from '../src/strings.de.js';
 
-const $ = load(readFileSync('dist/index.html', 'utf8'));
+// scriptingEnabled:false is what makes <noscript> contents real elements
+// rather than one blob of text — without it the German dictionary can't
+// reach the waitlist's no-JS line, and that paragraph silently stays
+// English on the German page.
+const $ = load(readFileSync('dist/index.html', 'utf8'), { scriptingEnabled: false });
 
 // keep in step with the ?v= on index.html's og:image — bump both together
 const OG_IMAGE_DE = 'https://ocur.ai/og-de.jpg?v=2';

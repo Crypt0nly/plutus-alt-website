@@ -1941,6 +1941,131 @@ html.motion .g-eq i {
   }
 }
 
+/* ------------------------------------------------------- beta waitlist */
+
+/* One glass card between the pricing doors and the FAQ: the pitch on the
+   left, a single field on the right. The field keeps the .g-field language
+   of the Talk-to-us form; the button sits on the field's baseline on wide
+   screens and under it on phones. On success the row gives way to the
+   line that tells them to go and look in their inbox. */
+.g-beta {
+  padding: clamp(80px, 11vh, 130px) 0;
+  border-top: 1px solid var(--g-hair);
+}
+
+.g-beta-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: 32px 40px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 36px 40px;
+  border-radius: 26px;
+  scroll-margin-top: 96px;
+}
+
+.g-beta-kicker {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--g-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--g-dim);
+}
+
+.g-beta-h {
+  margin-top: 14px;
+  font-weight: 700;
+  font-size: clamp(26px, 3.2vw, 40px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.g-beta-text {
+  margin-top: 12px;
+  max-width: 44ch;
+  font-size: 15px;
+  color: var(--g-dim);
+}
+
+.g-beta-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.g-beta-field {
+  flex: 1 1 auto;
+}
+
+.g-beta-row .g-btn {
+  flex: 0 0 auto;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.g-beta-row .g-btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.g-beta-sub {
+  margin-top: 14px;
+  font-size: 12.5px;
+  color: var(--g-dim);
+}
+
+.g-beta-sub a {
+  color: var(--g-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.g-beta-status {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--g-peach);
+}
+
+.g-beta-status:empty {
+  display: none;
+}
+
+.g-beta-form.is-sent .g-beta-row,
+.g-beta-form.is-sent .g-beta-sub,
+.g-beta-form.is-done .g-beta-row,
+.g-beta-form.is-done .g-beta-sub {
+  display: none;
+}
+
+.g-beta-form.is-sent .g-beta-status,
+.g-beta-form.is-done .g-beta-status {
+  margin-top: 0;
+  font-size: 16px;
+  color: var(--g-ink);
+}
+
+@media (max-width: 900px) {
+  .g-beta-card {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+    padding: 30px 26px;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 520px) {
+  .g-beta-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
 /* --------------------------------------------------------------- faq */
 
 .g-faq-sec {

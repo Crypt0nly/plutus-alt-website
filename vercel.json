@@ -7,6 +7,10 @@
     {
       "source": "/leads/api/:slug",
       "destination": "https://api.ocur.ai/api/leads/:slug"
+    },
+    {
+      "source": "/waitlist/api/:path*",
+      "destination": "https://api.ocur.ai/api/waitlist/:path*"
     }
   ],
   "redirects": [
