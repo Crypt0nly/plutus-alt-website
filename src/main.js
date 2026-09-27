@@ -7,6 +7,7 @@ import { initLangRouting, applyLang, initLangToggle } from './i18n.js';
 import { initThemeToggle } from './theme.js';
 import { initAnalytics, track } from './analytics.js';
 import { initXAds, trackXConversion, LEAD_EVENT_ID } from './xads.js';
+import { ANSWER } from './cohort.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
@@ -111,14 +112,22 @@ document.querySelectorAll('a[data-book]').forEach((a) => {
   a.addEventListener('click', () => track('book_demo_click', { placement: a.dataset.book }));
 });
 
-// --------------------------------------------------- talk to us
-// The second door under the ladders: a message instead of a booked slot.
-// Posts JSON to the app backend through the same-origin rewrite in
-// vercel.json (/leads/api/<slug> → api.ocur.ai/api/leads/<slug>); the
-// form's own action is the direct URL, so it still works with no JS (the
-// backend sends that post back here with ?sent=1). The "Talk to sales"
-// links on the business tiers and the Enterprise extra scroll here and
-// carry the plan into the hidden field, which the lead lands with.
+// ------------------------------------------ the founding-cohort application
+// Every "Apply" on the page (nav, phone menu, hero, pricing ribbon, dock,
+// final) scrolls to #apply; count them by where they sit.
+document.querySelectorAll('a[data-apply]').forEach((a) => {
+  a.addEventListener('click', () => track('apply_click', { placement: a.dataset.apply }));
+});
+
+// The application is the site's lead form (the old "Talk to us"), so it
+// lands in the founder's Ocur exactly like a lead did — contact, fact,
+// notification, acknowledgement — with kind=application on top. Posts JSON
+// to the app backend through the same-origin rewrite in vercel.json
+// (/leads/api/<slug> → api.ocur.ai/api/leads/<slug>); the form's own action
+// is the direct URL, so it still works with no JS (the backend sends that
+// post back here with ?sent=1). The business tiers' buttons and the
+// Enterprise extra scroll here and carry the plan into the hidden field,
+// which the lead lands with.
 const talk = document.getElementById('g-talk');
 if (talk) {
   const de = document.documentElement.lang === 'de';
@@ -130,8 +139,15 @@ if (talk) {
   };
   const thanks = (withPhone) =>
     de
-      ? `Danke! Deine Nachricht ist da. Du hörst innerhalb eines Werktags von uns${withPhone ? ' — per Anruf oder E-Mail' : ''}.`
-      : `Thanks — your message is in. You'll hear from us within one business day${withPhone ? ', by phone or email' : ''}.`;
+      ? `Danke — deine Bewerbung ist da. Der Gründer antwortet ${ANSWER.de}, per ${withPhone ? 'Anruf oder E-Mail' : 'E-Mail'}.`
+      : `Thanks — your application is in. The founder answers ${ANSWER.en}, by ${withPhone ? 'phone or email' : 'email'}.`;
+  // What an application can't go without, in the order the fields sit.
+  const needed = [
+    ['company', 'Which company is applying?', 'Welches Unternehmen bewirbt sich?'],
+    ['name', 'Please add your name.', 'Bitte gib deinen Namen an.'],
+    ['team_size', 'Please choose your team size.', 'Bitte wähle eure Teamgröße.'],
+    ['message', "Tell us the first job you'd hand Ocur — one line is enough.", 'Verrat uns den ersten Job für Ocur — eine Zeile reicht.'],
+  ];
 
   document.querySelectorAll('a[data-talk]').forEach((a) => {
     a.addEventListener('click', () => {
@@ -156,6 +172,13 @@ if (talk) {
       emailField.focus();
       return;
     }
+    const missing = needed.find(([name]) => !String(data[name] || '').trim());
+    if (missing) {
+      const [name, en, deText] = missing;
+      say(de ? deText : en);
+      talk.elements[name].focus();
+      return;
+    }
     const button = talk.querySelector('button[type="submit"]');
     button.disabled = true;
     say(de ? 'Wird gesendet…' : 'Sending…');
@@ -177,9 +200,12 @@ if (talk) {
       talk.classList.add('is-sent');
       say(thanks(Boolean(String(data.phone || '').trim())));
       track('lead_submit', {
+        kind: data.kind || '',
         plan: data.plan || '',
+        team_size: data.team_size || '',
         phone: Boolean(String(data.phone || '').trim()),
         company: Boolean(String(data.company || '').trim()),
+        role: Boolean(String(data.role || '').trim()),
       });
       trackXConversion('lead', LEAD_EVENT_ID);
     } catch (err) {
@@ -202,12 +228,9 @@ if (motion) {
   gsap.ticker.add((t) => lenis.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
 
-  // nav anchors glide
-  document
-    .querySelectorAll(
-      '.g-links a[href^="#"], .g-menu-links a[href^="#"], .g-ctas a[href^="#"], a[data-talk][href^="#"], .g-faq a[href^="#"], .g-foot-links a[href^="#"]',
-    )
-    .forEach((a) => {
+  // every in-page anchor glides — the nav, the menu, the hero, the pricing
+  // ribbon and cards, the FAQ, the dock, the final call and the footer
+  document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((a) => {
     a.addEventListener('click', (e) => {
       e.preventDefault();
       lenis.scrollTo(a.getAttribute('href'), { offset: -20, duration: 1.2 });
@@ -229,11 +252,13 @@ if (motion) {
     .to('.g-sub', { opacity: 1, duration: 0.8 }, 0.7)
     .to('.g-ctas', { opacity: 1, duration: 0.8 }, 0.85)
     .to('.g-micro', { opacity: 1, duration: 0.8 }, 0.95)
+    .to('.g-solo, .g-desktop-download', { opacity: 1, duration: 0.8 }, 1)
     .to('.g-stats', { opacity: 1, duration: 0.8 }, 1.05);
 
-  // The HTML carries the final values (1.5M, 60s), so no-motion and no-JS
-  // read right; with motion each counts up from zero. data-decimals keeps
-  // "1.5" from rounding to "2" on the way, in the page's own number format.
+  // The HTML carries the final values (50, 30%), so no-motion and no-JS
+  // read right; with motion each counts up from zero. data-decimals keeps a
+  // fraction like "1.5" from rounding on the way, in the page's own number
+  // format.
   const statLocale = document.documentElement.lang === 'de' ? 'de-DE' : 'en-US';
   document.querySelectorAll('.g-stat strong').forEach((el) => {
     const target = parseFloat(el.dataset.count);
@@ -260,6 +285,7 @@ if (motion) {
   gsap.to('.g-glow-os', { x: -55, y: 65, duration: 18, yoyo: true, repeat: -1, ease: 'sine.inOut' });
   gsap.to('.g-glow-bento', { x: 60, y: -50, duration: 19, yoyo: true, repeat: -1, ease: 'sine.inOut' });
   gsap.to('.g-glow-price', { y: 70, scale: 1.06, duration: 16, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  gsap.to('.g-glow-cohort', { y: 60, scale: 1.05, duration: 17, yoyo: true, repeat: -1, ease: 'sine.inOut' });
 
   // hero glow recedes as you scroll into the page
   gsap.to('.g-glow-hero', {
@@ -377,6 +403,17 @@ if (motion) {
     scrollTrigger: { trigger: '.g-seg', start: 'top 78%' },
   });
 
+  // ------------------------------------------------ founding cohort
+  gsap.from('.g-perk', {
+    y: 50,
+    opacity: 0,
+    scale: 0.97,
+    duration: 0.8,
+    stagger: 0.09,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.g-perks', start: 'top 82%' },
+  });
+
   // --------------------------------------------------------- faq
   gsap.from('.g-faq details', {
     y: 36,
@@ -403,12 +440,23 @@ if (motion) {
   gsap.set(dock, { y: 16 });
   let pastHero = false;
   let beforeFinal = true;
-  const syncDock = () => (pastHero && beforeFinal ? showDock.play() : showDock.reverse());
+  let atForm = false;
+  const syncDock = () => (pastHero && beforeFinal && !atForm ? showDock.play() : showDock.reverse());
   ScrollTrigger.create({
     trigger: '.g-hero',
     start: 'bottom 70%',
     onToggle: (self) => {
       pastHero = self.isActive || self.progress === 1;
+      syncDock();
+    },
+  });
+  // "Apply now" has nothing to add while the application is on screen
+  ScrollTrigger.create({
+    trigger: '#talk',
+    start: 'top bottom',
+    end: 'bottom top',
+    onToggle: (self) => {
+      atForm = self.isActive;
       syncDock();
     },
   });

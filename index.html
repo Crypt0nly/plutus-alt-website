@@ -1,14 +1,18 @@
 <!doctype html>
-<html lang="en">
+<!-- data-closes: the founding cohort's deadline (src/cohort.js). Every
+     COHORT_ token on this page (in double curly braces) is filled in from
+     that file by vite.config.js; the German prerender takes its numbers from
+     there too. -->
+<html lang="en" data-closes="{{COHORT_CLOSES_AT}}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#060608" />
-    <title>Ocur — The AI Operating System for Companies | Start Free</title>
+    <title>Ocur — The AI Operating System for Companies | Founding Cohort</title>
     <meta name="application-name" content="Ocur" />
     <meta
       name="description"
-      content="The AI operating system for companies: Ocur answers your email and phone, does the work inside the tools you already run on, and keeps your promises, money and pipeline on live ledgers. You set the limits. Pilot it free."
+      content="The AI operating system for companies: Ocur answers your email and phone, does the work inside the tools you already run on, and keeps your promises, money and pipeline on live ledgers. You set the limits. Now taking applications for the founding cohort."
     />
     <!-- Link preview (X, WhatsApp, iMessage, LinkedIn, Slack, Discord). The card
          art is public/og.jpg — regenerate with `npm run gen:og`, and bump the ?v=
@@ -22,7 +26,7 @@
     <meta property="og:title" content="Ocur — The AI Operating System for Companies" />
     <meta
       property="og:description"
-      content="The AI operating system for companies: Ocur answers your email and phone, does the work inside the tools you already run on, and keeps your promises, money and pipeline on live ledgers. You set the limits. Pilot it free."
+      content="The AI operating system for companies: Ocur answers your email and phone, does the work inside the tools you already run on, and keeps your promises, money and pipeline on live ledgers. You set the limits. Now taking applications for the founding cohort."
     />
     <meta property="og:image" content="https://ocur.ai/og.jpg?v=2" />
     <meta property="og:image:type" content="image/jpeg" />
@@ -38,7 +42,7 @@
     <meta name="twitter:title" content="Ocur — The AI Operating System for Companies" />
     <meta
       name="twitter:description"
-      content="Ocur answers your email and phone, does the work inside your tools, and keeps your promises, money and pipeline on live ledgers. On demand, or on full autopilot. Pilot it free."
+      content="Ocur answers your email and phone, does the work inside your tools, and keeps your promises, money and pipeline on live ledgers. Applications for the founding cohort are open."
     />
     <meta name="twitter:image" content="https://ocur.ai/og.jpg?v=2" />
     <meta
@@ -109,6 +113,11 @@
       } catch (e) {
         document.documentElement.dataset.theme = 'dark';
       }
+      // past the founding cohort's deadline, hide every line that names it
+      // (.g-deadline) instead of promising a date that has gone
+      if (Date.now() > Date.parse(document.documentElement.dataset.closes)) {
+        document.documentElement.classList.add('cohort-closed');
+      }
     </script>
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/logo.svg" type="image/svg+xml" />
@@ -143,21 +152,22 @@
         <a href="#system">The system</a>
         <a href="#features">Features</a>
         <a href="#pricing">Pricing</a>
+        <a href="#apply">Founding cohort</a>
         <a href="#faq">FAQ</a>
-        <a href="#talk">Contact</a>
         <a href="https://app.ocur.ai/download" data-download="nav">Download</a>
       </nav>
       <a class="g-login" href="https://app.ocur.ai/?auth=sign-in">Log in</a>
-      <!-- Book a demo: the founder's own booking page (Ocur's calendar feature,
-           served by the app backend). Every data-book link on the page carries
-           the same href — grep data-book when the slug changes. -->
-      <a class="g-btn g-btn-sm g-btn-glass g-nav-book lg magnetic" href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="nav">Book a demo</a>
-      <a class="g-btn g-btn-sm magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
+      <!-- Two doors: the loud one is the founding-cohort application (#apply);
+           solo stays open to everyone, so "Start free" rides beside it as the
+           quiet glass pill (desktop only — narrower navs keep one button). -->
+      <a class="g-btn g-btn-sm g-btn-glass g-nav-free lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
+      <a class="g-btn g-btn-sm magnetic" href="#apply" data-apply="nav">Apply now</a>
       <button class="g-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="g-menu">
         <span aria-hidden="true"></span><span aria-hidden="true"></span>
       </button>
     </header>
-    <!-- phone menu: the nav links, both doors into the app, the language switch -->
+    <!-- phone menu: the nav links, the application, both doors into the app,
+         the founder's booking page, the language switch -->
     <div class="g-menu lg" id="g-menu" hidden>
       <nav class="g-menu-links" aria-label="Menu">
         <a href="#demo">See it work</a>
@@ -165,13 +175,17 @@
         <a href="#features">Features</a>
         <a href="#start">Your first ten minutes</a>
         <a href="#pricing">Pricing</a>
+        <a href="#apply">Founding cohort</a>
         <a href="#faq">FAQ</a>
-        <a href="#talk">Talk to us</a>
         <a href="https://app.ocur.ai/download" data-download="menu">Download desktop app</a>
       </nav>
       <div class="g-menu-ctas">
+        <a class="g-btn g-menu-apply" href="#apply" data-apply="menu">Apply for the founding cohort</a>
         <a class="g-btn g-btn-glass lg" href="https://app.ocur.ai/?auth=sign-in">Log in</a>
-        <a class="g-btn" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
+        <a class="g-btn g-btn-glass lg" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
+        <!-- Book a demo: the founder's own booking page (Ocur's calendar feature,
+             served by the app backend). Every data-book link on the page carries
+             the same href — grep data-book when the slug changes. -->
         <a class="g-btn g-btn-glass lg g-menu-book" href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="menu">Book a demo</a>
       </div>
       <div class="g-menu-foot"></div>
@@ -190,15 +204,18 @@
             run on. On demand, or on full autopilot.
           </p>
           <div class="g-ctas">
-            <a class="g-btn g-btn-lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
+            <a class="g-btn g-btn-lg magnetic" href="#apply" data-apply="hero">Apply for the founding cohort</a>
             <a class="g-btn g-btn-glass lg magnetic" href="#demo">Watch it work</a>
           </div>
-          <p class="g-micro">Free pilot&nbsp;&nbsp;·&nbsp;&nbsp;No credit card&nbsp;&nbsp;·&nbsp;&nbsp;No IT project</p>
+          <!-- every line that names the deadline is a .g-deadline, written so the
+               sentence still reads once it's hidden (see the <head> script) -->
+          <p class="g-micro">Two-minute application&nbsp;&nbsp;·&nbsp;&nbsp;Answer {{COHORT_ANSWER}}<span class="g-deadline">&nbsp;&nbsp;·&nbsp;&nbsp;Closes {{COHORT_CLOSES}}</span></p>
+          <p class="g-solo">Just you? <a href="https://app.ocur.ai/?auth=sign-up">Start free</a> — no application, no credit card.</p>
           <p class="g-desktop-download"><a href="https://app.ocur.ai/download" data-download="hero">Download Ocur Desktop <span aria-hidden="true">↗</span></a><span class="g-desktop-platforms">Windows · macOS · Linux</span></p>
           <div class="g-stats">
-            <div class="g-stat"><strong data-count="1.5" data-decimals="1" data-suffix="M">1.5M</strong><span>free tokens / month</span></div>
-            <div class="g-stat"><strong data-count="60" data-suffix="s">60s</strong><span>to roll out</span></div>
-            <div class="g-stat"><strong>∞</strong><span>connectors — build your own</span></div>
+            <div class="g-stat"><strong data-count="{{COHORT_SEATS}}">{{COHORT_SEATS}}</strong><span>founding seats</span></div>
+            <div class="g-stat"><strong data-count="{{COHORT_DISCOUNT}}" data-suffix="%">{{COHORT_DISCOUNT}}%</strong><span>off for your first {{COHORT_MONTHS}} months</span></div>
+            <div class="g-stat"><strong>1:1</strong><span>setup with the founder</span></div>
           </div>
         </div>
       </section>
@@ -480,7 +497,7 @@
           <div class="g-tiers on" data-aud="solo">
             <p class="g-tier-lede">
               <span class="g-tier-tag">Solo</span> One person delegating — your own Ocur, plus AI
-              workers that keep going without you.
+              workers that keep going without you. Open to everyone, no application.
             </p>
             <div class="g-cards g-cards-4">
               <article class="g-card lg glare">
@@ -553,6 +570,12 @@
               <span class="g-tier-tag g-tier-tag-hot">Business</span> The whole company on one Ocur:
               one shared pool, one shared memory — and unlimited human members, always free.
             </p>
+            <!-- the founding offer on the ladder it applies to; the numbers come
+                 from src/cohort.js -->
+            <p class="g-founding lg">
+              <span class="g-kdot" aria-hidden="true"></span>
+              <span class="g-founding-text"><strong>Founding cohort:</strong> {{COHORT_DISCOUNT}}% off any business plan for your first {{COHORT_MONTHS}} months, and the founder sets you up personally. <a href="#apply" data-apply="pricing">Apply<span class="g-deadline"> by {{COHORT_CLOSES}}</span> →</a></span>
+            </p>
             <div class="g-cards">
               <article class="g-card lg glare">
                 <p class="g-eyebrow">Your first shared brain</p>
@@ -567,8 +590,8 @@
                   <li>Ocur on WhatsApp, Telegram, Slack, Teams &amp; email</li>
                 </ul>
                 <p class="g-meta">48M tokens of Ocur-work a month, pooled</p>
-                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=team">Get Team</a>
-                <a class="g-card-talk" href="#talk" data-talk="team">Talk to sales →</a>
+                <a class="g-btn g-btn-glass lg magnetic" href="#talk" data-talk="team">Apply for the founding price</a>
+                <a class="g-card-talk" href="https://app.ocur.ai/?auth=sign-up&amp;plan=team">or start today at list price →</a>
               </article>
               <article class="g-card g-card-hot lg glare">
                 <p class="g-badge">Most popular</p>
@@ -584,8 +607,8 @@
                   <li>Custom tools, Live Apps and automations</li>
                 </ul>
                 <p class="g-meta">240M tokens of Ocur-work a month, pooled</p>
-                <a class="g-btn magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=growth">Get Growth</a>
-                <a class="g-card-talk" href="#talk" data-talk="growth">Talk to sales →</a>
+                <a class="g-btn magnetic" href="#talk" data-talk="growth">Apply for the founding price</a>
+                <a class="g-card-talk" href="https://app.ocur.ai/?auth=sign-up&amp;plan=growth">or start today at list price →</a>
               </article>
               <article class="g-card lg glare">
                 <p class="g-eyebrow">For companies &amp; agencies</p>
@@ -600,8 +623,8 @@
                   <li>Priority support and onboarding</li>
                 </ul>
                 <p class="g-meta">680M tokens of Ocur-work a month, pooled</p>
-                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=scale">Get Scale</a>
-                <a class="g-card-talk" href="#talk" data-talk="scale">Talk to sales →</a>
+                <a class="g-btn g-btn-glass lg magnetic" href="#talk" data-talk="scale">Apply for the founding price</a>
+                <a class="g-card-talk" href="https://app.ocur.ai/?auth=sign-up&amp;plan=scale">or start today at list price →</a>
               </article>
             </div>
             <div class="g-extras">
@@ -621,58 +644,126 @@
             </div>
             <p class="g-note">
               Prices in USD — EU customers pay the same number in euro. Annual billing gives you a
-              month free. Every company starts free: pilot Ocur yourself, invite the others once it
-              proves itself.
+              month free. Not ready to apply? Every company can start free: pilot Ocur yourself,
+              invite the others once it proves itself.
             </p>
           </div>
+        </div>
+      </section>
 
-          <!-- two doors that aren't sign-up, side by side under both ladders so
-               they're on screen whichever audience the switch is showing: a call
-               with the founder (his booking page), or a message that reaches him
-               the same minute (the "Talk to us" form — see README → Talk to us).
-               The form's own action is the app backend's direct URL, so it still
-               works with no JS; the script posts JSON through the same-origin
-               rewrite in vercel.json instead and shows the answer inline. -->
+      <!-- the founding cohort: the offer, then the application beside the
+           founder's booking page (see README → Founding cohort) -->
+      <section class="g-cohort" id="apply">
+        <div class="g-glow g-glow-cohort" aria-hidden="true"></div>
+        <div class="g-wrap">
+          <p class="g-cohort-kicker"><span class="g-kdot" aria-hidden="true"></span>Founding cohort<span class="g-deadline"> · applications close {{COHORT_CLOSES}}</span></p>
+          <h2 class="g-h2">{{COHORT_SEATS}} companies first. <span class="g-grad">Set up by hand.</span></h2>
+          <p class="g-cohort-sub">
+            Before launch, the founder sets up Ocur personally for {{COHORT_SEATS}} companies — at
+            founding prices. The application takes two minutes, and you'll have an answer
+            {{COHORT_ANSWER}}.
+          </p>
+          <ul class="g-perks">
+            <li class="g-perk lg glare">
+              <p class="g-perk-tag">Founding price</p>
+              <h3>{{COHORT_DISCOUNT}}% off for {{COHORT_MONTHS}} months</h3>
+              <p>On whichever business plan you choose — Team, Growth or Scale.</p>
+            </li>
+            <li class="g-perk lg glare">
+              <p class="g-perk-tag">Setup</p>
+              <h3>Set up with the founder</h3>
+              <p>A 30-minute call: your tools connected, and Ocur already at work on the first job you named.</p>
+            </li>
+            <li class="g-perk lg glare">
+              <p class="g-perk-tag">Direct line</p>
+              <h3>Straight to the founder</h3>
+              <p>Questions and feedback go to the person building Ocur — and into what ships next.</p>
+            </li>
+            <li class="g-perk lg glare">
+              <p class="g-perk-tag">Early access</p>
+              <h3>Everything new, first</h3>
+              <p>New connectors and autopilots reach founding companies before anyone else.</p>
+            </li>
+          </ul>
+
+          <!-- The application is the site's lead form (see README → Founding
+               cohort): it posts to the app backend's leads endpoint behind the
+               founder's booking slug, and lands in the founder's Ocur as a lead —
+               contact, fact, notification, acknowledgement — tagged
+               founding-cohort. The form's own action is the direct URL, so it
+               still works with no JS (the backend sends that post back to
+               ?sent=1#talk); the script posts JSON through the same-origin
+               rewrite in vercel.json instead and shows the answer inline. The
+               business tiers' buttons and the Enterprise extra land on #talk and
+               carry their plan into the hidden field. -->
           <div class="g-doors" id="talk">
-            <div class="g-book lg glare" id="book">
-              <div class="g-book-copy">
-                <p class="g-book-kicker"><span class="g-kdot" aria-hidden="true"></span>Live demo</p>
-                <h3>Rather see it first?</h3>
-                <p class="g-book-text">
-                  Book a 30-minute call with the founder — a live walkthrough of Ocur on your
-                  company's own work, and straight answers to the hard questions.
-                </p>
-              </div>
-              <div class="g-book-cta">
-                <a class="g-btn magnetic" href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="pricing">Book a demo</a>
-                <span class="g-book-sub">30 minutes · video call · pick your slot</span>
-              </div>
-            </div>
-            <form class="g-talk lg glare" id="g-talk" action="https://api.ocur.ai/api/leads/gJM0Hx8-5SY" method="post" data-endpoint="/leads/api/gJM0Hx8-5SY" aria-label="Talk to us" novalidate>
-              <p class="g-talk-kicker"><span class="g-kdot" aria-hidden="true"></span>Talk to us</p>
-              <h3>Not ready for a call? Write to us.</h3>
+            <form class="g-talk lg glare" id="g-talk" action="https://api.ocur.ai/api/leads/gJM0Hx8-5SY" method="post" data-endpoint="/leads/api/gJM0Hx8-5SY" aria-label="Apply for the founding cohort" novalidate>
+              <p class="g-talk-kicker"><span class="g-kdot" aria-hidden="true"></span>Application</p>
+              <h3>Apply for the founding cohort.</h3>
               <p class="g-talk-text">
-                Tell us what you'd hand Ocur first. You'll hear back within one business day —
-                by email, or by phone if you leave a number.
+                The founder reads every application personally — you'll have an answer
+                {{COHORT_ANSWER}}, by email, or by phone if you leave a number.
               </p>
               <div class="g-talk-grid">
                 <label class="g-field"><span>Work email</span><input name="email" type="email" required autocomplete="email" inputmode="email" /></label>
-                <label class="g-field"><span>Company</span><input name="company" type="text" autocomplete="organization" /></label>
-                <label class="g-field"><span>Name</span><input name="name" type="text" autocomplete="name" /></label>
+                <label class="g-field"><span>Company</span><input name="company" type="text" required autocomplete="organization" /></label>
+                <label class="g-field"><span>Name</span><input name="name" type="text" required autocomplete="name" /></label>
+                <label class="g-field"><span>Role <em>optional</em></span><input name="role" type="text" autocomplete="organization-title" placeholder="Founder, Head of Ops…" /></label>
+                <label class="g-field">
+                  <span>Team size</span>
+                  <select name="team_size" required>
+                    <option value="" selected disabled>Choose…</option>
+                    <option value="1">Just me</option>
+                    <option value="2-10">2–10 people</option>
+                    <option value="11-50">11–50 people</option>
+                    <option value="51-200">51–200 people</option>
+                    <option value="201+">201+ people</option>
+                  </select>
+                </label>
                 <label class="g-field"><span>Phone <em>optional — so we can call you</em></span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" /></label>
-                <label class="g-field g-field-wide"><span>What should Ocur take off your plate?</span><textarea name="message" rows="3"></textarea></label>
+                <label class="g-field g-field-wide"><span>The first job you'd hand Ocur</span><textarea name="message" rows="3" required placeholder="The 200 supplier emails we answer every week."></textarea></label>
               </div>
+              <input type="hidden" name="kind" value="application" />
               <input type="hidden" name="plan" value="" />
               <input type="hidden" name="locale" value="en" />
               <!-- honeypot: people never see it, bots fill it -->
               <div class="g-hp" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off" /></label></div>
               <div class="g-talk-foot">
-                <button class="g-btn magnetic" type="submit">Send</button>
-                <p class="g-talk-sub">Read by the founder personally. <a href="/privacy">Privacy</a></p>
+                <button class="g-btn magnetic" type="submit">Send application</button>
+                <p class="g-talk-sub">Read by the founder personally — questions welcome too. <a href="/privacy">Privacy</a></p>
               </div>
               <p class="g-talk-status" role="status" aria-live="polite"></p>
             </form>
+            <div class="g-doors-side">
+              <div class="g-next lg glare">
+                <p class="g-next-kicker"><span class="g-kdot" aria-hidden="true"></span>What happens next</p>
+                <ol class="g-next-steps">
+                  <li><strong>You apply.</strong> Two minutes, right here.</li>
+                  <li><strong>The founder answers</strong> {{COHORT_ANSWER}}.</li>
+                  <li><strong>You're in: a 30-minute setup call.</strong> Your tools connected, and Ocur on the first job you named.</li>
+                  <li><strong>The founding price.</strong> {{COHORT_DISCOUNT}}% off your plan for the first {{COHORT_MONTHS}} months.</li>
+                </ol>
+              </div>
+              <div class="g-book lg glare" id="book">
+                <div class="g-book-copy">
+                  <p class="g-book-kicker"><span class="g-kdot" aria-hidden="true"></span>Live demo</p>
+                  <h3>Rather see it first?</h3>
+                  <p class="g-book-text">
+                    Book a 30-minute call with the founder — a live walkthrough of Ocur on your
+                    company's own work, and straight answers to the hard questions.
+                  </p>
+                </div>
+                <div class="g-book-cta">
+                  <a class="g-btn g-btn-glass lg magnetic" href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="cohort">Book a demo</a>
+                  <span class="g-book-sub">30 minutes · video call · pick your slot</span>
+                </div>
+              </div>
+            </div>
           </div>
+          <p class="g-cohort-solo">
+            Just you? The free plan is open to everyone —
+            <a href="https://app.ocur.ai/?auth=sign-up">start free</a>, no application needed.
+          </p>
         </div>
       </section>
 
@@ -682,8 +773,16 @@
           <h2 class="g-h2">Questions, <span class="g-grad">answered.</span></h2>
           <div class="g-faq">
             <details class="lg" name="g-faq" open>
-              <summary>Is it really free to start?</summary>
-              <p>Yes. The free plan is the full operating system with a monthly allowance of work — enough to pilot Ocur on real tasks. No credit card, no trial clock. When it proves itself, upgrading takes one click.</p>
+              <summary>What is the founding cohort?</summary>
+              <p>The first {{COHORT_SEATS}} companies on Ocur, set up personally by the founder before launch. Founding companies get {{COHORT_DISCOUNT}}% off their plan for the first {{COHORT_MONTHS}} months, a setup call where Ocur goes to work on the first job they named, a direct line to the founder, and everything new before anyone else. <a href="#apply">The application</a> takes two minutes.</p>
+            </details>
+            <details class="lg" name="g-faq">
+              <summary>Who gets in — and how fast?</summary>
+              <p>Companies with a real first job for Ocur and someone who can decide. The founder reads every application and answers {{COHORT_ANSWER}}. Seats go out as the answers do, until all {{COHORT_SEATS}} are taken<span class="g-deadline"> or applications close on {{COHORT_CLOSES}}, whichever comes first</span>. Not a fit yet? You'll hear that too — and you can still start free on your own.</p>
+            </details>
+            <details class="lg" name="g-faq">
+              <summary>Do I have to apply to use Ocur?</summary>
+              <p>No. On your own, the free plan is open to everyone: the full operating system with a monthly allowance of work — enough to pilot Ocur on real tasks. No credit card, no trial clock. The application is for companies that want the founding price and a setup with the founder.</p>
             </details>
             <details class="lg" name="g-faq">
               <summary>How is this different from a chat assistant?</summary>
@@ -723,7 +822,7 @@
             </details>
             <details class="lg" name="g-faq">
               <summary>Can I get a demo first?</summary>
-              <p>Yes. <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="faq">Book a 30-minute call</a> and the founder walks you through Ocur live, on your company's own work — bring your questions. Or skip the call: the free plan is the full system, so you can pilot it on real tasks today and talk once you've seen it. Or <a href="#talk">write to us</a> — the form under the pricing takes a minute.</p>
+              <p>Yes. <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="faq">Book a 30-minute call</a> and the founder walks you through Ocur live, on your company's own work — bring your questions. Or <a href="#apply">apply straight away</a>: the application takes two minutes, and every founding company gets its setup call with the founder anyway.</p>
             </details>
           </div>
         </div>
@@ -734,9 +833,9 @@
         <div class="g-glow g-glow-final" aria-hidden="true"></div>
         <div class="g-wrap">
           <h2 class="g-final-h">Run the company.<br /><span class="g-grad">Not the busywork.</span></h2>
-          <a class="g-btn g-btn-lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
-          <p class="g-micro">Free pilot&nbsp;&nbsp;·&nbsp;&nbsp;No credit card&nbsp;&nbsp;·&nbsp;&nbsp;Live in minutes</p>
-          <p class="g-final-alt"><span>Prefer a walkthrough first?</span> <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="final">Book a live demo</a></p>
+          <a class="g-btn g-btn-lg magnetic" href="#apply" data-apply="final">Apply for the founding cohort</a>
+          <p class="g-micro">{{COHORT_SEATS}} seats&nbsp;&nbsp;·&nbsp;&nbsp;Answer {{COHORT_ANSWER}}<span class="g-deadline">&nbsp;&nbsp;·&nbsp;&nbsp;Closes {{COHORT_CLOSES}}</span></p>
+          <p class="g-final-alt"><span>Prefer a walkthrough first?</span> <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="final">Book a live demo</a>&nbsp;&nbsp;·&nbsp;&nbsp;<span>Just you?</span> <a href="https://app.ocur.ai/?auth=sign-up">Start free</a></p>
           <footer class="g-foot">
             <span>Ocur © <span id="g-year">2026</span> · <span class="g-foot-org">a product of OcurAI, Inc.</span></span>
             <nav class="g-foot-links" aria-label="Footer links">
@@ -763,11 +862,12 @@
       </section>
     </main>
 
-    <!-- floating glass CTA dock -->
-    <a class="g-dock lg magnetic" id="g-dock" href="https://app.ocur.ai/?auth=sign-up">
+    <!-- floating glass CTA dock: the application, out of the way while the
+         application itself is on screen -->
+    <a class="g-dock lg magnetic" id="g-dock" href="#apply" data-apply="dock">
       <span class="g-kdot" aria-hidden="true"></span>
-      <strong>Start free</strong>
-      <span class="g-dock-sub">no credit card</span>
+      <strong>Apply now</strong>
+      <span class="g-dock-sub">Founding cohort<span class="g-deadline"> · closes {{COHORT_CLOSES_SHORT}}</span></span>
     </a>
 
     <script type="module" src="/src/main.js"></script>
