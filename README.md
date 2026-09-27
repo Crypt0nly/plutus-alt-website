@@ -24,8 +24,12 @@ with Vite, vanilla JS, and vanilla CSS.
 ## Page tour
 
 1. **Hero** — kicker "The AI operating system for companies", then "What if
-   your company *ran itself?*", risk-removing microcopy (free pilot · no
-   credit card · no IT project), and three count-up stats.
+   your company *ran itself?*", **Apply for the founding cohort** beside
+   *Watch it work*, the application's microcopy (two-minute application ·
+   answer within two business days · closes on the deadline), a quiet
+   *Just you? Start free* line for solo, and three count-up stats that are
+   the founding offer (seats, the founding discount, 1:1 setup) — see
+   [Founding cohort](#founding-cohort-the-application).
 2. **Connector solar system** — Ocur as a glowing glass sun, the connectors
    orbiting in two counter-rotating rings (Gmail, Google Calendar, Drive,
    Notion, GitHub inner; Telegram, WhatsApp, Slack, Discord, email, your
@@ -67,34 +71,46 @@ with Vite, vanilla JS, and vanilla CSS.
    ladders are in the DOM — the switch only decides which is on screen, so
    crawlers, the German prerender and a page whose bundle never ran all
    still see every price. Mirrors the in-app plans and token allowances
-   (plutus-cloud's `PLAN_LIMITS` / `ORG_PLAN_LIMITS`). Below both ladders
-   sits the **Book a demo** band — see [Book a demo](#book-a-demo).
-7. **FAQ** — eleven `<details>` accordions answering the classic objections:
-   free?, vs. a chat assistant?, install?, autonomy/approval, what if it's
-   wrong?, integrations, privacy, company-wide use, pay-per-person?,
-   rollout time, a demo first?
-8. **Final CTA** — "Run the company. *Not the busywork.*" → **Start free**,
-   with a quieter *Book a live demo* line beneath it.
+   (plutus-cloud's `PLAN_LIMITS` / `ORG_PLAN_LIMITS`). Solo stays
+   self-serve and says so ("open to everyone, no application"). The company
+   ladder carries the **founding ribbon** (the discount, the setup, *Apply
+   by …*), and its three cards lead with **Apply for the founding price**
+   (to the application, with the plan picked) over a quiet *or start today
+   at list price →* (sign-up with the plan).
+7. **Founding cohort** (`#apply`) — "*N* companies first. *Set up by
+   hand.*": four glass perks (founding price, setup with the founder, a
+   direct line, early access), then the application beside *What happens
+   next* and the founder's booking page — see
+   [Founding cohort](#founding-cohort-the-application).
+8. **FAQ** — thirteen `<details>` accordions: what the founding cohort is,
+   who gets in and how fast, whether you have to apply (no — solo is open),
+   then the classic objections: vs. a chat assistant?, install?,
+   autonomy/approval, what if it's wrong?, integrations, privacy,
+   company-wide use, pay-per-person?, rollout time, a demo first?
+9. **Final CTA** — "Run the company. *Not the busywork.*" → **Apply for the
+   founding cohort**, with *Book a live demo* and *Just you? Start free*
+   beneath it.
 
-A persistent floating glass **CTA dock** rides along from just past the
-hero until the final section.
+A persistent floating glass **CTA dock** — *Apply now · Founding cohort ·
+closes …* — rides along from just past the hero until the final section,
+and steps aside while the application itself is on screen.
 
 ## Book a demo
 
-The louder of the two calls to action that don't lead to sign-up (the other
-is the form, next section). Four doors, one destination: the founder's
-booking page, which is Ocur's own calendar feature served by the app backend
-(`https://api.ocur.ai/api/book/<slug>` — see plutus-cloud's `calendar.py`;
-the link's title, length and video-call location are edited in the app, not
-here).
+For anyone who'd rather see Ocur before applying. Four doors, one
+destination: the founder's booking page, which is Ocur's own calendar
+feature served by the app backend (`https://api.ocur.ai/api/book/<slug>` —
+see plutus-cloud's `calendar.py`; the link's title, length and video-call
+location are edited in the app, not here).
 
-- a glass **Book a demo** pill in the nav beside Start free (desktop only —
-  below 1000px the nav pill has no room for two buttons, and the other doors
-  carry the phone);
-- the **band under both pricing ladders** ("Rather see it first?"), the main
-  one — on screen whichever audience the switch shows, beside the form;
-- the last **FAQ** entry ("Can I get a demo first?");
-- a *Book a live demo* line under the **final** Start free.
+- **Book a demo** in the phone menu (`menu`);
+- the **"Rather see it first?"** card beside the application, under *What
+  happens next* (`cohort`) — the main one;
+- the last **FAQ** entry ("Can I get a demo first?", `faq`);
+- a *Book a live demo* line under the **final** Apply (`final`).
+
+The nav's second pill is *Start free* now (the application is the first), so
+the demo is no longer in the nav bar.
 
 Every door opens in a new tab and carries `data-book="<placement>"`, which is
 what the analytics key on: PostHog gets `book_demo_click` with the placement
@@ -106,38 +122,77 @@ and the German prerender copies the markup — so when the booking link
 changes, grep for `data-book` in `index.html` and update `BOOK_URL` in
 `src/strings.de.js` (the German FAQ answer carries its own inline link).
 
-## Talk to us
+## Founding cohort (the application)
 
-The quieter door, for everyone not ready to block 30 minutes: a short form
-beside the demo band under the pricing ladders (`#talk`), reached from
-**Contact** in the nav and the footer, **Talk to us** in the phone menu, a
-**Talk to sales →** line under Team, Growth and Scale, the **Enterprise**
-extra, and the demo FAQ. Work email, company, name, an **optional phone
-number** ("so we can call you"), and one line on what Ocur should take off
-their plate; the sales links carry the plan into a hidden field.
+The launch runs on an application, not a waitlist: a capped, dated
+**founding cohort** of companies the founder sets up personally, at a
+founding price. Solo stays open to everyone (*Start free*), so the scarcity
+sits on the offer — the price, the setup, the direct line, early access —
+never on access to the software, and nothing on the page pretends a gate
+that isn't there.
+
+**The promises live in one file: `src/cohort.js`** — the seats, the
+founding discount and how many months it runs, the deadline (`CLOSES_AT`,
+end of that day Berlin time) and the answer time. `vite.config.js` fills
+the `{{COHORT_*}}` tokens in `index.html` from it (dev server and build; an
+unknown token fails the build), and `src/strings.de.js` builds the German
+lines from the same values. Change a number there and both pages follow.
+Every one of them is a public promise to a visitor — and a fake deadline or
+seat count is on the UWG blacklist in Germany — so they change on purpose
+and stay true. The answer time is also in the app's acknowledgement mail
+(plutus-cloud, `lead_email_service.APPLICATION_ANSWER`); change both.
+
+**When the deadline passes**, the inline script in `<head>` sets
+`html.cohort-closed` from `<html data-closes>` and every `.g-deadline`
+goes: the hero and final micro lines, the cohort kicker, the pricing
+ribbon's *by …*, the dock's *closes …* and the FAQ clause. Each is written
+so its sentence still reads without it — the page never promises a date
+that has gone — and the build warns until a new `CLOSES_AT` is set. When
+the cohort is full, set `CLOSES_AT` to now.
+
+**Where it's asked for** — every Apply carries `data-apply="<placement>"`
+and glides to `#apply`: the nav's primary pill (`nav`), the phone menu
+(`menu`), the hero (`hero`), the company ladder's ribbon (`pricing`), the
+dock (`dock`) and the final call (`final`). The company cards' *Apply for
+the founding price* and the Enterprise extra's *Talk to us* go straight to
+the form (`#talk`) with their plan in the hidden field.
+
+**The form is the site's lead form** (it was "Talk to us"), so an
+application lands in the founder's Ocur exactly the way a lead always did —
+same endpoint, same slug, same four steps. Fields: work email, company,
+name, role (optional), team size (`1`, `2-10`, `11-50`, `51-200`, `201+`),
+an optional phone ("so we can call you"), and the first job they'd hand
+Ocur; plus hidden `kind=application`, `plan` and `locale`. The script
+checks the required ones in order before anything is sent.
 
 It posts to the app backend's `POST /api/leads/<slug>` — the same slug as
 the booking page, so one identifier on the site and the lead reaches
 whoever owns that link (plutus-cloud's `leads.py`; `docs/CRM.md` → Website
-leads). There it becomes a CRM contact tagged `lead` with what they wrote as
-a dated fact, a notification on the founder's channel with the phone number
-first, and an acknowledgement to the visitor from the founder's own inbox
-(English or German). With JS the script posts JSON through the same-origin
-rewrite in `vercel.json` (`/leads/api/<slug>`, so ad blockers that stop
-cross-origin API calls don't lose leads) and shows the answer inline; the
-form's own `action` is the direct URL, so with no JS the backend takes the
-plain post and sends the visitor back to `/?sent=1#talk` (`/de/…` on the
-German page), which the script renders as the same thank-you. A hidden
-honeypot field, per-address and per-link rate limits live on the backend.
+leads → Founding-cohort applications). There it becomes a CRM contact
+tagged `lead`, `website`, `founding-cohort`, `team:<size>` (and `plan:` when
+a card sent it), the role on the contact, a dated fact ("Applied to the
+founding cohort … The first job they'd hand Ocur: …"), a notification on the
+founder's channel headed **New founding-cohort application**, and an
+acknowledgement to the applicant from the founder's own inbox (English or
+German) that says when the answer comes. With JS the script posts JSON
+through the same-origin rewrite in `vercel.json` (`/leads/api/<slug>`, so ad
+blockers that stop cross-origin API calls don't lose applications) and shows
+the answer inline; the form's own `action` is the direct URL, so with no JS
+the backend takes the plain post and sends the visitor back to
+`/?sent=1#talk` (`/de/…` on the German page), which the script renders as
+the same thank-you. A hidden honeypot field, per-address and per-link rate
+limits live on the backend.
 
-Analytics: PostHog gets `talk_open` (a sales link, with the plan) and
-`lead_submit` (with plan and whether a phone and a company were given);
-X Ads gets a `lead` conversion through the same dual-fire path as the
-other two (`VITE_X_EVENT_ID_LEAD` / `X_EVENT_ID_LEAD`, dormant until set).
-German copy: the labels and lines in `src/strings.de.js` (the status
-messages are in `src/main.js`, keyed on the page language), and the hidden
-`locale` field flips to `de` in the prerender so a no-JS post comes back
-to the German page.
+Analytics: PostHog gets `apply_click` (with the placement), `talk_open` (a
+card or the Enterprise link opened the form, with the plan) and
+`lead_submit` (with `kind`, plan, team size and whether a phone, a company
+and a role were given); X Ads gets the `lead` conversion through the same
+dual-fire path as the other two (`VITE_X_EVENT_ID_LEAD` / `X_EVENT_ID_LEAD`,
+dormant until set). German copy — "das Pilotprogramm", its price der
+Pilotpreis — is in `src/strings.de.js` (the status messages are in
+`src/main.js`, keyed on the page language), and the hidden `locale` field
+flips to `de` in the prerender so a no-JS post comes back to the German
+page.
 
 ## Tech notes
 
@@ -354,15 +409,23 @@ screen, and the items that have to be set outside this repo.
 
 ## Nav, phone menu and the doors into the app
 
-- **Log in** sits next to *Start free*: `app.ocur.ai/?auth=sign-in`. Every
-  *Start free* button (nav, hero, dock, final) lands on the sign-up card
-  (`/?auth=sign-up`) instead of the sign-in card's small "Sign up" link.
-- **Pricing buttons deep-link into sign-up with the plan picked**:
-  `?auth=sign-up&plan=starter|pro|pro-plus|team|growth|scale`. The app
-  keeps the `plan` through sign-up and opens its plan picker on that plan.
-- **Below 880px** the nav links, the *Log in* link and the language switch
+- **The nav's two pills**: *Apply now* (the founding-cohort application,
+  `#apply`) and, beside it, *Start free* as the quiet glass one — solo is
+  open to everyone. *Start free* leaves the bar below 1280px, where one
+  button is all the pill has room for.
+- **Log in** sits next to them: `app.ocur.ai/?auth=sign-in`. Every
+  *Start free* (nav, hero, phone menu, solo cards, the cohort section,
+  final) lands on the sign-up card (`/?auth=sign-up`) instead of the
+  sign-in card's small "Sign up" link.
+- **Pricing links deep-link into sign-up with the plan picked**:
+  `?auth=sign-up&plan=starter|pro|pro-plus|team|growth|scale` — the solo
+  buttons, and the company cards' *or start today at list price →*. The
+  app keeps the `plan` through sign-up and opens its plan picker on that
+  plan.
+- **Below 1100px** the nav links, the *Log in* link and the language switch
   leave the pill and a burger opens a glass sheet (`#g-menu`): the section
-  links, *Log in* and *Start free* side by side, the EN | DE switch (cloned
+  links, the application across the top of its buttons, *Log in* and
+  *Start free* side by side, *Book a demo*, and the EN | DE switch (cloned
   in by `src/i18n.js`). `mobile_menu_open` is tracked.
 - **On phones both pricing ladders stack** under their own ledes instead of
   hiding one behind the *Just me / My company* switch.
@@ -403,7 +466,8 @@ terms/index.html   # the terms of service (ocur.ai/terms)
 de/privacy/, de/terms/   # their German twins (/de/privacy, /de/terms)
 de/impressum/      # Anbieterkennzeichnung § 5 DDG (German pages only)
 src/
-  main.js          # GSAP/Lenis choreography, pinned demo, micro-interactions
+  main.js          # GSAP/Lenis choreography, pinned demo, the application form, micro-interactions
+  cohort.js        # the founding cohort's promises: seats, founding price, deadline, answer time
   style.css        # the liquid-glass design system (theme tokens at the top)
   legal.js         # entry for the legal pages — theme + EN|DE chrome, no GSAP
   legal.css        # long-form reading layout: sticky TOC, prose, data tables
@@ -428,8 +492,9 @@ docs/
 
 ## Notes
 
-- The brand and site are **Ocur** (ocur.ai); every CTA except *Book a demo*
-  (see above) points to the app's sign-up route,
+- The brand and site are **Ocur** (ocur.ai); every *Apply* goes to the
+  application on the page (`#apply`), every *Book a demo* to the founder's
+  booking page, and every other CTA to the app's sign-up route,
   `https://app.ocur.ai/?auth=sign-up`. A bare `app.ocur.ai`
   shows the app's *sign-in* card, which sent new visitors hunting for the
   "Sign up" link. The legal pages' in-text mentions of app.ocur.ai stay bare

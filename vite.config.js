@@ -1,5 +1,33 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
+import { COHORT_TOKENS, CLOSES_AT } from './src/cohort.js';
+
+// The founding cohort's promises (seats, founding price, deadline, answer
+// time) live in src/cohort.js. index.html carries {{COHORT_*}} tokens where
+// they go; this fills them in before anything else reads the page, on the
+// dev server and in the build. An unknown token fails the build rather than
+// ship braces to visitors, and a deadline in the past gets a warning — the
+// page hides its deadline lines by then, but the next date belongs in
+// src/cohort.js.
+function cohortTokens() {
+  return {
+    name: 'ocur-cohort-tokens',
+    buildStart() {
+      if (Date.now() > Date.parse(CLOSES_AT)) {
+        this.warn(`the founding cohort closed at ${CLOSES_AT} — set the next deadline in src/cohort.js`);
+      }
+    },
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html, ctx) {
+        return html.replace(/\{\{(COHORT_[A-Z_]+)\}\}/g, (token, key) => {
+          if (!(key in COHORT_TOKENS)) throw new Error(`${ctx.filename}: unknown token ${token}`);
+          return COHORT_TOKENS[key];
+        });
+      },
+    },
+  };
+}
 
 // OCUR — static site, served from the domain root (ocur.ai). Base must be
 // absolute: the prerendered /de/ page and the /be-ai/ game both live in
@@ -32,6 +60,7 @@ const BE_AI_BACKEND = process.env.VITE_BE_AI_BACKEND || 'https://api.ocur.ai';
 
 export default defineConfig({
   base: '/',
+  plugins: [cohortTokens()],
   build: {
     target: 'es2020',
     sourcemap: false,
