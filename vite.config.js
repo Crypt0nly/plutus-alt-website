@@ -1,6 +1,37 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
+import { existsSync } from 'node:fs';
 import { COHORT_TOKENS, CLOSES_AT } from './src/cohort.js';
+import { contentRoutes, renderContentPage, enrichPage, canonicalPath, htmlPath } from './scripts/lib/discovery.mjs';
+
+function discoveryPages() {
+  return {
+    name: 'ocur-discovery-pages',
+    transformIndexHtml: { order: 'post', handler: enrichPage },
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        const pathname = canonicalPath(new URL(req.url, 'http://localhost').pathname);
+        const page = contentRoutes.find((route) => route.path === pathname);
+        if (!page) return next();
+        try {
+          const html = await server.transformIndexHtml(req.url, renderContentPage(page));
+          res.setHeader('Content-Type', 'text/html; charset=utf-8');
+          res.end(html);
+        } catch (error) { next(error); }
+      });
+    },
+    // Vercel resolves /product to product/index.html. Vite's SPA fallback
+    // otherwise serves the homepage at that address in a local preview.
+    configurePreviewServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        const url = new URL(req.url, 'http://localhost');
+        const file = htmlPath(canonicalPath(url.pathname));
+        if (existsSync(resolve(server.config.build.outDir, file))) req.url = '/' + file + url.search;
+        next();
+      });
+    },
+  };
+}
 
 // The founding cohort's promises (seats, founding price, deadline, answer
 // time) live in src/cohort.js. index.html carries {{COHORT_*}} tokens where
@@ -60,7 +91,7 @@ const BE_AI_BACKEND = process.env.VITE_BE_AI_BACKEND || 'https://api.ocur.ai';
 
 export default defineConfig({
   base: '/',
-  plugins: [cohortTokens()],
+  plugins: [cohortTokens(), discoveryPages()],
   build: {
     target: 'es2020',
     sourcemap: false,
