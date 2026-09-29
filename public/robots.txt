@@ -1,4 +1,16 @@
+# Public pages are available to search engines and AI search providers.
+# Training crawlers remain allowed under the wildcard rule below.
 User-agent: *
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Googlebot
+User-agent: bingbot
+Disallow: /be-ai/api/
+Disallow: /leads/api/
 Allow: /
 
 Sitemap: https://ocur.ai/sitemap.xml

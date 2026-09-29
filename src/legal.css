@@ -16,7 +16,7 @@
   top: -180px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(1100px, 130vw);
+  width: min(1100px, 100%);
   height: 620px;
   pointer-events: none;
   z-index: -1;

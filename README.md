@@ -318,21 +318,55 @@ The repo is connected to Vercel (build `npm run build`, output `dist/`).
 production:
 
 - `/` with a German `Accept-Language` and no preference cookie → 307 to
-  `/de/`.
+  `/de`.
 - An explicit EN/DE choice is stored in the `ocur-lang` cookie (set by the
   nav toggle) and wins in both directions.
-- A deliberately opened `/de/` link with no stored preference is served
+- A deliberately opened `/de` link with no stored preference is served
   as-is.
+- `www.ocur.ai` permanently redirects to `ocur.ai`, preserving the path
+  and query string. `trailingSlash: false` consolidates `/de/` into `/de`
+  and normalizes the other directory pages the same way.
 - `/assets/*` (hashed filenames) are served immutable for a year.
 - `/be-ai/api/*` is rewritten (proxied) to `api.ocur.ai/api/be-ai/*` so the
   game's interactive parts run on the app backend while the page itself stays
   on the marketing site (see the `/be-ai` section above).
 
-`public/sitemap.xml` lists both language URLs (plus `/be-ai`) with hreflang
-alternates;
-`public/robots.txt` points to it — submit the sitemap in Google Search
-Console once the domain is live. The client-side routing in `src/i18n.js`
-stays as a fallback for dev and non-Vercel hosts.
+`scripts/build-discovery.mjs` generates `dist/sitemap.xml` from the HTML
+pages actually built, with reciprocal hreflang alternates. It also emits
+`llms.txt`, `llms-full.txt`, and a Markdown copy of every public page
+(`/index.md` for the English homepage, `/de.md` for German, `/product.md`,
+and so on). These files are generated on every build, so pricing and
+product information follow the HTML rather than a separately maintained
+summary. `llms.txt` is an optional aid for readers that use it, not a
+requirement or a ranking guarantee.
+
+`public/robots.txt` allows public crawling by search and AI providers;
+training crawlers remain allowed through the wildcard rule. Only the
+proxied game and lead API paths are excluded, and those responses get
+`X-Robots-Tag: noindex, nofollow`. No public HTML page gets that header.
+The sitemap remains `https://ocur.ai/sitemap.xml`: submit it to Google
+Search Console and Bing Webmaster Tools, then use their inspection tools
+to check the selected canonical URLs and indexing. Bot-name HTTP tests
+do not verify provider IP access; use Vercel request logs to investigate
+real crawler denials before changing firewall settings.
+
+`content/pages.js` contains English and German content for `/product`,
+`/integrations`, `/use-cases/invoice-follow-up`, and
+`/use-cases/business-phone`. The same template and site styles render
+both languages. Prices link to the homepage rather than being duplicated.
+Edit these claims when the product changes. `scripts/lib/discovery.mjs`
+adds static language links, product navigation, and Organization,
+WebSite, SoftwareApplication, WebPage and breadcrumb metadata. The
+language-switch JavaScript records the preference on the existing links.
+
+`npm run build` ends with `scripts/check-discovery.mjs`. It checks all
+emitted pages, sitemap coverage, reciprocal languages, canonical URLs,
+structured data, static switches, internal links and anchors, local
+assets, Markdown copies, public crawl rules and redirect destinations.
+`npm run check:discovery` rechecks an existing build. The local Vite
+preview resolves directory pages the same way as Vercel; development
+serves the generated content-page templates directly. Language routing
+in `src/i18n.js` remains a fallback for dev and non-Vercel hosts.
 
 ## `/be-ai` — the live "be the AI" game (top of funnel)
 

@@ -3,6 +3,7 @@
 // <head> unless the visitor prefers reduced motion).
 
 import './style.css';
+import './discovery.css';
 import { initLangRouting, applyLang, initLangToggle } from './i18n.js';
 import { initThemeToggle } from './theme.js';
 import { initAnalytics, track } from './analytics.js';

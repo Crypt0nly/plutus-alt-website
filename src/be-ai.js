@@ -14,6 +14,7 @@
 // through the same-origin /be-ai/api/* rewrite, which also points at api.ocur.ai.
 
 import './style.css';
+import './discovery.css';
 import './be-ai.css';
 import { initThemeToggle } from './theme.js';
 import { initAnalytics, track } from './analytics.js';

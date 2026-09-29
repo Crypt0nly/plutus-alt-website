@@ -26,10 +26,10 @@ $('title').text(TITLE_DE);
 $('meta[name="description"]').attr('content', DESC_DE);
 $('meta[property="og:title"]').attr('content', OG_TITLE_DE);
 $('meta[property="og:description"]').attr('content', DESC_DE);
-$('link[rel="canonical"]').attr('href', 'https://ocur.ai/de/');
+$('link[rel="canonical"]').attr('href', 'https://ocur.ai/de');
 
 // the German link preview: its own card art, URL and locale
-$('meta[property="og:url"]').attr('content', 'https://ocur.ai/de/');
+$('meta[property="og:url"]').attr('content', 'https://ocur.ai/de');
 $('meta[property="og:locale"]').attr('content', 'de_DE');
 $('meta[property="og:locale:alternate"]').attr('content', 'en_US');
 $('meta[property="og:image"]').attr('content', OG_IMAGE_DE);

@@ -2,7 +2,7 @@
 // baked by scripts/prerender-de.mjs from src/strings.de.js), so the URL
 // is the source of truth for content language. This module: redirects
 // German-browser visitors from / to /de/ (honouring an explicit choice),
-// renders the EN | DE nav toggle as real links, and applies the dictionary
+// enhances the static EN | DE links, and applies the dictionary
 // client-side as a dev fallback (?lang=de, where /de/ doesn't exist yet).
 
 import { TITLE_DE, DESC_DE, DE, DE_ATTRS } from './strings.de.js';
@@ -12,7 +12,7 @@ const pathLang = /^\/de(\/|$)/.test(location.pathname) ? 'de' : 'en';
 export const currentLang = query === 'de' || query === 'en' ? query : pathLang;
 
 const EN_PATH = '/';
-const DE_PATH = '/de/';
+const DE_PATH = '/de';
 
 function readStored() {
   let stored = null;
@@ -91,18 +91,30 @@ export function initLangToggle(paths) {
       a.href = href;
       a.textContent = lang.toUpperCase();
       a.setAttribute('lang', lang);
+      a.setAttribute('hreflang', lang);
       if (lang === currentLang) {
         a.classList.add('on');
         a.setAttribute('aria-current', 'true');
       }
-      a.addEventListener('click', () => writeStored(lang));
       box.appendChild(a);
     });
     return box;
   };
-  nav.insertBefore(build(), nav.querySelector('.g-btn-sm'));
+  if (!nav.querySelector('.g-lang')) nav.insertBefore(build(), nav.querySelector('.g-btn-sm'));
   // The phone menu (home page only) carries its own copy: the nav hides
-  // the switch below 880px to make room for the burger.
+  // the switch below 1100px to make room for the burger.
   const menuFoot = document.querySelector('#g-menu .g-menu-foot');
-  if (menuFoot) menuFoot.appendChild(build());
+  if (menuFoot && !menuFoot.querySelector('.g-lang')) menuFoot.appendChild(build());
+  // The build emits the links as HTML. JS only records the visitor's choice
+  // and updates the dev override; it never duplicates the existing controls.
+  document.querySelectorAll('.g-lang').forEach((box) => {
+    box.setAttribute('aria-label', currentLang === 'de' ? 'Sprache' : 'Language');
+    box.querySelectorAll('a[lang]').forEach((a) => {
+      const lang = a.getAttribute('lang');
+      a.classList.toggle('on', lang === currentLang);
+      if (lang === currentLang) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+      a.addEventListener('click', () => writeStored(lang));
+    });
+  });
 }
