@@ -122,7 +122,7 @@ document.querySelectorAll('a[data-apply]').forEach((a) => {
 
 // The application is the site's lead form (the old "Talk to us"), so it
 // lands in the founder's Ocur exactly like a lead did — contact, fact,
-// notification, acknowledgement — with kind=application on top. Posts JSON
+// notification for personal review — with kind=application on top. Posts JSON
 // to the app backend through the same-origin rewrite in vercel.json
 // (/leads/api/<slug> → api.ocur.ai/api/leads/<slug>); the form's own action
 // is the direct URL, so it still works with no JS (the backend sends that
@@ -166,6 +166,7 @@ if (talk) {
 
   talk.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (talk.classList.contains('is-sent') || talk.querySelector('button[type="submit"]').disabled) return;
     const data = Object.fromEntries(new FormData(talk).entries());
     const email = String(data.email || '').trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
