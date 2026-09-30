@@ -139,7 +139,7 @@ unknown token fails the build), and `src/strings.de.js` builds the German
 lines from the same values. Change a number there and both pages follow.
 Every one of them is a public promise to a visitor — and a fake deadline or
 seat count is on the UWG blacklist in Germany — so they change on purpose
-and stay true. The answer time is also in the app's acknowledgement mail
+and stay true. The answer time is also in the app's owner notification
 (plutus-cloud, `lead_email_service.APPLICATION_ANSWER`); change both.
 
 **When the deadline passes**, the inline script in `<head>` sets
@@ -159,7 +159,7 @@ the form (`#talk`) with their plan in the hidden field.
 
 **The form is the site's lead form** (it was "Talk to us"), so an
 application lands in the founder's Ocur exactly the way a lead always did —
-same endpoint, same slug, same four steps. Fields: work email, company,
+same endpoint, same slug, same manual-review flow. Fields: work email, company,
 name, role (optional), team size (`1`, `2-10`, `11-50`, `51-200`, `201+`),
 an optional phone ("so we can call you"), and the first job they'd hand
 Ocur; plus hidden `kind=application`, `plan` and `locale`. The script
@@ -172,16 +172,19 @@ leads → Founding-cohort applications). There it becomes a CRM contact
 tagged `lead`, `website`, `founding-cohort`, `team:<size>` (and `plan:` when
 a card sent it), the role on the contact, a dated fact ("Applied to the
 founding cohort … The first job they'd hand Ocur: …"), a notification on the
-founder's channel headed **New founding-cohort application**, and an
-acknowledgement to the applicant from the founder's own inbox (English or
-German) that says when the answer comes. With JS the script posts JSON
+founder's channel headed **New founding-cohort application**. Every submission
+is marked `manual-contact-only` and `needs-review`. The founder reviews it and
+makes contact personally; Ocur sends no acknowledgement or automated outreach.
+The backend also blocks mail to existing website leads at delivery time.
+With JS the script posts JSON
 through the same-origin rewrite in `vercel.json` (`/leads/api/<slug>`, so ad
 blockers that stop cross-origin API calls don't lose applications) and shows
 the answer inline; the form's own `action` is the direct URL, so with no JS
 the backend takes the plain post and sends the visitor back to
 `/?sent=1#talk` (`/de/…` on the German page), which the script renders as
-the same thank-you. A hidden honeypot field, per-address and per-link rate
-limits live on the backend.
+the same thank-you. A hidden honeypot, IP/link and submitted-email rate limits,
+a request-body cap and duplicate suppression live on the backend. The browser
+matches the field caps and ignores repeated submit clicks.
 
 Analytics: PostHog gets `apply_click` (with the placement), `talk_open` (a
 card or the Enterprise link opened the form, with the plan) and
