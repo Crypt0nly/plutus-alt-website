@@ -9,6 +9,7 @@ import { initThemeToggle } from './theme.js';
 import { initAnalytics, track } from './analytics.js';
 import { initXAds, trackXConversion, LEAD_EVENT_ID } from './xads.js';
 import { ANSWER } from './cohort.js';
+import { createFormProtection } from './form-protection.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
@@ -125,9 +126,9 @@ document.querySelectorAll('a[data-apply]').forEach((a) => {
 // notification for personal review — with kind=application on top. Posts JSON
 // to the app backend through the same-origin rewrite in vercel.json
 // (/leads/api/<slug> → api.ocur.ai/api/leads/<slug>); the form's own action
-// is the direct URL, so it still works with no JS (the backend sends that
-// post back here with ?sent=1). The business tiers' buttons and the
-// Enterprise extra scroll here and carry the plan into the hidden field,
+// is the direct URL. Every submission carries a single-use browser proof;
+// without JavaScript the form offers the booking page instead. The business
+// tiers' buttons and the Enterprise extra carry the plan into the hidden field,
 // which the lead lands with.
 const talk = document.getElementById('g-talk');
 if (talk) {
@@ -135,6 +136,8 @@ if (talk) {
   const status = talk.querySelector('.g-talk-status');
   const planField = talk.querySelector('input[name="plan"]');
   const emailField = talk.querySelector('input[name="email"]');
+  const button = talk.querySelector('button[type="submit"]');
+  const protection = createFormProtection(talk.dataset.endpoint);
   const say = (text) => {
     status.textContent = text;
   };
@@ -164,6 +167,24 @@ if (talk) {
     say(thanks(false));
   }
 
+  if (window.crypto?.subtle && 'Worker' in window) {
+    button.disabled = talk.classList.contains('is-sent');
+    talk.addEventListener('focusin', () => protection.prepare(), { once: true });
+    if ('IntersectionObserver' in window) {
+      const watcher = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          watcher.disconnect();
+          if (!talk.classList.contains('is-sent')) protection.prepare();
+        }
+      }, { rootMargin: '200px' });
+      watcher.observe(talk);
+    }
+  } else {
+    say(de
+      ? 'Dein Browser unterstützt die Prüfung nicht. Bitte öffne die Seite in einem aktuellen Browser oder buch nebenan ein Gespräch.'
+      : 'Your browser cannot run the check. Please use an up-to-date browser or book a call beside this form.');
+  }
+
   talk.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (talk.classList.contains('is-sent') || talk.querySelector('button[type="submit"]').disabled) return;
@@ -181,15 +202,22 @@ if (talk) {
       talk.elements[name].focus();
       return;
     }
-    const button = talk.querySelector('button[type="submit"]');
     button.disabled = true;
-    say(de ? 'Wird gesendet…' : 'Sending…');
+    talk.setAttribute('aria-busy', 'true');
+    say(de ? 'Wird geprüft und gesendet…' : 'Checking and sending…');
     try {
-      const res = await fetch(talk.dataset.endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, locale: de ? 'de' : 'en', page: location.pathname }),
-      });
+      const post = async () => {
+        const pow = await protection.take();
+        return fetch(talk.dataset.endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...data, pow, locale: de ? 'de' : 'en', page: location.pathname }),
+          signal: AbortSignal.timeout(20_000),
+        });
+      };
+      let res = await post();
+      // Only 400 means a stale/spent proof. Retry it once; never retry a flood or invalid fields.
+      if (res.status === 400) res = await post();
       if (!res.ok) {
         let detail = '';
         try {
@@ -213,11 +241,13 @@ if (talk) {
     } catch (err) {
       button.disabled = false;
       say(
-        (err && err.message) ||
+        (err && err.message && !/browser check|timeout|abort/i.test(err.message) ? err.message : '') ||
           (de
             ? 'Das hat nicht geklappt — bitte versuch es gleich noch einmal, oder buch stattdessen ein Gespräch.'
             : "That didn't go through — please try again in a moment, or book a call instead."),
       );
+    } finally {
+      talk.removeAttribute('aria-busy');
     }
   });
 }
