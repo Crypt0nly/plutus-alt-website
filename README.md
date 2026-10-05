@@ -179,12 +179,32 @@ The backend also blocks mail to existing website leads at delivery time.
 With JS the script posts JSON
 through the same-origin rewrite in `vercel.json` (`/leads/api/<slug>`, so ad
 blockers that stop cross-origin API calls don't lose applications) and shows
-the answer inline; the form's own `action` is the direct URL, so with no JS
-the backend takes the plain post and sends the visitor back to
-`/?sent=1#talk` (`/de/…` on the German page), which the script renders as
-the same thank-you. A hidden honeypot, IP/link and submitted-email rate limits,
-a request-body cap and duplicate suppression live on the backend. The browser
-matches the field caps and ignores repeated submit clicks.
+the answer inline. The browser fetches `GET /api/leads/<slug>/challenge`
+through `/leads/api/<slug>/challenge` and solves Ocur's signed SHA-256 puzzle
+in a Web Worker when the form comes into view or gets focus. Every POST
+carries a fresh `pow` proof, checked and spent on the backend before a
+contact, fact or notification can be created. Puzzles expire in 30 minutes;
+the browser refreshes its cached puzzle after 25 minutes and retries a refused
+proof (HTTP 400) once. Validation failures and rate limits are never retried.
+Network failures keep all typed fields. No CAPTCHA account or third-party
+verification script is required. JavaScript and WebCrypto are required to
+apply; visitors without them get a booking alternative in both languages.
+The submit button starts disabled until the form script has initialized.
+
+The backend also checks required application fields, rejects known temporary
+inboxes, HTML/link markup and messages with three or more URLs, and limits
+failed attempts, challenge issuance, daily IP volume, Gmail mailbox aliases
+and repeated long messages across different senders. Personal email addresses
+and one or two useful links remain welcome. The existing honeypot, body cap,
+IP/link/email limits and duplicate suppression remain in place.
+
+**Rollout:** deploy this site and the companion `plutus-cloud` change together.
+The backend deliberately refuses old/unprotected form submissions. Set the
+backend's existing `TRUSTED_PROXY_CIDRS` to the actual ingress subnets so IP
+limits distinguish applicants behind the load balancer; use shared Redis for
+limits and replay detection across backend instances. Check both English and
+German forms after deployment. `npm test` covers the solver, proof caching,
+expiry, one-use behavior and recovery after an unavailable check.
 
 Analytics: PostHog gets `apply_click` (with the placement), `talk_open` (a
 card or the Enterprise link opened the form, with the plan) and

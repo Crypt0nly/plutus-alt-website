@@ -5,6 +5,7 @@
   "type": "module",
   "description": "OCUR — the AI operating system for companies. A cinematic single-page site: aurora light, serif statements, a self-clearing notification pile, a draggable before/after Monday, department cards, real-product pricing and FAQ. Vite + vanilla JS.",
   "scripts": {
+    "test": "node --test tests/*.test.mjs",
     "dev": "vite",
     "build": "vite build && node scripts/prerender-de.mjs && node scripts/build-discovery.mjs && node scripts/check-legal.mjs && node scripts/check-discovery.mjs",
     "check:discovery": "node scripts/check-discovery.mjs",

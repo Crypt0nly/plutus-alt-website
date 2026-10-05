@@ -113,6 +113,12 @@ export default defineConfig({
     host: true,
     port: 5173,
     proxy: {
+      '/leads/api': {
+        target: BE_AI_BACKEND,
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/leads\/api/, '/api/leads'),
+      },
       // mirror the production rewrite: /be-ai/api/round → {backend}/api/be-ai/round
       '/be-ai/api': {
         target: BE_AI_BACKEND,

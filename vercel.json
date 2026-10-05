@@ -3,6 +3,10 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/leads/api/:slug/challenge",
+      "destination": "https://api.ocur.ai/api/leads/:slug/challenge"
+    },
+    {
       "source": "/be-ai/api/:path*",
       "destination": "https://api.ocur.ai/api/be-ai/:path*"
     },

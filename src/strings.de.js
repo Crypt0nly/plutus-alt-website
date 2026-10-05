@@ -407,6 +407,7 @@ export const DE = [
   ['.g-talk select option', ['Bitte wählen…', 'Nur ich', '2–10 Personen', '11–50 Personen', '51–200 Personen', '201+ Personen']],
   ['.g-talk button[type="submit"]', 'Bewerbung abschicken'],
   ['.g-talk-sub', 'Liest der Gründer persönlich — auch Fragen sind willkommen. <a href="/de/privacy">Datenschutz</a>'],
+  ['.g-talk noscript', '<p class="g-talk-noscript">Bitte aktiviere JavaScript, um deine Bewerbung abzuschicken, oder <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener">buch ein Gespräch mit dem Gründer</a>.</p>'],
   ['.g-next-kicker', '<span class="g-kdot" aria-hidden="true"></span>Wie es weitergeht'],
   [
     '.g-next-steps li',

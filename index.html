@@ -690,9 +690,9 @@
                cohort): it posts to the app backend's leads endpoint behind the
                founder's booking slug, and lands in the founder's Ocur as a lead —
                contact, fact, notification for personal review — tagged
-               founding-cohort. The form's own action is the direct URL, so it
-               still works with no JS (the backend sends that post back to
-               ?sent=1#talk); the script posts JSON through the same-origin
+               founding-cohort. Each POST carries a fresh browser proof; with
+               JavaScript disabled, the visitor can book a call instead.
+               The script posts JSON through the same-origin
                rewrite in vercel.json instead and shows the answer inline. The
                business tiers' buttons and the Enterprise extra land on #talk and
                carry their plan into the hidden field. -->
@@ -729,9 +729,10 @@
               <!-- honeypot: people never see it, bots fill it -->
               <div class="g-hp" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off" /></label></div>
               <div class="g-talk-foot">
-                <button class="g-btn magnetic" type="submit">Send application</button>
+                <button class="g-btn magnetic" type="submit" disabled>Send application</button>
                 <p class="g-talk-sub">Read by the founder personally — questions welcome too. <a href="/privacy">Privacy</a></p>
               </div>
+              <noscript><p class="g-talk-noscript">Please enable JavaScript to send your application, or <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener">book a call with the founder</a>.</p></noscript>
               <p class="g-talk-status" role="status" aria-live="polite"></p>
             </form>
             <div class="g-doors-side">
