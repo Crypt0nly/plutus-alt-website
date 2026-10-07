@@ -63,15 +63,22 @@ with Vite, vanilla JS, and vanilla CSS.
    department), each with a pointer-tracked glare.
 6. **Pricing** — two ladders behind one switch ("Just me" / "My company"),
    because the two are priced on different units. **Solo**: Free (1.5M
-   tokens) / Starter $29 (5M) / Pro $149 (25M, "most popular") / Pro Plus
-   $299 (50M), each with its annual price (2 months free). **Company**:
-   Team $399 (48M pooled) / Growth $1,500 (240M, "most popular") / Scale
-   $5,000 (680M), annual at one month free, unlimited human members, plus
-   an extras row (+1 AI worker $199/mo, $100 top-ups, Enterprise). Both
+   credits, 2 Drops) / Starter $29 (3M, 10 Drops) / Pro $149 (16M, 50 Drops,
+   "most popular") / Pro Plus $299 (32M, 100 Drops), each with its annual
+   price (2 months free). **Company**: Team $399 (48M pooled, 2 AI workers) /
+   Growth $1,500 (180M, 5 AI workers, "most popular") / Scale $5,000 (600M,
+   15 AI workers), annual at one month free, unlimited human members, plus
+   an extras row (+1 AI worker $199/mo, $100 per +10M credits, Enterprise).
+   Top-ups expire at the next monthly reset. Both
    ladders are in the DOM — the switch only decides which is on screen, so
    crawlers, the German prerender and a page whose bundle never ran all
-   still see every price. Mirrors the in-app plans and token allowances
-   (plutus-cloud's `PLAN_LIMITS` / `ORG_PLAN_LIMITS`). Solo stays
+   still see every price. Prices, credits, Drop limits and benefits mirror
+   the Ocur Desktop and oDrops cards in plutus-cloud's
+   `frontend/src/lib/plans.ts`, `PricingPlanGrid.tsx` and `odrops/src/Billing.tsx`.
+   Credits are shared across Ocur and oDrops, cost-weighted by model and
+   media, and renew monthly even with annual billing. When updating pricing,
+   use those cards as the source of truth and update both `index.html` and
+   `src/strings.de.js` together. Solo stays
    self-serve and says so ("open to everyone, no application"). The company
    ladder carries the **founding ribbon** (the discount, the setup, *Apply
    by …*), and its three cards lead with **Apply for the founding price**
