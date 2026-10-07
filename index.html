@@ -493,74 +493,78 @@
             and a schedule, and it works in parallel while you're doing something else.
           </p>
 
+          <!-- Pricing source of truth: plutus-cloud/frontend/src/lib/plans.ts,
+               PricingPlanGrid.tsx and odrops/src/Billing.tsx. Update the German
+               pricing dictionary in src/strings.de.js alongside these cards. -->
           <!-- solo ladder -->
           <div class="g-tiers on" data-aud="solo">
             <p class="g-tier-lede">
-              <span class="g-tier-tag">Solo</span> One person delegating — your own Ocur, plus AI
-              workers that keep going without you. Open to everyone, no application.
+              <span class="g-tier-tag">Solo</span> Ocur Desktop and oDrops, one subscription and
+              one monthly credit allowance. Open to everyone, no application.
             </p>
             <div class="g-cards g-cards-4">
               <article class="g-card lg glare">
-                <p class="g-eyebrow">Try it on real work</p>
+                <p class="g-eyebrow">A little more taken care of</p>
                 <h3>Free</h3>
                 <p class="g-price">$0<span>/month</span></p>
                 <p class="g-price-alt">No credit card. No trial clock.</p>
                 <ul>
-                  <li>The full operating system</li>
-                  <li>Email, calendar, files, chat &amp; the web</li>
-                  <li>Ocur on WhatsApp, Telegram, Slack &amp; Discord</li>
-                  <li>On demand: you ask, Ocur does it</li>
+                  <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access · create 2 Drops</a></li>
+                  <li>Ocur Desktop and oDrops</li>
+                  <li>Your own Drops, with the models you choose</li>
                 </ul>
-                <p class="g-meta">1.5M tokens of Ocur-work / month</p>
+                <p class="g-meta">1.5M credits every month</p>
                 <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
               </article>
               <article class="g-card lg glare">
-                <p class="g-eyebrow">For getting hands-on</p>
+                <p class="g-eyebrow">Ocur, every day</p>
                 <h3>Starter</h3>
                 <p class="g-price">$29<span>/month</span></p>
                 <p class="g-price-alt">or $290 a year — 2 months free</p>
                 <ul>
-                  <li>Everything in Free</li>
-                  <li>3× the monthly work of Free</li>
-                  <li>Autopilot — Ocur works while you're away</li>
-                  <li>Its own phone number and inbox</li>
-                  <li>Scheduled jobs, morning briefs, automations</li>
+                  <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access · create 10 Drops</a></li>
+                  <li>Ocur's own WhatsApp and iMessage lines, call number and email</li>
+                  <li>Ocur on WhatsApp, iMessage, Telegram, Slack, Teams and email</li>
+                  <li>Background autopilot: dashboards and widgets stay fresh</li>
+                  <li>Social and ad accounts through Zernio</li>
                 </ul>
-                <p class="g-meta">5M tokens of Ocur-work / month</p>
+                <p class="g-meta">3M credits every month — 2× Free</p>
                 <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=starter">Get Starter</a>
               </article>
               <article class="g-card g-card-hot lg glare">
                 <p class="g-badge">Most popular</p>
-                <p class="g-eyebrow">Best for power users</p>
+                <p class="g-eyebrow">Ocur as your right hand</p>
                 <h3>Pro</h3>
                 <p class="g-price">$149<span>/month</span></p>
                 <p class="g-price-alt">or $1,490 a year — 2 months free</p>
                 <ul>
+                  <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access · create 50 Drops</a></li>
                   <li>Everything in Starter</li>
-                  <li>5× the work of Starter</li>
-                  <li>Up to 10 AI workers at once</li>
-                  <li>Hand off a whole backlog in one message</li>
+                  <li>Room for scheduled jobs, briefs and long working sessions all month</li>
+                  <li>Live apps and workflows that run while you're away</li>
                 </ul>
-                <p class="g-meta">25M tokens of Ocur-work / month</p>
+                <p class="g-meta">16M credits every month</p>
                 <a class="g-btn magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=pro">Get Pro</a>
               </article>
               <article class="g-card lg glare">
-                <p class="g-eyebrow">For your whole day</p>
+                <p class="g-eyebrow">Ocur running your whole day</p>
                 <h3>Pro Plus</h3>
                 <p class="g-price">$299<span>/month</span></p>
                 <p class="g-price-alt">or $2,990 a year — 2 months free</p>
                 <ul>
+                  <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access · create 100 Drops</a></li>
                   <li>Everything in Pro</li>
-                  <li>Double the work of Pro</li>
-                  <li>Unlimited AI workers</li>
+                  <li>For power users with workflows, teammates and live apps around the clock</li>
+                  <li>Priority support</li>
                 </ul>
-                <p class="g-meta">50M tokens of Ocur-work / month</p>
+                <p class="g-meta">32M credits every month — 2× Pro</p>
                 <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=pro-plus">Get Pro Plus</a>
               </article>
             </div>
             <p class="g-note">
-              Prices in USD — EU customers pay the same number in euro. Annual billing gives you two
-              months free, and you can switch, upgrade or cancel any time.
+              Every paid plan includes the full Ocur OS, every connected channel, and Ocur's own
+              number and email. Prices in USD — EU customers pay the same number in euro. Annual
+              billing gives you two months free. Plan changes and cancellations are managed through Stripe.
             </p>
           </div>
 
@@ -583,13 +587,14 @@
                 <p class="g-price">$399<span>/month</span></p>
                 <p class="g-price-alt">or $4,389 a year — one month free</p>
                 <ul>
+                  <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access</a></li>
                   <li>Unlimited human members — invites are free</li>
                   <li>2 AI workers with real jobs and schedules</li>
-                  <li>One shared pool for the whole team</li>
-                  <li>Shared company memory and knowledge</li>
-                  <li>Ocur on WhatsApp, Telegram, Slack, Teams &amp; email</li>
+                  <li>Ocur on WhatsApp, iMessage, Telegram, Slack, Teams &amp; email</li>
+                  <li>Hire more AI workers any time — $199/mo each</li>
+                  <li>Top up any time — $100 per +10M credits</li>
                 </ul>
-                <p class="g-meta">48M tokens of Ocur-work a month, pooled</p>
+                <p class="g-meta">48M pooled credits every month</p>
                 <a class="g-btn g-btn-glass lg magnetic" href="#talk" data-talk="team">Apply for the founding price</a>
                 <a class="g-card-talk" href="https://app.ocur.ai/?auth=sign-up&amp;plan=team">or start today at list price →</a>
               </article>
@@ -600,13 +605,14 @@
                 <p class="g-price">$1,500<span>/month</span></p>
                 <p class="g-price-alt">or $16,500 a year — one month free</p>
                 <ul>
-                  <li>Everything in Team</li>
-                  <li>5× the pooled work of Team</li>
+                  <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access</a></li>
+                  <li>Unlimited human members — invites are free</li>
                   <li>5 AI workers with real jobs and schedules</li>
                   <li>Org-wide memory, guardrails &amp; governance</li>
-                  <li>Custom tools, Live Apps and automations</li>
+                  <li>Hire more AI workers any time — $199/mo each</li>
+                  <li>Top up any time — $100 per +10M credits</li>
                 </ul>
-                <p class="g-meta">240M tokens of Ocur-work a month, pooled</p>
+                <p class="g-meta">180M pooled credits every month</p>
                 <a class="g-btn magnetic" href="#talk" data-talk="growth">Apply for the founding price</a>
                 <a class="g-card-talk" href="https://app.ocur.ai/?auth=sign-up&amp;plan=growth">or start today at list price →</a>
               </article>
@@ -616,13 +622,14 @@
                 <p class="g-price">$5,000<span>/month</span></p>
                 <p class="g-price-alt">or $55,000 a year — one month free</p>
                 <ul>
-                  <li>Everything in Growth</li>
-                  <li>Nearly 3× the pool of Growth</li>
+                  <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access</a></li>
+                  <li>Unlimited human members — invites are free</li>
                   <li>15 AI workers across teams and departments</li>
                   <li>Org intelligence digest for leadership</li>
                   <li>Priority support and onboarding</li>
+                  <li>Custom pool sizing on request</li>
                 </ul>
-                <p class="g-meta">680M tokens of Ocur-work a month, pooled</p>
+                <p class="g-meta">600M pooled credits every month</p>
                 <a class="g-btn g-btn-glass lg magnetic" href="#talk" data-talk="scale">Apply for the founding price</a>
                 <a class="g-card-talk" href="https://app.ocur.ai/?auth=sign-up&amp;plan=scale">or start today at list price →</a>
               </article>
@@ -630,24 +637,28 @@
             <div class="g-extras">
               <div class="g-extra lg">
                 <strong>+1 AI worker</strong>
-                <span>$199 a month — and it brings another 25M tokens of work with it</span>
+                <span>Hire more AI workers any time — $199 a month each</span>
               </div>
               <div class="g-extra lg">
                 <strong>Top-up</strong>
-                <span>$100 adds 10M tokens to the shared pool, any time</span>
+                <span>$100 adds 10M credits to the shared pool; expires at your next monthly reset</span>
               </div>
               <div class="g-extra lg">
                 <strong>Enterprise</strong>
-                <span>Unlimited work, custom pool sizing, its own terms</span>
+                <span>Explore a pilot, custom pool sizing, or an Enterprise setup with our team</span>
                 <a class="g-extra-link" href="#talk" data-talk="enterprise">Talk to us →</a>
               </div>
             </div>
             <p class="g-note">
               Prices in USD — EU customers pay the same number in euro. Annual billing gives you a
-              month free. Not ready to apply? Every company can start free: pilot Ocur yourself,
-              invite the others once it proves itself.
+              month free, with the same monthly allowance. Credit top-ups expire at your next monthly reset.
+              Pilot Ocur on a free personal account, then choose a company plan when your team joins.
             </p>
           </div>
+          <p class="g-note g-credit-note">
+            Your credit allowance is shared across Ocur and oDrops. More expensive models, output and
+            media use more credits; cached input uses fewer. Your allowance renews monthly, including on annual plans.
+          </p>
         </div>
       </section>
 
@@ -783,7 +794,7 @@
             </details>
             <details class="lg" name="g-faq">
               <summary>Do I have to apply to use Ocur?</summary>
-              <p>No. On your own, the free plan is open to everyone: the full operating system with a monthly allowance of work — enough to pilot Ocur on real tasks. No credit card, no trial clock. The application is for companies that want the founding price and a setup with the founder.</p>
+              <p>No. On your own, the free plan is open to everyone: Ocur Desktop and oDrops with 1.5M credits every month and access to create 2 Drops with the models you choose. No credit card, no trial clock. The application is for companies that want the founding price and a setup with the founder.</p>
             </details>
             <details class="lg" name="g-faq">
               <summary>How is this different from a chat assistant?</summary>
@@ -803,7 +814,7 @@
             </details>
             <details class="lg" name="g-faq">
               <summary>What does it work with?</summary>
-              <p>Gmail, Google Calendar, Google Drive, Notion, GitHub, WhatsApp, Telegram, Slack and Discord — plus the web itself, and even your own computer if you connect it. You add accounts one by one, and you can disconnect any of them at any time.</p>
+              <p>Gmail, Google Calendar, Google Drive, Notion and GitHub — plus the web itself, and even your own computer if you connect it. Paid plans include Ocur on WhatsApp, iMessage, Telegram, Slack, Teams and email. You add accounts one by one, and you can disconnect any of them at any time.</p>
             </details>
             <details class="lg" name="g-faq">
               <summary>Is our data private?</summary>
@@ -815,7 +826,7 @@
             </details>
             <details class="lg" name="g-faq">
               <summary>Do we pay per person?</summary>
-              <p>No. Human members are always free, however many of you there are — inviting a colleague costs nothing. What you pay for is Ocur's work: a monthly allowance of it, and the AI workers that run jobs on their own schedule. Need another pair of hands? An extra AI worker is $199 a month, and it brings 25M tokens of work with it.</p>
+              <p>No. Every company plan includes unlimited human members — inviting a colleague costs nothing. Your company pays for a shared monthly credit pool and AI workers with real jobs and schedules. Extra AI workers are $199 a month each. Credit top-ups add 10M credits for $100 and expire at your next monthly reset.</p>
             </details>
             <details class="lg" name="g-faq">
               <summary>How long does rollout take?</summary>
