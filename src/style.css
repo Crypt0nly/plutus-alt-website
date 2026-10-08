@@ -1700,6 +1700,41 @@ html.motion .g-eq i {
   color: var(--g-dim);
 }
 
+.g-company-interval {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 5px;
+  gap: 3px;
+  border: 1px solid var(--g-hair);
+  border-radius: 999px;
+  background: var(--g-fill);
+}
+.g-company-interval button {
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--g-dim);
+  background: transparent;
+  cursor: pointer;
+}
+.g-company-interval button[aria-pressed="true"] {
+  background: var(--g-ink);
+  color: var(--g-bg);
+}
+.g-company-interval button:focus-visible { outline: 2px solid var(--g-orange); outline-offset: 3px; }
+.g-billing-note { text-align: center; margin: 12px 0 24px; font-size: 13px; color: var(--g-dim); }
+.g-price-saving { min-height: 20px; margin: -8px 0 14px; font-size: 12.5px; color: var(--g-orange); }
+.g-tiers[data-aud="company"] .g-price-alt { min-height: 38px; line-height: 1.5; }
+.g-tiers[data-aud="company"] .g-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px; }
+@media (max-width: 400px) {
+  .g-company-interval button { padding: 8px 10px; font-size: 12px; }
+}
+
 /* ------------------------------------------- the two pricing ladders */
 /* Solo and company are priced on different units — one Ocur for you, vs.
    a shared pool where humans are free and AI workers are the meter — so

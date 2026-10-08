@@ -574,6 +574,12 @@
               <span class="g-tier-tag g-tier-tag-hot">Business</span> The whole company on one Ocur:
               one shared pool, one shared memory — and unlimited human members, always free.
             </p>
+            <div class="g-company-interval" role="group" aria-label="Business billing interval">
+              <button type="button" data-billing-interval="month" aria-pressed="true">Monthly</button>
+              <button type="button" data-billing-interval="semiannual" aria-pressed="false">Every 6 months</button>
+              <button type="button" data-billing-interval="year" aria-pressed="false">Annually</button>
+            </div>
+            <p class="g-billing-note">Choose when you pay. Credits renew every month on every plan.</p>
             <!-- the founding offer on the ladder it applies to; the numbers come
                  from src/cohort.js -->
             <p class="g-founding lg">
@@ -581,11 +587,12 @@
               <span class="g-founding-text"><strong>Founding cohort:</strong> {{COHORT_DISCOUNT}}% off any business plan for your first {{COHORT_MONTHS}} months, and the founder sets you up personally. <a href="#apply" data-apply="pricing">Apply<span class="g-deadline"> by {{COHORT_CLOSES}}</span> →</a></span>
             </p>
             <div class="g-cards">
-              <article class="g-card lg glare">
+              <article class="g-card lg glare" data-company-plan="team">
                 <p class="g-eyebrow">Your first shared brain</p>
                 <h3>Team</h3>
                 <p class="g-price">$399<span>/month</span></p>
-                <p class="g-price-alt">or $4,389 a year — one month free</p>
+                <p class="g-price-alt">6 months: $2,300 · Year: $4,389</p>
+                <p class="g-price-saving"></p>
                 <ul>
                   <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access</a></li>
                   <li>Unlimited human members — invites are free</li>
@@ -598,12 +605,13 @@
                 <a class="g-btn g-btn-glass lg magnetic" href="#talk" data-talk="team">Apply for the founding price</a>
                 <a class="g-card-talk" href="https://app.ocur.ai/?auth=sign-up&amp;plan=team">or start today at list price →</a>
               </article>
-              <article class="g-card g-card-hot lg glare">
+              <article class="g-card g-card-hot lg glare" data-company-plan="growth">
                 <p class="g-badge">Most popular</p>
                 <p class="g-eyebrow">For companies getting serious</p>
                 <h3>Growth</h3>
                 <p class="g-price">$1,500<span>/month</span></p>
-                <p class="g-price-alt">or $16,500 a year — one month free</p>
+                <p class="g-price-alt">6 months: $8,500 · Year: $16,500</p>
+                <p class="g-price-saving"></p>
                 <ul>
                   <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access</a></li>
                   <li>Unlimited human members — invites are free</li>
@@ -616,11 +624,12 @@
                 <a class="g-btn magnetic" href="#talk" data-talk="growth">Apply for the founding price</a>
                 <a class="g-card-talk" href="https://app.ocur.ai/?auth=sign-up&amp;plan=growth">or start today at list price →</a>
               </article>
-              <article class="g-card lg glare">
+              <article class="g-card lg glare" data-company-plan="scale">
                 <p class="g-eyebrow">For companies &amp; agencies</p>
                 <h3>Scale</h3>
                 <p class="g-price">$5,000<span>/month</span></p>
-                <p class="g-price-alt">or $55,000 a year — one month free</p>
+                <p class="g-price-alt">6 months: $28,500 · Year: $55,000</p>
+                <p class="g-price-saving"></p>
                 <ul>
                   <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access</a></li>
                   <li>Unlimited human members — invites are free</li>
@@ -650,14 +659,15 @@
               </div>
             </div>
             <p class="g-note">
-              Prices in USD — EU customers pay the same number in euro. Annual billing gives you a
-              month free, with the same monthly allowance. Credit top-ups expire at your next monthly reset.
+              Prices in USD — EU customers pay the same number in euro. Choose monthly, every six months,
+              or annually. The price shown is the full charge for that billing period. Annual billing gives you a
+              month free. Credit top-ups expire at your next monthly reset.
               Pilot Ocur on a free personal account, then choose a company plan when your team joins.
             </p>
           </div>
           <p class="g-note g-credit-note">
             Your credit allowance is shared across Ocur and oDrops. More expensive models, output and
-            media use more credits; cached input uses fewer. Your allowance renews monthly, including on annual plans.
+            media use more credits; cached input uses fewer. Your allowance renews monthly, including on six-month and annual plans.
           </p>
         </div>
       </section>
