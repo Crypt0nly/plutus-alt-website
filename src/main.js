@@ -4,7 +4,8 @@
 
 import './style.css';
 import './discovery.css';
-import { initLangRouting, applyLang, initLangToggle } from './i18n.js';
+import { initLangRouting, applyLang, initLangToggle, currentLang } from './i18n.js';
+import { initCompanyPricing } from './company-pricing.js';
 import { initThemeToggle } from './theme.js';
 import { initAnalytics, track } from './analytics.js';
 import { initXAds, trackXConversion, LEAD_EVENT_ID } from './xads.js';
@@ -23,6 +24,7 @@ initXAds();
 applyLang();
 initLangToggle();
 initThemeToggle();
+initCompanyPricing(document, currentLang);
 document.getElementById('g-year').textContent = String(new Date().getFullYear());
 
 const motion = document.documentElement.classList.contains('motion');

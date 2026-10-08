@@ -224,6 +224,8 @@ export const DE = [
   ],
   ['.g-seg-t', ['Nur ich', 'Mein Unternehmen']],
   ['.g-seg-s', ['Solo-Pläne', 'Business-Pläne']],
+  ['.g-company-interval button', ['Monatlich', 'Alle 6 Monate', 'Jährlich']],
+  ['.g-billing-note', 'Wähle, wann du zahlst. Credits erneuern sich bei jedem Plan monatlich.'],
   [
     '.g-worker-note',
     '<strong>Was ist ein KI-Worker?</strong> Ein Kollege, den Ocur für dich laufen lässt — mit Namen, Aufgabe und Zeitplan. Er arbeitet parallel, während du etwas anderes tust.',
@@ -271,9 +273,9 @@ export const DE = [
       'oder €290 im Jahr — 2 Monate geschenkt',
       'oder €1.490 im Jahr — 2 Monate geschenkt',
       'oder €2.990 im Jahr — 2 Monate geschenkt',
-      'oder €4.389 im Jahr — 1 Monat geschenkt',
-      'oder €16.500 im Jahr — 1 Monat geschenkt',
-      'oder €55.000 im Jahr — 1 Monat geschenkt',
+      '6 Monate: €2.300 · Jahr: €4.389',
+      '6 Monate: €8.500 · Jahr: €16.500',
+      '6 Monate: €28.500 · Jahr: €55.000',
     ],
   ],
   [
@@ -359,12 +361,12 @@ export const DE = [
     '.g-tiers > .g-note',
     [
       'Jeder kostenpflichtige Tarif enthält das volle Ocur OS, alle verbundenen Kanäle sowie Ocurs eigene Telefonnummer und E-Mail. Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Jährlich zahlen heißt zwei Monate geschenkt. Tarifwechsel und Kündigungen werden über Stripe verwaltet.',
-      'Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Jährlich zahlen heißt einen Monat geschenkt, bei gleichem monatlichem Kontingent. Credit-Aufladungen verfallen beim nächsten monatlichen Reset. Teste Ocur mit einem kostenlosen persönlichen Konto und wähle einen Business-Plan, sobald dein Team dazukommt.',
+      'Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Wähle monatliche, halbjährliche oder jährliche Abrechnung. Der angezeigte Preis ist der volle Betrag für diesen Zeitraum. Jährlich zahlen heißt einen Monat geschenkt. Credit-Aufladungen verfallen beim nächsten monatlichen Reset. Teste Ocur mit einem kostenlosen persönlichen Konto und wähle einen Business-Plan, sobald dein Team dazukommt.',
     ],
   ],
   [
     '.g-credit-note',
-    'Dein Credit-Kontingent wird zwischen Ocur und oDrops geteilt. Teurere Modelle, Ausgaben und Medien verbrauchen mehr Credits; zwischengespeicherte Eingaben weniger. Dein Kontingent erneuert sich monatlich, auch bei jährlicher Abrechnung.',
+    'Dein Credit-Kontingent wird zwischen Ocur und oDrops geteilt. Teurere Modelle, Ausgaben und Medien verbrauchen mehr Credits; zwischengespeicherte Eingaben weniger. Dein Kontingent erneuert sich monatlich, auch bei halbjährlicher und jährlicher Abrechnung.',
   ],
   ['.g-extra-link', 'Sprich mit uns →'],
   ['.g-card-talk', 'oder heute zum Listenpreis starten →'],
