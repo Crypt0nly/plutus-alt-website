@@ -191,53 +191,32 @@
     </div>
 
     <main>
-      <!-- Text and actions render before the optional, decorative WebGL layer. -->
+      <!-- The opening is a self-contained film controlled by native scrolling. -->
       <section class="oc-intro" id="intro" aria-labelledby="oc-title">
         <div class="oc-stage">
-          <div class="oc-atmosphere" aria-hidden="true"></div>
+          <a class="oc-skip" href="#oc-next">Skip introduction</a>
           <div class="oc-art" aria-hidden="true">
             <img class="oc-poster" src="/intro-orbit.svg" alt="" width="900" height="900" fetchpriority="high" />
             <div class="oc-webgl"></div>
-            <span class="oc-signal oc-signal-a"><i></i><span>Email &amp; calls</span></span>
-            <span class="oc-signal oc-signal-b"><i></i><span>Your everyday tools</span></span>
-            <span class="oc-signal oc-signal-c"><i></i><span>Your rules &amp; approvals</span></span>
-            <span class="oc-art-caption">Connected. Coordinated. In motion.</span>
           </div>
-          <div class="oc-content">
-            <p class="oc-eyebrow"><span></span>The AI operating system for companies</p>
-            <div class="oc-copies">
-              <div class="oc-copy">
-                <h1 id="oc-title">Your business.<br /><em>In motion.</em></h1>
-                <p>Emails. Calls. Follow-ups. All the moving parts of your business, working together. Meet Ocur.</p>
-              </div>
-              <div class="oc-copy" aria-hidden="true" inert>
-                <h2>Every tool.<br /><em>One intelligence.</em></h2>
-                <p>Ocur connects the tools you already use, finds the context, and turns the next step into work done.</p>
-              </div>
-              <div class="oc-copy" aria-hidden="true" inert>
-                <h2>You set direction.<br /><em>Ocur takes action.</em></h2>
-                <p>From a reply to a supplier call. Set the limits, review what needs your approval, and keep the whole picture.</p>
-              </div>
-            </div>
-            <div class="oc-actions">
-              <a class="oc-primary" href="https://app.ocur.ai/?auth=sign-up">Start free <span aria-hidden="true">↗</span></a>
-              <a class="oc-secondary" href="#demo">See it in action <span aria-hidden="true">↓</span></a>
-            </div>
-            <p class="oc-invitation"><a href="#apply" data-apply="hero">Join the founding cohort <span aria-hidden="true">↗</span></a><span>No credit card to start.</span></p>
+          <div class="oc-script">
+            <h1 id="oc-title"><span>Your business.</span><span>In motion.</span></h1>
+            <p class="oc-message"><span>You set direction.</span><span>Ocur takes action.</span></p>
           </div>
-          <div class="oc-foot">
-            <a class="oc-scroll" href="#oc-next"><span class="oc-scroll-icon" aria-hidden="true">↓</span><span>Scroll to bring it together</span></a>
-            <div class="oc-chapters" role="group" aria-label="Introduction chapters">
-              <button type="button" data-chapter="0" aria-pressed="true"><span>01</span> Possibility</button>
-              <button type="button" data-chapter="1" aria-pressed="false"><span>02</span> Connection</button>
-              <button type="button" data-chapter="2" aria-pressed="false"><span>03</span> Action</button>
-            </div>
-            <a class="oc-skip" href="#oc-next">Explore Ocur <span aria-hidden="true">↘</span></a>
-          </div>
-          <div class="oc-progress" aria-hidden="true"><span></span></div>
+          <p class="oc-caption"><span>A new way to run your business.</span><span>Every moving part, working together.</span><span>Meet Ocur.</span></p>
+          <a class="oc-scroll" href="#oc-next">Scroll to explore <span aria-hidden="true">↓</span></a>
         </div>
       </section>
-      <div id="oc-next" tabindex="-1"></div>
+      <section class="oc-welcome" id="oc-next" tabindex="-1" aria-labelledby="oc-welcome-title">
+        <p class="oc-eyebrow">The AI operating system for companies</p>
+        <h2 id="oc-welcome-title">Less busywork.<br /><em>More business.</em></h2>
+        <p class="oc-description">Ocur answers your email and your phone, connects your tools, and follows through on the work. You set the limits.</p>
+        <div class="oc-actions">
+          <a class="oc-primary" href="https://app.ocur.ai/?auth=sign-up">Start free <span aria-hidden="true">↗</span></a>
+          <a class="oc-secondary" href="#demo">See it in action <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="oc-invitation"><a href="#apply" data-apply="hero">Join the founding cohort <span aria-hidden="true">↗</span></a><span>No credit card to start.</span></p>
+      </section>
 
       <!-- connector strip -->
       <section class="g-logos">

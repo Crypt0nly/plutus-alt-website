@@ -1,9 +1,10 @@
 // Deterministic, one-time geometry. Every morph runs on the GPU, not in a JS loop.
-export function particleShapes(count, logoPixels) {
+export function particleShapes(count, logoPixels, textPixels = [logoPixels, logoPixels]) {
   const orbit = new Float32Array(count * 3);
   const sphere = new Float32Array(count * 3);
   const fox = new Float32Array(count * 3);
   const seeds = new Float32Array(count);
+  const words = [new Float32Array(count * 3), new Float32Array(count * 3)];
   let seed = 73129;
   const random = () => ((seed = Math.imul(seed, 1664525) + 1013904223 >>> 0) / 4294967296);
   for (let i = 0; i < count; i++) {
@@ -17,7 +18,7 @@ export function particleShapes(count, logoPixels) {
       radius * Math.sin(u),
       tube * Math.sin(v) + .26 * Math.sin(twist),
     ], i * 3);
-    // Any prefix must cover the entire sphere when adaptive quality lowers drawRange.
+    // Distribute particles across both hemispheres at either device density.
     const latitude = Math.acos(1 - 2 * random());
     const longitude = i * 2.3999632297;
     const r = i % 5 === 0 ? 1.65 * Math.cbrt(random()) : 1.65;
@@ -28,7 +29,11 @@ export function particleShapes(count, logoPixels) {
     ], i * 3);
     const pixel = logoPixels[Math.floor(random() * logoPixels.length)];
     fox.set([pixel[0] * 3.8, pixel[1] * 3.8, (random() - .5) * .23], i * 3);
+    words.forEach((target, index) => {
+      const point = textPixels[index][Math.floor(random() * textPixels[index].length)];
+      target.set([point[0] * 7.4, point[1] * 7.4, 0], i * 3);
+    });
     seeds[i] = random();
   }
-  return { orbit, sphere, fox, seeds };
+  return { orbit, sphere, fox, words, seeds };
 }
