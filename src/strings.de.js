@@ -55,6 +55,15 @@ export const DE = [
   ['.oc-invitation a', 'Am Pilotprogramm teilnehmen <span aria-hidden="true">↗</span>'],
   ['.oc-invitation > span', 'Ohne Kreditkarte starten.'],
 
+  // The same story continues through the rest of the landing page.
+  ['#demo .oc-chapter-label', 'Vom Vorhaben zur Tat'],
+  ['#system .oc-chapter-label', 'Das ganze Bild'],
+  ['#features .oc-chapter-label', 'Arbeit, die weitergeht'],
+  ['#start .oc-chapter-label', 'Ein kleiner erster Schritt'],
+  ['#pricing .oc-chapter-label', 'Raum zum Wachsen'],
+  ['#apply .oc-chapter-label', 'Gemeinsam aufgebaut'],
+  ['#faq .oc-chapter-label', 'Noch ein paar Details'],
+
   // hero
   ['.g-kicker', '<span class="g-kdot" aria-hidden="true"></span>Das KI-Betriebssystem für Unternehmen'],
   ['.g-h1', 'Deine KI redet nicht.<br /><span class="g-grad">Sie erledigt.</span>'],

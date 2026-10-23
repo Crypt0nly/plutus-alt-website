@@ -5,7 +5,7 @@
 
 import { currentLang } from './i18n.js';
 
-const META_COLOR = { dark: '#060608', light: '#eaecf1' };
+const META_COLOR = { dark: '#080a0e', light: '#f2eee6' };
 const LABEL = {
   en: { toLight: 'Switch to light mode', toDark: 'Switch to dark mode' },
   de: { toLight: 'Zum hellen Modus wechseln', toDark: 'Zum dunklen Modus wechseln' },

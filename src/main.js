@@ -5,6 +5,7 @@
 import './style.css';
 import './discovery.css';
 import './intro.css';
+import './cinematic.css';
 import { initIntro } from './intro.js';
 import { initLangRouting, applyLang, initLangToggle, currentLang } from './i18n.js';
 import { initCompanyPricing } from './company-pricing.js';
