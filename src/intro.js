@@ -1,7 +1,7 @@
 import { dampProgress, captionOpacity } from './intro-timing.js';
 
 // Native scroll -> one requestAnimationFrame -> one synchronous GPU draw.
-// No Lenis, ScrollTrigger scrub, nested render callback, or pointer animation.
+// Ambient motion and pointer response share this clock; no nested render loop.
 export function initIntro({ onLayout = () => {} } = {}) {
   const intro = document.querySelector('.oc-intro');
   if (!intro) return;
@@ -16,6 +16,7 @@ export function initIntro({ onLayout = () => {} } = {}) {
   let progress = 0, target = 0, start = 0, distance = 1, viewport = innerHeight;
   let focused = false, drawing = false, loading = false;
   let samples = 0, frames = 0, elapsed = 0;
+  let paintedProgress = -1;
   const canAnimate = () => !navigator.connection?.saveData &&
     parseFloat(getComputedStyle(document.documentElement).fontSize) <= 20 && innerHeight >= 420;
 
@@ -31,6 +32,10 @@ export function initIntro({ onLayout = () => {} } = {}) {
     focusStage(y >= -viewport && y < distance + 80);
     drawing = y > -viewport && y < distance + viewport;
     if (drawing) requestFrame();
+    else {
+      cancelAnimationFrame(frame); frame = 0; lastTime = 0;
+      scene?.clearPointer();
+    }
   };
   const resize = () => {
     if (disposed) return;
@@ -51,9 +56,12 @@ export function initIntro({ onLayout = () => {} } = {}) {
     const dt = lastTime ? Math.min(time - lastTime, 64) : 16.67;
     progress = dampProgress(progress, target, dt);
     // Caption fades are tied to the same frame and progress as the sculpture.
-    captions.forEach((caption, i) => { caption.style.opacity = String(captionOpacity(i, progress)); });
-    hint.style.opacity = String(Math.max(0, 1 - progress / .07));
-    hint.inert = progress > .07;
+    if (Math.abs(progress - paintedProgress) > .00001) {
+      captions.forEach((caption, i) => { caption.style.opacity = String(captionOpacity(i, progress)); });
+      hint.style.opacity = String(Math.max(0, 1 - progress / .07));
+      hint.inert = progress > .07;
+      paintedProgress = progress;
+    }
     scene?.draw(progress, dt);
     if (lastTime) { samples++; elapsed += time - lastTime; }
     lastTime = time;
@@ -64,13 +72,16 @@ export function initIntro({ onLayout = () => {} } = {}) {
       art.dataset.draws = String(scene?.drawCount || 0);
       art.dataset.frameMs = String(Math.round(elapsed / Math.max(1, samples) * 10) / 10);
     }
-    if (Math.abs(target - progress) > .00008) requestFrame();
+    const settling = Math.abs(target - progress) > .00008;
+    // Keep the visible sculpture alive, even after scrolling settles. Fallbacks
+    // never keep a loop running; offscreen/hidden stages cancel it above.
+    if (settling || scene?.active) requestFrame();
     else {
       lastTime = 0;
       art.dataset.frames = String(frames);
       art.dataset.draws = String(scene?.drawCount || 0);
-      intro.dataset.progress = progress.toFixed(3);
     }
+    if (!settling && intro.dataset.progress !== progress.toFixed(3)) intro.dataset.progress = progress.toFixed(3);
   }
   function requestFrame() {
     if (!frame && !disposed && !document.hidden) frame = requestAnimationFrame(tick);
@@ -79,10 +90,29 @@ export function initIntro({ onLayout = () => {} } = {}) {
   resizeObserver.observe(stage);
   addEventListener('scroll', syncScroll, { passive: true, signal });
   addEventListener('resize', resize, { passive: true, signal });
+  const movePointer = (event) => {
+    if (!drawing || !scene?.active) return;
+    // Touch feedback is limited to contact; native swiping remains untouched.
+    if (event.pointerType === 'touch' && !event.buttons) return;
+    const bounds = stage.getBoundingClientRect();
+    scene.setPointer((event.clientX - bounds.left) / bounds.width * 2 - 1,
+      1 - (event.clientY - bounds.top) / bounds.height * 2);
+  };
+  stage.addEventListener('pointermove', movePointer, { passive: true, signal });
+  stage.addEventListener('pointerdown', movePointer, { passive: true, signal });
+  const clearPointer = () => scene?.clearPointer();
+  stage.addEventListener('pointerleave', clearPointer, { passive: true, signal });
+  stage.addEventListener('pointercancel', clearPointer, { passive: true, signal });
+  stage.addEventListener('pointerup', (event) => {
+    if (event.pointerType !== 'mouse') clearPointer();
+  }, { passive: true, signal });
+  addEventListener('blur', clearPointer, { signal });
   document.addEventListener('visibilitychange', () => {
     cancelAnimationFrame(frame); frame = 0; lastTime = 0;
+    clearPointer();
     if (!document.hidden) syncScroll();
   }, { signal });
+  addEventListener('pageshow', (event) => { if (event.persisted) syncScroll(); }, { signal });
   // Standard anchor behavior also moves focus beyond the introduction.
   intro.querySelectorAll('a[href="#oc-next"]').forEach((link) => {
     link.addEventListener('click', () => {

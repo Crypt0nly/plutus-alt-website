@@ -12,7 +12,11 @@ The sticky stage occupies 400 small viewport heights on desktop and 360 on phone
 
 `src/intro-scene.js` is dynamically imported. One point cloud draws 16,000 desktop / 10,000 mobile particles in one draw call. Static buffer attributes hold all five targets; the vertex shader performs the morphs. The logo comes from local `logo.svg`; text is rasterized once using the loaded font, with a system-font fallback. There are no model, video or texture downloads, shadows or postprocessing passes.
 
-The opaque canvas avoids full-screen transparent composition. Its rendering budget is capped at 1.5 million pixels and DPR 1.4. Sustained slow frames reduce resolution by 20% on each axis while retaining every text particle. Idle, offscreen and hidden-tab rendering stops. No continuous pointer animation or separate renderer RAF runs. `.oc-art[data-frames]`, `[data-draws]` and `[data-pixels]` expose sampled diagnostics; `[data-frame-ms]` is an approximate active-loop measurement, not a hardware benchmark.
+The opaque canvas avoids full-screen transparent composition. Its rendering budget is capped at 1.5 million pixels and DPR 1.4. Sustained slow frames reduce resolution by 20% on each axis while retaining every text particle. The visible sculpture continues animating after scrolling settles, with slow breathing, rotation, seeded drift and a gentle shimmer. Text has much smaller movement so its strokes stay readable.
+
+Pointer proximity produces a bounded local push, curl and highlight, with restrained parallax across the whole sculpture. Pointer position and strength ease in the existing draw callback; departure relaxes over 420 ms. The effect scales with the artwork and is lighter on text. Passive pointer listeners support mouse, pen and touch without intercepting native scrolling. Touch/pen release, cancellation, pointer exit, window blur and tab hiding clear the interaction. Offscreen and hidden-tab rendering stops, and fallback modes never start a continuous loop. Returning to the stage resumes the animation clock without a large time jump.
+
+There is still only one RAF loop and one GPU draw per frame; caption styles are updated only when scroll progress changes. `.oc-art[data-frames]`, `[data-draws]`, `[data-pixels]`, `[data-time]` and `[data-interaction]` expose sampled diagnostics; `[data-frame-ms]` is an approximate active-loop measurement, not a hardware benchmark.
 
 ## Fallbacks and validation
 
@@ -20,6 +24,6 @@ Reduced motion and data saver skip the Three.js chunk. Short viewports and enlar
 
 Run `npm test` and `npm run build`. Tests cover all morph targets, finite/repeatable geometry, planar text, reversible frame-rate-independent damping, accessible/translated content, pricing and form protection. The build checks all 18 discovery/legal pages.
 
-Browser QA covers both text holds and all shapes in both scroll directions, narrow phones, tall desktop viewports, EN/DE, navigation handoff, idle/offscreen suspension, enlarged text, reduced motion, data saver, no JavaScript, unavailable WebGL and context loss. Never submit real leads during QA.
+Browser QA covers both text holds and all shapes in both scroll directions, ambient motion without input, pointer proximity and release, touch cancellation without scroll interception, narrow phones, tall desktop viewports, EN/DE, navigation handoff, offscreen suspension, enlarged text, reduced motion, data saver, no JavaScript, unavailable WebGL and context loss. Never submit real leads during QA.
 
-Local embedded-browser profiling at 1280 × 780 measured a 22.9 ms median and 31.3 ms p95 over 179 frame intervals, versus approximately 50 ms median / 93.9 ms p95 for the previous implementation in this environment. This is a development comparison, not a guaranteed device frame rate. Recheck on real mobile hardware when tuning particle density or shaders.
+Recheck frame pacing on real mobile hardware when tuning particle density or shaders. The local embedded browser is useful for development comparisons but does not establish a guaranteed device frame rate.

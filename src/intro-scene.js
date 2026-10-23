@@ -1,5 +1,5 @@
 import { WebGLRenderer, Scene, OrthographicCamera, BufferGeometry, BufferAttribute,
-  ShaderMaterial, Points, Color } from 'three';
+  ShaderMaterial, Points, Color, Vector2, Vector3 } from 'three';
 import { particleShapes } from './intro-particles.js';
 
 const vertexShader = `
@@ -12,21 +12,26 @@ const vertexShader = `
   uniform float uDpr;
   uniform float uShapeScale;
   uniform float uTextScale;
+  uniform float uTime;
+  uniform vec3 uPointer;
+  uniform vec2 uLook;
   varying float vSeed;
   varying float vText;
+  varying float vEnergy;
   void main() {
     float p = uProgress;
     float a = smoothstep(.08, .25, p);
     float b = smoothstep(.36, .49, p);
     float c = smoothstep(.60, .76, p);
     float d = smoothstep(.87, .98, p);
-    float angle = -.38 + p * 1.6;
+    float angle = -.38 + p * 1.6 + sin(uTime * .24) * .12;
     mat2 rotation = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
     vec3 orbit = position;
     orbit.yz = rotation * orbit.yz;
     orbit.xy = mat2(.94, -.34, .34, .94) * orbit.xy;
     vec3 globe = aSphere;
-    globe.xz = rotation * globe.xz;
+    float spin = angle + uTime * .055;
+    globe.xz = mat2(cos(spin), -sin(spin), sin(spin), cos(spin)) * globe.xz;
     vec3 point = mix(orbit * uShapeScale, aWordsOne * uTextScale, a);
     point = mix(point, globe * uShapeScale, b);
     point = mix(point, aWordsTwo * uTextScale, c);
@@ -35,22 +40,45 @@ const vertexShader = `
     point.z += travel * sin(aSeed * 31.0) * .4;
     point.xy += normalize(position.xy) * travel * sin(aSeed * 13.0) * .15;
     vText = a * (1.0 - b) + c * (1.0 - d);
+    // Seeded flow gives every particle a slightly different rhythm. Text only
+    // shimmers by a fraction of a letter stroke rather than losing its outline.
+    float phase = aSeed * 6.283185;
+    float scale = mix(uShapeScale, uTextScale, vText);
+    float flow = mix(.055, .009, vText) * scale;
+    point *= 1.0 + sin(uTime * .8) * .012 * (1.0 - vText);
+    point += vec3(sin(uTime * .65 + phase + point.y),
+      cos(uTime * .52 + phase + point.x), sin(uTime * .43 + phase)) * flow;
+    // A restrained parallax also responds when the cursor crosses empty space.
+    point.xy += uLook * scale * mix(.08, .02, vText);
+    // A local, soft repulsion and curl follow the pointer in camera space.
+    // Bounded displacement preserves the silhouette, including on narrow screens.
+    vec2 offset = point.xy - uPointer.xy;
+    float distanceToPointer = length(offset);
+    float influence = (1.0 - smoothstep(0.0, .85 * scale, distanceToPointer)) * uPointer.z;
+    vec2 direction = offset / max(distanceToPointer, .04 * scale);
+    vec2 curl = vec2(-direction.y, direction.x);
+    point.xy += (direction * .38 + curl * .14) * influence * scale * mix(1.0, .28, vText);
+    point.z += influence * .18 * scale;
+    vEnergy = influence;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(point, 1.0);
-    gl_PointSize = (1.15 + aSeed * 1.35 + vText * .3) * uDpr;
+    gl_PointSize = (1.15 + aSeed * 1.35 + vText * .3 + influence * .65) * uDpr;
     vSeed = aSeed;
   }
 `;
 const fragmentShader = `
   uniform vec3 uColor;
   uniform vec3 uHighlight;
+  uniform float uTime;
   varying float vSeed;
   varying float vText;
+  varying float vEnergy;
   void main() {
     vec2 uv = gl_PointCoord - .5;
     float radius = dot(uv, uv);
     if (radius > .25) discard;
-    float alpha = (1.0 - smoothstep(.035, .25, radius)) * (.55 + vSeed * .4);
-    vec3 color = mix(uColor, uHighlight, vSeed * vSeed * .7 + vText * .3);
+    float shimmer = sin(uTime * .8 + vSeed * 19.0) * .055;
+    float alpha = (1.0 - smoothstep(.035, .25, radius)) * clamp(.55 + vSeed * .4 + shimmer + vEnergy * .12, 0.0, 1.0);
+    vec3 color = mix(uColor, uHighlight, min(1.0, vSeed * vSeed * .7 + vText * .3 + vEnergy * .45));
     gl_FragColor = vec4(color, alpha);
     #include <colorspace_fragment>
   }
@@ -101,6 +129,7 @@ export async function createIntroScene(art, { text, invalidate, onFallback }) {
   geometry.setAttribute('aSeed', new BufferAttribute(shapes.seeds, 1));
   const uniforms = {
     uProgress: { value: 0 }, uDpr: { value: 1 }, uShapeScale: { value: 1 }, uTextScale: { value: 1 },
+    uTime: { value: 0 }, uPointer: { value: new Vector3() }, uLook: { value: new Vector2() },
     uColor: { value: new Color('#da9c56') }, uHighlight: { value: new Color('#fff1d6') },
   };
   const material = new ShaderMaterial({ vertexShader, fragmentShader, uniforms, transparent: true, depthWrite: false, depthTest: false });
@@ -110,6 +139,16 @@ export async function createIntroScene(art, { text, invalidate, onFallback }) {
   let disposed = false, ready = false, shaderFailed = false, quality = 1, slowFrames = 0, frameCount = 0;
   renderer.debug.onShaderError = () => { shaderFailed = true; };
   const abort = new AbortController();
+  const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, strength: 0, active: false };
+
+  function setPointer(x, y) {
+    if (disposed) return;
+    pointer.targetX = Math.max(-1, Math.min(1, x));
+    pointer.targetY = Math.max(-1, Math.min(1, y));
+    if (pointer.strength < .001) { pointer.x = pointer.targetX; pointer.y = pointer.targetY; }
+    pointer.active = true;
+  }
+  function clearPointer() { pointer.active = false; }
 
   function resize() {
     if (disposed) return;
@@ -127,6 +166,14 @@ export async function createIntroScene(art, { text, invalidate, onFallback }) {
   function draw(progress, deltaMs) {
     if (disposed) return;
     uniforms.uProgress.value = progress;
+    const dt = Math.max(0, Math.min(deltaMs, 64));
+    uniforms.uTime.value += dt / 1000;
+    const follow = 1 - Math.exp(-dt / 85);
+    pointer.x += (pointer.targetX - pointer.x) * follow;
+    pointer.y += (pointer.targetY - pointer.y) * follow;
+    pointer.strength += ((pointer.active ? 1 : 0) - pointer.strength) * (1 - Math.exp(-dt / (pointer.active ? 140 : 420)));
+    uniforms.uPointer.value.set(pointer.x * camera.right, pointer.y * camera.top, pointer.strength);
+    uniforms.uLook.value.set(pointer.x * pointer.strength, pointer.y * pointer.strength);
     try { renderer.render(scene, camera); }
     catch { fallback(); return; }
     if (shaderFailed) { fallback(); return; }
@@ -134,6 +181,10 @@ export async function createIntroScene(art, { text, invalidate, onFallback }) {
     // Resolution changes retain every letter and every shape: never drop text points.
     if (deltaMs > 25 && deltaMs < 100) slowFrames++;
     if (++frameCount === 90 && slowFrames > 40 && quality === 1) { quality = .8; resize(); }
+    if (frameCount % 30 === 0) {
+      art.dataset.time = uniforms.uTime.value.toFixed(2);
+      art.dataset.interaction = pointer.strength.toFixed(2);
+    }
   }
   function dispose() {
     if (disposed) return;
@@ -143,5 +194,6 @@ export async function createIntroScene(art, { text, invalidate, onFallback }) {
   function fallback() { dispose(); onFallback(); }
   canvas.addEventListener('webglcontextlost', (event) => { event.preventDefault(); fallback(); }, { signal: abort.signal });
   resize();
-  return { draw, resize, dispose, get drawCount() { return frameCount; } };
+  return { draw, resize, dispose, setPointer, clearPointer,
+    get active() { return ready && !disposed; }, get drawCount() { return frameCount; } };
 }
