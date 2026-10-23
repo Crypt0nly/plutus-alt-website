@@ -1,5 +1,7 @@
 # Ocur — the AI operating system for companies
 
+**Design preview:** the top bar switches to a new design based on Plutus Cloud's approved reading UI. Open `/?design=cloud` (or `/de?design=cloud`) directly. The original remains the default. See [the preview guide](docs/cloud-design-preview.md) for implementation and validation details.
+
 The Ocur marketing site: an Apple-keynote-style page in the **"Obsidian
 Glass"** direction — a near-black canvas, fox-orange glow meshes, true
 liquid-glass surfaces everywhere, and GSAP/Lenis scroll choreography. Built

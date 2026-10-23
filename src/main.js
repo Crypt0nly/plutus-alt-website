@@ -4,6 +4,7 @@
 
 import './style.css';
 import './discovery.css';
+import { initCloudDesign } from './cloud-design.js';
 import { initLangRouting, applyLang, initLangToggle, currentLang } from './i18n.js';
 import { initCompanyPricing } from './company-pricing.js';
 import { initThemeToggle } from './theme.js';
@@ -27,13 +28,17 @@ initThemeToggle();
 initCompanyPricing(document, currentLang);
 document.getElementById('g-year').textContent = String(new Date().getFullYear());
 
-const motion = document.documentElement.classList.contains('motion');
+const prefersMotion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let motion = prefersMotion && document.documentElement.dataset.design !== 'cloud';
+let classicContext;
+document.documentElement.classList.toggle('motion', motion);
 const finePointer = window.matchMedia('(pointer: fine)').matches;
 
 // pointer-tracked glare on every glass surface
 if (finePointer) {
   document.querySelectorAll('.glare').forEach((el) => {
     el.addEventListener('pointermove', (e) => {
+      if (document.documentElement.dataset.design === 'cloud') return;
       const r = el.getBoundingClientRect();
       el.style.setProperty('--gx', `${((e.clientX - r.left) / r.width) * 100}%`);
       el.style.setProperty('--gy', `${((e.clientY - r.top) / r.height) * 100}%`);
@@ -94,11 +99,11 @@ if (seg) {
         const on = ladder.dataset.aud === aud;
         ladder.classList.toggle('on', on);
         if (on && motion) {
-          gsap.fromTo(
+          classicContext?.add(() => gsap.fromTo(
             ladder.querySelectorAll('.g-card'),
             { y: 26, opacity: 0 },
             { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: 'power3.out' },
-          );
+          ));
         }
       });
       track('pricing_audience', { audience: aud });
@@ -254,13 +259,18 @@ if (talk) {
   });
 }
 
-if (motion) {
+let stopMotion = () => {};
+function startMotion() {
   gsap.registerPlugin(ScrollTrigger, SplitText);
-
+  const listeners = new AbortController();
+  const splits = [];
   const lenis = new Lenis({ autoRaf: false, lerp: 0.12 });
   lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((t) => lenis.raf(t * 1000));
+  const tick = (t) => lenis.raf(t * 1000);
+  gsap.ticker.add(tick);
   gsap.ticker.lagSmoothing(0);
+  let cursorTick;
+  const context = gsap.context(() => {
 
   // every in-page anchor glides — the nav, the menu, the hero, the pricing
   // ribbon and cards, the FAQ, the dock, the final call and the footer
@@ -268,7 +278,7 @@ if (motion) {
     a.addEventListener('click', (e) => {
       e.preventDefault();
       lenis.scrollTo(a.getAttribute('href'), { offset: -20, duration: 1.2 });
-    });
+    }, { signal: listeners.signal });
   });
 
   // nav gains depth + glow once scrolled
@@ -278,7 +288,9 @@ if (motion) {
   });
 
   // ---------------------------------------------------- hero entrance
-  const heroLines = new SplitText('.g-h1', { type: 'lines', mask: 'lines' }).lines;
+  const heroSplit = new SplitText('.g-h1', { type: 'lines', mask: 'lines' });
+  splits.push(heroSplit);
+  const heroLines = heroSplit.lines;
   gsap
     .timeline({ defaults: { ease: 'power4.out' } })
     .from(heroLines, { yPercent: 120, duration: 1.1, stagger: 0.1 }, 0.15)
@@ -350,7 +362,9 @@ if (motion) {
 
   // the ask types itself out as the window arrives. Split words AND chars:
   // char-only spans destroy word boundaries and let "out" break as "ou|t".
-  const typeChars = new SplitText('.g-type', { type: 'words,chars' }).chars;
+  const typeSplit = new SplitText('.g-type', { type: 'words,chars' });
+  splits.push(typeSplit);
+  const typeChars = typeSplit.chars;
   gsap.from(typeChars, {
     autoAlpha: 0,
     duration: 0.01,
@@ -459,7 +473,9 @@ if (motion) {
   });
 
   // ------------------------------------------------------- final
-  const finalLines = new SplitText('.g-final-h', { type: 'lines', mask: 'lines' }).lines;
+  const finalSplit = new SplitText('.g-final-h', { type: 'lines', mask: 'lines' });
+  splits.push(finalSplit);
+  const finalLines = finalSplit.lines;
   gsap.from(finalLines, {
     yPercent: 120,
     duration: 1,
@@ -507,15 +523,15 @@ if (motion) {
   if (finePointer) {
     document.querySelectorAll('.magnetic').forEach((btn) => {
       const strength = 12;
-      btn.addEventListener('pointermove', (e) => {
+      btn.addEventListener('pointermove', contextSafe((e) => {
         const r = btn.getBoundingClientRect();
         const dx = ((e.clientX - r.left) / r.width - 0.5) * 2;
         const dy = ((e.clientY - r.top) / r.height - 0.5) * 2;
         gsap.to(btn, { x: dx * strength, y: dy * strength, duration: 0.35, ease: 'power3.out' });
-      });
-      btn.addEventListener('pointerleave', () => {
+      }), { signal: listeners.signal });
+      btn.addEventListener('pointerleave', contextSafe(() => {
         gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.45)' });
-      });
+      }), { signal: listeners.signal });
     });
 
     const cursor = document.querySelector('.g-cursor');
@@ -527,14 +543,39 @@ if (motion) {
       pos.x = e.clientX;
       pos.y = e.clientY;
       dot.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
-    });
-    gsap.ticker.add(() => {
+    }, { signal: listeners.signal });
+    cursorTick = () => {
       ringPos.x += (pos.x - ringPos.x) * 0.16;
       ringPos.y += (pos.y - ringPos.y) * 0.16;
       ring.style.transform = `translate(${ringPos.x}px, ${ringPos.y}px)`;
-    });
+    };
+    gsap.ticker.add(cursorTick);
     document.addEventListener('pointerover', (e) => {
       cursor.classList.toggle('is-link', !!e.target.closest('a, button, summary'));
-    });
+    }, { signal: listeners.signal });
   }
+  });
+  classicContext = context;
+  function contextSafe(callback) { return (...args) => context.add(() => callback(...args)); }
+  stopMotion = () => {
+    listeners.abort();
+    gsap.ticker.remove(tick);
+    if (cursorTick) gsap.ticker.remove(cursorTick);
+    lenis.destroy();
+    context.revert();
+    classicContext = undefined;
+    splits.forEach(split => split.revert());
+    document.getElementById('g-nav').classList.remove('is-stuck');
+    document.querySelector('.g-cursor').classList.remove('is-link');
+  };
 }
+
+initCloudDesign(currentLang, (design) => {
+  stopMotion();
+  stopMotion = () => {};
+  motion = prefersMotion && design === 'classic';
+  document.documentElement.dataset.design = design;
+  document.documentElement.classList.toggle('motion', motion);
+  document.querySelector('.g-demo').dataset.scene = motion ? '1' : '4';
+  if (motion) startMotion();
+});

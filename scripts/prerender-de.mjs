@@ -6,6 +6,7 @@
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { load } from 'cheerio';
+import { renderCloudLanding, renderDesignBar } from '../src/cloud-design-content.js';
 import {
   TITLE_DE,
   OG_TITLE_DE,
@@ -22,6 +23,8 @@ const $ = load(readFileSync('dist/index.html', 'utf8'));
 const OG_IMAGE_DE = 'https://ocur.ai/og-de.jpg?v=2';
 
 $('html').attr('lang', 'de');
+$('.c-landing').replaceWith(renderCloudLanding('de'));
+$('.design-bar').replaceWith(renderDesignBar('de'));
 $('title').text(TITLE_DE);
 $('meta[name="description"]').attr('content', DESC_DE);
 $('meta[property="og:title"]').attr('content', OG_TITLE_DE);
