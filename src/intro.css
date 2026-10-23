@@ -21,7 +21,7 @@
 .oc-invitation { margin-top: 20px; font-size: .6875rem; line-height: 1.9; display: flex; flex-wrap: wrap; column-gap: 18px; color: var(--oc-muted); }
 .oc-invitation a { color: var(--g-ink); text-decoration: underline; text-decoration-color: var(--oc-line); text-underline-offset: 5px; }
 .oc-invitation a:hover { text-decoration-color: currentColor; }
-.oc-art { position: absolute; z-index: 1; width: 62%; height: 100%; right: -6%; top: 0; pointer-events: none; }
+.oc-art { position: absolute; z-index: 1; width: 58%; height: 100%; right: 0; top: 0; pointer-events: none; }
 .oc-poster, .oc-webgl { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .oc-poster { transition: opacity .6s; }
 .oc-art.is-ready .oc-poster { opacity: 0; }

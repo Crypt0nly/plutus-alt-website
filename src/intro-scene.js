@@ -8,6 +8,7 @@ const vertexShader = `
   attribute float aSeed;
   uniform float uProgress;
   uniform float uDpr;
+  uniform float uCameraZ;
   varying float vSeed;
   varying float vDepth;
   void main() {
@@ -21,7 +22,7 @@ const vertexShader = `
     vec4 mv = modelViewMatrix * vec4(p, 1.0);
     gl_Position = projectionMatrix * mv;
     gl_PointSize = clamp((0.6 + aSeed * 1.35) * uDpr * (13.0 / -mv.z), 1.0, 6.0);
-    vDepth = clamp((mv.z + 11.0) / 6.0, 0.2, 1.0);
+    vDepth = clamp(0.7 + (mv.z + uCameraZ) / 5.0, 0.35, 1.0);
     vSeed = aSeed;
   }
 `;
@@ -75,7 +76,7 @@ export async function createIntroScene(art) {
   geometry.setAttribute('aFox', new BufferAttribute(shapes.fox, 3));
   geometry.setAttribute('aSeed', new BufferAttribute(shapes.seeds, 1));
   const uniforms = {
-    uProgress: { value: 0 }, uDpr: { value: 1 }, uLight: { value: 0 },
+    uProgress: { value: 0 }, uDpr: { value: 1 }, uLight: { value: 0 }, uCameraZ: { value: 7.8 },
     uColor: { value: new Color('#ed9339') }, uHighlight: { value: new Color('#fff1d5') },
   };
   const material = new ShaderMaterial({ vertexShader, fragmentShader, uniforms,
@@ -136,7 +137,8 @@ export async function createIntroScene(art) {
     uniforms.uDpr.value = dpr;
     camera.aspect = width / height;
     // Keep the sculpture inside a narrow portrait canvas as well as wide screens.
-    camera.position.z = Math.max(7.8, 5.9 / camera.aspect);
+    camera.position.z = Math.max(7.8, 7.1 / camera.aspect);
+    uniforms.uCameraZ.value = camera.position.z;
     camera.updateProjectionMatrix();
     requestRender();
   };
