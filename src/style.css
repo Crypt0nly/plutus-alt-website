@@ -732,7 +732,7 @@ html.motion .g-stats {
   aspect-ratio: 1;
   margin: 44px auto 0;
   --r1: clamp(88px, 21vw, 128px);
-  --r2: clamp(150px, 36vw, 216px);
+  --r2: clamp(110px, 36vw, 216px);
 }
 
 .g-orbit {

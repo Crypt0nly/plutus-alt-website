@@ -1,201 +1,147 @@
-import { WebGLRenderer, Scene, PerspectiveCamera, BufferGeometry, BufferAttribute,
-  ShaderMaterial, Points, Color, NormalBlending } from 'three';
+import { WebGLRenderer, Scene, OrthographicCamera, BufferGeometry, BufferAttribute,
+  ShaderMaterial, Points, Color } from 'three';
 import { particleShapes } from './intro-particles.js';
 
 const vertexShader = `
   attribute vec3 aSphere;
   attribute vec3 aFox;
+  attribute vec3 aWordsOne;
+  attribute vec3 aWordsTwo;
   attribute float aSeed;
   uniform float uProgress;
   uniform float uDpr;
-  uniform float uCameraZ;
+  uniform float uShapeScale;
+  uniform float uTextScale;
   varying float vSeed;
-  varying float vDepth;
+  varying float vText;
   void main() {
-    float gather = smoothstep(0.08, 0.48, uProgress);
-    float resolve = smoothstep(0.55, 0.88, uProgress);
-    vec3 p = mix(position, aSphere, gather);
-    p = mix(p, aFox, resolve);
-    // A brief outward drift makes the transition read as a reorganization.
-    float scatter = sin(gather * 3.14159) * 0.16 + sin(resolve * 3.14159) * 0.13;
-    p += normalize(position) * scatter * sin(aSeed * 53.0 + uProgress * 9.0);
-    vec4 mv = modelViewMatrix * vec4(p, 1.0);
-    gl_Position = projectionMatrix * mv;
-    gl_PointSize = clamp((0.6 + aSeed * 1.35) * uDpr * (13.0 / -mv.z), 1.0, 6.0);
-    vDepth = clamp(0.7 + (mv.z + uCameraZ) / 5.0, 0.35, 1.0);
+    float p = uProgress;
+    float a = smoothstep(.08, .25, p);
+    float b = smoothstep(.36, .49, p);
+    float c = smoothstep(.60, .76, p);
+    float d = smoothstep(.87, .98, p);
+    float angle = -.38 + p * 1.6;
+    mat2 rotation = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+    vec3 orbit = position;
+    orbit.yz = rotation * orbit.yz;
+    orbit.xy = mat2(.94, -.34, .34, .94) * orbit.xy;
+    vec3 globe = aSphere;
+    globe.xz = rotation * globe.xz;
+    vec3 point = mix(orbit * uShapeScale, aWordsOne * uTextScale, a);
+    point = mix(point, globe * uShapeScale, b);
+    point = mix(point, aWordsTwo * uTextScale, c);
+    point = mix(point, aFox * uShapeScale, d);
+    float travel = sin(a * 3.14159) + sin(b * 3.14159) + sin(c * 3.14159) + sin(d * 3.14159);
+    point.z += travel * sin(aSeed * 31.0) * .4;
+    point.xy += normalize(position.xy) * travel * sin(aSeed * 13.0) * .15;
+    vText = a * (1.0 - b) + c * (1.0 - d);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(point, 1.0);
+    gl_PointSize = (1.15 + aSeed * 1.35 + vText * .3) * uDpr;
     vSeed = aSeed;
   }
 `;
 const fragmentShader = `
   uniform vec3 uColor;
   uniform vec3 uHighlight;
-  uniform float uLight;
   varying float vSeed;
-  varying float vDepth;
+  varying float vText;
   void main() {
-    float d = length(gl_PointCoord - 0.5);
-    if (d > 0.5) discard;
-    float alpha = (1.0 - smoothstep(0.12, 0.5, d)) * (0.35 + 0.6 * vSeed) * vDepth;
-    vec3 color = mix(uColor, uHighlight, pow(vSeed, 4.0));
-    gl_FragColor = vec4(color, alpha * mix(1.0, 0.88, uLight));
+    vec2 uv = gl_PointCoord - .5;
+    float radius = dot(uv, uv);
+    if (radius > .25) discard;
+    float alpha = (1.0 - smoothstep(.035, .25, radius)) * (.55 + vSeed * .4);
+    vec3 color = mix(uColor, uHighlight, vSeed * vSeed * .7 + vText * .3);
+    gl_FragColor = vec4(color, alpha);
     #include <colorspace_fragment>
   }
 `;
 
-async function sampleLogo() {
-  const img = new Image();
-  img.src = '/logo.svg';
-  await img.decode();
-  const canvas = document.createElement('canvas');
-  canvas.width = 192;
-  canvas.height = 164;
-  const ctx = canvas.getContext('2d', { willReadFrequently: true });
-  ctx.drawImage(img, 0, 0, 192, 164);
-  const data = ctx.getImageData(0, 0, 192, 164).data;
-  const pixels = [];
-  for (let y = 0; y < 164; y++) for (let x = 0; x < 192; x++) {
-    if (data[(y * 192 + x) * 4 + 3] > 128) pixels.push([x / 192 - .5, (.5 - y / 164) * 164 / 192]);
+function sampleCanvas(canvas) {
+  const { width, height } = canvas;
+  const data = canvas.getContext('2d', { willReadFrequently: true }).getImageData(0, 0, width, height).data;
+  const points = [];
+  for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
+    if (data[(y * width + x) * 4 + 3] > 128) points.push([x / width - .5, (height / 2 - y) / width]);
   }
-  if (!pixels.length) throw new Error('Empty brand silhouette');
-  return pixels;
+  if (!points.length) throw new Error('Empty particle silhouette');
+  return points;
+}
+async function sampleLogo() {
+  const img = new Image(); img.src = '/logo.svg'; await img.decode();
+  const canvas = document.createElement('canvas'); canvas.width = 192; canvas.height = 164;
+  canvas.getContext('2d').drawImage(img, 0, 0, 192, 164);
+  return sampleCanvas(canvas);
+}
+function sampleWords(lines) {
+  const canvas = document.createElement('canvas'); canvas.width = 1000; canvas.height = 270;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  ctx.font = '600 92px Inter, Arial, sans-serif';
+  const widest = Math.max(...lines.map((line) => ctx.measureText(line).width));
+  const size = Math.min(92, 920 / widest * 92);
+  ctx.font = `600 ${size}px Inter, Arial, sans-serif`;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff';
+  lines.forEach((line, i) => ctx.fillText(line, 500, 135 + (i - (lines.length - 1) / 2) * size * 1.24));
+  return sampleCanvas(canvas);
 }
 
-export async function createIntroScene(art) {
-  // Decode before allocating a GPU context, so an asset failure leaves no resources.
+export async function createIntroScene(art, { text, invalidate, onFallback }) {
   const pixels = await sampleLogo();
-  const narrow = matchMedia('(max-width: 899px)').matches;
-  const count = narrow ? 6500 : 18000;
-  const renderer = new WebGLRenderer({ alpha: true, antialias: false, powerPreference: 'low-power' });
+  // Fonts may be unavailable offline; fall back to the same system font as the HTML.
+  await Promise.race([document.fonts.ready, new Promise((resolve) => setTimeout(resolve, 1200))]);
+  const count = matchMedia('(max-width: 599px)').matches ? 10000 : 16000;
+  const renderer = new WebGLRenderer({ alpha: false, antialias: false, depth: false, stencil: false, powerPreference: 'high-performance' });
+  renderer.setClearColor('#080a0e', 1);
   const scene = new Scene();
-  const camera = new PerspectiveCamera(38, 1, .1, 30);
-  camera.position.z = 7.8;
+  const camera = new OrthographicCamera(-5, 5, 3.4, -3.4, .1, 30); camera.position.z = 10;
   const geometry = new BufferGeometry();
-  const shapes = particleShapes(count, pixels);
-  geometry.setAttribute('position', new BufferAttribute(shapes.orbit, 3));
-  geometry.setAttribute('aSphere', new BufferAttribute(shapes.sphere, 3));
-  geometry.setAttribute('aFox', new BufferAttribute(shapes.fox, 3));
+  const shapes = particleShapes(count, pixels, text.map(sampleWords));
+  for (const [name, value] of Object.entries({ position: shapes.orbit, aSphere: shapes.sphere, aFox: shapes.fox, aWordsOne: shapes.words[0], aWordsTwo: shapes.words[1] })) {
+    geometry.setAttribute(name, new BufferAttribute(value, 3));
+  }
   geometry.setAttribute('aSeed', new BufferAttribute(shapes.seeds, 1));
   const uniforms = {
-    uProgress: { value: 0 }, uDpr: { value: 1 }, uLight: { value: 0 }, uCameraZ: { value: 7.8 },
-    uColor: { value: new Color('#ed9339') }, uHighlight: { value: new Color('#fff1d5') },
+    uProgress: { value: 0 }, uDpr: { value: 1 }, uShapeScale: { value: 1 }, uTextScale: { value: 1 },
+    uColor: { value: new Color('#da9c56') }, uHighlight: { value: new Color('#fff1d6') },
   };
-  const material = new ShaderMaterial({ vertexShader, fragmentShader, uniforms,
-    transparent: true, depthWrite: false, blending: NormalBlending });
-  const sculpture = new Points(geometry, material);
-  sculpture.frustumCulled = false; // GPU morph targets extend beyond the initial bounds.
-  scene.add(sculpture);
-  const canvas = renderer.domElement;
-  canvas.setAttribute('aria-hidden', 'true');
+  const material = new ShaderMaterial({ vertexShader, fragmentShader, uniforms, transparent: true, depthWrite: false, depthTest: false });
+  const sculpture = new Points(geometry, material); sculpture.frustumCulled = false; scene.add(sculpture);
+  const canvas = renderer.domElement; canvas.setAttribute('aria-hidden', 'true');
   art.querySelector('.oc-webgl').append(canvas);
-  let frame = 0, disposed = false, visible = true, progress = 0;
-  let pointerX = 0, pointerY = 0, targetX = 0, targetY = 0;
-  let frameCount = 0, slowFrames = 0, lastTime = 0;
-  let shaderFailed = false;
+  let disposed = false, ready = false, shaderFailed = false, quality = 1, slowFrames = 0, frameCount = 0;
   renderer.debug.onShaderError = () => { shaderFailed = true; };
-  let dpr = Math.min(devicePixelRatio || 1, narrow ? 1.25 : 1.5);
   const abort = new AbortController();
-  const signal = abort.signal;
 
-  const render = (time) => {
-    frame = 0;
-    if (disposed || !visible || document.hidden) return;
-    // A sustained slow interactive sequence lowers resolution and point count once.
-    if (lastTime && time - lastTime > 30 && time - lastTime < 150) slowFrames++;
-    lastTime = time;
-    if (slowFrames === 18) {
-      dpr = Math.min(dpr, 1);
-      renderer.setPixelRatio(dpr);
-      uniforms.uDpr.value = dpr;
-      geometry.setDrawRange(0, Math.min(count, 9000));
-      slowFrames++;
-    }
-    pointerX += (targetX - pointerX) * .1;
-    pointerY += (targetY - pointerY) * .1;
-    const resolve = Math.max(0, Math.min(1, (progress - .55) / .33));
-    sculpture.rotation.set(
-      (-.42 + pointerY * .12) * (1 - resolve),
-      (.3 + progress * .7 + pointerX * .17) * (1 - resolve),
-      -.32 * (1 - resolve),
-    );
+  function resize() {
+    if (disposed) return;
+    const width = art.clientWidth, height = art.clientHeight;
+    if (!width || !height) return;
+    const dpr = Math.min(devicePixelRatio || 1, 1.4, Math.sqrt(1500000 / (width * height))) * quality;
+    renderer.setPixelRatio(dpr); renderer.setSize(width, height, false); uniforms.uDpr.value = dpr;
+    const aspect = width / height;
+    camera.left = -3.4 * aspect; camera.right = 3.4 * aspect; camera.updateProjectionMatrix();
+    uniforms.uShapeScale.value = Math.min(1.15, aspect * 1.25);
+    uniforms.uTextScale.value = Math.min(1.15, aspect * .8);
+    art.dataset.pixels = String(Math.round(width * height * dpr * dpr));
+    invalidate();
+  }
+  function draw(progress, deltaMs) {
+    if (disposed) return;
     uniforms.uProgress.value = progress;
     try { renderer.render(scene, camera); }
-    catch { dispose(); return; }
-    if (shaderFailed) { dispose(); return; }
-    art.classList.add('is-ready');
-    art.dataset.renderer = 'webgl';
-    art.dataset.frames = String(++frameCount);
-    if (Math.abs(targetX - pointerX) + Math.abs(targetY - pointerY) > .002) requestRender();
-  };
-  function requestRender() {
-    if (!frame && !disposed && visible && !document.hidden) frame = requestAnimationFrame(render);
-  }
-  const resize = () => {
-    const { width, height } = art.getBoundingClientRect();
-    if (!width || !height) return;
-    renderer.setPixelRatio(dpr);
-    renderer.setSize(width, height, false);
-    uniforms.uDpr.value = dpr;
-    camera.aspect = width / height;
-    // Keep the sculpture inside a narrow portrait canvas as well as wide screens.
-    camera.position.z = Math.max(7.8, 7.1 / camera.aspect);
-    uniforms.uCameraZ.value = camera.position.z;
-    camera.updateProjectionMatrix();
-    requestRender();
-  };
-  const updateTheme = () => {
-    const light = document.documentElement.dataset.theme === 'light';
-    uniforms.uLight.value = Number(light);
-    uniforms.uColor.value.set(light ? '#a34a12' : '#ed9339');
-    uniforms.uHighlight.value.set(light ? '#d58334' : '#fff1d5');
-    requestRender();
-  };
-  const resizeObserver = new ResizeObserver(resize);
-  resizeObserver.observe(art);
-  const themeObserver = new MutationObserver(updateTheme);
-  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-  const visibilityObserver = new IntersectionObserver(([entry]) => {
-    visible = entry.isIntersecting;
-    lastTime = 0;
-    if (visible) requestRender();
-    else { cancelAnimationFrame(frame); frame = 0; }
-  });
-  visibilityObserver.observe(art);
-  document.addEventListener('visibilitychange', () => {
-    lastTime = 0;
-    if (document.hidden) { cancelAnimationFrame(frame); frame = 0; }
-    else requestRender();
-  }, { signal });
-  const stage = art.closest('.oc-stage');
-  if (matchMedia('(pointer: fine)').matches) {
-    stage.addEventListener('pointermove', (event) => {
-      const rect = stage.getBoundingClientRect();
-      targetX = (event.clientX - rect.left) / rect.width - .5;
-      targetY = (event.clientY - rect.top) / rect.height - .5;
-      requestRender();
-    }, { passive: true, signal });
-    stage.addEventListener('pointerleave', () => { targetX = targetY = 0; requestRender(); }, { signal });
+    catch { fallback(); return; }
+    if (shaderFailed) { fallback(); return; }
+    if (!ready) { ready = true; art.classList.add('is-ready'); art.dataset.renderer = 'webgl'; }
+    // Resolution changes retain every letter and every shape: never drop text points.
+    if (deltaMs > 25 && deltaMs < 100) slowFrames++;
+    if (++frameCount === 90 && slowFrames > 40 && quality === 1) { quality = .8; resize(); }
   }
   function dispose() {
     if (disposed) return;
-    disposed = true;
-    cancelAnimationFrame(frame);
-    abort.abort();
-    resizeObserver.disconnect();
-    visibilityObserver.disconnect();
-    themeObserver.disconnect();
-    geometry.dispose();
-    material.dispose();
-    renderer.dispose();
-    renderer.forceContextLoss();
-    canvas.remove();
-    art.classList.remove('is-ready');
-    art.dataset.renderer = 'fallback';
+    disposed = true; abort.abort(); geometry.dispose(); material.dispose(); renderer.dispose(); renderer.forceContextLoss();
+    canvas.remove(); art.classList.remove('is-ready'); art.dataset.renderer = 'fallback';
   }
-  canvas.addEventListener('webglcontextlost', (event) => {
-    event.preventDefault();
-    dispose(); // Permanent vector fallback; do not repeatedly allocate a failing GPU context.
-  }, { signal });
-  updateTheme();
+  function fallback() { dispose(); onFallback(); }
+  canvas.addEventListener('webglcontextlost', (event) => { event.preventDefault(); fallback(); }, { signal: abort.signal });
   resize();
-  return { setProgress(value) { progress = value; requestRender(); }, dispose };
+  return { draw, resize, dispose, get drawCount() { return frameCount; } };
 }

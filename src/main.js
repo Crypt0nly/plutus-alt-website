@@ -16,7 +16,6 @@ import { createFormProtection } from './form-protection.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
-import Lenis from 'lenis';
 
 // language + theme first: applyLang() rewrites copy (the dev ?lang=de
 // fallback) before SplitText below caches the hero markup.
@@ -262,36 +261,16 @@ motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
   motion = true;
   document.documentElement.classList.add('motion');
   document.querySelector('.g-demo').dataset.scene = '1';
-  const motionAbort = new AbortController();
 
-  const lenis = new Lenis({ autoRaf: false, lerp: 0.12 });
-  lenis.on('scroll', ScrollTrigger.update);
-  const tick = (t) => lenis.raf(t * 1000);
-  gsap.ticker.add(tick);
-  gsap.ticker.lagSmoothing(0);
-
-  // every in-page anchor glides — the nav, the menu, the hero, the pricing
-  // ribbon and cards, the FAQ, the dock, the final call and the footer
-  document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((a) => {
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = a.getAttribute('href');
-      lenis.scrollTo(target, {
-        offset: -20, duration: 1.2,
-        onComplete: () => {
-          if (target === '#oc-next') document.getElementById('oc-next').focus({ preventScroll: true });
-        },
-      });
-    }, { signal: motionAbort.signal });
-  });
-
+  // Native scrolling drives the intro directly. Anchor destinations keep their
+  // standard URL/focus behavior; no extra smoothing layer competes with the GPU.
   // nav gains depth + glow once scrolled
   ScrollTrigger.create({
     start: 80,
     onToggle: (self) => document.getElementById('g-nav').classList.toggle('is-stuck', self.isActive),
   });
 
-  const disposeIntro = initIntro({ gsap, ScrollTrigger, scrollTo: (target) => lenis.scrollTo(target, { duration: 1.1 }) });
+  const disposeIntro = initIntro({ onLayout: () => ScrollTrigger.refresh() });
 
   // ----------------------------------------- connector system entrance
   gsap.from('.g-system', {
@@ -472,10 +451,7 @@ motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
 
   // Native pointer behavior avoids a second continuously animated cursor.
   return () => {
-    motionAbort.abort();
     disposeIntro?.();
-    gsap.ticker.remove(tick);
-    lenis.destroy();
     typeSplit.revert();
     finalSplit.revert();
   };
