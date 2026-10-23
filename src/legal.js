@@ -11,6 +11,7 @@ import './discovery.css';
 import { initLangToggle } from './i18n.js';
 import { initThemeToggle } from './theme.js';
 import { initAnalytics } from './analytics.js';
+import { initDesignSwitcher } from './design-switcher.js';
 
 initAnalytics();
 initThemeToggle();
@@ -33,6 +34,7 @@ const path = (href) => {
 const en = path(alt('en'));
 const de = path(alt('de'));
 if (en && de) initLangToggle({ en, de });
+initDesignSwitcher(document.documentElement.lang);
 
 const year = document.getElementById('g-year');
 if (year) year.textContent = String(new Date().getFullYear());

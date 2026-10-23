@@ -100,7 +100,13 @@
     </script>
     <script>
       document.documentElement.classList.add('js');
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // An explicit shareable URL wins; storage is an optional convenience.
+      var design = new URLSearchParams(location.search).get('design');
+      if (design !== 'classic' && design !== 'cloud') {
+        try { design = localStorage.getItem('ocur-site-design'); } catch (e) {}
+      }
+      document.documentElement.dataset.design = design === 'cloud' ? 'cloud' : 'classic';
+      if (design !== 'cloud' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         document.documentElement.classList.add('motion');
       }
       // resolve the theme before first paint: stored choice, then OS preference
@@ -141,6 +147,7 @@
     <!-- End X conversion tracking base code -->
   </head>
   <body class="g">
+    <!-- design-switcher -->
     <div class="g-grain" aria-hidden="true"></div>
     <div class="g-cursor" aria-hidden="true"><div class="g-cursor-dot"></div><div class="g-cursor-ring"></div></div>
 
@@ -192,6 +199,7 @@
     </div>
 
     <main>
+      <!-- cloud-landing -->
       <!-- hero -->
       <section class="g-hero">
         <div class="g-glow g-glow-hero" aria-hidden="true"></div>
