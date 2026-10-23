@@ -142,7 +142,6 @@
   </head>
   <body class="g">
     <div class="g-grain" aria-hidden="true"></div>
-    <div class="g-cursor" aria-hidden="true"><div class="g-cursor-dot"></div><div class="g-cursor-ring"></div></div>
 
     <!-- floating glass nav -->
     <header class="g-nav lg glare" id="g-nav">
@@ -192,33 +191,53 @@
     </div>
 
     <main>
-      <!-- hero -->
-      <section class="g-hero">
-        <div class="g-glow g-glow-hero" aria-hidden="true"></div>
-        <div class="g-wrap">
-          <p class="g-kicker"><span class="g-kdot" aria-hidden="true"></span>The AI operating system for companies</p>
-          <h1 class="g-h1">What if your company<br /><span class="g-grad">ran itself?</span></h1>
-          <p class="g-sub">
-            Ocur answers your email and your phone, chases what you're owed, keeps
-            every promise on record — and does the work inside the tools you already
-            run on. On demand, or on full autopilot.
-          </p>
-          <div class="g-ctas">
-            <a class="g-btn g-btn-lg magnetic" href="#apply" data-apply="hero">Apply for the founding cohort</a>
-            <a class="g-btn g-btn-glass lg magnetic" href="#demo">Watch it work</a>
+      <!-- Text and actions render before the optional, decorative WebGL layer. -->
+      <section class="oc-intro" id="intro" aria-labelledby="oc-title">
+        <div class="oc-stage">
+          <div class="oc-atmosphere" aria-hidden="true"></div>
+          <div class="oc-art" aria-hidden="true">
+            <img class="oc-poster" src="/intro-orbit.svg" alt="" width="900" height="900" fetchpriority="high" />
+            <div class="oc-webgl"></div>
+            <span class="oc-signal oc-signal-a"><i></i><span>Email &amp; calls</span></span>
+            <span class="oc-signal oc-signal-b"><i></i><span>Your everyday tools</span></span>
+            <span class="oc-signal oc-signal-c"><i></i><span>Your rules &amp; approvals</span></span>
+            <span class="oc-art-caption">Connected. Coordinated. In motion.</span>
           </div>
-          <!-- every line that names the deadline is a .g-deadline, written so the
-               sentence still reads once it's hidden (see the <head> script) -->
-          <p class="g-micro">Two-minute application&nbsp;&nbsp;·&nbsp;&nbsp;Answer {{COHORT_ANSWER}}<span class="g-deadline">&nbsp;&nbsp;·&nbsp;&nbsp;Closes {{COHORT_CLOSES}}</span></p>
-          <p class="g-solo">Just you? <a href="https://app.ocur.ai/?auth=sign-up">Start free</a> — no application, no credit card.</p>
-          <p class="g-desktop-download"><a href="https://app.ocur.ai/download" data-download="hero">Download Ocur Desktop <span aria-hidden="true">↗</span></a><span class="g-desktop-platforms">Windows · macOS · Linux</span></p>
-          <div class="g-stats">
-            <div class="g-stat"><strong data-count="{{COHORT_SEATS}}">{{COHORT_SEATS}}</strong><span>founding seats</span></div>
-            <div class="g-stat"><strong data-count="{{COHORT_DISCOUNT}}" data-suffix="%">{{COHORT_DISCOUNT}}%</strong><span>off for your first {{COHORT_MONTHS}} months</span></div>
-            <div class="g-stat"><strong>1:1</strong><span>setup with the founder</span></div>
+          <div class="oc-content">
+            <p class="oc-eyebrow"><span></span>The AI operating system for companies</p>
+            <div class="oc-copies">
+              <div class="oc-copy">
+                <h1 id="oc-title">Your business.<br /><em>In motion.</em></h1>
+                <p>Emails. Calls. Follow-ups. All the moving parts of your business, working together. Meet Ocur.</p>
+              </div>
+              <div class="oc-copy" aria-hidden="true" inert>
+                <h2>Every tool.<br /><em>One intelligence.</em></h2>
+                <p>Ocur connects the tools you already use, finds the context, and turns the next step into work done.</p>
+              </div>
+              <div class="oc-copy" aria-hidden="true" inert>
+                <h2>You set direction.<br /><em>Ocur takes action.</em></h2>
+                <p>From a reply to a supplier call. Set the limits, review what needs your approval, and keep the whole picture.</p>
+              </div>
+            </div>
+            <div class="oc-actions">
+              <a class="oc-primary" href="https://app.ocur.ai/?auth=sign-up">Start free <span aria-hidden="true">↗</span></a>
+              <a class="oc-secondary" href="#demo">See it in action <span aria-hidden="true">↓</span></a>
+            </div>
+            <p class="oc-invitation"><a href="#apply" data-apply="hero">Join the founding cohort <span aria-hidden="true">↗</span></a><span>No credit card to start.</span></p>
           </div>
+          <div class="oc-foot">
+            <a class="oc-scroll" href="#oc-next"><span class="oc-scroll-icon" aria-hidden="true">↓</span><span>Scroll to bring it together</span></a>
+            <div class="oc-chapters" role="group" aria-label="Introduction chapters">
+              <button type="button" data-chapter="0" aria-pressed="true"><span>01</span> Possibility</button>
+              <button type="button" data-chapter="1" aria-pressed="false"><span>02</span> Connection</button>
+              <button type="button" data-chapter="2" aria-pressed="false"><span>03</span> Action</button>
+            </div>
+            <a class="oc-skip" href="#oc-next">Explore Ocur <span aria-hidden="true">↘</span></a>
+          </div>
+          <div class="oc-progress" aria-hidden="true"><span></span></div>
         </div>
       </section>
+      <div id="oc-next" tabindex="-1"></div>
 
       <!-- connector strip -->
       <section class="g-logos">

@@ -41,6 +41,23 @@ export const DE = [
   ['.g-menu-links a', ['In Aktion', 'Das System', 'Funktionen', 'Deine ersten zehn Minuten', 'Preise', 'Pilotprogramm', 'FAQ', 'Desktop-App herunterladen']],
   ['.g-menu-ctas a', ['Fürs Pilotprogramm bewerben', 'Anmelden', 'Kostenlos starten', 'Demo buchen']],
 
+  // Scroll introduction (also baked into /de).
+  ['.oc-eyebrow', '<span></span>Das KI-Betriebssystem für Unternehmen'],
+  ['#oc-title', 'Dein Unternehmen.<br /><em>In Bewegung.</em>'],
+  ['.oc-copy h2', ['Alle Tools.<br /><em>Eine Intelligenz.</em>', 'Du gibst die Richtung.<br /><em>Ocur legt los.</em>']],
+  ['.oc-copy p', ['E-Mails. Anrufe. Nachfassen. Alles, was dein Unternehmen bewegt, arbeitet zusammen. Das ist Ocur.', 'Ocur verbindet deine bestehenden Tools, findet den Kontext und macht aus dem nächsten Schritt erledigte Arbeit.', 'Von der Antwort bis zum Lieferantenanruf. Du setzt die Grenzen, prüfst Freigaben und behältst den Überblick.']],
+  ['.oc-primary', 'Kostenlos starten <span aria-hidden="true">↗</span>'],
+  ['.oc-secondary', 'In Aktion ansehen <span aria-hidden="true">↓</span>'],
+  ['.oc-invitation a', 'Am Pilotprogramm teilnehmen <span aria-hidden="true">↗</span>'],
+  ['.oc-invitation > span', 'Ohne Kreditkarte starten.'],
+  ['.oc-signal-a > span', 'E-Mails &amp; Anrufe'],
+  ['.oc-signal-b > span', 'Deine vertrauten Tools'],
+  ['.oc-signal-c > span', 'Deine Regeln &amp; Freigaben'],
+  ['.oc-art-caption', 'Verbunden. Koordiniert. In Bewegung.'],
+  ['.oc-scroll > span:last-child', 'Scrollen bringt alles zusammen'],
+  ['.oc-skip', 'Ocur entdecken <span aria-hidden="true">↘</span>'],
+  ['.oc-chapters button', ['<span>01</span> Möglichkeiten', '<span>02</span> Verbindung', '<span>03</span> Aktion']],
+
   // hero
   ['.g-kicker', '<span class="g-kdot" aria-hidden="true"></span>Das KI-Betriebssystem für Unternehmen'],
   ['.g-h1', 'Deine KI redet nicht.<br /><span class="g-grad">Sie erledigt.</span>'],
@@ -495,6 +512,7 @@ export const DE = [
 
 // selector → [attribute, value]
 export const DE_ATTRS = [
+  ['.oc-chapters', 'aria-label', 'Kapitel der Einführung'],
   ['.g-links', 'aria-label', 'Hauptnavigation'],
   ['.g-menu-links', 'aria-label', 'Menü'],
   ['.g-burger', 'aria-label', 'Menü'],
