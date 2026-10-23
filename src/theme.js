@@ -23,7 +23,7 @@ export function initThemeToggle() {
 
   const render = () => {
     const theme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
-    if (meta) meta.setAttribute('content', document.documentElement.dataset.design === 'cloud' ? (theme === 'light' ? '#f2f2f7' : '#000000') : META_COLOR[theme]);
+    if (meta) meta.setAttribute('content', META_COLOR[theme]);
     // moon in dark mode (tap → light), sun in light mode
     btn.textContent = theme === 'light' ? '☀︎' : '☾';
     btn.setAttribute('aria-label', theme === 'light' ? labels.toDark : labels.toLight);
@@ -42,6 +42,5 @@ export function initThemeToggle() {
   });
 
   render();
-  document.addEventListener('ocur-design-change', render);
   nav.insertBefore(btn, nav.querySelector('.g-btn-sm'));
 }
