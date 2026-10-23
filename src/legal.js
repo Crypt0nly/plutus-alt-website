@@ -8,6 +8,7 @@
 import './style.css';
 import './legal.css';
 import './discovery.css';
+import './cinematic.css';
 import { initLangToggle } from './i18n.js';
 import { initThemeToggle } from './theme.js';
 import { initAnalytics } from './analytics.js';

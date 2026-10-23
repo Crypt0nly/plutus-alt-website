@@ -27,3 +27,9 @@ Run `npm test` and `npm run build`. Tests cover all morph targets, finite/repeat
 Browser QA covers both text holds and all shapes in both scroll directions, ambient motion without input, pointer proximity and release, touch cancellation without scroll interception, narrow phones, tall desktop viewports, EN/DE, navigation handoff, offscreen suspension, enlarged text, reduced motion, data saver, no JavaScript, unavailable WebGL and context loss. Never submit real leads during QA.
 
 Recheck frame pacing on real mobile hardware when tuning particle density or shaders. The local embedded browser is useful for development comparisons but does not establish a guaranteed device frame rate.
+
+## Shared website style
+
+`src/cinematic.css` carries the intro's charcoal, ivory and muted gold through the homepage, product and integration guides, legal pages and game chrome. Warm ivory remains the light theme; saved preferences and OS selection still apply. Chapter labels are translated through the same EN/DE pipeline. Fine orbital lines, a ledger-style system section, connected onboarding steps and an editorial FAQ continue the story without adding another renderer or animation loop.
+
+The four-scene pinned demo, connector orbits, card reveals, counters and closing type animation remain owned by the existing GSAP code. The shared stylesheet controls composition, not their transforms or visibility. Static panels use opaque fills; backdrop blur is reserved for floating navigation. The optional intro shader and its performance budget are unchanged.
