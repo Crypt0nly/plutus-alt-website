@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
 import { existsSync } from 'node:fs';
 import { COHORT_TOKENS, CLOSES_AT } from './src/cohort.js';
-import { renderCloudLanding, renderDesignBar } from './src/cloud-design-content.js';
 import { contentRoutes, renderContentPage, enrichPage, canonicalPath, htmlPath } from './scripts/lib/discovery.mjs';
 
 function discoveryPages() {
@@ -52,7 +51,6 @@ function cohortTokens() {
     transformIndexHtml: {
       order: 'pre',
       handler(html, ctx) {
-        html = html.replace('<!-- design-switcher -->', renderDesignBar()).replace('<!-- cloud-landing -->', renderCloudLanding());
         return html.replace(/\{\{(COHORT_[A-Z_]+)\}\}/g, (token, key) => {
           if (!(key in COHORT_TOKENS)) throw new Error(`${ctx.filename}: unknown token ${token}`);
           return COHORT_TOKENS[key];

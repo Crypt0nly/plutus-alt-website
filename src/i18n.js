@@ -43,9 +43,9 @@ export function initLangRouting() {
   const stored = readStored();
   const browserDe = (navigator.languages || [navigator.language || 'en']).some((l) => /^de/i.test(l));
   if (pathLang === 'en' && (stored === 'de' || (!stored && browserDe))) {
-    location.replace(DE_PATH + location.search + location.hash);
+    location.replace(DE_PATH + location.hash);
   } else if (pathLang === 'de' && stored === 'en') {
-    location.replace(EN_PATH + location.search + location.hash);
+    location.replace(EN_PATH + location.hash);
   }
 }
 

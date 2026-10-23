@@ -4,7 +4,8 @@
 
 import './style.css';
 import './discovery.css';
-import { initCloudDesign } from './cloud-design.js';
+import './intro.css';
+import { initIntro } from './intro.js';
 import { initLangRouting, applyLang, initLangToggle, currentLang } from './i18n.js';
 import { initCompanyPricing } from './company-pricing.js';
 import { initThemeToggle } from './theme.js';
@@ -28,17 +29,13 @@ initThemeToggle();
 initCompanyPricing(document, currentLang);
 document.getElementById('g-year').textContent = String(new Date().getFullYear());
 
-const prefersMotion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-let motion = prefersMotion && document.documentElement.dataset.design !== 'cloud';
-let classicContext;
-document.documentElement.classList.toggle('motion', motion);
+let motion = document.documentElement.classList.contains('motion');
 const finePointer = window.matchMedia('(pointer: fine)').matches;
 
 // pointer-tracked glare on every glass surface
 if (finePointer) {
   document.querySelectorAll('.glare').forEach((el) => {
     el.addEventListener('pointermove', (e) => {
-      if (document.documentElement.dataset.design === 'cloud') return;
       const r = el.getBoundingClientRect();
       el.style.setProperty('--gx', `${((e.clientX - r.left) / r.width) * 100}%`);
       el.style.setProperty('--gy', `${((e.clientY - r.top) / r.height) * 100}%`);
@@ -99,11 +96,11 @@ if (seg) {
         const on = ladder.dataset.aud === aud;
         ladder.classList.toggle('on', on);
         if (on && motion) {
-          classicContext?.add(() => gsap.fromTo(
+          gsap.fromTo(
             ladder.querySelectorAll('.g-card'),
             { y: 26, opacity: 0 },
             { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: 'power3.out' },
-          ));
+          );
         }
       });
       track('pricing_audience', { audience: aud });
@@ -259,26 +256,33 @@ if (talk) {
   });
 }
 
-let stopMotion = () => {};
-function startMotion() {
-  gsap.registerPlugin(ScrollTrigger, SplitText);
-  const listeners = new AbortController();
-  const splits = [];
+gsap.registerPlugin(ScrollTrigger, SplitText);
+const motionMedia = gsap.matchMedia();
+motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
+  motion = true;
+  document.documentElement.classList.add('motion');
+  document.querySelector('.g-demo').dataset.scene = '1';
+  const motionAbort = new AbortController();
+
   const lenis = new Lenis({ autoRaf: false, lerp: 0.12 });
   lenis.on('scroll', ScrollTrigger.update);
   const tick = (t) => lenis.raf(t * 1000);
   gsap.ticker.add(tick);
   gsap.ticker.lagSmoothing(0);
-  let cursorTick;
-  const context = gsap.context(() => {
 
   // every in-page anchor glides — the nav, the menu, the hero, the pricing
   // ribbon and cards, the FAQ, the dock, the final call and the footer
   document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((a) => {
     a.addEventListener('click', (e) => {
       e.preventDefault();
-      lenis.scrollTo(a.getAttribute('href'), { offset: -20, duration: 1.2 });
-    }, { signal: listeners.signal });
+      const target = a.getAttribute('href');
+      lenis.scrollTo(target, {
+        offset: -20, duration: 1.2,
+        onComplete: () => {
+          if (target === '#oc-next') document.getElementById('oc-next').focus({ preventScroll: true });
+        },
+      });
+    }, { signal: motionAbort.signal });
   });
 
   // nav gains depth + glow once scrolled
@@ -287,58 +291,7 @@ function startMotion() {
     onToggle: (self) => document.getElementById('g-nav').classList.toggle('is-stuck', self.isActive),
   });
 
-  // ---------------------------------------------------- hero entrance
-  const heroSplit = new SplitText('.g-h1', { type: 'lines', mask: 'lines' });
-  splits.push(heroSplit);
-  const heroLines = heroSplit.lines;
-  gsap
-    .timeline({ defaults: { ease: 'power4.out' } })
-    .from(heroLines, { yPercent: 120, duration: 1.1, stagger: 0.1 }, 0.15)
-    .to('.g-kicker', { opacity: 1, duration: 0.7 }, 0.35)
-    .to('.g-sub', { opacity: 1, duration: 0.8 }, 0.7)
-    .to('.g-ctas', { opacity: 1, duration: 0.8 }, 0.85)
-    .to('.g-micro', { opacity: 1, duration: 0.8 }, 0.95)
-    .to('.g-solo, .g-desktop-download', { opacity: 1, duration: 0.8 }, 1)
-    .to('.g-stats', { opacity: 1, duration: 0.8 }, 1.05);
-
-  // The HTML carries the final values (50, 30%), so no-motion and no-JS
-  // read right; with motion each counts up from zero. data-decimals keeps a
-  // fraction like "1.5" from rounding on the way, in the page's own number
-  // format.
-  const statLocale = document.documentElement.lang === 'de' ? 'de-DE' : 'en-US';
-  document.querySelectorAll('.g-stat strong').forEach((el) => {
-    const target = parseFloat(el.dataset.count);
-    if (Number.isNaN(target)) return; // static value (e.g. ∞) — don't animate
-    const suffix = el.dataset.suffix || '';
-    const decimals = Number(el.dataset.decimals || 0);
-    const state = { v: 0 };
-    gsap.to(state, {
-      v: target,
-      duration: 1.6,
-      delay: 1.05,
-      ease: 'power2.out',
-      onUpdate: () => {
-        el.textContent =
-          state.v.toLocaleString(statLocale, { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) +
-          suffix;
-      },
-    });
-  });
-
-  // glow meshes breathe and drift
-  gsap.to('.g-glow-hero', { y: 90, scale: 1.08, duration: 14, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-  gsap.to('.g-glow-demo', { x: -70, y: 60, duration: 17, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-  gsap.to('.g-glow-os', { x: -55, y: 65, duration: 18, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-  gsap.to('.g-glow-bento', { x: 60, y: -50, duration: 19, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-  gsap.to('.g-glow-price', { y: 70, scale: 1.06, duration: 16, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-  gsap.to('.g-glow-cohort', { y: 60, scale: 1.05, duration: 17, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-
-  // hero glow recedes as you scroll into the page
-  gsap.to('.g-glow-hero', {
-    opacity: 0.35,
-    ease: 'none',
-    scrollTrigger: { trigger: '.g-hero', start: 'top top', end: 'bottom top', scrub: 0.6 },
-  });
+  const disposeIntro = initIntro({ gsap, ScrollTrigger, scrollTo: (target) => lenis.scrollTo(target, { duration: 1.1 }) });
 
   // ----------------------------------------- connector system entrance
   gsap.from('.g-system', {
@@ -363,7 +316,6 @@ function startMotion() {
   // the ask types itself out as the window arrives. Split words AND chars:
   // char-only spans destroy word boundaries and let "out" break as "ou|t".
   const typeSplit = new SplitText('.g-type', { type: 'words,chars' });
-  splits.push(typeSplit);
   const typeChars = typeSplit.chars;
   gsap.from(typeChars, {
     autoAlpha: 0,
@@ -474,7 +426,6 @@ function startMotion() {
 
   // ------------------------------------------------------- final
   const finalSplit = new SplitText('.g-final-h', { type: 'lines', mask: 'lines' });
-  splits.push(finalSplit);
   const finalLines = finalSplit.lines;
   gsap.from(finalLines, {
     yPercent: 120,
@@ -493,7 +444,7 @@ function startMotion() {
   let atForm = false;
   const syncDock = () => (pastHero && beforeFinal && !atForm ? showDock.play() : showDock.reverse());
   ScrollTrigger.create({
-    trigger: '.g-hero',
+    trigger: '.oc-intro',
     start: 'bottom 70%',
     onToggle: (self) => {
       pastHero = self.isActive || self.progress === 1;
@@ -519,63 +470,18 @@ function startMotion() {
     },
   });
 
-  // ------------------------------------------------ micro-interactions
-  if (finePointer) {
-    document.querySelectorAll('.magnetic').forEach((btn) => {
-      const strength = 12;
-      btn.addEventListener('pointermove', contextSafe((e) => {
-        const r = btn.getBoundingClientRect();
-        const dx = ((e.clientX - r.left) / r.width - 0.5) * 2;
-        const dy = ((e.clientY - r.top) / r.height - 0.5) * 2;
-        gsap.to(btn, { x: dx * strength, y: dy * strength, duration: 0.35, ease: 'power3.out' });
-      }), { signal: listeners.signal });
-      btn.addEventListener('pointerleave', contextSafe(() => {
-        gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.45)' });
-      }), { signal: listeners.signal });
-    });
-
-    const cursor = document.querySelector('.g-cursor');
-    const dot = document.querySelector('.g-cursor-dot');
-    const ring = document.querySelector('.g-cursor-ring');
-    const pos = { x: innerWidth / 2, y: innerHeight / 2 };
-    const ringPos = { ...pos };
-    addEventListener('pointermove', (e) => {
-      pos.x = e.clientX;
-      pos.y = e.clientY;
-      dot.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
-    }, { signal: listeners.signal });
-    cursorTick = () => {
-      ringPos.x += (pos.x - ringPos.x) * 0.16;
-      ringPos.y += (pos.y - ringPos.y) * 0.16;
-      ring.style.transform = `translate(${ringPos.x}px, ${ringPos.y}px)`;
-    };
-    gsap.ticker.add(cursorTick);
-    document.addEventListener('pointerover', (e) => {
-      cursor.classList.toggle('is-link', !!e.target.closest('a, button, summary'));
-    }, { signal: listeners.signal });
-  }
-  });
-  classicContext = context;
-  function contextSafe(callback) { return (...args) => context.add(() => callback(...args)); }
-  stopMotion = () => {
-    listeners.abort();
+  // Native pointer behavior avoids a second continuously animated cursor.
+  return () => {
+    motionAbort.abort();
+    disposeIntro?.();
     gsap.ticker.remove(tick);
-    if (cursorTick) gsap.ticker.remove(cursorTick);
     lenis.destroy();
-    context.revert();
-    classicContext = undefined;
-    splits.forEach(split => split.revert());
-    document.getElementById('g-nav').classList.remove('is-stuck');
-    document.querySelector('.g-cursor').classList.remove('is-link');
+    typeSplit.revert();
+    finalSplit.revert();
   };
-}
-
-initCloudDesign(currentLang, (design) => {
-  stopMotion();
-  stopMotion = () => {};
-  motion = prefersMotion && design === 'classic';
-  document.documentElement.dataset.design = design;
-  document.documentElement.classList.toggle('motion', motion);
-  document.querySelector('.g-demo').dataset.scene = motion ? '1' : '4';
-  if (motion) startMotion();
+});
+motionMedia.add('(prefers-reduced-motion: reduce)', () => {
+  motion = false;
+  document.documentElement.classList.remove('motion');
+  document.querySelector('.g-demo').dataset.scene = '4';
 });
