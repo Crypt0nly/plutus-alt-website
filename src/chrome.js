@@ -1,6 +1,6 @@
 // Page chrome shared by Ocur's pages: the floating nav's state, the scroll
 // edge beneath it, and — on the home page — the lens that follows the
-// chapter on screen and the switch to dark glass over the film's stage.
+// chapter on screen and the switch to dark glass over the opening's stage.
 // One passive scroll listener, coalesced into a single animation frame.
 
 import { syncThemeColor } from './theme.js';

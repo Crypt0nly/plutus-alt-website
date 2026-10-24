@@ -1,13 +1,13 @@
 // Ocur site — the public pages in the Ocur app language: neutral reading
 // surfaces, blue actions, floating glass controls, and scroll choreography
 // on top. Heavy work gates behind html.motion (set in <head> unless the
-// visitor prefers reduced motion); every hidden starting state is set here
-// by GSAP, so without JS or motion the page simply reads.
+// visitor prefers reduced motion); every hidden starting state below the
+// opening is set here by GSAP, so without JS or motion the page simply
+// reads. The opening (src/hero.js) enters with CSS from the first paint.
 
 import './style.css';
 import './discovery.css';
-import './intro.css';
-import { initIntro } from './intro.js';
+import { initHero } from './hero.js';
 import { initLangRouting, applyLang, initLangToggle, currentLang } from './i18n.js';
 import { initCompanyPricing } from './company-pricing.js';
 import { initThemeToggle } from './theme.js';
@@ -286,9 +286,8 @@ motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
   demo.dataset.scene = '1';
   const splits = [];
 
-  // Native scrolling drives the intro directly; the rest of the page
-  // re-measures whenever the film changes the layout.
-  const disposeIntro = initIntro({ onLayout: () => ScrollTrigger.refresh() });
+  // The opening's deck of jobs starts dealing (it pauses itself off screen).
+  const opening = initHero({ motion: true });
 
   // ------------------------------------------------------ helpers
   // A headline's lines rise out of their own masks. autoSplit re-splits when
@@ -354,17 +353,15 @@ motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
     });
   };
 
-  // --------------------------------------------- the welcome (stage)
-  const hero = document.querySelector('.oc-welcome');
+  // --------------------------------------------------- the opening
+  // Its entrance is CSS. The page rises over it; the opening settles back
+  // and dims beneath, and its deck rests once the page has covered it.
+  const hero = document.querySelector('.hx');
   if (hero) {
-    const heroIn = { trigger: hero, start: 'top 72%' };
-    rise(hero.querySelector('.oc-eyebrow'), { ...heroIn, y: 14 });
-    revealLines(hero.querySelector('h2'), { ...heroIn, delay: 0.08 });
-    rise(hero.querySelectorAll('.oc-description, .oc-actions, .oc-invitation'), { ...heroIn, delay: 0.4, stagger: 0.1 });
-    // The page rises over the promise; it settles back and dims beneath.
     const under = () => ({ trigger: '.o-sheet', start: 'top bottom', end: 'top 10%', scrub: true });
-    gsap.to(hero.querySelector('.oc-welcome-inner'), { scale: 0.9, yPercent: -5, opacity: 0.1, ease: 'none', scrollTrigger: under() });
+    gsap.to(hero.querySelector('.hx-inner'), { scale: 0.92, yPercent: -4, opacity: 0.12, ease: 'none', scrollTrigger: under() });
     gsap.to(hero, { '--hero-p': 1, ease: 'none', scrollTrigger: under() });
+    ScrollTrigger.create({ trigger: '.o-sheet', start: 'top 20%', onToggle: (self) => opening?.cover(self.isActive) });
   }
 
   // ------------------------------------------------------ connectors
@@ -520,7 +517,7 @@ motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
   // ------------------------------------------------------ final
   const finalCard = document.querySelector('.g-final-card');
   if (finalCard) {
-    // The film's stage comes back as a card that opens up to full size.
+    // The opening's stage comes back as a card that opens up to full size.
     gsap.fromTo(
       finalCard,
       { scale: 0.88, y: 40 },
@@ -540,7 +537,7 @@ motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
   let atForm = false;
   let atDemo = false;
   const syncDock = () => (pastHero && beforeFinal && !atForm && !atDemo ? showDock.play() : showDock.reverse());
-  // the welcome has its own doors; the dock joins once the page has risen
+  // the opening has its own doors; the dock joins once the page has risen
   ScrollTrigger.create({
     trigger: '.o-sheet',
     start: 'top 35%',
@@ -579,7 +576,7 @@ motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
   });
 
   return () => {
-    disposeIntro?.();
+    opening?.dispose();
     typeSplit.revert();
     splits.forEach((split) => split.revert());
   };
@@ -589,6 +586,9 @@ motionMedia.add('(prefers-reduced-motion: reduce)', () => {
   motion = false;
   root.classList.remove('motion');
   demo.dataset.scene = '4';
+  // the jobs stay finished; the chips switch them in place
+  const opening = initHero({ motion: false });
+  return () => opening?.dispose();
 });
 
 // Late fonts change line lengths; every trigger re-measures once they land.

@@ -16,16 +16,15 @@ Change the site's palette by updating those tokens there first, then the
 
 ## Structure of the page
 
-1. **The film** (`.oc-intro`) — the particle introduction, unchanged; see
-   [scroll-intro.md](scroll-intro.md).
-2. **The welcome** (`.oc-welcome`, `#oc-next`) — the film's last frame on its
-   stage colour (`--stage: #080a0e`) in both themes.
-3. **The sheet** (`.o-sheet`) — everything else, on the app's canvas, rising
-   over the welcome with rounded top corners.
-4. **The closing card** (`.g-final-card`) — the stage once more, as a card,
+1. **The opening** (`.hx`, `#top`): what Ocur is, both doors, and Ocur at
+   work. It sits on the stage colour (`--stage: #080a0e`) in both themes;
+   see [hero.md](hero.md).
+2. **The sheet** (`.o-sheet`): everything else, on the app's canvas, rising
+   over the opening with rounded top corners.
+3. **The closing card** (`.g-final-card`): the stage once more, as a card,
    above the footer.
 
-The welcome, the closing card and the autopilot tile are dark islands: the
+The opening, the closing card and the autopilot tile are dark islands: the
 `.o-dark` class redefines the tokens for its subtree, in either theme.
 
 ## Rules carried over from the app guide
@@ -49,13 +48,14 @@ The welcome, the closing card and the autopilot tile are dark islands: the
 
 ## Motion
 
-All motion lives in `src/main.js`, inside `gsap.matchMedia()` for
-`(prefers-reduced-motion: no-preference)`; it reverts completely when that
-preference changes.
+Scroll motion lives in `src/main.js`, inside `gsap.matchMedia()` for
+`(prefers-reduced-motion: no-preference)`. It reverts completely when that
+preference changes. The opening's deck is `src/hero.js`, started from the
+same place.
 
 | Moment | What happens |
 | --- | --- |
-| The welcome | eyebrow, masked headline lines and actions rise in; as the sheet rises the welcome scales back, dims and its dust and orbit drift |
+| The opening | paint-time CSS: the headline and its sentence settle out of a soft blur, a light passes over "More business.", the deck lands in front of its light and starts dealing jobs. As the sheet rises, the opening scales back and dims, and the deck rests |
 | Navigation | the lens follows the chapter; the nav turns from dark to light glass when the sheet reaches it |
 | Connectors | the rings expand, the sun pops, the planets swirl out to their orbits |
 | Demo | the window tips up out of the page; the ask types itself; four scenes over one pinned stretch, with the step rail filling toward the next step |
@@ -71,7 +71,9 @@ preference changes.
 Guard rails:
 
 - Hidden starting states are set by GSAP, never by CSS, so the page reads
-  with JavaScript off. Without JavaScript the demo shows its end state.
+  with JavaScript off. Without JavaScript the demo shows its end state. The
+  one exception is the opening's entrance: it is CSS so it starts with the
+  first paint, and it never hides the headline (see [hero.md](hero.md)).
 - Elements GSAP moves have their CSS transitions held off during the reveal
   and handed back afterwards (`transition: none`, then `clearProps`), so the
   two never ease the same property.
