@@ -111,10 +111,10 @@ export function renderContentPage(page, assetTags = '<script type="module" src="
     <meta property="og:title" content="${escape(title)}" /><meta property="og:description" content="${escape(description)}" />
     <meta property="og:url" content="${canonicalUrl(path)}" /><meta property="og:locale" content="${locale}" />
     <meta property="og:locale:alternate" content="${de ? 'en_US' : 'de_DE'}" />
-    <meta property="og:image" content="${ORIGIN}/og${de ? '-de' : ''}.jpg?v=2" />
+    <meta property="og:image" content="${ORIGIN}/og${de ? '-de' : ''}.jpg?v=3" />
     <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:site" content="@ocur_ai" />
     <meta name="twitter:title" content="${escape(title)}" /><meta name="twitter:description" content="${escape(description)}" />
-    <meta name="twitter:image" content="${ORIGIN}/og${de ? '-de' : ''}.jpg?v=2" />
+    <meta name="twitter:image" content="${ORIGIN}/og${de ? '-de' : ''}.jpg?v=3" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" /><link rel="icon" href="/logo.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

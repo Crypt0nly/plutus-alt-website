@@ -1,15 +1,17 @@
-// Ocur site — "Obsidian Glass": scroll choreography + liquid-glass
-// micro-interactions. Heavy work gates behind html.motion (set in
-// <head> unless the visitor prefers reduced motion).
+// Ocur site — the public pages in the Ocur app language: neutral reading
+// surfaces, blue actions, floating glass controls, and scroll choreography
+// on top. Heavy work gates behind html.motion (set in <head> unless the
+// visitor prefers reduced motion); every hidden starting state is set here
+// by GSAP, so without JS or motion the page simply reads.
 
 import './style.css';
 import './discovery.css';
 import './intro.css';
-import './cinematic.css';
 import { initIntro } from './intro.js';
 import { initLangRouting, applyLang, initLangToggle, currentLang } from './i18n.js';
 import { initCompanyPricing } from './company-pricing.js';
 import { initThemeToggle } from './theme.js';
+import { initChrome } from './chrome.js';
 import { initAnalytics, track } from './analytics.js';
 import { initXAds, trackXConversion, LEAD_EVENT_ID } from './xads.js';
 import { ANSWER } from './cohort.js';
@@ -19,35 +21,27 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 
 // language + theme first: applyLang() rewrites copy (the dev ?lang=de
-// fallback) before SplitText below caches the hero markup.
+// fallback) before SplitText below caches the markup.
 initLangRouting();
 initAnalytics();
 initXAds();
 applyLang();
 initLangToggle();
 initThemeToggle();
+initChrome();
 initCompanyPricing(document, currentLang);
 document.getElementById('g-year').textContent = String(new Date().getFullYear());
 
-let motion = document.documentElement.classList.contains('motion');
-const finePointer = window.matchMedia('(pointer: fine)').matches;
-
-// pointer-tracked glare on every glass surface
-if (finePointer) {
-  document.querySelectorAll('.glare').forEach((el) => {
-    el.addEventListener('pointermove', (e) => {
-      const r = el.getBoundingClientRect();
-      el.style.setProperty('--gx', `${((e.clientX - r.left) / r.width) * 100}%`);
-      el.style.setProperty('--gy', `${((e.clientY - r.top) / r.height) * 100}%`);
-    });
-  });
-}
+const root = document.documentElement;
+let motion = root.classList.contains('motion');
+const demo = document.querySelector('.g-demo');
 
 // without motion the demo window still tells the full story: end state
 // (the payoff report — scene 4 — with its final numbers baked into the HTML)
-if (!motion) {
-  document.querySelector('.g-demo').dataset.scene = '4';
-}
+if (!motion) demo.dataset.scene = '4';
+
+// Segmented controls: the selection slides to the chosen segment.
+const slideTo = (group, index) => group?.style.setProperty('--seg-i', String(index));
 
 // --------------------------------------------------- phone menu
 // Below 1100px the nav links move into the menu (see style.css); the burger opens a
@@ -92,20 +86,41 @@ if (seg) {
         t.classList.toggle('on', on);
         t.setAttribute('aria-pressed', String(on));
       });
+      slideTo(seg, tabs.indexOf(tab));
       ladders.forEach((ladder) => {
         const on = ladder.dataset.aud === aud;
         ladder.classList.toggle('on', on);
         if (on && motion) {
+          const cards = ladder.querySelectorAll('.g-card');
+          // the hover transition waits until the cards have landed
+          gsap.set(cards, { transition: 'none' });
           gsap.fromTo(
-            ladder.querySelectorAll('.g-card'),
+            cards,
             { y: 26, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: 'power3.out' },
+            { y: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: 'expo.out', clearProps: 'transform,opacity,transition' },
           );
         }
       });
       track('pricing_audience', { audience: aud });
       // the ladders are different heights — everything pinned below moves
       if (motion) ScrollTrigger.refresh();
+    });
+  });
+}
+
+// The business billing interval: the selection slides, and each price
+// re-sets itself (company-pricing.js has already written the new numbers).
+const interval = document.querySelector('.g-company-interval');
+if (interval) {
+  interval.querySelectorAll('[data-billing-interval]').forEach((button, index) => {
+    button.addEventListener('click', () => {
+      slideTo(interval, index);
+      if (!motion) return;
+      document.querySelectorAll('[data-company-plan] .g-price').forEach((price) => {
+        price.classList.remove('is-flipping');
+        void price.offsetWidth;
+        price.classList.add('is-flipping');
+      });
     });
   });
 }
@@ -256,59 +271,140 @@ if (talk) {
   });
 }
 
+
+// ================================================================ motion
+// Scroll choreography. Everything here runs only without a reduced-motion
+// preference; gsap.matchMedia reverts it all (inline styles, splits, pins)
+// the moment that preference changes.
 gsap.registerPlugin(ScrollTrigger, SplitText);
+const EASE = 'expo.out';
 const motionMedia = gsap.matchMedia();
+
 motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
   motion = true;
-  document.documentElement.classList.add('motion');
-  document.querySelector('.g-demo').dataset.scene = '1';
+  root.classList.add('motion');
+  demo.dataset.scene = '1';
+  const splits = [];
 
-  // Native scrolling drives the intro directly. Anchor destinations keep their
-  // standard URL/focus behavior; no extra smoothing layer competes with the GPU.
-  // nav gains depth + glow once scrolled
-  ScrollTrigger.create({
-    start: 80,
-    onToggle: (self) => document.getElementById('g-nav').classList.toggle('is-stuck', self.isActive),
-  });
-
+  // Native scrolling drives the intro directly; the rest of the page
+  // re-measures whenever the film changes the layout.
   const disposeIntro = initIntro({ onLayout: () => ScrollTrigger.refresh() });
 
-  // ----------------------------------------- connector system entrance
-  gsap.from('.g-system', {
-    scale: 0.9,
-    opacity: 0,
-    duration: 1,
-    ease: 'power3.out',
-    scrollTrigger: { trigger: '.g-logos', start: 'top 75%' },
-  });
+  // ------------------------------------------------------ helpers
+  // A headline's lines rise out of their own masks. autoSplit re-splits when
+  // fonts load or the width changes, carrying the animation's progress over.
+  const revealLines = (el, { trigger = el, start = 'top 86%', delay = 0 } = {}) => {
+    if (!el) return;
+    splits.push(
+      SplitText.create(el, {
+        type: 'lines',
+        mask: 'lines',
+        linesClass: 'g-line',
+        autoSplit: true,
+        // the masks are named g-line-mask after the line class (style.css)
+        onSplit: (self) =>
+          gsap.from(self.lines, {
+            yPercent: 118,
+            duration: 1.2,
+            delay,
+            ease: EASE,
+            stagger: 0.1,
+            scrollTrigger: { trigger, start, once: true },
+          }),
+      }),
+    );
+  };
+  // A quiet rise for supporting copy and controls. Inline styles are
+  // cleared afterwards so CSS (hover, state) owns the element again.
+  const rise = (targets, { trigger, start = 'top 88%', y = 26, delay = 0, stagger = 0.08, duration = 1.05 } = {}) => {
+    const els = gsap.utils.toArray(targets);
+    if (!els.length) return;
+    gsap.set(els, { transition: 'none' });
+    gsap.from(els, {
+      y,
+      opacity: 0,
+      duration,
+      delay,
+      stagger,
+      ease: EASE,
+      clearProps: 'transform,opacity,transition',
+      scrollTrigger: { trigger: trigger || els[0], start, once: true },
+    });
+  };
+  // Cards arrive row by row as each row enters, not all at once. Their CSS
+  // hover transition is held off while GSAP owns the transform, then handed
+  // back, so the two never ease the same property at once.
+  const cascade = (targets, { start = 'top 92%', y = 54, stagger = 0.09 } = {}) => {
+    const els = gsap.utils.toArray(targets);
+    if (!els.length) return;
+    gsap.set(els, { y, opacity: 0, transition: 'none' });
+    ScrollTrigger.batch(els, {
+      start,
+      once: true,
+      onEnter: (batch) =>
+        gsap.to(batch, {
+          y: 0,
+          opacity: 1,
+          duration: 1.15,
+          ease: EASE,
+          stagger,
+          overwrite: true,
+          clearProps: 'transform,opacity,transition',
+        }),
+    });
+  };
 
-  // --------------------------------------- pinned four-scene demo
-  const demo = document.querySelector('.g-demo');
-  gsap.from('.g-win', {
-    y: 80,
-    opacity: 0,
-    scale: 0.96,
-    duration: 1,
-    ease: 'power3.out',
-    scrollTrigger: { trigger: '.g-demo', start: 'top 70%' },
-  });
+  // --------------------------------------------- the welcome (stage)
+  const hero = document.querySelector('.oc-welcome');
+  if (hero) {
+    const heroIn = { trigger: hero, start: 'top 72%' };
+    rise(hero.querySelector('.oc-eyebrow'), { ...heroIn, y: 14 });
+    revealLines(hero.querySelector('h2'), { ...heroIn, delay: 0.08 });
+    rise(hero.querySelectorAll('.oc-description, .oc-actions, .oc-invitation'), { ...heroIn, delay: 0.4, stagger: 0.1 });
+    // The page rises over the promise; it settles back and dims beneath.
+    const under = () => ({ trigger: '.o-sheet', start: 'top bottom', end: 'top 10%', scrub: true });
+    gsap.to(hero.querySelector('.oc-welcome-inner'), { scale: 0.9, yPercent: -5, opacity: 0.1, ease: 'none', scrollTrigger: under() });
+    gsap.to(hero, { '--hero-p': 1, ease: 'none', scrollTrigger: under() });
+  }
+
+  // ------------------------------------------------------ connectors
+  const system = document.querySelector('.g-system');
+  if (system) {
+    revealLines(document.querySelector('.g-logos-label'));
+    rise('.g-logos-sub', { delay: 0.2 });
+    gsap
+      .timeline({ scrollTrigger: { trigger: system, start: 'top 84%', once: true } })
+      .from(system.querySelectorAll('.g-orbit'), { scale: 0.5, opacity: 0, duration: 1.8, ease: EASE, stagger: 0.14 })
+      .from(system.querySelector('.g-sun'), { scale: 0.4, opacity: 0, duration: 1.3, ease: 'back.out(1.8)' }, 0.1)
+      .from(system.querySelector('.g-planets'), { scale: 0.3, rotate: -28, opacity: 0, duration: 2, ease: EASE }, 0.2);
+  }
+
+  // ------------------------------------------ the pinned product demo
+  const win = demo.querySelector('.g-win');
+  rise(demo.querySelector('.oc-chapter'), { trigger: demo, start: 'top 72%', y: 14 });
+  revealLines(demo.querySelector('.g-h2'), { trigger: demo, start: 'top 72%' });
+  // The window tips up out of the page as it arrives.
+  gsap.fromTo(
+    win,
+    { y: 120, scale: 0.9, rotateX: 10, transformPerspective: 1600 },
+    { y: 0, scale: 1, rotateX: 0, ease: 'none', scrollTrigger: { trigger: demo, start: 'top bottom', end: 'top 8%', scrub: 0.8 } },
+  );
 
   // the ask types itself out as the window arrives. Split words AND chars:
   // char-only spans destroy word boundaries and let "out" break as "ou|t".
   const typeSplit = new SplitText('.g-type', { type: 'words,chars' });
-  const typeChars = typeSplit.chars;
-  gsap.from(typeChars, {
+  gsap.from(typeSplit.chars, {
     autoAlpha: 0,
     duration: 0.01,
     stagger: 0.03,
     ease: 'none',
-    scrollTrigger: { trigger: '.g-demo', start: 'top 70%' },
+    scrollTrigger: { trigger: demo, start: 'top 55%' },
   });
 
-  // count-up numbers (the booked €, the collected total) — fired once per
-  // element the first time its scene activates. The HTML carries the final
-  // values, so no-motion and no-JS still read correctly.
-  const ccLocale = document.documentElement.lang === 'de' ? 'de-DE' : 'en-US';
+  // count-up numbers (the booked €) — fired once per element the first
+  // time its scene activates. The HTML carries the final values, so
+  // no-motion and no-JS still read correctly.
+  const ccLocale = root.lang === 'de' ? 'de-DE' : 'en-US';
   const ccDone = new Set();
   const runCounters = (scene) => {
     document.querySelectorAll(`.g-s${scene} [data-cc]`).forEach((el) => {
@@ -329,15 +425,30 @@ motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
     });
   };
 
+  // Four scenes over one pinned stretch. The rail beside the story fills
+  // toward the next step and reaches it as that scene begins.
+  const SCENES = [0, 0.16, 0.52, 0.8];
+  const rail = (p) => {
+    for (let i = SCENES.length - 1; i >= 0; i--) {
+      if (p >= SCENES[i]) {
+        const next = SCENES[i + 1] ?? 1;
+        const span = next - SCENES[i];
+        const local = i === SCENES.length - 1 ? 1 : (p - SCENES[i]) / span;
+        return Math.min(1, (i + local) / (SCENES.length - 1));
+      }
+    }
+    return 0;
+  };
   ScrollTrigger.create({
-    trigger: '.g-demo',
+    trigger: demo,
     start: 'top top',
-    end: '+=340%',
+    end: '+=320%',
     pin: '.g-demo-stage',
     scrub: true,
     onUpdate: (self) => {
       const p = self.progress;
-      const scene = p < 0.16 ? '1' : p < 0.52 ? '2' : p < 0.8 ? '3' : '4';
+      demo.style.setProperty('--demo-p', rail(p).toFixed(4));
+      const scene = p < SCENES[1] ? '1' : p < SCENES[2] ? '2' : p < SCENES[3] ? '3' : '4';
       if (demo.dataset.scene !== scene) {
         demo.dataset.scene = scene;
         runCounters(scene);
@@ -345,89 +456,106 @@ motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
     },
   });
 
-  // ------------------------------------------------- ledger cards
-  gsap.from('.g-os-card', {
-    y: 60,
-    opacity: 0,
-    scale: 0.97,
-    duration: 0.8,
-    stagger: 0.09,
-    ease: 'power3.out',
-    scrollTrigger: { trigger: '.g-os-grid', start: 'top 80%' },
+  // ----------------------------------------------- chapters + headlines
+  document.querySelectorAll('.o-sheet .oc-chapter').forEach((chapter) => {
+    if (!demo.contains(chapter)) rise(chapter, { y: 12, duration: 0.9 });
   });
-  gsap.from('.g-os-note', {
-    opacity: 0,
-    duration: 0.8,
-    ease: 'power3.out',
-    scrollTrigger: { trigger: '.g-os-note', start: 'top 88%' },
-  });
+  document
+    .querySelectorAll('.g-os .g-h2, .g-features .g-h2, .g-start .g-h2, .g-pricing .g-h2, .g-cohort .g-h2, .g-faq-sec .g-h2, .d-resources h2')
+    .forEach((el) => revealLines(el));
 
-  // ------------------------------------------------------ bento tiles
-  // batched: the grid is now ~two viewports tall, so each row reveals
-  // as it enters rather than all at once when the grid's top shows up
-  ScrollTrigger.batch('.g-tile', {
-    start: 'top 85%',
-    once: true,
-    onEnter: (tiles) =>
-      gsap.from(tiles, { y: 60, opacity: 0, scale: 0.97, duration: 0.8, stagger: 0.09, ease: 'power3.out' }),
-  });
+  // ---------------------------------------------------- the ledgers
+  // The statement lights up word by word as it is read.
+  const statement = document.querySelector('.g-os-sub');
+  if (statement) {
+    const words = SplitText.create(statement, { type: 'words', wordsClass: 'g-word' });
+    splits.push(words);
+    gsap.fromTo(
+      words.words,
+      { opacity: 0.16 },
+      {
+        opacity: 1,
+        ease: 'none',
+        stagger: 0.12,
+        scrollTrigger: { trigger: statement, start: 'top 82%', end: 'bottom 46%', scrub: 0.6 },
+      },
+    );
+  }
+  cascade('.g-os-card');
+  rise('.g-os-note');
 
-  // ----------------------------------------------------- pricing
-  // the ladder that's on screen at load; a switch fades its own cards in
-  gsap.from('.g-tiers.on .g-card', {
-    y: 70,
-    opacity: 0,
-    duration: 0.9,
-    stagger: 0.12,
-    ease: 'power3.out',
-    scrollTrigger: { trigger: '.g-seg', start: 'top 78%' },
-  });
+  // ---------------------------------------------------- features
+  cascade('.g-tile');
 
-  // ------------------------------------------------ founding cohort
-  gsap.from('.g-perk', {
-    y: 50,
-    opacity: 0,
-    scale: 0.97,
-    duration: 0.8,
-    stagger: 0.09,
-    ease: 'power3.out',
-    scrollTrigger: { trigger: '.g-perks', start: 'top 82%' },
-  });
+  // --------------------------------------------- the first ten minutes
+  rise('.g-start-sub', { delay: 0.15 });
+  cascade('.g-step', { stagger: 0.12 });
+  const steps = document.querySelector('.g-steps');
+  if (steps) {
+    gsap.fromTo(
+      steps,
+      { '--line': 0 },
+      { '--line': 1, ease: 'none', scrollTrigger: { trigger: steps, start: 'top 82%', end: 'bottom 62%', scrub: 0.6 } },
+    );
+  }
+  rise('.g-start-note');
 
-  // --------------------------------------------------------- faq
-  gsap.from('.g-faq details', {
-    y: 36,
-    opacity: 0,
-    duration: 0.7,
-    stagger: 0.07,
-    ease: 'power3.out',
-    scrollTrigger: { trigger: '.g-faq', start: 'top 80%' },
-  });
+  // ---------------------------------------------------- pricing
+  rise('.g-price-lede, .g-seg, .g-worker-note', { stagger: 0.1 });
+  cascade('.g-card');
+  cascade('.g-extra', { y: 30 });
 
-  // ------------------------------------------------------- final
-  const finalSplit = new SplitText('.g-final-h', { type: 'lines', mask: 'lines' });
-  const finalLines = finalSplit.lines;
-  gsap.from(finalLines, {
-    yPercent: 120,
-    duration: 1,
-    stagger: 0.1,
-    ease: 'power4.out',
-    scrollTrigger: { trigger: '.g-final', start: 'top 65%' },
-  });
+  // ----------------------------------------------- founding cohort
+  rise('.g-cohort-kicker', { y: 12 });
+  rise('.g-cohort-sub', { delay: 0.15 });
+  cascade('.g-perk');
+  cascade('.g-talk, .g-next, .g-book', { y: 60, stagger: 0.12 });
+
+  // ------------------------------------------------------- FAQ
+  rise('.g-faq', { y: 40 });
+
+  // ----------------------------------------- resources (built pages)
+  cascade('.d-card');
+
+  // ------------------------------------------------------ final
+  const finalCard = document.querySelector('.g-final-card');
+  if (finalCard) {
+    // The film's stage comes back as a card that opens up to full size.
+    gsap.fromTo(
+      finalCard,
+      { scale: 0.88, y: 40 },
+      { scale: 1, y: 0, ease: 'none', scrollTrigger: { trigger: '.g-final', start: 'top bottom', end: 'top 28%', scrub: 0.7 } },
+    );
+    rise(finalCard.querySelector('.g-final-mark'), { trigger: finalCard, start: 'top 72%', y: 24 });
+    revealLines(finalCard.querySelector('.g-final-h'), { trigger: finalCard, start: 'top 68%', delay: 0.1 });
+    rise(finalCard.querySelectorAll('.g-btn, .g-micro, .g-final-alt'), { trigger: finalCard, start: 'top 60%', delay: 0.45, stagger: 0.08 });
+  }
 
   // --------------------------------------------- floating CTA dock
   const dock = document.getElementById('g-dock');
-  const showDock = gsap.to(dock, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power3.out', paused: true });
-  gsap.set(dock, { y: 16 });
+  const showDock = gsap.to(dock, { autoAlpha: 1, y: 0, duration: 0.6, ease: EASE, paused: true });
+  gsap.set(dock, { y: 18 });
   let pastHero = false;
   let beforeFinal = true;
   let atForm = false;
-  const syncDock = () => (pastHero && beforeFinal && !atForm ? showDock.play() : showDock.reverse());
+  let atDemo = false;
+  const syncDock = () => (pastHero && beforeFinal && !atForm && !atDemo ? showDock.play() : showDock.reverse());
+  // the welcome has its own doors; the dock joins once the page has risen
   ScrollTrigger.create({
-    trigger: '.oc-intro',
-    start: 'bottom 70%',
+    trigger: '.o-sheet',
+    start: 'top 35%',
     onToggle: (self) => {
       pastHero = self.isActive || self.progress === 1;
+      syncDock();
+    },
+  });
+  // the demo tells its story without a button over its captions
+  ScrollTrigger.create({
+    trigger: demo,
+    start: 'top 60%',
+    end: 'bottom 40%',
+    onToggle: (self) => {
+      atDemo = self.isActive;
       syncDock();
     },
   });
@@ -450,15 +578,18 @@ motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
     },
   });
 
-  // Native pointer behavior avoids a second continuously animated cursor.
   return () => {
     disposeIntro?.();
     typeSplit.revert();
-    finalSplit.revert();
+    splits.forEach((split) => split.revert());
   };
 });
+
 motionMedia.add('(prefers-reduced-motion: reduce)', () => {
   motion = false;
-  document.documentElement.classList.remove('motion');
-  document.querySelector('.g-demo').dataset.scene = '4';
+  root.classList.remove('motion');
+  demo.dataset.scene = '4';
 });
+
+// Late fonts change line lengths; every trigger re-measures once they land.
+document.fonts?.ready.then(() => ScrollTrigger.refresh());

@@ -28,8 +28,8 @@ Browser QA covers both text holds and all shapes in both scroll directions, ambi
 
 Recheck frame pacing on real mobile hardware when tuning particle density or shaders. The local embedded browser is useful for development comparisons but does not establish a guaranteed device frame rate.
 
-## Shared website style
+## After the introduction
 
-`src/cinematic.css` carries the intro's charcoal, ivory and muted gold through the homepage, product and integration guides, legal pages and game chrome. Warm ivory remains the light theme; saved preferences and OS selection still apply. Chapter labels are translated through the same EN/DE pipeline. Fine orbital lines, a ledger-style system section, connected onboarding steps and an editorial FAQ continue the story without adding another renderer or animation loop.
+The film ends where the site begins. The welcome (`#oc-next`) stays on the film's stage colour (`#080a0e`) in both themes, so the fox scrolls away into the promise without a seam. Everything after it lives in one rounded sheet (`.o-sheet`) in the Ocur app language, which rises over the welcome while the welcome holds still and dims (sticky, motion only, on viewports at least 700px tall). The floating nav wears dark glass until that sheet reaches it.
 
-The four-scene pinned demo, connector orbits, card reveals, counters and closing type animation remain owned by the existing GSAP code. The shared stylesheet controls composition, not their transforms or visibility. Static panels use opaque fills; backdrop blur is reserved for floating navigation. The optional intro shader and its performance budget are unchanged.
+None of this touches the stage: `src/intro.js`, `src/intro-scene.js`, `src/intro-particles.js` and `src/intro-timing.js` are unchanged, and `src/intro.css` now holds only the stage's rules (the welcome's moved to `src/style.css`) and pins the film's own type — Inter, which the particles sample — so the site's system font stack cannot change the words they draw. The site's design and motion are described in [site-design.md](site-design.md).

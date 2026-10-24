@@ -1,74 +1,73 @@
-/* Ocur — legal pages (/privacy, /terms and their German twins).
-   Same "Obsidian Glass" tokens as the marketing page (style.css is imported
-   first by src/legal.js); this file only adds the long-form reading layout:
-   a sticky table of contents, prose rhythm, callouts and data tables.
+/* Ocur — reading pages: the legal pages (/privacy, /terms, their German
+   twins, the Impressum), "Where your data goes" and the product guides.
+   The app's reading surface: a calm canvas, one opaque sheet of prose, a
+   table of contents in a card beside it, callouts as tinted groups.
    Everything here is namespaced .l-* so it can never collide with the
-   home page's .g-* system. */
+   home page's .g-* system; tokens come from style.css (imported first). */
 
 .l-page {
   position: relative;
-  padding: clamp(120px, 16vh, 190px) 0 clamp(60px, 9vh, 110px);
+  padding: clamp(116px, 15vh, 168px) 0 clamp(48px, 7vh, 88px);
 }
 
-/* one soft glow behind the header, in the language of the home page */
+/* the old glow behind the header — the reading pages stay quiet now */
 .l-glow {
-  position: absolute;
-  top: -180px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(1100px, 100%);
-  height: 620px;
-  pointer-events: none;
-  z-index: -1;
-  background: radial-gradient(closest-side, rgba(242, 148, 46, 0.26), transparent 72%);
-  filter: blur(28px);
-  opacity: 0.85;
+  display: none;
 }
 
 /* --------------------------------------------------------------- header */
 
 .l-head {
-  max-width: 800px;
-  margin-bottom: clamp(34px, 5vh, 54px);
+  max-width: 52rem;
+  margin-bottom: clamp(32px, 5vh, 52px);
 }
 
 .l-eyebrow {
-  font-family: var(--g-mono);
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--g-orange);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: var(--cp-accent-text);
 }
 
 .l-h1 {
-  font-weight: 700;
-  font-size: clamp(38px, 6vw, 68px);
-  line-height: 1.04;
-  letter-spacing: -0.035em;
   margin-bottom: 20px;
+  font-family: var(--g-display);
+  font-size: clamp(2.6rem, 1.4rem + 4.4vw, 5rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.048em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .l-lede {
-  font-size: clamp(17px, 2vw, 20px);
-  color: var(--g-dim);
-  line-height: 1.65;
-  max-width: 66ch;
+  max-width: 44rem;
+  font-size: clamp(1.0625rem, 0.98rem + 0.4vw, 1.3125rem);
+  line-height: 1.55;
+  letter-spacing: -0.014em;
+  color: var(--cp-secondary);
+  text-wrap: pretty;
 }
 
 .l-dates {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 26px;
-  margin-top: 26px;
-  font-family: var(--g-mono);
-  font-size: 12.5px;
-  color: var(--g-dim);
+  gap: 8px;
+  margin-top: 24px;
+  font-size: 0.8125rem;
+  color: var(--cp-secondary);
+}
+
+.l-dates span {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--cp-fill);
 }
 
 .l-dates strong {
-  color: var(--g-ink);
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--cp-label);
 }
 
 /* --------------------------------------------------------------- layout */
@@ -80,17 +79,17 @@
 .l-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: clamp(28px, 4vw, 60px);
+  gap: clamp(20px, 3vw, 40px);
   align-items: start;
 }
 
 @media (min-width: 1040px) {
   .l-layout {
-    grid-template-columns: 232px minmax(0, 1fr);
+    grid-template-columns: 248px minmax(0, 1fr);
   }
 
   /* short pages (the Impressum) carry no table of contents — without this
-     the prose would land in the 232px sidebar track and get squeezed */
+     the prose would land in the sidebar track and get squeezed */
   .l-layout-solo {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -100,61 +99,80 @@
 
 .l-toc {
   position: sticky;
-  top: 96px;
-  padding: 20px;
-  border-radius: 20px;
-  font-size: 13.5px;
+  top: 92px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  padding: 20px 12px 14px;
+  border-radius: 24px;
+  font-size: 0.875rem;
 }
 
 .l-toc h2 {
-  font-family: var(--g-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--g-dim);
-  margin-bottom: 14px;
+  margin: 0 10px 10px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--cp-secondary);
 }
 
 .l-toc ol {
+  display: grid;
+  gap: 2px;
   list-style: none;
   counter-reset: l-toc;
-  display: grid;
-  gap: 9px;
 }
 
 .l-toc a {
-  display: block;
-  color: var(--g-dim);
+  display: flex;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 12px;
   line-height: 1.35;
-  transition: color 0.2s ease;
+  color: var(--cp-label);
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
 }
 
 .l-toc a::before {
   counter-increment: l-toc;
-  content: counter(l-toc) '. ';
-  font-family: var(--g-mono);
-  font-size: 11.5px;
-  opacity: 0.55;
+  content: counter(l-toc);
+  flex: none;
+  min-width: 1.2em;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--cp-secondary);
 }
 
-.l-toc a:hover,
-.l-toc a:focus-visible {
-  color: var(--g-orange);
+.l-toc a:hover {
+  background: var(--cp-hover);
+}
+
+/* the chapter on screen (chrome.js), the way the app marks a selection */
+.l-toc a[aria-current='true'] {
+  background: var(--cp-accent-tint);
+  color: var(--cp-accent-text);
+}
+
+.l-toc a[aria-current='true']::before {
+  color: var(--cp-accent-text);
 }
 
 /* on phones the TOC folds away instead of pushing the policy down a screen */
 .l-toc-m {
-  padding: 4px 20px 20px;
-  border-radius: 20px;
+  margin-bottom: 20px;
+  padding: 0 20px;
+  border-radius: 22px;
 }
 
 .l-toc-m > summary {
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 16px 0;
+  font-size: 0.9375rem;
   font-weight: 600;
-  font-size: 14.5px;
   list-style: none;
+  cursor: pointer;
 }
 
 .l-toc-m > summary::-webkit-details-marker {
@@ -162,13 +180,29 @@
 }
 
 .l-toc-m > summary::after {
-  content: '＋';
-  float: right;
-  color: var(--g-orange);
+  content: '';
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238e8e93' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center / 14px no-repeat,
+    var(--cp-fill);
+  transition: transform 420ms var(--cp-spring);
 }
 
 .l-toc-m[open] > summary::after {
-  content: '－';
+  transform: rotate(180deg);
+}
+
+.l-toc-m ol {
+  display: grid;
+  gap: 4px;
+  padding: 0 0 18px 20px;
+  font-size: 0.9375rem;
+}
+
+.l-toc-m a {
+  color: var(--cp-accent-text);
 }
 
 @media (min-width: 1040px) {
@@ -185,16 +219,22 @@
 
 /* ---------------------------------------------------------------- prose */
 
+/* One opaque reading sheet, the content layer of the app. */
 .l-prose {
   min-width: 0;
-  max-width: 74ch;
-  font-size: 16.5px;
-  line-height: 1.72;
-  color: #cfcfd6;
+  max-width: 50rem;
+  padding: clamp(8px, 2vw, 16px) clamp(22px, 4.4vw, 56px) clamp(28px, 4vw, 48px);
+  border-radius: 28px;
+  border: 1px solid var(--cp-card-line);
+  background: var(--cp-card);
+  box-shadow: var(--cp-shadow);
+  font-size: 1.03125rem;
+  line-height: 1.7;
+  color: var(--l-ink, #2c2c2e);
 }
 
-html[data-theme='light'] .l-prose {
-  color: #3a3a45;
+html[data-theme='dark'] .l-prose {
+  --l-ink: #d1d1d6;
 }
 
 .l-prose > section {
@@ -203,35 +243,43 @@ html[data-theme='light'] .l-prose {
 }
 
 .l-prose > section + section {
-  margin-top: 6px;
-  border-top: 1px solid var(--g-hair);
+  margin-top: 8px;
+  border-top: 1px solid var(--cp-separator);
 }
 
 .l-prose h2 {
+  margin-bottom: 16px;
+  font-family: var(--g-display);
+  font-size: clamp(1.5rem, 1.2rem + 0.9vw, 1.9375rem);
   font-weight: 700;
-  font-size: clamp(24px, 3vw, 31px);
-  line-height: 1.18;
-  letter-spacing: -0.025em;
-  color: var(--g-ink);
-  margin-bottom: 18px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--cp-label);
 }
 
 .l-prose h2 .l-num {
-  font-family: var(--g-mono);
-  font-size: 0.55em;
-  font-weight: 500;
-  color: var(--g-orange);
-  margin-right: 10px;
-  vertical-align: 0.22em;
+  display: inline-grid;
+  place-items: center;
+  min-width: 30px;
+  height: 22px;
+  margin-right: 12px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--cp-accent-tint);
+  color: var(--cp-accent-text);
+  font-family: var(--g-sans);
+  font-size: 0.75rem;
+  font-weight: 650;
   letter-spacing: 0;
+  vertical-align: 0.3em;
 }
 
 .l-prose h3 {
-  font-weight: 600;
-  font-size: 18.5px;
-  letter-spacing: -0.015em;
-  color: var(--g-ink);
-  margin: 30px 0 12px;
+  margin: 30px 0 10px;
+  font-size: 1.1875rem;
+  font-weight: 650;
+  letter-spacing: -0.018em;
+  color: var(--cp-label);
 }
 
 .l-prose p,
@@ -246,64 +294,66 @@ html[data-theme='light'] .l-prose {
 }
 
 .l-prose li {
-  margin-bottom: 9px;
+  margin-bottom: 8px;
 }
 
 .l-prose li::marker {
-  color: var(--g-orange);
+  color: var(--cp-accent);
 }
 
 .l-prose strong {
-  color: var(--g-ink);
   font-weight: 600;
+  color: var(--cp-label);
 }
 
 .l-prose a {
-  color: var(--g-orange);
+  color: var(--cp-accent-text);
   text-decoration: underline;
-  text-underline-offset: 3px;
   text-decoration-thickness: 1px;
-  text-decoration-color: rgba(242, 148, 46, 0.45);
-  transition: text-decoration-color 0.2s ease;
+  text-decoration-color: color-mix(in srgb, var(--cp-accent) 40%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 160ms ease;
 }
 
 .l-prose a:hover {
-  text-decoration-color: var(--g-orange);
+  text-decoration-color: var(--cp-accent-text);
 }
 
 .l-prose code {
-  font-family: var(--g-mono);
-  font-size: 0.86em;
   padding: 2px 7px;
   border-radius: 7px;
-  background: var(--g-fill);
-  color: var(--g-ink);
+  background: var(--cp-fill);
+  color: var(--cp-label);
+  font-family: var(--g-mono);
+  font-size: 0.86em;
   overflow-wrap: anywhere;
 }
 
 /* ------------------------------------------------------------ callouts */
 
+/* The short version: a focus card with green checks. */
 .l-key {
-  padding: clamp(22px, 3vw, 30px);
-  border-radius: 22px;
-  margin-bottom: clamp(30px, 4vh, 44px);
+  margin-bottom: clamp(24px, 4vh, 40px);
+  padding: clamp(22px, 3vw, 32px);
+  border-radius: 26px;
+  background: color-mix(in srgb, var(--cp-accent) 3%, var(--cp-card));
 }
 
 .l-key h2 {
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
   margin-bottom: 16px;
-  color: var(--g-ink);
+  font-size: 1.0625rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  color: var(--cp-label);
 }
 
 .l-key ul {
-  list-style: none;
   display: grid;
   gap: 12px;
-  padding: 0;
   margin: 0;
-  font-size: 15.5px;
+  padding: 0;
+  list-style: none;
+  font-size: 1rem;
   line-height: 1.55;
 }
 
@@ -314,18 +364,23 @@ html[data-theme='light'] .l-prose {
 }
 
 .l-key li::before {
-  content: '✓';
-  flex: 0 0 auto;
-  color: var(--g-orange);
-  font-weight: 700;
+  content: '';
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  border-radius: 50%;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 12px no-repeat,
+    var(--cp-green);
 }
 
+/* A note inside the prose is a tinted group, not another raised card. */
 .l-note {
-  padding: 22px 24px;
-  border-radius: 18px;
-  border: 1px solid rgba(242, 148, 46, 0.35);
-  background: rgba(242, 148, 46, 0.07);
   margin: 24px 0;
+  padding: 20px 22px;
+  border-radius: 18px;
+  background: var(--cp-accent-tint);
 }
 
 .l-note p:last-child,
@@ -335,21 +390,19 @@ html[data-theme='light'] .l-prose {
 
 .l-note-label {
   display: block;
-  font-family: var(--g-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--g-orange);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  font-size: 0.8125rem;
+  font-weight: 650;
+  color: var(--cp-accent-text);
 }
 
 /* ------------------------------------------------------------- tables */
 
 .l-tw {
-  overflow-x: auto;
   margin: 22px 0 26px;
+  overflow-x: auto;
   border-radius: 18px;
-  border: 1px solid var(--g-hair);
+  border: 1px solid var(--cp-separator);
   -webkit-overflow-scrolling: touch;
 }
 
@@ -357,26 +410,23 @@ html[data-theme='light'] .l-prose {
   width: 100%;
   min-width: 520px;
   border-collapse: collapse;
-  font-size: 14.5px;
+  font-size: 0.9375rem;
   line-height: 1.55;
 }
 
 .l-table th,
 .l-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--cp-separator);
   text-align: left;
   vertical-align: top;
-  padding: 13px 16px;
-  border-bottom: 1px solid var(--g-hair);
 }
 
 .l-table thead th {
-  font-family: var(--g-mono);
-  font-weight: 500;
-  font-size: 11.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--g-dim);
-  background: var(--g-fill);
+  background: var(--cp-fill);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--cp-secondary);
   white-space: nowrap;
 }
 
@@ -387,7 +437,7 @@ html[data-theme='light'] .l-prose {
 
 .l-table tbody th {
   font-weight: 600;
-  color: var(--g-ink);
+  color: var(--cp-label);
 }
 
 .l-table code {
@@ -397,32 +447,59 @@ html[data-theme='light'] .l-prose {
 /* --------------------------------------------------------------- footer */
 
 .l-foot {
-  margin-top: clamp(60px, 9vh, 100px);
-  padding-top: 26px;
-  border-top: 1px solid var(--g-hair);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px 22px;
-  font-size: 13.5px;
-  color: var(--g-dim);
+  gap: 10px 22px;
+  margin-top: clamp(56px, 9vh, 96px);
+  padding-top: 26px;
+  border-top: 1px solid var(--cp-separator);
+  font-size: 0.8125rem;
+  color: var(--cp-secondary);
+}
+
+.l-foot a {
+  color: var(--cp-secondary);
+  transition: color 160ms ease;
 }
 
 .l-foot a:hover {
-  color: var(--g-orange);
+  color: var(--cp-label);
 }
 
 .l-foot-sep {
   flex: 1 1 auto;
 }
 
-/* back-to-top / back-to-home pill under the prose */
+/* back to the home page, under the prose: the quiet gray capsule */
 .l-back {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  margin-top: 40px;
-  padding: 11px 22px;
+  gap: 8px;
+  margin-top: 36px;
+  padding: 10px 20px;
+  border: 0;
   border-radius: 999px;
-  font-size: 14px;
+  background: var(--cp-fill);
+  box-shadow: none;
+  color: var(--cp-accent-text);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 160ms ease;
+}
+
+.l-prose a.l-back {
+  text-decoration: none;
+}
+
+.l-back:hover {
+  background: var(--cp-fill-strong);
+}
+
+@media (max-width: 599px) {
+  .l-prose {
+    border-radius: 24px;
+    font-size: 1rem;
+  }
 }

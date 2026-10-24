@@ -7,7 +7,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#060608" />
+    <meta name="theme-color" content="#080a0e" />
     <title>Ocur — The AI Operating System for Companies | Founding Cohort</title>
     <meta name="application-name" content="Ocur" />
     <meta
@@ -28,13 +28,13 @@
       property="og:description"
       content="The AI operating system for companies: Ocur answers your email and phone, does the work inside the tools you already run on, and keeps your promises, money and pipeline on live ledgers. You set the limits. Now taking applications for the founding cohort."
     />
-    <meta property="og:image" content="https://ocur.ai/og.jpg?v=2" />
+    <meta property="og:image" content="https://ocur.ai/og.jpg?v=3" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Ocur — “What if your company ran itself?” An Ocur window on a live call: Friday's delivery came in 40 units short, sort it out — contract checked, supplier called, €312 recovered."
+      content="Ocur — “Less busywork. More business.” An Ocur window: Friday's delivery came in 40 units short, sort it out with the supplier — supplier called, €312 recovered, redelivery on the calendar."
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@ocur_ai" />
@@ -44,10 +44,10 @@
       name="twitter:description"
       content="Ocur answers your email and phone, does the work inside your tools, and keeps your promises, money and pipeline on live ledgers. Applications for the founding cohort are open."
     />
-    <meta name="twitter:image" content="https://ocur.ai/og.jpg?v=2" />
+    <meta name="twitter:image" content="https://ocur.ai/og.jpg?v=3" />
     <meta
       name="twitter:image:alt"
-      content="Ocur — “What if your company ran itself?” An Ocur window on a live call: Friday's delivery came in 40 units short, sort it out — contract checked, supplier called, €312 recovered."
+      content="Ocur — “Less busywork. More business.” An Ocur window: Friday's delivery came in 40 units short, sort it out with the supplier — supplier called, €312 recovered, redelivery on the calendar."
     />
     <link rel="canonical" href="https://ocur.ai/" />
     <link rel="alternate" hreflang="en" href="https://ocur.ai/" />
@@ -141,11 +141,40 @@
     <!-- End X conversion tracking base code -->
   </head>
   <body class="g">
+    <!-- Interface symbols (Lucide geometry), drawn with currentColor -->
+    <svg class="g-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></symbol>
+      <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7" /><path d="M12 19V5" /></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></symbol>
+      <symbol id="i-list-checks" viewBox="0 0 24 24"><path d="m3 17 2 2 4-4" /><path d="m3 7 2 2 4-4" /><path d="M13 6h8" /><path d="M13 12h8" /><path d="M13 18h8" /></symbol>
+      <symbol id="i-banknote" viewBox="0 0 24 24"><rect width="20" height="12" x="2" y="6" rx="2" /><circle cx="12" cy="12" r="2" /><path d="M6 12h.01M18 12h.01" /></symbol>
+      <symbol id="i-kanban" viewBox="0 0 24 24"><path d="M6 5v11" /><path d="M12 5v6" /><path d="M18 5v14" /></symbol>
+      <symbol id="i-package" viewBox="0 0 24 24"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" /><path d="M12 22V12" /><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7" /><path d="m7.5 4.27 9 5.15" /></symbol>
+      <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M3 5v14a9 3 0 0 0 18 0V5" /><path d="M3 12a9 3 0 0 0 18 0" /></symbol>
+      <symbol id="i-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1" /><rect width="7" height="5" x="14" y="3" rx="1" /><rect width="7" height="9" x="14" y="12" rx="1" /><rect width="7" height="5" x="3" y="16" rx="1" /></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" /><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" /><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" /></symbol>
+      <symbol id="i-video" viewBox="0 0 24 24"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" /><rect x="2" y="6" width="14" height="12" rx="2" /></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></symbol>
+      <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2" /><path d="M8 21h8" /><path d="M12 17v4" /></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /><path d="m9 12 2 2 4-4" /></symbol>
+      <symbol id="i-blocks" viewBox="0 0 24 24"><rect width="7" height="7" x="14" y="3" rx="1" /><path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3" /></symbol>
+      <symbol id="i-building" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" /><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" /><path d="M10 6h4" /><path d="M10 10h4" /><path d="M10 14h4" /><path d="M10 18h4" /></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14" /><path d="M12 5v14" /></symbol>
+      <symbol id="i-percent" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /><path d="m15 9-6 6" /><path d="M9 9h.01" /><path d="M15 15h.01" /></symbol>
+      <symbol id="i-calendar-check" viewBox="0 0 24 24"><path d="M8 2v4" /><path d="M16 2v4" /><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M3 10h18" /><path d="m9 16 2 2 4-4" /></symbol>
+      <symbol id="i-message" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></symbol>
+      <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /><path d="M20 3v4" /><path d="M22 5h-4" /><path d="M4 17v2" /><path d="M5 18H3" /></symbol>
+    </svg>
     <div class="g-grain" aria-hidden="true"></div>
 
-    <!-- floating glass nav -->
-    <header class="g-nav lg glare" id="g-nav">
-      <a class="g-brand" href="/"><img src="/logo.svg" alt="" /> Ocur</a>
+    <!-- The floating glass navigation. Its links follow the page with a lens
+         (src/chrome.js); i18n adds the language switch and theme.js the
+         theme button before the first .g-btn-sm. -->
+    <header class="g-nav" id="g-nav">
+      <a class="g-brand" href="/"><img src="/logo.svg" alt="" width="24" height="20" /> Ocur</a>
       <nav class="g-links" aria-label="Primary">
         <a href="#demo">See it work</a>
         <a href="#system">The system</a>
@@ -158,16 +187,16 @@
       <a class="g-login" href="https://app.ocur.ai/?auth=sign-in">Log in</a>
       <!-- Two doors: the loud one is the founding-cohort application (#apply);
            solo stays open to everyone, so "Start free" rides beside it as the
-           quiet glass pill (desktop only — narrower navs keep one button). -->
-      <a class="g-btn g-btn-sm g-btn-glass g-nav-free lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
-      <a class="g-btn g-btn-sm magnetic" href="#apply" data-apply="nav">Apply now</a>
+           quiet gray capsule (wide screens only). -->
+      <a class="g-btn g-btn-sm g-btn-glass g-nav-free" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
+      <a class="g-btn g-btn-sm" href="#apply" data-apply="nav">Apply now</a>
       <button class="g-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="g-menu">
         <span aria-hidden="true"></span><span aria-hidden="true"></span>
       </button>
     </header>
     <!-- phone menu: the nav links, the application, both doors into the app,
          the founder's booking page, the language switch -->
-    <div class="g-menu lg" id="g-menu" hidden>
+    <div class="g-menu" id="g-menu" hidden>
       <nav class="g-menu-links" aria-label="Menu">
         <a href="#demo">See it work</a>
         <a href="#system">The system</a>
@@ -180,12 +209,12 @@
       </nav>
       <div class="g-menu-ctas">
         <a class="g-btn g-menu-apply" href="#apply" data-apply="menu">Apply for the founding cohort</a>
-        <a class="g-btn g-btn-glass lg" href="https://app.ocur.ai/?auth=sign-in">Log in</a>
-        <a class="g-btn g-btn-glass lg" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
+        <a class="g-btn g-btn-glass" href="https://app.ocur.ai/?auth=sign-in">Log in</a>
+        <a class="g-btn g-btn-glass" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
         <!-- Book a demo: the founder's own booking page (Ocur's calendar feature,
              served by the app backend). Every data-book link on the page carries
              the same href — grep data-book when the slug changes. -->
-        <a class="g-btn g-btn-glass lg g-menu-book" href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="menu">Book a demo</a>
+        <a class="g-btn g-btn-glass g-menu-book" href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="menu">Book a demo</a>
       </div>
       <div class="g-menu-foot"></div>
     </div>
@@ -207,693 +236,722 @@
           <a class="oc-scroll" href="#oc-next">Scroll to explore <span aria-hidden="true">↓</span></a>
         </div>
       </section>
-      <section class="oc-welcome" id="oc-next" tabindex="-1" aria-labelledby="oc-welcome-title">
-        <p class="oc-eyebrow">The AI operating system for companies</p>
-        <h2 id="oc-welcome-title">Less busywork.<br /><em>More business.</em></h2>
-        <p class="oc-description">Ocur answers your email and your phone, connects your tools, and follows through on the work. You set the limits.</p>
-        <div class="oc-actions">
-          <a class="oc-primary" href="https://app.ocur.ai/?auth=sign-up">Start free <span aria-hidden="true">↗</span></a>
-          <a class="oc-secondary" href="#demo">See it in action <span aria-hidden="true">↓</span></a>
-        </div>
-        <p class="oc-invitation"><a href="#apply" data-apply="hero">Join the founding cohort <span aria-hidden="true">↗</span></a><span>No credit card to start.</span></p>
-      </section>
 
-      <!-- connector strip -->
-      <section class="g-logos">
-        <div class="g-wrap">
-          <p class="g-logos-label">Works inside the tools your company already runs on</p>
-          <div class="g-system" role="img"
-               aria-label="Ocur at the centre of a solar system, orbited by Gmail, Google Calendar, Google Drive, Notion, GitHub, Telegram, WhatsApp, Slack, Discord, email, your computer, the web — and a free slot for connectors you build yourself">
-            <div class="g-orbit g-orbit-inner"></div>
-            <div class="g-orbit g-orbit-outer"></div>
-            <div class="g-sun"><img src="/logo.svg" alt="Ocur" /></div>
-            <div class="g-planet g-p-inner" style="--a: -90deg" title="Gmail"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" fill="#EA4335"/><path d="M0 5.457v13.909c0 .904.732 1.636 1.636 1.636h3.819V11.73L12 16.64V9.548L5.455 4.64 3.927 3.493C2.309 2.28 0 3.434 0 5.457z" fill="#34A853"/><path d="M18.545 11.73v9.273h3.819A1.636 1.636 0 0 0 24 19.366V5.457c0-2.023-2.309-3.178-3.927-1.964L18.545 4.64v7.09z" fill="#4285F4"/><path d="M12 9.548l6.545-4.91-1.528-1.145C15.4 2.28 12 3.434 12 5.457v4.09z" fill="#FBBC05"/></svg></div>
-            <div class="g-planet g-p-inner" style="--a: -18deg" title="Google Calendar"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.316 5.684H24v12.632h-5.684z" fill="#EA4335"/><path d="M5.684 24h12.632v-5.684H5.684z" fill="#34A853"/><path d="M0 18.316h5.684V5.684H0z" fill="#4285F4"/><path d="M5.684 5.684h12.632V0H5.684z" fill="#FBBC05"/><path d="M5.684 18.316h12.632V5.684H5.684z" fill="white"/><path d="M18.316 18.316H24v5.684h-5.684z" fill="#188038"/><path d="M0 24h5.684v-5.684H0z" fill="#1967D2"/><path d="M0 5.684h5.684V0H0z" fill="#FBBC05"/><path d="M24 0h-5.684v5.684H24z" fill="#1967D2"/><text x="12" y="15.5" text-anchor="middle" font-size="8" font-weight="bold" fill="#1967D2" font-family="Arial">31</text></svg></div>
-            <div class="g-planet g-p-inner" style="--a: 54deg" title="Google Drive"><svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="M6.6 66.85l3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8H0c0 1.55.4 3.1 1.2 4.5z" fill="#0066DA"/><path d="M43.65 25L29.9 1.2C28.55 2 27.4 3.1 26.6 4.5L1.2 48.5C.4 49.9 0 51.45 0 53h27.5z" fill="#00AC47"/><path d="M73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5H60l5.85 11.5z" fill="#EA4335"/><path d="M43.65 25L57.4 1.2C56.05.4 54.5 0 52.9 0H34.4c-1.6 0-3.15.45-4.5 1.2z" fill="#00832D"/><path d="M60 53H27.5L13.75 76.8c1.35.8 2.9 1.2 4.5 1.2h50.5c1.6 0 3.15-.45 4.5-1.2z" fill="#2684FC"/><path d="M73.4 26.5l-12.65-21.9C59.95 3.2 58.8 2.1 57.45 1.3L43.7 25 60.1 53h27.2c0-1.55-.4-3.1-1.2-4.5z" fill="#FFBA00"/></svg></div>
-            <div class="g-planet g-p-inner" style="--a: 126deg" title="Notion"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M6.017 4.313l55.333-4.087c6.797-.583 8.543-.19 12.817 2.917l17.663 12.443c2.913 2.14 3.883 2.723 3.883 5.053v68.243c0 4.277-1.553 6.807-6.99 7.193L24.467 99.967c-4.08.193-6.023-.39-8.16-3.113L3.3 79.94c-2.333-3.113-3.3-5.443-3.3-8.167V11.113c0-3.497 1.553-6.413 6.017-6.8z" fill="white"/><path d="M61.35.227l-55.333 4.087C1.553 4.7 0 7.617 0 11.113v60.66c0 2.723.967 5.053 3.3 8.167l13.007 16.913c2.137 2.723 4.08 3.307 8.16 3.113l64.257-3.89c5.433-.387 6.99-2.917 6.99-7.193V20.64c0-2.33-.97-2.913-3.883-5.053L71.167 3.143C66.893.19 65.147-.393 58.35.19L61.35.227zM25.723 19.01c-5.25.313-6.45.387-9.45-1.947L9.467 11.7c-.777-.78-.34-1.753 1.553-1.947l53.193-3.887c4.467-.387 6.8 1.17 8.543 2.527l8.157 5.833c.39.193 1.36 1.367.193 1.367l-55 3.22-.383.197zM19.803 88.3V30.367c0-2.53.777-3.697 3.103-3.893L86 22.78c2.14-.193 3.107 1.167 3.107 3.693v57.547c0 2.53-1.36 4.667-4.467 4.86L26.6 92.38c-3.107.193-6.797-1.167-6.797-4.08zm56.25-54.187c.39 1.75 0 3.5-1.75 3.7l-2.723.5v42.353c-2.333 1.167-4.467 1.75-6.217 1.75-2.917 0-3.693-.917-5.833-3.5L42.337 49.467V77.5l5.637 1.167s0 3.5-4.857 3.5l-13.393.777c-.39-.777 0-2.723 1.357-3.11l3.497-.943V42.143l-4.86-.39c-.39-1.75.583-4.277 3.3-4.473l14.367-.967 19.8 30.327V39.197l-4.663-.583c-.39-2.143 1.163-3.7 3.103-3.89l14.363-.61z" fill="black"/></svg></div>
-            <div class="g-planet g-p-inner" style="--a: 198deg" title="GitHub"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="currentColor"/></svg></div>
-            <div class="g-planet g-p-outer" style="--a: -64deg" title="Telegram"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="tg-grad" x1="120" y1="0" x2="120" y2="240" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#2AABEE"/><stop offset="100%" stop-color="#229ED9"/></linearGradient></defs><circle cx="120" cy="120" r="120" fill="url(#tg-grad)"/><path d="M54 117.3l109.5-42.2c5.1-1.8 9.5 1.2 7.8 8.8l-18.7 88.1c-1.4 6.1-5 7.6-10.2 4.7l-28-20.6-13.5 13c-1.5 1.5-2.8 2.7-5.7 2.7l2-28.8 52.2-47.2c2.3-2-0.5-3.1-3.5-1.1L75.4 140.5 48 132.1c-6-1.9-6.1-6 1-8.8z" fill="white"/></svg></div>
-            <div class="g-planet g-p-outer" style="--a: -19deg" title="WhatsApp"><svg viewBox="0 0 175.216 175.552" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="wa-grad" x1="85.915" y1="132.913" x2="86.535" y2="52.569" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#20B038"/><stop offset="100%" stop-color="#60D66A"/></linearGradient></defs><path d="M87.184 25.227c-33.733 0-61.166 27.423-61.178 61.13a60.98 60.98 0 0 0 8.177 30.544L26 149.138l33.913-8.884a61.25 61.25 0 0 0 29.282 7.456h.025c33.72 0 61.144-27.423 61.156-61.13.013-16.32-6.332-31.67-17.845-43.212-11.51-11.544-26.82-17.9-43.147-17.9zm0 112.332a50.95 50.95 0 0 1-25.994-7.116l-1.86-1.105-19.328 5.07 5.155-18.835-1.21-1.924a50.78 50.78 0 0 1-7.808-27.018c.012-28.11 22.887-50.975 51.01-50.975 13.617.005 26.414 5.316 36.05 14.963 9.638 9.645 14.945 22.444 14.94 36.08-.015 28.112-22.89 50.86-51 50.86zm27.98-38.147c-1.533-.767-9.074-4.478-10.48-4.988-1.407-.51-2.43-.767-3.453.768-1.022 1.534-3.963 4.988-4.858 6.012-.896 1.022-1.79 1.15-3.324.383-1.533-.768-6.476-2.387-12.33-7.61-4.558-4.066-7.635-9.08-8.53-10.614-.895-1.534-.095-2.365.673-3.13.69-.688 1.534-1.79 2.3-2.686.768-.895 1.022-1.534 1.534-2.556.51-1.022.255-1.918-.128-2.686-.383-.767-3.453-8.32-4.73-11.39-1.244-2.99-2.51-2.586-3.453-2.634-.895-.044-1.918-.053-2.94-.053a5.65 5.65 0 0 0-4.093 1.918c-1.407 1.534-5.37 5.245-5.37 12.798 0 7.553 5.497 14.85 6.264 15.872.768 1.022 10.818 16.52 26.215 23.17 3.664 1.582 6.52 2.527 8.748 3.234 3.677 1.17 7.02 1.004 9.668.61 2.95-.44 9.074-3.71 10.354-7.293 1.278-3.582 1.278-6.65.895-7.293-.383-.64-1.407-1.022-2.94-1.79z" fill="url(#wa-grad)"/></svg></div>
-            <div class="g-planet g-p-outer" style="--a: 26deg" title="Slack"><svg viewBox="0 0 122.8 122.8" xmlns="http://www.w3.org/2000/svg"><path d="M25.8 77.6c0 7.1-5.8 12.9-12.9 12.9S0 84.7 0 77.6s5.8-12.9 12.9-12.9h12.9v12.9zm6.5 0c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V77.6z" fill="#E01E5A"/><path d="M45.2 25.8c-7.1 0-12.9-5.8-12.9-12.9S38.1 0 45.2 0s12.9 5.8 12.9 12.9v12.9H45.2zm0 6.5c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H12.9C5.8 58.1 0 52.3 0 45.2s5.8-12.9 12.9-12.9h32.3z" fill="#36C5F0"/><path d="M97 45.2c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9-5.8 12.9-12.9 12.9H97V45.2zm-6.5 0c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V12.9C64.7 5.8 70.5 0 77.6 0s12.9 5.8 12.9 12.9v32.3z" fill="#2EB67D"/><path d="M77.6 97c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9-12.9-5.8-12.9-12.9V97h12.9zm0-6.5c-7.1 0-12.9-5.8-12.9-12.9s5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H77.6z" fill="#ECB22E"/></svg></div>
-            <div class="g-planet g-p-outer" style="--a: 71deg" title="Discord"><svg viewBox="0 -28.5 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M216.856 16.597A208.502 208.502 0 0 0 164.042 0c-2.275 4.113-4.933 9.645-6.766 14.046-19.692-2.961-39.203-2.961-58.533 0-1.832-4.4-4.55-9.933-6.846-14.046a207.809 207.809 0 0 0-52.855 16.638C5.618 67.147-3.443 116.4 1.087 164.956c22.169 16.555 43.653 26.612 64.775 33.193A161.094 161.094 0 0 0 79.735 175.3a136.413 136.413 0 0 1-21.846-10.632 108.636 108.636 0 0 0 5.356-4.237c42.122 19.702 87.89 19.702 129.51 0a131.66 131.66 0 0 0 5.355 4.237 136.07 136.07 0 0 1-21.886 10.653c4.006 8.02 8.638 15.67 13.873 22.848 21.142-6.58 42.646-16.637 64.815-33.213 5.316-56.288-9.08-105.09-38.056-148.36zM85.474 135.095c-12.645 0-23.015-11.805-23.015-26.18s10.149-26.2 23.015-26.2c12.867 0 23.236 11.804 23.015 26.2.02 14.375-10.148 26.18-23.015 26.18zm85.051 0c-12.645 0-23.014-11.805-23.014-26.18s10.148-26.2 23.014-26.2c12.867 0 23.236 11.804 23.015 26.2 0 14.375-10.148 26.18-23.015 26.18z" fill="#5865F2"/></svg></div>
-            <div class="g-planet g-p-outer" style="--a: 116deg" title="Email — any provider"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2" fill="#F59E0B"/><path d="M2 7l10 7 10-7" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-            <div class="g-planet g-p-outer g-p-emoji" style="--a: 161deg" title="Your computer">🖥️</div>
-            <div class="g-planet g-p-outer g-p-emoji" style="--a: 206deg" title="The web">🌐</div>
-            <div class="g-planet g-p-outer g-p-add" style="--a: 251deg" title="Your apps — build your own connector">+</div>
+      <!-- The film's last frame: the promise, still on the dark stage. The page
+           (.o-sheet) rises over it in the Ocur app language. -->
+      <section class="oc-welcome o-dark" id="oc-next" tabindex="-1" aria-labelledby="oc-welcome-title">
+        <div class="oc-welcome-inner">
+          <p class="oc-eyebrow">The AI operating system for companies</p>
+          <h2 id="oc-welcome-title">Less busywork.<br /><em>More business.</em></h2>
+          <p class="oc-description">Ocur answers your email and your phone, connects your tools, and follows through on the work. You set the limits.</p>
+          <div class="oc-actions">
+            <a class="oc-primary" href="https://app.ocur.ai/?auth=sign-up">Start free <span aria-hidden="true">↗</span></a>
+            <a class="oc-secondary" href="#demo">See it in action <span aria-hidden="true">↓</span></a>
           </div>
-          <p class="g-logos-sub">…and anything with an API. No API? Ocur can drive the app on your computer like a person would.</p>
+          <p class="oc-invitation"><a href="#apply" data-apply="hero">Join the founding cohort <span aria-hidden="true">↗</span></a><span>No credit card to start.</span></p>
         </div>
       </section>
 
-      <!-- pinned product demo -->
-      <section class="g-demo" id="demo" data-scene="1">
-        <div class="g-glow g-glow-demo" aria-hidden="true"></div>
-        <div class="g-demo-stage">
-          <p class="oc-chapter"><span>01</span><span class="oc-chapter-label">From intention to action</span></p>
-          <h2 class="g-h2">Delegate it. <span class="g-grad">Watch it happen.</span></h2>
-
-          <div class="g-win lg glare">
-            <div class="g-win-bar">
-              <span class="g-win-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="g-win-title"><img src="/logo.svg" alt="" /> Ocur</span>
-              <span class="g-win-pill"><i class="g-kdot"></i> Autopilot on</span>
+      <div class="o-sheet">
+        <!-- connectors: Ocur at the centre, the tools it works in around it -->
+        <section class="g-logos" aria-labelledby="g-logos-title">
+          <div class="g-wrap">
+            <div class="g-logos-copy">
+              <h2 class="g-logos-label" id="g-logos-title">Works inside the tools your company already runs on.</h2>
+              <p class="g-logos-sub">…and anything with an API. No API? Ocur can drive the app on your computer like a person would.</p>
             </div>
-            <div class="g-win-body">
-              <!-- scene 1: the ask (typed out live by main.js) -->
-              <div class="g-scene g-s1">
-                <div class="g-bubble g-bubble-you"><span class="g-type">Friday's delivery came in 40 units short — sort it out with the supplier.</span><span class="g-caret" aria-hidden="true"></span></div>
-                <div class="g-stamp">You · 09:41</div>
-              </div>
-              <!-- scene 2: facts first, then the phone call -->
-              <div class="g-scene g-s2">
-                <div class="g-fan"><i class="g-kdot" aria-hidden="true"></i>On it — facts first, then the call.</div>
-                <div class="g-act" style="--sd: 0.15s">
-                  <span class="g-act-tag">Stock</span>
-                  <span class="g-act-txt">Order 500 · delivery note 460 — 40 short, confirmed</span>
-                  <span class="g-act-ok">✓ checked</span>
-                </div>
-                <div class="g-act" style="--sd: 0.35s">
-                  <span class="g-act-tag">Drive</span>
-                  <span class="g-act-txt">Supply contract, §7 — 4% credit on shortfalls</span>
-                  <span class="g-act-ok">✓ found</span>
-                </div>
-                <div class="g-act" style="--sd: 0.55s">
-                  <span class="g-act-tag">Phone</span>
-                  <span class="g-act-txt">Calling Meier Logistik — procurement</span>
-                  <span class="g-act-ok g-act-live">● live</span>
-                </div>
-                <div class="g-act g-act-quote" style="--sd: 0.8s">
-                  <span class="g-act-tag">Call</span>
-                  <span class="g-act-txt">“We'll credit the 4% and redeliver Thursday morning.”</span>
-                  <span class="g-act-ok">02:41</span>
-                </div>
-                <div class="g-stamp">Ocur · 09:47 · yes, Ocur is really on the phone</div>
-              </div>
-              <!-- scene 3: the deal, waiting for you -->
-              <div class="g-scene g-s3">
-                <div class="g-approve lg">
-                  <p>Meier offers a €312 credit + Thursday redelivery — <strong>take the deal?</strong></p>
-                  <div class="g-approve-btns"><span class="yes">Take it</span><span>Push back</span></div>
-                </div>
-                <div class="g-sent" style="--sd: 1.15s">✓ Accepted on the call — written confirmation sent</div>
-                <div class="g-stamp">Nothing important without your sign-off</div>
-              </div>
-              <!-- scene 4: the payoff -->
-              <div class="g-scene g-s4">
-                <div class="g-report">
-                  <p class="g-report-kicker">While you stayed in your meeting</p>
-                  <p class="g-report-big"><strong class="g-grad" data-cc="312" data-cc-prefix="€">€312</strong><span> recovered</span></p>
-                  <ul class="g-report-lines">
-                    <li style="--sd: 0.3s">Credit note booked — the books already match</li>
-                    <li style="--sd: 0.45s">Redelivery Thu 08:00 — on your calendar</li>
-                    <li style="--sd: 0.6s">Call transcript + confirmation, filed</li>
-                  </ul>
-                </div>
-                <div class="g-stamp">Ocur · 10:02 · the whole call on the record</div>
+            <div class="g-system" role="img"
+                 aria-label="Ocur at the centre of a solar system, orbited by Gmail, Google Calendar, Google Drive, Notion, GitHub, Telegram, WhatsApp, Slack, Discord, email, your computer, the web — and a free slot for connectors you build yourself">
+              <div class="g-orbit g-orbit-outer"></div>
+              <div class="g-orbit g-orbit-inner"></div>
+              <div class="g-sun"><img src="/logo.svg" alt="Ocur" width="58" height="49" /></div>
+              <div class="g-planets">
+                <div class="g-planet g-p-inner" style="--a: -90deg" title="Gmail"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" fill="#EA4335"/><path d="M0 5.457v13.909c0 .904.732 1.636 1.636 1.636h3.819V11.73L12 16.64V9.548L5.455 4.64 3.927 3.493C2.309 2.28 0 3.434 0 5.457z" fill="#34A853"/><path d="M18.545 11.73v9.273h3.819A1.636 1.636 0 0 0 24 19.366V5.457c0-2.023-2.309-3.178-3.927-1.964L18.545 4.64v7.09z" fill="#4285F4"/><path d="M12 9.548l6.545-4.91-1.528-1.145C15.4 2.28 12 3.434 12 5.457v4.09z" fill="#FBBC05"/></svg></div>
+                <div class="g-planet g-p-inner" style="--a: -18deg" title="Google Calendar"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.316 5.684H24v12.632h-5.684z" fill="#EA4335"/><path d="M5.684 24h12.632v-5.684H5.684z" fill="#34A853"/><path d="M0 18.316h5.684V5.684H0z" fill="#4285F4"/><path d="M5.684 5.684h12.632V0H5.684z" fill="#FBBC05"/><path d="M5.684 18.316h12.632V5.684H5.684z" fill="white"/><path d="M18.316 18.316H24v5.684h-5.684z" fill="#188038"/><path d="M0 24h5.684v-5.684H0z" fill="#1967D2"/><path d="M0 5.684h5.684V0H0z" fill="#FBBC05"/><path d="M24 0h-5.684v5.684H24z" fill="#1967D2"/><text x="12" y="15.5" text-anchor="middle" font-size="8" font-weight="bold" fill="#1967D2" font-family="Arial">31</text></svg></div>
+                <div class="g-planet g-p-inner" style="--a: 54deg" title="Google Drive"><svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="M6.6 66.85l3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8H0c0 1.55.4 3.1 1.2 4.5z" fill="#0066DA"/><path d="M43.65 25L29.9 1.2C28.55 2 27.4 3.1 26.6 4.5L1.2 48.5C.4 49.9 0 51.45 0 53h27.5z" fill="#00AC47"/><path d="M73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5H60l5.85 11.5z" fill="#EA4335"/><path d="M43.65 25L57.4 1.2C56.05.4 54.5 0 52.9 0H34.4c-1.6 0-3.15.45-4.5 1.2z" fill="#00832D"/><path d="M60 53H27.5L13.75 76.8c1.35.8 2.9 1.2 4.5 1.2h50.5c1.6 0 3.15-.45 4.5-1.2z" fill="#2684FC"/><path d="M73.4 26.5l-12.65-21.9C59.95 3.2 58.8 2.1 57.45 1.3L43.7 25 60.1 53h27.2c0-1.55-.4-3.1-1.2-4.5z" fill="#FFBA00"/></svg></div>
+                <div class="g-planet g-p-inner" style="--a: 126deg" title="Notion"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M6.017 4.313l55.333-4.087c6.797-.583 8.543-.19 12.817 2.917l17.663 12.443c2.913 2.14 3.883 2.723 3.883 5.053v68.243c0 4.277-1.553 6.807-6.99 7.193L24.467 99.967c-4.08.193-6.023-.39-8.16-3.113L3.3 79.94c-2.333-3.113-3.3-5.443-3.3-8.167V11.113c0-3.497 1.553-6.413 6.017-6.8z" fill="white"/><path d="M61.35.227l-55.333 4.087C1.553 4.7 0 7.617 0 11.113v60.66c0 2.723.967 5.053 3.3 8.167l13.007 16.913c2.137 2.723 4.08 3.307 8.16 3.113l64.257-3.89c5.433-.387 6.99-2.917 6.99-7.193V20.64c0-2.33-.97-2.913-3.883-5.053L71.167 3.143C66.893.19 65.147-.393 58.35.19L61.35.227zM25.723 19.01c-5.25.313-6.45.387-9.45-1.947L9.467 11.7c-.777-.78-.34-1.753 1.553-1.947l53.193-3.887c4.467-.387 6.8 1.17 8.543 2.527l8.157 5.833c.39.193 1.36 1.367.193 1.367l-55 3.22-.383.197zM19.803 88.3V30.367c0-2.53.777-3.697 3.103-3.893L86 22.78c2.14-.193 3.107 1.167 3.107 3.693v57.547c0 2.53-1.36 4.667-4.467 4.86L26.6 92.38c-3.107.193-6.797-1.167-6.797-4.08zm56.25-54.187c.39 1.75 0 3.5-1.75 3.7l-2.723.5v42.353c-2.333 1.167-4.467 1.75-6.217 1.75-2.917 0-3.693-.917-5.833-3.5L42.337 49.467V77.5l5.637 1.167s0 3.5-4.857 3.5l-13.393.777c-.39-.777 0-2.723 1.357-3.11l3.497-.943V42.143l-4.86-.39c-.39-1.75.583-4.277 3.3-4.473l14.367-.967 19.8 30.327V39.197l-4.663-.583c-.39-2.143 1.163-3.7 3.103-3.89l14.363-.61z" fill="black"/></svg></div>
+                <div class="g-planet g-p-inner g-p-mono" style="--a: 198deg" title="GitHub"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="currentColor"/></svg></div>
+                <div class="g-planet g-p-outer" style="--a: -64deg" title="Telegram"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="tg-grad" x1="120" y1="0" x2="120" y2="240" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#2AABEE"/><stop offset="100%" stop-color="#229ED9"/></linearGradient></defs><circle cx="120" cy="120" r="120" fill="url(#tg-grad)"/><path d="M54 117.3l109.5-42.2c5.1-1.8 9.5 1.2 7.8 8.8l-18.7 88.1c-1.4 6.1-5 7.6-10.2 4.7l-28-20.6-13.5 13c-1.5 1.5-2.8 2.7-5.7 2.7l2-28.8 52.2-47.2c2.3-2-0.5-3.1-3.5-1.1L75.4 140.5 48 132.1c-6-1.9-6.1-6 1-8.8z" fill="white"/></svg></div>
+                <div class="g-planet g-p-outer" style="--a: -19deg" title="WhatsApp"><svg viewBox="0 0 175.216 175.552" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="wa-grad" x1="85.915" y1="132.913" x2="86.535" y2="52.569" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#20B038"/><stop offset="100%" stop-color="#60D66A"/></linearGradient></defs><path d="M87.184 25.227c-33.733 0-61.166 27.423-61.178 61.13a60.98 60.98 0 0 0 8.177 30.544L26 149.138l33.913-8.884a61.25 61.25 0 0 0 29.282 7.456h.025c33.72 0 61.144-27.423 61.156-61.13.013-16.32-6.332-31.67-17.845-43.212-11.51-11.544-26.82-17.9-43.147-17.9zm0 112.332a50.95 50.95 0 0 1-25.994-7.116l-1.86-1.105-19.328 5.07 5.155-18.835-1.21-1.924a50.78 50.78 0 0 1-7.808-27.018c.012-28.11 22.887-50.975 51.01-50.975 13.617.005 26.414 5.316 36.05 14.963 9.638 9.645 14.945 22.444 14.94 36.08-.015 28.112-22.89 50.86-51 50.86zm27.98-38.147c-1.533-.767-9.074-4.478-10.48-4.988-1.407-.51-2.43-.767-3.453.768-1.022 1.534-3.963 4.988-4.858 6.012-.896 1.022-1.79 1.15-3.324.383-1.533-.768-6.476-2.387-12.33-7.61-4.558-4.066-7.635-9.08-8.53-10.614-.895-1.534-.095-2.365.673-3.13.69-.688 1.534-1.79 2.3-2.686.768-.895 1.022-1.534 1.534-2.556.51-1.022.255-1.918-.128-2.686-.383-.767-3.453-8.32-4.73-11.39-1.244-2.99-2.51-2.586-3.453-2.634-.895-.044-1.918-.053-2.94-.053a5.65 5.65 0 0 0-4.093 1.918c-1.407 1.534-5.37 5.245-5.37 12.798 0 7.553 5.497 14.85 6.264 15.872.768 1.022 10.818 16.52 26.215 23.17 3.664 1.582 6.52 2.527 8.748 3.234 3.677 1.17 7.02 1.004 9.668.61 2.95-.44 9.074-3.71 10.354-7.293 1.278-3.582 1.278-6.65.895-7.293-.383-.64-1.407-1.022-2.94-1.79z" fill="url(#wa-grad)"/></svg></div>
+                <div class="g-planet g-p-outer" style="--a: 26deg" title="Slack"><svg viewBox="0 0 122.8 122.8" xmlns="http://www.w3.org/2000/svg"><path d="M25.8 77.6c0 7.1-5.8 12.9-12.9 12.9S0 84.7 0 77.6s5.8-12.9 12.9-12.9h12.9v12.9zm6.5 0c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V77.6z" fill="#E01E5A"/><path d="M45.2 25.8c-7.1 0-12.9-5.8-12.9-12.9S38.1 0 45.2 0s12.9 5.8 12.9 12.9v12.9H45.2zm0 6.5c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H12.9C5.8 58.1 0 52.3 0 45.2s5.8-12.9 12.9-12.9h32.3z" fill="#36C5F0"/><path d="M97 45.2c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9-5.8 12.9-12.9 12.9H97V45.2zm-6.5 0c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V12.9C64.7 5.8 70.5 0 77.6 0s12.9 5.8 12.9 12.9v32.3z" fill="#2EB67D"/><path d="M77.6 97c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9-12.9-5.8-12.9-12.9V97h12.9zm0-6.5c-7.1 0-12.9-5.8-12.9-12.9s5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H77.6z" fill="#ECB22E"/></svg></div>
+                <div class="g-planet g-p-outer" style="--a: 71deg" title="Discord"><svg viewBox="0 -28.5 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M216.856 16.597A208.502 208.502 0 0 0 164.042 0c-2.275 4.113-4.933 9.645-6.766 14.046-19.692-2.961-39.203-2.961-58.533 0-1.832-4.4-4.55-9.933-6.846-14.046a207.809 207.809 0 0 0-52.855 16.638C5.618 67.147-3.443 116.4 1.087 164.956c22.169 16.555 43.653 26.612 64.775 33.193A161.094 161.094 0 0 0 79.735 175.3a136.413 136.413 0 0 1-21.846-10.632 108.636 108.636 0 0 0 5.356-4.237c42.122 19.702 87.89 19.702 129.51 0a131.66 131.66 0 0 0 5.355 4.237 136.07 136.07 0 0 1-21.886 10.653c4.006 8.02 8.638 15.67 13.873 22.848 21.142-6.58 42.646-16.637 64.815-33.213 5.316-56.288-9.08-105.09-38.056-148.36zM85.474 135.095c-12.645 0-23.015-11.805-23.015-26.18s10.149-26.2 23.015-26.2c12.867 0 23.236 11.804 23.015 26.2.02 14.375-10.148 26.18-23.015 26.18zm85.051 0c-12.645 0-23.014-11.805-23.014-26.18s10.148-26.2 23.014-26.2c12.867 0 23.236 11.804 23.015 26.2 0 14.375-10.148 26.18-23.015 26.18z" fill="#5865F2"/></svg></div>
+                <div class="g-planet g-p-outer" style="--a: 116deg" title="Email — any provider"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="3" fill="#0A84FF"/><path d="M2.6 7.2l9.4 6.3 9.4-6.3" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="g-planet g-p-outer g-p-icon" style="--a: 161deg" title="Your computer"><svg class="g-i"><use href="#i-monitor" /></svg></div>
+                <div class="g-planet g-p-outer g-p-icon" style="--a: 206deg" title="The web"><svg class="g-i"><use href="#i-globe" /></svg></div>
+                <div class="g-planet g-p-outer g-p-add" style="--a: 251deg" title="Your apps — build your own connector"><svg class="g-i"><use href="#i-plus" /></svg></div>
               </div>
             </div>
           </div>
+        </section>
 
-          <div class="g-caps">
-            <p class="g-cap g-cap-1">Say it once, in plain language. No prompts to engineer.</p>
-            <p class="g-cap g-cap-2">Ocur checks the facts first — then picks up the phone.</p>
-            <p class="g-cap g-cap-3">Ocur negotiates. The final call stays yours.</p>
-            <p class="g-cap g-cap-4">Money back, date fixed, every word on the record.</p>
+        <!-- pinned product demo: four scenes in an Ocur window, the story told beside it -->
+        <section class="g-demo" id="demo" data-scene="1">
+          <div class="g-demo-stage">
+            <div class="g-demo-copy">
+              <p class="oc-chapter"><span>01</span><span class="oc-chapter-label">From intention to action</span></p>
+              <h2 class="g-h2">Delegate it. <span class="g-grad">Watch it happen.</span></h2>
+              <ol class="g-caps">
+                <li class="g-cap g-cap-1">Say it once, in plain language. No prompts to engineer.</li>
+                <li class="g-cap g-cap-2">Ocur checks the facts first — then picks up the phone.</li>
+                <li class="g-cap g-cap-3">Ocur negotiates. The final call stays yours.</li>
+                <li class="g-cap g-cap-4">Money back, date fixed, every word on the record.</li>
+              </ol>
+            </div>
+
+            <div class="g-win">
+              <div class="g-win-bar">
+                <span class="g-win-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="g-win-title"><img src="/logo.svg" alt="" width="17" height="14" /> Ocur</span>
+                <span class="g-win-pill"><i class="g-kdot"></i> Autopilot on</span>
+              </div>
+              <div class="g-win-body">
+                <!-- scene 1: the ask (typed out live by main.js) -->
+                <div class="g-scene g-s1">
+                  <div class="g-bubble g-bubble-you"><span class="g-type">Friday's delivery came in 40 units short — sort it out with the supplier.</span><span class="g-caret" aria-hidden="true"></span></div>
+                  <div class="g-stamp">You · 09:41</div>
+                </div>
+                <!-- scene 2: facts first, then the phone call -->
+                <div class="g-scene g-s2">
+                  <div class="g-fan"><span class="g-fan-mark" aria-hidden="true"><img src="/logo.svg" alt="" /></span>On it — facts first, then the call.</div>
+                  <div class="g-act" style="--sd: 0.15s">
+                    <span class="g-act-tag">Stock</span>
+                    <span class="g-act-txt">Order 500 · delivery note 460 — 40 short, confirmed</span>
+                    <span class="g-act-ok">✓ checked</span>
+                  </div>
+                  <div class="g-act" style="--sd: 0.35s">
+                    <span class="g-act-tag">Drive</span>
+                    <span class="g-act-txt">Supply contract, §7 — 4% credit on shortfalls</span>
+                    <span class="g-act-ok">✓ found</span>
+                  </div>
+                  <div class="g-act" style="--sd: 0.55s">
+                    <span class="g-act-tag">Phone</span>
+                    <span class="g-act-txt">Calling Meier Logistik — procurement</span>
+                    <span class="g-act-ok g-act-live">● live</span>
+                  </div>
+                  <div class="g-act g-act-quote" style="--sd: 0.8s">
+                    <span class="g-act-tag">Call</span>
+                    <span class="g-act-txt">“We'll credit the 4% and redeliver Thursday morning.”</span>
+                    <span class="g-act-ok">02:41</span>
+                  </div>
+                  <div class="g-stamp">Ocur · 09:47 · yes, Ocur is really on the phone</div>
+                </div>
+                <!-- scene 3: the deal, waiting for you -->
+                <div class="g-scene g-s3">
+                  <div class="g-approve">
+                    <p>Meier offers a €312 credit + Thursday redelivery — <strong>take the deal?</strong></p>
+                    <div class="g-approve-btns"><span class="yes">Take it</span><span>Push back</span></div>
+                  </div>
+                  <div class="g-sent" style="--sd: 1.15s">✓ Accepted on the call — written confirmation sent</div>
+                  <div class="g-stamp">Nothing important without your sign-off</div>
+                </div>
+                <!-- scene 4: the payoff -->
+                <div class="g-scene g-s4">
+                  <div class="g-report">
+                    <p class="g-report-kicker">While you stayed in your meeting</p>
+                    <p class="g-report-big"><strong class="g-grad" data-cc="312" data-cc-prefix="€">€312</strong><span> recovered</span></p>
+                    <ul class="g-report-lines">
+                      <li style="--sd: 0.3s">Credit note booked — the books already match</li>
+                      <li style="--sd: 0.45s">Redelivery Thu 08:00 — on your calendar</li>
+                      <li style="--sd: 0.6s">Call transcript + confirmation, filed</li>
+                    </ul>
+                  </div>
+                  <div class="g-stamp">Ocur · 10:02 · the whole call on the record</div>
+                </div>
+              </div>
+              <div class="g-win-compose" aria-hidden="true"><span>Ask Ocur to do something…</span><i><svg class="g-i"><use href="#i-arrow-up" /></svg></i></div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- the operating-system part: live ledgers -->
-      <section class="g-os" id="system">
-        <div class="g-glow g-glow-os" aria-hidden="true"></div>
-        <div class="g-wrap">
-          <p class="oc-chapter"><span>02</span><span class="oc-chapter-label">The whole picture</span></p>
-          <h2 class="g-h2">Other AI answers. <span class="g-grad">Ocur keeps the books.</span></h2>
-          <p class="g-os-sub">
-            The “operating system” is literal. Ocur runs live ledgers of everything
-            your company promises, owns, owes and sells — derived from what actually
-            happened, never typed into a form.
-          </p>
-          <div class="g-os-grid">
-            <article class="g-os-card lg glare">
-              <p class="g-os-tag">Commitments</p>
-              <h3>Every promise, tracked</h3>
-              <p>Ocur reads the promises out of your email and chats — what you owe, what you're owed, the “I'll handle it” buried in a thread — and chases each one to done. Nothing slips.</p>
-            </article>
-            <article class="g-os-card lg glare">
-              <p class="g-os-tag">Money</p>
-              <h3>Numbers you can act on</h3>
-              <p>Cash, receivables, payables, runway — live from real activity. Ocur never states a figure the data doesn't support, and never lets you promise money you don't have.</p>
-            </article>
-            <article class="g-os-card lg glare">
-              <p class="g-os-tag">Pipeline</p>
-              <h3>A CRM that updates itself</h3>
-              <p>Deals and relationships, with health derived from what actually happened. Ocur walks into every conversation already knowing which deal stalled and who's gone quiet.</p>
-            </article>
-            <article class="g-os-card lg glare">
-              <p class="g-os-tag">Stock</p>
-              <h3>Never sell an empty shelf</h3>
-              <p>Inventory as a movement ledger, not a number somebody overtyped. Ocur checks what's actually on hand before it confirms the order.</p>
-            </article>
-            <article class="g-os-card lg glare">
-              <p class="g-os-tag">Your database</p>
-              <h3>Ocur builds your database</h3>
-              <p>Candidates, orders, patients — whatever your business runs on, Ocur designs the tables, evolves them as you change, and works inside them. You may not need the next SaaS.</p>
-            </article>
-            <article class="g-os-card lg glare">
-              <p class="g-os-tag">Command center</p>
-              <h3>The whole company, one glance</h3>
-              <p>A live dashboard Ocur composes for you — what needs attention, the numbers that moved, the decisions waiting for your call.</p>
-            </article>
-          </div>
-          <p class="g-os-note">
-            One graph ties it together: a won deal books its receivable, the promise to
-            a prospect is already a commitment, and behind both is the same contact —
-            so nothing gets asked twice.
-          </p>
-        </div>
-      </section>
-
-      <!-- bento features -->
-      <section class="g-features" id="features">
-        <div class="g-glow g-glow-bento" aria-hidden="true"></div>
-        <div class="g-wrap">
-          <p class="oc-chapter"><span>03</span><span class="oc-chapter-label">Built to follow through</span></p>
-          <h2 class="g-h2">One system. <span class="g-grad">Every job.</span></h2>
-          <div class="g-bento">
-            <article class="g-tile g-tile-auto lg glare">
-              <svg class="g-ekg" viewBox="0 0 220 40" aria-hidden="true"><polyline points="0,20 60,20 74,6 88,34 102,20 220,20" fill="none" stroke="#f2942e" stroke-width="2" stroke-linejoin="round" /></svg>
-              <h3>Autopilot, with a heartbeat</h3>
-              <p>A heartbeat wakes Ocur through the day. Ocur checks what needs doing, does it, writes every step down — you wake up to a report, not a backlog.</p>
-              <div class="g-times"><span>06:00 inbox</span><span>06:15 invoices</span><span>07:12 builds a tool</span><span>08:00 digest</span></div>
-            </article>
-            <article class="g-tile g-tile-mail lg glare">
-              <h3>Answers your email itself</h3>
-              <p>Ocur gets its own inbox, knows every sender's whole history, and replies in your voice — or drafts and waits for your OK.</p>
-            </article>
-            <article class="g-tile g-tile-voice lg glare">
-              <div class="g-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-              <h3>Talk to Ocur</h3>
-              <p>Out loud, like a colleague — a real conversation, not dictation. Interrupt Ocur mid-sentence; it keeps up.</p>
-            </article>
-            <article class="g-tile g-tile-phone lg glare">
-              <h3>Answers the phone</h3>
-              <p>Ocur gets its own number, takes the calls you'd rather not, says only what you allow — and hands you the transcript.</p>
-            </article>
-            <article class="g-tile g-tile-work lg glare">
-              <h3>Ten jobs at once</h3>
-              <p>Hand over the whole backlog in one message. Parallel workers run side by side and report back as each job lands.</p>
-            </article>
-            <article class="g-tile g-tile-skill lg glare">
-              <h3>Show it once</h3>
-              <p>Screen-record the chore and talk through it. Ocur turns the recording into a skill it repeats forever — exactly your way.</p>
-            </article>
-            <article class="g-tile g-tile-mem lg glare">
-              <h3>Company memory</h3>
-              <p>“What did we agree in March?” — asked once, answered forever. Give Ocur your documents; nothing gets asked twice.</p>
-            </article>
-            <article class="g-tile g-tile-comp lg glare">
-              <h3>Drives your computer</h3>
-              <p>Ocur opens apps, clicks, types, reads the screen — with your say-so.</p>
-            </article>
-            <article class="g-tile g-tile-ctrl lg glare">
-              <h3>Built for control</h3>
-              <p>Admins set what runs alone. The rest waits for sign-off — every action on the record.</p>
-            </article>
-            <article class="g-tile g-tile-apps lg glare">
-              <h3>Builds its own tools</h3>
-              <p>Missing a tracker, a portal, a calculator? Ocur writes the app, keeps it running beside the chat — and shares it with the team.</p>
-            </article>
-            <article class="g-tile g-tile-dept lg glare">
-              <h3>Every department</h3>
-              <p>Real work, end to end — one Ocur the whole company delegates to.</p>
-              <div class="g-chips"><span>Sales</span><span>Support</span><span>Finance</span><span>Marketing</span><span>Ops</span><span>Memory</span></div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- the first ten minutes: what the desk is, before you meet it -->
-      <section class="g-start" id="start">
-        <div class="g-wrap">
-          <p class="oc-chapter"><span>04</span><span class="oc-chapter-label">A small first step</span></p>
-          <h2 class="g-h2">Your first <span class="g-grad">ten minutes.</span></h2>
-          <p class="g-start-sub">
-            Ocur isn't a chat box. It's a desk — apps, a dock, and Ocur in the middle. Here's
-            how the first ten minutes go.
-          </p>
-          <ol class="g-steps">
-            <li class="g-step lg glare">
-              <span class="g-step-n">01</span>
-              <h3>Sign in. You're at a desk.</h3>
-              <p>Chat, Connectors, Settings and the App Store are already there. Every other app appears the moment Ocur has something to put in it.</p>
-            </li>
-            <li class="g-step lg glare">
-              <span class="g-step-n">02</span>
-              <h3>Say the first job.</h3>
-              <p>“Find the three invoices we're still owed and draft the reminders.” Ocur works in a window beside the chat and shows you what it's doing.</p>
-            </li>
-            <li class="g-step lg glare">
-              <span class="g-step-n">03</span>
-              <h3>Connect one tool.</h3>
-              <p>Gmail, WhatsApp, Notion — one sign-in each. Ocur reads only what you connect, and you can take it away again in a click.</p>
-            </li>
-            <li class="g-step lg glare">
-              <span class="g-step-n">04</span>
-              <h3>Put it on autopilot.</h3>
-              <p>Turn the job into an automation with a schedule. Ocur runs it while you're away and reports back in your chat — or on WhatsApp.</p>
-            </li>
-          </ol>
-          <p class="g-start-note">
-            Every window has its own link — share a thread, a list or a deal with a colleague and
-            they land right on it.
-          </p>
-        </div>
-      </section>
-
-      <!-- pricing -->
-      <section class="g-pricing" id="pricing">
-        <div class="g-glow g-glow-price" aria-hidden="true"></div>
-        <div class="g-wrap">
-          <p class="oc-chapter"><span>05</span><span class="oc-chapter-label">Room to grow</span></p>
-          <h2 class="g-h2">Pilot it free. Scale when <span class="g-grad">it proves itself.</span></h2>
-          <p class="g-price-lede">
-            Two ladders, one Ocur. On your own, you pay for your own Ocur. As a company, every human
-            joins for free — you pay for the AI workers and the work they do.
-          </p>
-
-          <div class="g-seg" role="group" aria-label="Who is this for?">
-            <button class="g-seg-btn on" type="button" data-aud="solo" aria-pressed="true">
-              <span class="g-seg-t">Just me</span><span class="g-seg-s">Solo plans</span>
-            </button>
-            <button class="g-seg-btn" type="button" data-aud="company" aria-pressed="false">
-              <span class="g-seg-t">My company</span><span class="g-seg-s">Business plans</span>
-            </button>
-          </div>
-
-          <p class="g-worker-note">
-            <strong>What's an AI worker?</strong> A teammate Ocur runs for you — it has a name, a job
-            and a schedule, and it works in parallel while you're doing something else.
-          </p>
-
-          <!-- Pricing source of truth: plutus-cloud/frontend/src/lib/plans.ts,
-               PricingPlanGrid.tsx and odrops/src/Billing.tsx. Update the German
-               pricing dictionary in src/strings.de.js alongside these cards. -->
-          <!-- solo ladder -->
-          <div class="g-tiers on" data-aud="solo">
-            <p class="g-tier-lede">
-              <span class="g-tier-tag">Solo</span> Ocur Desktop and oDrops, one subscription and
-              one monthly credit allowance. Open to everyone, no application.
+        <!-- the operating-system part: live ledgers -->
+        <section class="g-os" id="system">
+          <div class="g-wrap">
+            <p class="oc-chapter"><span>02</span><span class="oc-chapter-label">The whole picture</span></p>
+            <h2 class="g-h2">Other AI answers. <span class="g-grad">Ocur keeps the books.</span></h2>
+            <p class="g-os-sub">
+              The “operating system” is literal. Ocur runs live ledgers of everything
+              your company promises, owns, owes and sells — derived from what actually
+              happened, never typed into a form.
             </p>
-            <div class="g-cards g-cards-4">
-              <article class="g-card lg glare">
-                <p class="g-eyebrow">A little more taken care of</p>
-                <h3>Free</h3>
-                <p class="g-price">$0<span>/month</span></p>
-                <p class="g-price-alt">No credit card. No trial clock.</p>
-                <ul>
-                  <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access · create 2 Drops</a></li>
-                  <li>Ocur Desktop and oDrops</li>
-                  <li>Your own Drops, with the models you choose</li>
-                </ul>
-                <p class="g-meta">1.5M credits every month</p>
-                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
+            <div class="g-os-grid">
+              <article class="g-os-card lg" data-tint="blue">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-list-checks" /></svg></span>
+                <p class="g-os-tag">Commitments</p>
+                <h3>Every promise, tracked</h3>
+                <p>Ocur reads the promises out of your email and chats — what you owe, what you're owed, the “I'll handle it” buried in a thread — and chases each one to done. Nothing slips.</p>
               </article>
-              <article class="g-card lg glare">
-                <p class="g-eyebrow">Ocur, every day</p>
-                <h3>Starter</h3>
-                <p class="g-price">$29<span>/month</span></p>
-                <p class="g-price-alt">or $290 a year — 2 months free</p>
-                <ul>
-                  <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access · create 10 Drops</a></li>
-                  <li>Ocur's own WhatsApp and iMessage lines, call number and email</li>
-                  <li>Ocur on WhatsApp, iMessage, Telegram, Slack, Teams and email</li>
-                  <li>Background autopilot: dashboards and widgets stay fresh</li>
-                  <li>Social and ad accounts through Zernio</li>
-                </ul>
-                <p class="g-meta">3M credits every month — 2× Free</p>
-                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=starter">Get Starter</a>
+              <article class="g-os-card lg" data-tint="green">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-banknote" /></svg></span>
+                <p class="g-os-tag">Money</p>
+                <h3>Numbers you can act on</h3>
+                <p>Cash, receivables, payables, runway — live from real activity. Ocur never states a figure the data doesn't support, and never lets you promise money you don't have.</p>
               </article>
-              <article class="g-card g-card-hot lg glare">
-                <p class="g-badge">Most popular</p>
-                <p class="g-eyebrow">Ocur as your right hand</p>
-                <h3>Pro</h3>
-                <p class="g-price">$149<span>/month</span></p>
-                <p class="g-price-alt">or $1,490 a year — 2 months free</p>
-                <ul>
-                  <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access · create 50 Drops</a></li>
-                  <li>Everything in Starter</li>
-                  <li>Room for scheduled jobs, briefs and long working sessions all month</li>
-                  <li>Live apps and workflows that run while you're away</li>
-                </ul>
-                <p class="g-meta">16M credits every month</p>
-                <a class="g-btn magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=pro">Get Pro</a>
+              <article class="g-os-card lg" data-tint="indigo">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-kanban" /></svg></span>
+                <p class="g-os-tag">Pipeline</p>
+                <h3>A CRM that updates itself</h3>
+                <p>Deals and relationships, with health derived from what actually happened. Ocur walks into every conversation already knowing which deal stalled and who's gone quiet.</p>
               </article>
-              <article class="g-card lg glare">
-                <p class="g-eyebrow">Ocur running your whole day</p>
-                <h3>Pro Plus</h3>
-                <p class="g-price">$299<span>/month</span></p>
-                <p class="g-price-alt">or $2,990 a year — 2 months free</p>
-                <ul>
-                  <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access · create 100 Drops</a></li>
-                  <li>Everything in Pro</li>
-                  <li>For power users with workflows, teammates and live apps around the clock</li>
-                  <li>Priority support</li>
-                </ul>
-                <p class="g-meta">32M credits every month — 2× Pro</p>
-                <a class="g-btn g-btn-glass lg magnetic" href="https://app.ocur.ai/?auth=sign-up&amp;plan=pro-plus">Get Pro Plus</a>
+              <article class="g-os-card lg" data-tint="orange">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-package" /></svg></span>
+                <p class="g-os-tag">Stock</p>
+                <h3>Never sell an empty shelf</h3>
+                <p>Inventory as a movement ledger, not a number somebody overtyped. Ocur checks what's actually on hand before it confirms the order.</p>
+              </article>
+              <article class="g-os-card lg" data-tint="teal">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-database" /></svg></span>
+                <p class="g-os-tag">Your database</p>
+                <h3>Ocur builds your database</h3>
+                <p>Candidates, orders, patients — whatever your business runs on, Ocur designs the tables, evolves them as you change, and works inside them. You may not need the next SaaS.</p>
+              </article>
+              <article class="g-os-card lg" data-tint="purple">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-dashboard" /></svg></span>
+                <p class="g-os-tag">Command center</p>
+                <h3>The whole company, one glance</h3>
+                <p>A live dashboard Ocur composes for you — what needs attention, the numbers that moved, the decisions waiting for your call.</p>
               </article>
             </div>
-            <p class="g-note">
-              Every paid plan includes the full Ocur OS, every connected channel, and Ocur's own
-              number and email. Prices in USD — EU customers pay the same number in euro. Annual
-              billing gives you two months free. Plan changes and cancellations are managed through Stripe.
+            <p class="g-os-note">
+              One graph ties it together: a won deal books its receivable, the promise to
+              a prospect is already a commitment, and behind both is the same contact —
+              so nothing gets asked twice.
             </p>
           </div>
+        </section>
 
-          <!-- company ladder -->
-          <div class="g-tiers" data-aud="company">
-            <p class="g-tier-lede">
-              <span class="g-tier-tag g-tier-tag-hot">Business</span> The whole company on one Ocur:
-              one shared pool, one shared memory — and unlimited human members, always free.
+        <!-- bento features -->
+        <section class="g-features" id="features">
+          <div class="g-wrap">
+            <p class="oc-chapter"><span>03</span><span class="oc-chapter-label">Built to follow through</span></p>
+            <h2 class="g-h2">One system. <span class="g-grad">Every job.</span></h2>
+            <div class="g-bento">
+              <article class="g-tile g-tile-auto lg o-dark">
+                <svg class="g-ekg" viewBox="0 0 220 40" aria-hidden="true"><polyline points="0,20 60,20 74,6 88,34 102,20 220,20" fill="none" stroke="#0a84ff" stroke-width="2" stroke-linejoin="round" /></svg>
+                <h3>Autopilot, with a heartbeat</h3>
+                <p>A heartbeat wakes Ocur through the day. Ocur checks what needs doing, does it, writes every step down — you wake up to a report, not a backlog.</p>
+                <div class="g-times"><span>06:00 inbox</span><span>06:15 invoices</span><span>07:12 builds a tool</span><span>08:00 digest</span></div>
+              </article>
+              <article class="g-tile g-tile-mail lg" data-tint="blue">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-mail" /></svg></span>
+                <h3>Answers your email itself</h3>
+                <p>Ocur gets its own inbox, knows every sender's whole history, and replies in your voice — or drafts and waits for your OK.</p>
+              </article>
+              <article class="g-tile g-tile-voice lg" data-tint="indigo">
+                <div class="g-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+                <h3>Talk to Ocur</h3>
+                <p>Out loud, like a colleague — a real conversation, not dictation. Interrupt Ocur mid-sentence; it keeps up.</p>
+              </article>
+              <article class="g-tile g-tile-phone lg" data-tint="green">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-phone" /></svg></span>
+                <h3>Answers the phone</h3>
+                <p>Ocur gets its own number, takes the calls you'd rather not, says only what you allow — and hands you the transcript.</p>
+              </article>
+              <article class="g-tile g-tile-work lg" data-tint="indigo">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-layers" /></svg></span>
+                <h3>Ten jobs at once</h3>
+                <p>Hand over the whole backlog in one message. Parallel workers run side by side and report back as each job lands.</p>
+              </article>
+              <article class="g-tile g-tile-skill lg" data-tint="pink">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-video" /></svg></span>
+                <h3>Show it once</h3>
+                <p>Screen-record the chore and talk through it. Ocur turns the recording into a skill it repeats forever — exactly your way.</p>
+              </article>
+              <article class="g-tile g-tile-mem lg" data-tint="orange">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-book" /></svg></span>
+                <h3>Company memory</h3>
+                <p>“What did we agree in March?” — asked once, answered forever. Give Ocur your documents; nothing gets asked twice.</p>
+              </article>
+              <article class="g-tile g-tile-comp lg" data-tint="teal">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-monitor" /></svg></span>
+                <h3>Drives your computer</h3>
+                <p>Ocur opens apps, clicks, types, reads the screen — with your say-so.</p>
+              </article>
+              <article class="g-tile g-tile-ctrl lg" data-tint="blue">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-shield" /></svg></span>
+                <h3>Built for control</h3>
+                <p>Admins set what runs alone. The rest waits for sign-off — every action on the record.</p>
+              </article>
+              <article class="g-tile g-tile-apps lg" data-tint="purple">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-blocks" /></svg></span>
+                <h3>Builds its own tools</h3>
+                <p>Missing a tracker, a portal, a calculator? Ocur writes the app, keeps it running beside the chat — and shares it with the team.</p>
+              </article>
+              <article class="g-tile g-tile-dept lg" data-tint="teal">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-building" /></svg></span>
+                <h3>Every department</h3>
+                <p>Real work, end to end — one Ocur the whole company delegates to.</p>
+                <div class="g-chips"><span>Sales</span><span>Support</span><span>Finance</span><span>Marketing</span><span>Ops</span><span>Memory</span></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- the first ten minutes: what the desk is, before you meet it -->
+        <section class="g-start" id="start">
+          <div class="g-wrap">
+            <p class="oc-chapter"><span>04</span><span class="oc-chapter-label">A small first step</span></p>
+            <h2 class="g-h2">Your first <span class="g-grad">ten minutes.</span></h2>
+            <p class="g-start-sub">
+              Ocur isn't a chat box. It's a desk — apps, a dock, and Ocur in the middle. Here's
+              how the first ten minutes go.
             </p>
-            <div class="g-company-interval" role="group" aria-label="Business billing interval">
-              <button type="button" data-billing-interval="month" aria-pressed="true">Monthly</button>
-              <button type="button" data-billing-interval="semiannual" aria-pressed="false">Every 6 months</button>
-              <button type="button" data-billing-interval="year" aria-pressed="false">Annually</button>
-            </div>
-            <p class="g-billing-note">Choose when you pay. Credits renew every month on every plan.</p>
-            <!-- the founding offer on the ladder it applies to; the numbers come
-                 from src/cohort.js -->
-            <p class="g-founding lg">
-              <span class="g-kdot" aria-hidden="true"></span>
-              <span class="g-founding-text"><strong>Founding cohort:</strong> {{COHORT_DISCOUNT}}% off any business plan for your first {{COHORT_MONTHS}} months, and the founder sets you up personally. <a href="#apply" data-apply="pricing">Apply<span class="g-deadline"> by {{COHORT_CLOSES}}</span> →</a></span>
-            </p>
-            <div class="g-cards">
-              <article class="g-card lg glare" data-company-plan="team">
-                <p class="g-eyebrow">Your first shared brain</p>
-                <h3>Team</h3>
-                <p class="g-price">$399<span>/month</span></p>
-                <p class="g-price-alt">6 months: $2,300 · Year: $4,389</p>
-                <p class="g-price-saving"></p>
-                <ul>
-                  <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access</a></li>
-                  <li>Unlimited human members — invites are free</li>
-                  <li>2 AI workers with real jobs and schedules</li>
-                  <li>Ocur on WhatsApp, iMessage, Telegram, Slack, Teams &amp; email</li>
-                  <li>Hire more AI workers any time — $199/mo each</li>
-                  <li>Top up any time — $100 per +10M credits</li>
-                </ul>
-                <p class="g-meta">48M pooled credits every month</p>
-                <a class="g-btn g-btn-glass lg magnetic" href="#talk" data-talk="team">Apply for the founding price</a>
-                <a class="g-card-talk" href="https://app.ocur.ai/?auth=sign-up&amp;plan=team">or start today at list price →</a>
-              </article>
-              <article class="g-card g-card-hot lg glare" data-company-plan="growth">
-                <p class="g-badge">Most popular</p>
-                <p class="g-eyebrow">For companies getting serious</p>
-                <h3>Growth</h3>
-                <p class="g-price">$1,500<span>/month</span></p>
-                <p class="g-price-alt">6 months: $8,500 · Year: $16,500</p>
-                <p class="g-price-saving"></p>
-                <ul>
-                  <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access</a></li>
-                  <li>Unlimited human members — invites are free</li>
-                  <li>5 AI workers with real jobs and schedules</li>
-                  <li>Org-wide memory, guardrails &amp; governance</li>
-                  <li>Hire more AI workers any time — $199/mo each</li>
-                  <li>Top up any time — $100 per +10M credits</li>
-                </ul>
-                <p class="g-meta">180M pooled credits every month</p>
-                <a class="g-btn magnetic" href="#talk" data-talk="growth">Apply for the founding price</a>
-                <a class="g-card-talk" href="https://app.ocur.ai/?auth=sign-up&amp;plan=growth">or start today at list price →</a>
-              </article>
-              <article class="g-card lg glare" data-company-plan="scale">
-                <p class="g-eyebrow">For companies &amp; agencies</p>
-                <h3>Scale</h3>
-                <p class="g-price">$5,000<span>/month</span></p>
-                <p class="g-price-alt">6 months: $28,500 · Year: $55,000</p>
-                <p class="g-price-saving"></p>
-                <ul>
-                  <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access</a></li>
-                  <li>Unlimited human members — invites are free</li>
-                  <li>15 AI workers across teams and departments</li>
-                  <li>Org intelligence digest for leadership</li>
-                  <li>Priority support and onboarding</li>
-                  <li>Custom pool sizing on request</li>
-                </ul>
-                <p class="g-meta">600M pooled credits every month</p>
-                <a class="g-btn g-btn-glass lg magnetic" href="#talk" data-talk="scale">Apply for the founding price</a>
-                <a class="g-card-talk" href="https://app.ocur.ai/?auth=sign-up&amp;plan=scale">or start today at list price →</a>
-              </article>
-            </div>
-            <div class="g-extras">
-              <div class="g-extra lg">
-                <strong>+1 AI worker</strong>
-                <span>Hire more AI workers any time — $199 a month each</span>
-              </div>
-              <div class="g-extra lg">
-                <strong>Top-up</strong>
-                <span>$100 adds 10M credits to the shared pool; expires at your next monthly reset</span>
-              </div>
-              <div class="g-extra lg">
-                <strong>Enterprise</strong>
-                <span>Explore a pilot, custom pool sizing, or an Enterprise setup with our team</span>
-                <a class="g-extra-link" href="#talk" data-talk="enterprise">Talk to us →</a>
-              </div>
-            </div>
-            <p class="g-note">
-              Prices in USD — EU customers pay the same number in euro. Choose monthly, every six months,
-              or annually. The price shown is the full charge for that billing period. Annual billing gives you a
-              month free. Credit top-ups expire at your next monthly reset.
-              Pilot Ocur on a free personal account, then choose a company plan when your team joins.
+            <ol class="g-steps">
+              <li class="g-step lg">
+                <span class="g-step-n">1</span>
+                <h3>Sign in. You're at a desk.</h3>
+                <p>Chat, Connectors, Settings and the App Store are already there. Every other app appears the moment Ocur has something to put in it.</p>
+              </li>
+              <li class="g-step lg">
+                <span class="g-step-n">2</span>
+                <h3>Say the first job.</h3>
+                <p>“Find the three invoices we're still owed and draft the reminders.” Ocur works in a window beside the chat and shows you what it's doing.</p>
+              </li>
+              <li class="g-step lg">
+                <span class="g-step-n">3</span>
+                <h3>Connect one tool.</h3>
+                <p>Gmail, WhatsApp, Notion — one sign-in each. Ocur reads only what you connect, and you can take it away again in a click.</p>
+              </li>
+              <li class="g-step lg">
+                <span class="g-step-n">4</span>
+                <h3>Put it on autopilot.</h3>
+                <p>Turn the job into an automation with a schedule. Ocur runs it while you're away and reports back in your chat — or on WhatsApp.</p>
+              </li>
+            </ol>
+            <p class="g-start-note">
+              Every window has its own link — share a thread, a list or a deal with a colleague and
+              they land right on it.
             </p>
           </div>
-          <p class="g-note g-credit-note">
-            Your credit allowance is shared across Ocur and oDrops. More expensive models, output and
-            media use more credits; cached input uses fewer. Your allowance renews monthly, including on six-month and annual plans.
-          </p>
-        </div>
-      </section>
+        </section>
 
-      <!-- the founding cohort: the offer, then the application beside the
-           founder's booking page (see README → Founding cohort) -->
-      <section class="g-cohort" id="apply">
-        <div class="g-glow g-glow-cohort" aria-hidden="true"></div>
-        <div class="g-wrap">
-          <p class="oc-chapter"><span>06</span><span class="oc-chapter-label">Built together</span></p>
-          <p class="g-cohort-kicker"><span class="g-kdot" aria-hidden="true"></span>Founding cohort<span class="g-deadline"> · applications close {{COHORT_CLOSES}}</span></p>
-          <h2 class="g-h2">{{COHORT_SEATS}} companies first. <span class="g-grad">Set up by hand.</span></h2>
-          <p class="g-cohort-sub">
-            Before launch, the founder sets up Ocur personally for {{COHORT_SEATS}} companies — at
-            founding prices. The application takes two minutes, and you'll have an answer
-            {{COHORT_ANSWER}}.
-          </p>
-          <ul class="g-perks">
-            <li class="g-perk lg glare">
-              <p class="g-perk-tag">Founding price</p>
-              <h3>{{COHORT_DISCOUNT}}% off for {{COHORT_MONTHS}} months</h3>
-              <p>On whichever business plan you choose — Team, Growth or Scale.</p>
-            </li>
-            <li class="g-perk lg glare">
-              <p class="g-perk-tag">Setup</p>
-              <h3>Set up with the founder</h3>
-              <p>A 30-minute call: your tools connected, and Ocur already at work on the first job you named.</p>
-            </li>
-            <li class="g-perk lg glare">
-              <p class="g-perk-tag">Direct line</p>
-              <h3>Straight to the founder</h3>
-              <p>Questions and feedback go to the person building Ocur — and into what ships next.</p>
-            </li>
-            <li class="g-perk lg glare">
-              <p class="g-perk-tag">Early access</p>
-              <h3>Everything new, first</h3>
-              <p>New connectors and autopilots reach founding companies before anyone else.</p>
-            </li>
-          </ul>
+        <!-- pricing -->
+        <section class="g-pricing" id="pricing">
+          <div class="g-wrap">
+            <p class="oc-chapter"><span>05</span><span class="oc-chapter-label">Room to grow</span></p>
+            <h2 class="g-h2">Pilot it free. Scale when <span class="g-grad">it proves itself.</span></h2>
+            <p class="g-price-lede">
+              Two ladders, one Ocur. On your own, you pay for your own Ocur. As a company, every human
+              joins for free — you pay for the AI workers and the work they do.
+            </p>
 
-          <!-- The application is the site's lead form (see README → Founding
-               cohort): it posts to the app backend's leads endpoint behind the
-               founder's booking slug, and lands in the founder's Ocur as a lead —
-               contact, fact, notification for personal review — tagged
-               founding-cohort. Each POST carries a fresh browser proof; with
-               JavaScript disabled, the visitor can book a call instead.
-               The script posts JSON through the same-origin
-               rewrite in vercel.json instead and shows the answer inline. The
-               business tiers' buttons and the Enterprise extra land on #talk and
-               carry their plan into the hidden field. -->
-          <div class="g-doors" id="talk">
-            <form class="g-talk lg glare" id="g-talk" action="https://api.ocur.ai/api/leads/gJM0Hx8-5SY" method="post" data-endpoint="/leads/api/gJM0Hx8-5SY" aria-label="Apply for the founding cohort" novalidate>
-              <p class="g-talk-kicker"><span class="g-kdot" aria-hidden="true"></span>Application</p>
-              <h3>Apply for the founding cohort.</h3>
-              <p class="g-talk-text">
-                The founder reads every application personally — you'll have an answer
-                {{COHORT_ANSWER}}, by email, or by phone if you leave a number.
+            <div class="g-seg" role="group" aria-label="Who is this for?">
+              <button class="g-seg-btn on" type="button" data-aud="solo" aria-pressed="true">
+                <span class="g-seg-t">Just me</span><span class="g-seg-s">Solo plans</span>
+              </button>
+              <button class="g-seg-btn" type="button" data-aud="company" aria-pressed="false">
+                <span class="g-seg-t">My company</span><span class="g-seg-s">Business plans</span>
+              </button>
+            </div>
+
+            <p class="g-worker-note">
+              <strong>What's an AI worker?</strong> A teammate Ocur runs for you — it has a name, a job
+              and a schedule, and it works in parallel while you're doing something else.
+            </p>
+
+            <!-- Pricing source of truth: plutus-cloud/frontend/src/lib/plans.ts,
+                 PricingPlanGrid.tsx and odrops/src/Billing.tsx. Update the German
+                 pricing dictionary in src/strings.de.js alongside these cards. -->
+            <!-- solo ladder -->
+            <div class="g-tiers on" data-aud="solo">
+              <p class="g-tier-lede">
+                <span class="g-tier-tag">Solo</span> Ocur Desktop and oDrops, one subscription and
+                one monthly credit allowance. Open to everyone, no application.
               </p>
-              <div class="g-talk-grid">
-                <label class="g-field"><span>Work email</span><input name="email" type="email" required maxlength="320" autocomplete="email" inputmode="email" /></label>
-                <label class="g-field"><span>Company</span><input name="company" type="text" required maxlength="160" autocomplete="organization" /></label>
-                <label class="g-field"><span>Name</span><input name="name" type="text" required maxlength="120" autocomplete="name" /></label>
-                <label class="g-field"><span>Role <em>optional</em></span><input name="role" type="text" maxlength="120" autocomplete="organization-title" placeholder="Founder, Head of Ops…" /></label>
-                <label class="g-field">
-                  <span>Team size</span>
-                  <select name="team_size" required>
-                    <option value="" selected disabled>Choose…</option>
-                    <option value="1">Just me</option>
-                    <option value="2-10">2–10 people</option>
-                    <option value="11-50">11–50 people</option>
-                    <option value="51-200">51–200 people</option>
-                    <option value="201+">201+ people</option>
-                  </select>
-                </label>
-                <label class="g-field"><span>Phone <em>optional — so we can call you</em></span><input name="phone" type="tel" maxlength="50" autocomplete="tel" inputmode="tel" /></label>
-                <label class="g-field g-field-wide"><span>The first job you'd hand Ocur</span><textarea name="message" rows="3" required maxlength="2000" placeholder="The 200 supplier emails we answer every week."></textarea></label>
+              <div class="g-cards g-cards-4">
+                <article class="g-card lg">
+                  <p class="g-eyebrow">A little more taken care of</p>
+                  <h3>Free</h3>
+                  <p class="g-price">$0<span>/month</span></p>
+                  <p class="g-price-alt">No credit card. No trial clock.</p>
+                  <ul>
+                    <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access · create 2 Drops</a></li>
+                    <li>Ocur Desktop and oDrops</li>
+                    <li>Your own Drops, with the models you choose</li>
+                  </ul>
+                  <p class="g-meta">1.5M credits every month</p>
+                  <a class="g-btn g-btn-glass" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
+                </article>
+                <article class="g-card lg">
+                  <p class="g-eyebrow">Ocur, every day</p>
+                  <h3>Starter</h3>
+                  <p class="g-price">$29<span>/month</span></p>
+                  <p class="g-price-alt">or $290 a year — 2 months free</p>
+                  <ul>
+                    <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access · create 10 Drops</a></li>
+                    <li>Ocur's own WhatsApp and iMessage lines, call number and email</li>
+                    <li>Ocur on WhatsApp, iMessage, Telegram, Slack, Teams and email</li>
+                    <li>Background autopilot: dashboards and widgets stay fresh</li>
+                    <li>Social and ad accounts through Zernio</li>
+                  </ul>
+                  <p class="g-meta">3M credits every month — 2× Free</p>
+                  <a class="g-btn g-btn-glass" href="https://app.ocur.ai/?auth=sign-up&amp;plan=starter">Get Starter</a>
+                </article>
+                <article class="g-card g-card-hot lg">
+                  <p class="g-badge">Most popular</p>
+                  <p class="g-eyebrow">Ocur as your right hand</p>
+                  <h3>Pro</h3>
+                  <p class="g-price">$149<span>/month</span></p>
+                  <p class="g-price-alt">or $1,490 a year — 2 months free</p>
+                  <ul>
+                    <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access · create 50 Drops</a></li>
+                    <li>Everything in Starter</li>
+                    <li>Room for scheduled jobs, briefs and long working sessions all month</li>
+                    <li>Live apps and workflows that run while you're away</li>
+                  </ul>
+                  <p class="g-meta">16M credits every month</p>
+                  <a class="g-btn" href="https://app.ocur.ai/?auth=sign-up&amp;plan=pro">Get Pro</a>
+                </article>
+                <article class="g-card lg">
+                  <p class="g-eyebrow">Ocur running your whole day</p>
+                  <h3>Pro Plus</h3>
+                  <p class="g-price">$299<span>/month</span></p>
+                  <p class="g-price-alt">or $2,990 a year — 2 months free</p>
+                  <ul>
+                    <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access · create 100 Drops</a></li>
+                    <li>Everything in Pro</li>
+                    <li>For power users with workflows, teammates and live apps around the clock</li>
+                    <li>Priority support</li>
+                  </ul>
+                  <p class="g-meta">32M credits every month — 2× Pro</p>
+                  <a class="g-btn g-btn-glass" href="https://app.ocur.ai/?auth=sign-up&amp;plan=pro-plus">Get Pro Plus</a>
+                </article>
               </div>
-              <input type="hidden" name="kind" value="application" />
-              <input type="hidden" name="plan" value="" />
-              <input type="hidden" name="locale" value="en" />
-              <!-- honeypot: people never see it, bots fill it -->
-              <div class="g-hp" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off" /></label></div>
-              <div class="g-talk-foot">
-                <button class="g-btn magnetic" type="submit" disabled>Send application</button>
-                <p class="g-talk-sub">Read by the founder personally — questions welcome too. <a href="/privacy">Privacy</a></p>
+              <p class="g-note">
+                Every paid plan includes the full Ocur OS, every connected channel, and Ocur's own
+                number and email. Prices in USD — EU customers pay the same number in euro. Annual
+                billing gives you two months free. Plan changes and cancellations are managed through Stripe.
+              </p>
+            </div>
+
+            <!-- company ladder -->
+            <div class="g-tiers" data-aud="company">
+              <p class="g-tier-lede">
+                <span class="g-tier-tag g-tier-tag-hot">Business</span> The whole company on one Ocur:
+                one shared pool, one shared memory — and unlimited human members, always free.
+              </p>
+              <div class="g-company-interval" role="group" aria-label="Business billing interval">
+                <button type="button" data-billing-interval="month" aria-pressed="true">Monthly</button>
+                <button type="button" data-billing-interval="semiannual" aria-pressed="false">Every 6 months</button>
+                <button type="button" data-billing-interval="year" aria-pressed="false">Annually</button>
               </div>
-              <noscript><p class="g-talk-noscript">Please enable JavaScript to send your application, or <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener">book a call with the founder</a>.</p></noscript>
-              <p class="g-talk-status" role="status" aria-live="polite"></p>
-            </form>
-            <div class="g-doors-side">
-              <div class="g-next lg glare">
-                <p class="g-next-kicker"><span class="g-kdot" aria-hidden="true"></span>What happens next</p>
-                <ol class="g-next-steps">
-                  <li><strong>You apply.</strong> Two minutes, right here.</li>
-                  <li><strong>The founder answers</strong> {{COHORT_ANSWER}}.</li>
-                  <li><strong>You're in: a 30-minute setup call.</strong> Your tools connected, and Ocur on the first job you named.</li>
-                  <li><strong>The founding price.</strong> {{COHORT_DISCOUNT}}% off your plan for the first {{COHORT_MONTHS}} months.</li>
-                </ol>
+              <p class="g-billing-note">Choose when you pay. Credits renew every month on every plan.</p>
+              <!-- the founding offer on the ladder it applies to; the numbers come
+                   from src/cohort.js -->
+              <p class="g-founding">
+                <span class="g-kdot" aria-hidden="true"></span>
+                <span class="g-founding-text"><strong>Founding cohort:</strong> {{COHORT_DISCOUNT}}% off any business plan for your first {{COHORT_MONTHS}} months, and the founder sets you up personally. <a href="#apply" data-apply="pricing">Apply<span class="g-deadline"> by {{COHORT_CLOSES}}</span> →</a></span>
+              </p>
+              <div class="g-cards">
+                <article class="g-card lg" data-company-plan="team">
+                  <p class="g-eyebrow">Your first shared brain</p>
+                  <h3>Team</h3>
+                  <p class="g-price">$399<span>/month</span></p>
+                  <p class="g-price-alt">6 months: $2,300 · Year: $4,389</p>
+                  <p class="g-price-saving"></p>
+                  <ul>
+                    <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access</a></li>
+                    <li>Unlimited human members — invites are free</li>
+                    <li>2 AI workers with real jobs and schedules</li>
+                    <li>Ocur on WhatsApp, iMessage, Telegram, Slack, Teams &amp; email</li>
+                    <li>Hire more AI workers any time — $199/mo each</li>
+                    <li>Top up any time — $100 per +10M credits</li>
+                  </ul>
+                  <p class="g-meta">48M pooled credits every month</p>
+                  <a class="g-btn g-btn-glass" href="#talk" data-talk="team">Apply for the founding price</a>
+                  <a class="g-card-talk" href="https://app.ocur.ai/?auth=sign-up&amp;plan=team">or start today at list price →</a>
+                </article>
+                <article class="g-card g-card-hot lg" data-company-plan="growth">
+                  <p class="g-badge">Most popular</p>
+                  <p class="g-eyebrow">For companies getting serious</p>
+                  <h3>Growth</h3>
+                  <p class="g-price">$1,500<span>/month</span></p>
+                  <p class="g-price-alt">6 months: $8,500 · Year: $16,500</p>
+                  <p class="g-price-saving"></p>
+                  <ul>
+                    <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access</a></li>
+                    <li>Unlimited human members — invites are free</li>
+                    <li>5 AI workers with real jobs and schedules</li>
+                    <li>Org-wide memory, guardrails &amp; governance</li>
+                    <li>Hire more AI workers any time — $199/mo each</li>
+                    <li>Top up any time — $100 per +10M credits</li>
+                  </ul>
+                  <p class="g-meta">180M pooled credits every month</p>
+                  <a class="g-btn" href="#talk" data-talk="growth">Apply for the founding price</a>
+                  <a class="g-card-talk" href="https://app.ocur.ai/?auth=sign-up&amp;plan=growth">or start today at list price →</a>
+                </article>
+                <article class="g-card lg" data-company-plan="scale">
+                  <p class="g-eyebrow">For companies &amp; agencies</p>
+                  <h3>Scale</h3>
+                  <p class="g-price">$5,000<span>/month</span></p>
+                  <p class="g-price-alt">6 months: $28,500 · Year: $55,000</p>
+                  <p class="g-price-saving"></p>
+                  <ul>
+                    <li><a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops access</a></li>
+                    <li>Unlimited human members — invites are free</li>
+                    <li>15 AI workers across teams and departments</li>
+                    <li>Org intelligence digest for leadership</li>
+                    <li>Priority support and onboarding</li>
+                    <li>Custom pool sizing on request</li>
+                  </ul>
+                  <p class="g-meta">600M pooled credits every month</p>
+                  <a class="g-btn g-btn-glass" href="#talk" data-talk="scale">Apply for the founding price</a>
+                  <a class="g-card-talk" href="https://app.ocur.ai/?auth=sign-up&amp;plan=scale">or start today at list price →</a>
+                </article>
               </div>
-              <div class="g-book lg glare" id="book">
-                <div class="g-book-copy">
-                  <p class="g-book-kicker"><span class="g-kdot" aria-hidden="true"></span>Live demo</p>
-                  <h3>Rather see it first?</h3>
-                  <p class="g-book-text">
-                    Book a 30-minute call with the founder — a live walkthrough of Ocur on your
-                    company's own work, and straight answers to the hard questions.
-                  </p>
+              <div class="g-extras">
+                <div class="g-extra lg">
+                  <strong>+1 AI worker</strong>
+                  <span>Hire more AI workers any time — $199 a month each</span>
                 </div>
-                <div class="g-book-cta">
-                  <a class="g-btn g-btn-glass lg magnetic" href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="cohort">Book a demo</a>
-                  <span class="g-book-sub">30 minutes · video call · pick your slot</span>
+                <div class="g-extra lg">
+                  <strong>Top-up</strong>
+                  <span>$100 adds 10M credits to the shared pool; expires at your next monthly reset</span>
+                </div>
+                <div class="g-extra lg">
+                  <strong>Enterprise</strong>
+                  <span>Explore a pilot, custom pool sizing, or an Enterprise setup with our team</span>
+                  <a class="g-extra-link" href="#talk" data-talk="enterprise">Talk to us →</a>
+                </div>
+              </div>
+              <p class="g-note">
+                Prices in USD — EU customers pay the same number in euro. Choose monthly, every six months,
+                or annually. The price shown is the full charge for that billing period. Annual billing gives you a
+                month free. Credit top-ups expire at your next monthly reset.
+                Pilot Ocur on a free personal account, then choose a company plan when your team joins.
+              </p>
+            </div>
+            <p class="g-note g-credit-note">
+              Your credit allowance is shared across Ocur and oDrops. More expensive models, output and
+              media use more credits; cached input uses fewer. Your allowance renews monthly, including on six-month and annual plans.
+            </p>
+          </div>
+        </section>
+
+        <!-- the founding cohort: the offer, then the application beside the
+             founder's booking page (see README → Founding cohort) -->
+        <section class="g-cohort" id="apply">
+          <div class="g-wrap">
+            <p class="oc-chapter"><span>06</span><span class="oc-chapter-label">Built together</span></p>
+            <p class="g-cohort-kicker"><span class="g-kdot" aria-hidden="true"></span>Founding cohort<span class="g-deadline"> · applications close {{COHORT_CLOSES}}</span></p>
+            <h2 class="g-h2">{{COHORT_SEATS}} companies first. <span class="g-grad">Set up by hand.</span></h2>
+            <p class="g-cohort-sub">
+              Before launch, the founder sets up Ocur personally for {{COHORT_SEATS}} companies — at
+              founding prices. The application takes two minutes, and you'll have an answer
+              {{COHORT_ANSWER}}.
+            </p>
+            <ul class="g-perks">
+              <li class="g-perk lg" data-tint="orange">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-percent" /></svg></span>
+                <p class="g-perk-tag">Founding price</p>
+                <h3>{{COHORT_DISCOUNT}}% off for {{COHORT_MONTHS}} months</h3>
+                <p>On whichever business plan you choose — Team, Growth or Scale.</p>
+              </li>
+              <li class="g-perk lg" data-tint="blue">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-calendar-check" /></svg></span>
+                <p class="g-perk-tag">Setup</p>
+                <h3>Set up with the founder</h3>
+                <p>A 30-minute call: your tools connected, and Ocur already at work on the first job you named.</p>
+              </li>
+              <li class="g-perk lg" data-tint="green">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-message" /></svg></span>
+                <p class="g-perk-tag">Direct line</p>
+                <h3>Straight to the founder</h3>
+                <p>Questions and feedback go to the person building Ocur — and into what ships next.</p>
+              </li>
+              <li class="g-perk lg" data-tint="purple">
+                <span class="g-ico" aria-hidden="true"><svg class="g-i"><use href="#i-sparkles" /></svg></span>
+                <p class="g-perk-tag">Early access</p>
+                <h3>Everything new, first</h3>
+                <p>New connectors and autopilots reach founding companies before anyone else.</p>
+              </li>
+            </ul>
+
+            <!-- The application is the site's lead form (see README → Founding
+                 cohort): it posts to the app backend's leads endpoint behind the
+                 founder's booking slug, and lands in the founder's Ocur as a lead —
+                 contact, fact, notification for personal review — tagged
+                 founding-cohort. Each POST carries a fresh browser proof; with
+                 JavaScript disabled, the visitor can book a call instead.
+                 The script posts JSON through the same-origin
+                 rewrite in vercel.json instead and shows the answer inline. The
+                 business tiers' buttons and the Enterprise extra land on #talk and
+                 carry their plan into the hidden field. -->
+            <div class="g-doors" id="talk">
+              <form class="g-talk lg" id="g-talk" action="https://api.ocur.ai/api/leads/gJM0Hx8-5SY" method="post" data-endpoint="/leads/api/gJM0Hx8-5SY" aria-label="Apply for the founding cohort" novalidate>
+                <p class="g-talk-kicker"><span class="g-kdot" aria-hidden="true"></span>Application</p>
+                <h3>Apply for the founding cohort.</h3>
+                <p class="g-talk-text">
+                  The founder reads every application personally — you'll have an answer
+                  {{COHORT_ANSWER}}, by email, or by phone if you leave a number.
+                </p>
+                <div class="g-talk-grid">
+                  <label class="g-field"><span>Work email</span><input name="email" type="email" required maxlength="320" autocomplete="email" inputmode="email" /></label>
+                  <label class="g-field"><span>Company</span><input name="company" type="text" required maxlength="160" autocomplete="organization" /></label>
+                  <label class="g-field"><span>Name</span><input name="name" type="text" required maxlength="120" autocomplete="name" /></label>
+                  <label class="g-field"><span>Role <em>optional</em></span><input name="role" type="text" maxlength="120" autocomplete="organization-title" placeholder="Founder, Head of Ops…" /></label>
+                  <label class="g-field">
+                    <span>Team size</span>
+                    <select name="team_size" required>
+                      <option value="" selected disabled>Choose…</option>
+                      <option value="1">Just me</option>
+                      <option value="2-10">2–10 people</option>
+                      <option value="11-50">11–50 people</option>
+                      <option value="51-200">51–200 people</option>
+                      <option value="201+">201+ people</option>
+                    </select>
+                  </label>
+                  <label class="g-field"><span>Phone <em>optional — so we can call you</em></span><input name="phone" type="tel" maxlength="50" autocomplete="tel" inputmode="tel" /></label>
+                  <label class="g-field g-field-wide"><span>The first job you'd hand Ocur</span><textarea name="message" rows="3" required maxlength="2000" placeholder="The 200 supplier emails we answer every week."></textarea></label>
+                </div>
+                <input type="hidden" name="kind" value="application" />
+                <input type="hidden" name="plan" value="" />
+                <input type="hidden" name="locale" value="en" />
+                <!-- honeypot: people never see it, bots fill it -->
+                <div class="g-hp" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off" /></label></div>
+                <div class="g-talk-foot">
+                  <button class="g-btn" type="submit" disabled>Send application</button>
+                  <p class="g-talk-sub">Read by the founder personally — questions welcome too. <a href="/privacy">Privacy</a></p>
+                </div>
+                <noscript><p class="g-talk-noscript">Please enable JavaScript to send your application, or <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener">book a call with the founder</a>.</p></noscript>
+                <p class="g-talk-status" role="status" aria-live="polite"></p>
+              </form>
+              <div class="g-doors-side">
+                <div class="g-next lg">
+                  <p class="g-next-kicker"><span class="g-kdot" aria-hidden="true"></span>What happens next</p>
+                  <ol class="g-next-steps">
+                    <li><strong>You apply.</strong> Two minutes, right here.</li>
+                    <li><strong>The founder answers</strong> {{COHORT_ANSWER}}.</li>
+                    <li><strong>You're in: a 30-minute setup call.</strong> Your tools connected, and Ocur on the first job you named.</li>
+                    <li><strong>The founding price.</strong> {{COHORT_DISCOUNT}}% off your plan for the first {{COHORT_MONTHS}} months.</li>
+                  </ol>
+                </div>
+                <div class="g-book lg" id="book">
+                  <div class="g-book-copy">
+                    <p class="g-book-kicker"><span class="g-kdot" aria-hidden="true"></span>Live demo</p>
+                    <h3>Rather see it first?</h3>
+                    <p class="g-book-text">
+                      Book a 30-minute call with the founder — a live walkthrough of Ocur on your
+                      company's own work, and straight answers to the hard questions.
+                    </p>
+                  </div>
+                  <div class="g-book-cta">
+                    <a class="g-btn g-btn-glass" href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="cohort">Book a demo</a>
+                    <span class="g-book-sub">30 minutes · video call · pick your slot</span>
+                  </div>
                 </div>
               </div>
             </div>
+            <p class="g-cohort-solo">
+              Just you? The free plan is open to everyone —
+              <a href="https://app.ocur.ai/?auth=sign-up">start free</a>, no application needed.
+            </p>
           </div>
-          <p class="g-cohort-solo">
-            Just you? The free plan is open to everyone —
-            <a href="https://app.ocur.ai/?auth=sign-up">start free</a>, no application needed.
-          </p>
-        </div>
-      </section>
+        </section>
 
-      <!-- FAQ -->
-      <section class="g-faq-sec" id="faq">
-        <div class="g-wrap">
-          <div class="oc-faq-head">
-            <p class="oc-chapter"><span>07</span><span class="oc-chapter-label">A few details</span></p>
-            <h2 class="g-h2">Questions, <span class="g-grad">answered.</span></h2>
+        <!-- FAQ -->
+        <section class="g-faq-sec" id="faq">
+          <div class="g-wrap">
+            <div class="oc-faq-head">
+              <p class="oc-chapter"><span>07</span><span class="oc-chapter-label">A few details</span></p>
+              <h2 class="g-h2">Questions, <span class="g-grad">answered.</span></h2>
+            </div>
+            <div class="g-faq">
+              <details name="g-faq" open>
+                <summary>What is the founding cohort?</summary>
+                <p>The first {{COHORT_SEATS}} companies on Ocur, set up personally by the founder before launch. Founding companies get {{COHORT_DISCOUNT}}% off their plan for the first {{COHORT_MONTHS}} months, a setup call where Ocur goes to work on the first job they named, a direct line to the founder, and everything new before anyone else. <a href="#apply">The application</a> takes two minutes.</p>
+              </details>
+              <details name="g-faq">
+                <summary>Who gets in — and how fast?</summary>
+                <p>Companies with a real first job for Ocur and someone who can decide. The founder reads every application and answers {{COHORT_ANSWER}}. Seats go out as the answers do, until all {{COHORT_SEATS}} are taken<span class="g-deadline"> or applications close on {{COHORT_CLOSES}}, whichever comes first</span>. Not a fit yet? You'll hear that too — and you can still start free on your own.</p>
+              </details>
+              <details name="g-faq">
+                <summary>Do I have to apply to use Ocur?</summary>
+                <p>No. On your own, the free plan is open to everyone: Ocur Desktop and oDrops with 1.5M credits every month and access to create 2 Drops with the models you choose. No credit card, no trial clock. The application is for companies that want the founding price and a setup with the founder.</p>
+              </details>
+              <details name="g-faq">
+                <summary>How is this different from a chat assistant?</summary>
+                <p>A chat assistant gives you an answer — the work is still yours. Ocur finishes the job where it lives: with its own inbox and phone line, a heartbeat that keeps running while you're away, and live ledgers for your promises, money, pipeline and stock. The result lands in your tools — not your clipboard.</p>
+              </details>
+              <details name="g-faq">
+                <summary>Do I need to install anything?</summary>
+                <p>No — Ocur runs in your browser. Prefer a dedicated app? <a href="https://app.ocur.ai/download" data-download="faq">Download Ocur Desktop for Windows, macOS or Linux</a> and sign in to the same workspace. An internet connection is required. The desktop app includes Ocur Companion and sets up this computer after sign-in. Screen and computer-control permissions remain yours to choose.</p>
+              </details>
+              <details name="g-faq">
+                <summary>Will it do things without asking?</summary>
+                <p>Only where you've allowed it. Out of the box, anything important waits for sign-off. Put a job on autopilot, though, and Ocur wakes on a heartbeat and runs the whole loop by itself — every step on the record. You can widen or narrow what runs alone at any time, quiet hours included.</p>
+              </details>
+              <details name="g-faq">
+                <summary>What happens when it gets something wrong?</summary>
+                <p>You'll see it — every action is on the record, with what was done and why. Anything important waited for your sign-off in the first place. Correct it in plain language, and Ocur remembers the correction — the same mistake doesn't happen twice.</p>
+              </details>
+              <details name="g-faq">
+                <summary>What does it work with?</summary>
+                <p>Gmail, Google Calendar, Google Drive, Notion and GitHub — plus the web itself, and even your own computer if you connect it. Paid plans include Ocur on WhatsApp, iMessage, Telegram, Slack, Teams and email. You add accounts one by one, and you can disconnect any of them at any time.</p>
+              </details>
+              <details name="g-faq">
+                <summary>Is our data private?</summary>
+                <p>Your company’s workspace is sealed off from every other customer’s. Ocur can only reach the accounts you’ve chosen to connect, and you can take any of them away in one click. We never sell your data and never train models on it — the <a href="/privacy">privacy policy</a> spells out exactly what happens to everything Ocur touches, Google Workspace included. For the plain map of which service receives what, and when, see <a href="/data">where your data goes</a>.</p>
+              </details>
+              <details name="g-faq">
+                <summary>Can the whole company use it?</summary>
+                <p>Yes — that's the point. Everyone delegates to one shared Ocur with shared memory and knowledge, admins decide who may do what, and there's one place to see everything that got done.</p>
+              </details>
+              <details name="g-faq">
+                <summary>Do we pay per person?</summary>
+                <p>No. Every company plan includes unlimited human members — inviting a colleague costs nothing. Your company pays for a shared monthly credit pool and AI workers with real jobs and schedules. Extra AI workers are $199 a month each. Credit top-ups add 10M credits for $100 and expire at your next monthly reset.</p>
+              </details>
+              <details name="g-faq">
+                <summary>How long does rollout take?</summary>
+                <p>Minutes, not months. Ocur runs in the browser, connects to your tools one sign-in at a time, and needs no IT project. Most teams hand it real work on day one.</p>
+              </details>
+              <details name="g-faq">
+                <summary>Can I get a demo first?</summary>
+                <p>Yes. <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="faq">Book a 30-minute call</a> and the founder walks you through Ocur live, on your company's own work — bring your questions. Or <a href="#apply">apply straight away</a>: the application takes two minutes, and every founding company gets its setup call with the founder anyway.</p>
+              </details>
+            </div>
           </div>
-          <div class="g-faq">
-            <details class="lg" name="g-faq" open>
-              <summary>What is the founding cohort?</summary>
-              <p>The first {{COHORT_SEATS}} companies on Ocur, set up personally by the founder before launch. Founding companies get {{COHORT_DISCOUNT}}% off their plan for the first {{COHORT_MONTHS}} months, a setup call where Ocur goes to work on the first job they named, a direct line to the founder, and everything new before anyone else. <a href="#apply">The application</a> takes two minutes.</p>
-            </details>
-            <details class="lg" name="g-faq">
-              <summary>Who gets in — and how fast?</summary>
-              <p>Companies with a real first job for Ocur and someone who can decide. The founder reads every application and answers {{COHORT_ANSWER}}. Seats go out as the answers do, until all {{COHORT_SEATS}} are taken<span class="g-deadline"> or applications close on {{COHORT_CLOSES}}, whichever comes first</span>. Not a fit yet? You'll hear that too — and you can still start free on your own.</p>
-            </details>
-            <details class="lg" name="g-faq">
-              <summary>Do I have to apply to use Ocur?</summary>
-              <p>No. On your own, the free plan is open to everyone: Ocur Desktop and oDrops with 1.5M credits every month and access to create 2 Drops with the models you choose. No credit card, no trial clock. The application is for companies that want the founding price and a setup with the founder.</p>
-            </details>
-            <details class="lg" name="g-faq">
-              <summary>How is this different from a chat assistant?</summary>
-              <p>A chat assistant gives you an answer — the work is still yours. Ocur finishes the job where it lives: with its own inbox and phone line, a heartbeat that keeps running while you're away, and live ledgers for your promises, money, pipeline and stock. The result lands in your tools — not your clipboard.</p>
-            </details>
-            <details class="lg" name="g-faq">
-              <summary>Do I need to install anything?</summary>
-              <p>No — Ocur runs in your browser. Prefer a dedicated app? <a href="https://app.ocur.ai/download" data-download="faq">Download Ocur Desktop for Windows, macOS or Linux</a> and sign in to the same workspace. An internet connection is required. The desktop app includes Ocur Companion and sets up this computer after sign-in. Screen and computer-control permissions remain yours to choose.</p>
-            </details>
-            <details class="lg" name="g-faq">
-              <summary>Will it do things without asking?</summary>
-              <p>Only where you've allowed it. Out of the box, anything important waits for sign-off. Put a job on autopilot, though, and Ocur wakes on a heartbeat and runs the whole loop by itself — every step on the record. You can widen or narrow what runs alone at any time, quiet hours included.</p>
-            </details>
-            <details class="lg" name="g-faq">
-              <summary>What happens when it gets something wrong?</summary>
-              <p>You'll see it — every action is on the record, with what was done and why. Anything important waited for your sign-off in the first place. Correct it in plain language, and Ocur remembers the correction — the same mistake doesn't happen twice.</p>
-            </details>
-            <details class="lg" name="g-faq">
-              <summary>What does it work with?</summary>
-              <p>Gmail, Google Calendar, Google Drive, Notion and GitHub — plus the web itself, and even your own computer if you connect it. Paid plans include Ocur on WhatsApp, iMessage, Telegram, Slack, Teams and email. You add accounts one by one, and you can disconnect any of them at any time.</p>
-            </details>
-            <details class="lg" name="g-faq">
-              <summary>Is our data private?</summary>
-              <p>Your company’s workspace is sealed off from every other customer’s. Ocur can only reach the accounts you’ve chosen to connect, and you can take any of them away in one click. We never sell your data and never train models on it — the <a href="/privacy">privacy policy</a> spells out exactly what happens to everything Ocur touches, Google Workspace included. For the plain map of which service receives what, and when, see <a href="/data">where your data goes</a>.</p>
-            </details>
-            <details class="lg" name="g-faq">
-              <summary>Can the whole company use it?</summary>
-              <p>Yes — that's the point. Everyone delegates to one shared Ocur with shared memory and knowledge, admins decide who may do what, and there's one place to see everything that got done.</p>
-            </details>
-            <details class="lg" name="g-faq">
-              <summary>Do we pay per person?</summary>
-              <p>No. Every company plan includes unlimited human members — inviting a colleague costs nothing. Your company pays for a shared monthly credit pool and AI workers with real jobs and schedules. Extra AI workers are $199 a month each. Credit top-ups add 10M credits for $100 and expire at your next monthly reset.</p>
-            </details>
-            <details class="lg" name="g-faq">
-              <summary>How long does rollout take?</summary>
-              <p>Minutes, not months. Ocur runs in the browser, connects to your tools one sign-in at a time, and needs no IT project. Most teams hand it real work on day one.</p>
-            </details>
-            <details class="lg" name="g-faq">
-              <summary>Can I get a demo first?</summary>
-              <p>Yes. <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="faq">Book a 30-minute call</a> and the founder walks you through Ocur live, on your company's own work — bring your questions. Or <a href="#apply">apply straight away</a>: the application takes two minutes, and every founding company gets its setup call with the founder anyway.</p>
-            </details>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- final -->
-      <section class="g-final">
-        <div class="g-glow g-glow-final" aria-hidden="true"></div>
-        <div class="g-wrap">
-          <h2 class="g-final-h">Run the company.<br /><span class="g-grad">Not the busywork.</span></h2>
-          <a class="g-btn g-btn-lg magnetic" href="#apply" data-apply="final">Apply for the founding cohort</a>
-          <p class="g-micro">{{COHORT_SEATS}} seats&nbsp;&nbsp;·&nbsp;&nbsp;Answer {{COHORT_ANSWER}}<span class="g-deadline">&nbsp;&nbsp;·&nbsp;&nbsp;Closes {{COHORT_CLOSES}}</span></p>
-          <p class="g-final-alt"><span>Prefer a walkthrough first?</span> <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="final">Book a live demo</a>&nbsp;&nbsp;·&nbsp;&nbsp;<span>Just you?</span> <a href="https://app.ocur.ai/?auth=sign-up">Start free</a></p>
-          <footer class="g-foot">
-            <span>Ocur © <span id="g-year">2026</span> · <span class="g-foot-org">a product of OcurAI, Inc.</span></span>
-            <nav class="g-foot-links" aria-label="Footer links">
-              <a href="/privacy">Privacy Policy</a>
-              <a href="/terms">Terms of Service</a>
-              <a href="/data">Where your data goes</a>
-              <a href="/be-ai/">Be the AI — the game</a>
-              <a href="#talk">Contact</a>
-              <a href="https://app.ocur.ai/download" data-download="footer">Download desktop app</a>
-            </nav>
-            <span><em>Say it — or don’t. It happens. You stay in charge.</em></span>
-            <a
-              class="g-social g-social-x"
-              href="https://x.com/ocur_ai"
-              target="_blank"
-              rel="noopener"
-              aria-label="Ocur on X"
-              title="Ocur on X"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" fill="currentColor"/></svg>
-            </a>
-          </footer>
-        </div>
-      </section>
+        <!-- final: the film's stage once more, as a card -->
+        <section class="g-final">
+          <div class="g-wrap">
+            <div class="g-final-card o-dark">
+              <img class="g-final-mark" src="/logo.svg" alt="" width="72" height="61" />
+              <h2 class="g-final-h">Run the company.<br /><span class="g-grad">Not the busywork.</span></h2>
+              <a class="g-btn g-btn-lg" href="#apply" data-apply="final">Apply for the founding cohort</a>
+              <p class="g-micro">{{COHORT_SEATS}} seats&nbsp;&nbsp;·&nbsp;&nbsp;Answer {{COHORT_ANSWER}}<span class="g-deadline">&nbsp;&nbsp;·&nbsp;&nbsp;Closes {{COHORT_CLOSES}}</span></p>
+              <p class="g-final-alt"><span>Prefer a walkthrough first?</span> <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="final">Book a live demo</a>&nbsp;&nbsp;·&nbsp;&nbsp;<span>Just you?</span> <a href="https://app.ocur.ai/?auth=sign-up">Start free</a></p>
+            </div>
+            <footer class="g-foot">
+              <span>Ocur © <span id="g-year">2026</span> · <span class="g-foot-org">a product of OcurAI, Inc.</span></span>
+              <nav class="g-foot-links" aria-label="Footer links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/data">Where your data goes</a>
+                <a href="/be-ai/">Be the AI — the game</a>
+                <a href="#talk">Contact</a>
+                <a href="https://app.ocur.ai/download" data-download="footer">Download desktop app</a>
+              </nav>
+              <span class="g-foot-tag"><em>Say it — or don’t. It happens. You stay in charge.</em></span>
+              <a
+                class="g-social g-social-x"
+                href="https://x.com/ocur_ai"
+                target="_blank"
+                rel="noopener"
+                aria-label="Ocur on X"
+                title="Ocur on X"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" fill="currentColor"/></svg>
+              </a>
+            </footer>
+          </div>
+        </section>
+      </div>
     </main>
 
     <!-- floating glass CTA dock: the application, out of the way while the
          application itself is on screen -->
-    <a class="g-dock lg magnetic" id="g-dock" href="#apply" data-apply="dock">
+    <a class="g-dock" id="g-dock" href="#apply" data-apply="dock">
       <span class="g-kdot" aria-hidden="true"></span>
       <strong>Apply now</strong>
       <span class="g-dock-sub">Founding cohort<span class="g-deadline"> · closes {{COHORT_CLOSES_SHORT}}</span></span>
