@@ -1448,7 +1448,7 @@ html.motion .hx-aura i:nth-child(3) {
   font-weight: 500;
   line-height: 1.42;
   letter-spacing: -0.012em;
-  text-wrap: balance;
+  text-wrap: pretty;
   box-shadow: 0 12px 26px -14px rgba(0, 113, 227, 0.95);
 }
 
