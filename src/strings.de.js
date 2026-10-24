@@ -24,7 +24,7 @@ export const TWITTER_DESC_DE =
 // The discount as German typesetting writes it ("30 %", non-breaking).
 const PCT = `${DISCOUNT_PERCENT}&nbsp;%`;
 export const OG_ALT_DE =
-  'Ocur — „Deine KI redet nicht. Sie erledigt.“ Ein Ocur-Fenster im Live-Anruf: In der Lieferung fehlen 40 Stück, klär das — Vertrag geprüft, Lieferant angerufen, €312 zurückgeholt.';
+  'Ocur — „Weniger Routine. Mehr Unternehmen.“ Ein Ocur-Fenster: In der Freitagslieferung fehlen 40 Stück, klär das mit dem Lieferanten — Lieferant angerufen, €312 zurückgeholt, Nachlieferung im Kalender.';
 
 // The founder's booking page — the same href every data-book link in
 // index.html carries. Only the FAQ answer needs it here (its link is inline
@@ -73,13 +73,8 @@ export const DE = [
   ],
   ['.g-ctas a', ['Fürs Pilotprogramm bewerben', 'Demo ansehen']],
   ['.g-desktop-download a', 'Ocur Desktop herunterladen <span aria-hidden="true">↗</span>'],
-  [
-    '.g-micro',
-    [
-      `Bewerbung in zwei Minuten&nbsp;&nbsp;·&nbsp;&nbsp;Antwort ${ANSWER.de}<span class="g-deadline">&nbsp;&nbsp;·&nbsp;&nbsp;Bewerbungsschluss ${CLOSES.de}</span>`,
-      `${SEATS} Plätze&nbsp;&nbsp;·&nbsp;&nbsp;Antwort ${ANSWER.de}<span class="g-deadline">&nbsp;&nbsp;·&nbsp;&nbsp;Bewerbungsschluss ${CLOSES.de}</span>`,
-    ],
-  ],
+  // the closing card's small print (the page's only .g-micro)
+  ['.g-micro', `${SEATS} Plätze&nbsp;&nbsp;·&nbsp;&nbsp;Antwort ${ANSWER.de}<span class="g-deadline">&nbsp;&nbsp;·&nbsp;&nbsp;Bewerbungsschluss ${CLOSES.de}</span>`],
   [
     '.g-solo',
     'Nur für dich? <a href="https://app.ocur.ai/?auth=sign-up">Kostenlos starten</a> — ohne Bewerbung, ohne Kreditkarte.',
@@ -88,7 +83,7 @@ export const DE = [
   ['.g-stat span', ['Plätze im Pilotprogramm', `Rabatt in den ersten ${DISCOUNT_MONTHS} Monaten`, 'Einrichtung mit dem Gründer']],
 
   // connector strip
-  ['.g-logos-label', 'Arbeitet in den Tools, die dein Team längst nutzt'],
+  ['.g-logos-label', 'Arbeitet in den Tools, die dein Team längst nutzt.'],
   [
     '.g-logos-sub',
     '…und allem, was eine API hat. Keine API? Dann steuert Ocur die App direkt auf deinem Rechner — wie ein Mensch.',
@@ -98,7 +93,7 @@ export const DE = [
   ['#demo .g-h2', 'Gesagt. <span class="g-grad">Getan.</span>'],
   ['.g-win-pill', '<i class="g-kdot"></i> Autopilot an'],
   ['.g-type', 'In der Freitagslieferung fehlen 40 Stück — klär das mit dem Lieferanten.'],
-  ['.g-fan', '<i class="g-kdot" aria-hidden="true"></i>Mach ich — erst die Fakten, dann der Anruf.'],
+  ['.g-fan', '<span class="g-fan-mark" aria-hidden="true"><img src="/logo.svg" alt="" /></span>Mach ich — erst die Fakten, dann der Anruf.'],
   ['.g-act-tag', ['Lager', 'Drive', 'Telefon', 'Anruf']],
   [
     '.g-act-txt',
@@ -122,6 +117,7 @@ export const DE = [
   ['.g-approve p', 'Meier bietet €312 Gutschrift + Nachlieferung am Donnerstag — <strong>Deal annehmen?</strong>'],
   ['.g-approve-btns span', ['Annehmen', 'Nachverhandeln']],
   ['.g-sent', '✓ Am Telefon zugesagt — schriftliche Bestätigung ist raus'],
+  ['.g-win-compose > span', 'Sag Ocur, was zu tun ist …'],
   ['.g-report-kicker', 'Während du im Meeting warst'],
   ['.g-report-big', '<strong class="g-grad" data-cc="312" data-cc-prefix="€">€312</strong><span> zurückgeholt</span>'],
   [

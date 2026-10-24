@@ -1,6 +1,7 @@
 // Ocur — entry for the legal pages (/privacy, /terms, /de/privacy,
 // /de/terms). Deliberately light: the same theme + language chrome as the
-// marketing page, but none of the scroll choreography (no GSAP, no Lenis).
+// marketing page (nav state and scroll edge from chrome.js), but none of
+// the scroll choreography (no GSAP).
 // The policy has to render fast, read fine with JS off, and stay reachable
 // for Google's OAuth reviewers — so nothing here is load-bearing for the
 // content.
@@ -8,13 +9,14 @@
 import './style.css';
 import './legal.css';
 import './discovery.css';
-import './cinematic.css';
 import { initLangToggle } from './i18n.js';
 import { initThemeToggle } from './theme.js';
+import { initChrome } from './chrome.js';
 import { initAnalytics } from './analytics.js';
 
 initAnalytics();
 initThemeToggle();
+initChrome();
 
 // The EN | DE switch points at *this* page's translation, not the home
 // page — the hreflang alternates in <head> already carry both URLs, so the

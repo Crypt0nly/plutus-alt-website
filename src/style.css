@@ -1,64 +1,217 @@
-/* Ocur — "Obsidian Glass": Apple-keynote energy. Near-black
-   graphite canvas, fox-orange gradient glow meshes, true liquid-glass
-   surfaces, tight-tracked type. Initial hidden states gate behind
-   html.motion so the page reads fine without JS or with reduced motion. */
+/* Ocur — the public site in the Ocur app language.
+   Neutral reading surfaces (white cards on a pale cool canvas, charcoal on
+   black), restrained blue actions, floating glass controls and calm, large
+   type. Tokens and recipes follow plutus-cloud's approved app design
+   (skills/ocur-design-language: agent.md + references/reading-tokens.css).
+   The particle introduction keeps its own film stage (intro.css); the page
+   rises over it as one rounded sheet. Initial hidden states for motion are
+   set by GSAP (main.js), never by CSS, so the page always reads without JS. */
+
+/* ------------------------------------------------------------- tokens */
 
 :root {
-  color-scheme: dark;
-  --g-bg: #060608;
-  --g-ink: #f5f5f7;
-  --g-dim: #9d9da6;
-  --g-hair: rgba(255, 255, 255, 0.09);
-  --g-orange: #f2942e;
-  --g-peach: #ffc680;
-  --g-ember: #ff7849;
-  /* liquid-glass surface tokens — retinted wholesale in the light block */
-  --g-glass: linear-gradient(155deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035) 42%, rgba(255, 255, 255, 0.07));
-  --g-glass-bd: rgba(255, 255, 255, 0.14);
-  --g-edge: rgba(255, 255, 255, 0.22);
-  --g-glare: rgba(255, 255, 255, 0.14);
-  --g-fill: rgba(255, 255, 255, 0.07);
-  --g-fill-2: rgba(255, 255, 255, 0.16);
-  --g-orb: rgba(22, 22, 30, 0.85);
-  --g-shadow: rgba(0, 0, 0, 0.5);
-  --g-shine: rgba(255, 255, 255, 0.28);
-  --g-on-ink: #0a0a0c;
-  --g-grain-o: 0.04;
-  --g-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --g-mono: 'JetBrains Mono', ui-monospace, monospace;
-  --g-pad: clamp(20px, 5vw, 64px);
-}
-
-/* light mode — frosted white glass on a soft cool canvas; the fox-orange
-   glow meshes carry the warmth. Retint by editing this block only. */
-html[data-theme='light'] {
   color-scheme: light;
-  --g-bg: #eaecf1;
-  --g-ink: #18181d;
-  --g-dim: #5b5b66;
-  --g-hair: rgba(18, 18, 28, 0.12);
-  --g-glass: linear-gradient(155deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.58) 42%, rgba(255, 255, 255, 0.72));
-  --g-glass-bd: rgba(18, 18, 28, 0.1);
-  --g-edge: rgba(255, 255, 255, 0.9);
-  --g-glare: rgba(255, 255, 255, 0.55);
-  --g-fill: rgba(18, 18, 28, 0.05);
-  --g-fill-2: rgba(18, 18, 28, 0.2);
-  --g-orb: rgba(255, 255, 255, 0.86);
-  --g-shadow: rgba(38, 34, 28, 0.16);
-  --g-shine: rgba(255, 255, 255, 0.75);
-  --g-on-ink: #f7f7f9;
-  --g-grain-o: 0.02;
-  /* darker warm accents for contrast on the light canvas — the blurred
-     glow meshes keep the vivid fox-orange (they use literal rgba) */
-  --g-peach: #b45309;
-  --g-orange: #c2620e;
-  --g-ember: #b3400c;
+  --cp-canvas: #f2f2f7;
+  --cp-card: #ffffff;
+  --cp-card-pressed: #ebebf0;
+  --cp-card-line: rgba(60, 60, 67, 0.1);
+  --cp-label: #1c1c1e;
+  --cp-secondary: #6c6c70;
+  --cp-tertiary: #aeaeb2;
+  --cp-separator: rgba(60, 60, 67, 0.16);
+  --cp-fill: rgba(120, 120, 128, 0.12);
+  --cp-fill-strong: rgba(120, 120, 128, 0.2);
+  --cp-hover: rgba(0, 0, 0, 0.035);
+  --cp-input: rgba(120, 120, 128, 0.1);
+  --cp-shadow: 0 1px 1px rgba(0, 0, 0, 0.025), 0 8px 24px -10px rgba(0, 0, 0, 0.1);
+  --cp-shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.05), 0 20px 44px -14px rgba(0, 0, 0, 0.2);
+  --cp-shadow-window: 0 2px 4px rgba(0, 0, 0, 0.04), 0 40px 90px -32px rgba(18, 24, 40, 0.36);
+
+  /* System colours. Fills use the colour itself; small text a step deeper
+     so it stays legible on white. */
+  --cp-accent: #0088ff;
+  --cp-accent-hover: #1a94ff;
+  --cp-accent-text: #0067ce;
+  --cp-action-fill: #0071e3;
+  --cp-action-hover: #0062c9;
+  --cp-accent-tint: rgba(0, 136, 255, 0.1);
+  --cp-red: #ff383c;
+  --cp-red-text: #e9152d;
+  --cp-red-tint: rgba(255, 56, 60, 0.1);
+  --cp-orange: #ff8d28;
+  --cp-orange-text: #c55300;
+  --cp-orange-tint: rgba(255, 141, 40, 0.14);
+  --cp-green: #34c759;
+  --cp-green-text: #248a3d;
+  --cp-green-tint: rgba(52, 199, 89, 0.14);
+  /* category cues — kept small: a symbol plate, never a surface */
+  --cp-indigo-text: #4846c0;
+  --cp-indigo-tint: rgba(88, 86, 214, 0.12);
+  --cp-teal-text: #0a7d91;
+  --cp-teal-tint: rgba(48, 176, 199, 0.15);
+  --cp-purple-text: #8d34bd;
+  --cp-purple-tint: rgba(175, 82, 222, 0.12);
+  --cp-pink-text: #d3123e;
+  --cp-pink-tint: rgba(255, 45, 85, 0.1);
+  --cp-focus: rgba(0, 136, 255, 0.5);
+
+  /* Liquid glass: navigation, the dock, segmented controls. */
+  --cp-glass-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.6) 52%, rgba(243, 246, 252, 0.8) 100%);
+  --cp-glass-blur: blur(22px) saturate(185%);
+  --cp-glass-line: rgba(28, 36, 56, 0.1);
+  --cp-glass-edge: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.16) 42%, rgba(255, 255, 255, 0.04) 64%, rgba(255, 255, 255, 0.75));
+  --cp-glass-shadow: 0 8px 22px -10px rgba(22, 32, 60, 0.3), 0 2px 6px -3px rgba(22, 32, 60, 0.18);
+  --cp-glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  --cp-glass-ink: rgba(0, 0, 0, 0.84);
+  --cp-glass-hover: rgba(0, 0, 0, 0.06);
+  --cp-lens: rgba(0, 0, 0, 0.07);
+  --cp-seg: #ffffff;
+  --cp-seg-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 3px 10px -2px rgba(0, 0, 0, 0.14);
+
+  /* The same glass, frostier, for larger surfaces that carry text. */
+  --cp-frost: rgba(246, 246, 250, 0.86);
+  --cp-frost-blur: blur(40px) saturate(180%);
+  --cp-frost-group: rgba(255, 255, 255, 0.82);
+  --cp-sheet-shadow: 0 30px 80px -24px rgba(0, 0, 0, 0.34), 0 0 0 0.5px rgba(0, 0, 0, 0.07);
+
+  --cp-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --cp-spring: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* The film's stage: the introduction, the welcome and the closing card. */
+  --stage: #080a0e;
+  --stage-ink: #f5f5f7;
+  --stage-dim: rgba(235, 235, 245, 0.62);
+  --stage-faint: rgba(235, 235, 245, 0.42);
+
+  --g-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Helvetica Neue', 'Segoe UI', Roboto, sans-serif;
+  --g-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Helvetica Neue', 'Segoe UI', Roboto, sans-serif;
+  --g-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+  --g-gutter: clamp(16px, 4vw, 32px);
+  --g-max: 78rem;
+  --g-pad: var(--g-gutter);
+  --g-section: clamp(96px, 11vw, 168px);
 }
 
-/* light-mode tweaks that aren't single tokens */
-html[data-theme='light'] .g-glow {
-  opacity: 0.72;
+html[data-theme='dark'],
+.o-dark,
+html.on-stage .g-nav,
+html.on-stage .g-menu {
+  color-scheme: dark;
+  --cp-canvas: #000000;
+  --cp-card: #1c1c1e;
+  --cp-card-pressed: #2c2c2e;
+  --cp-card-line: rgba(255, 255, 255, 0.07);
+  --cp-label: #f5f5f7;
+  --cp-secondary: #98989f;
+  --cp-tertiary: #636366;
+  --cp-separator: rgba(84, 84, 88, 0.55);
+  --cp-fill: rgba(120, 120, 128, 0.24);
+  --cp-fill-strong: rgba(120, 120, 128, 0.34);
+  --cp-hover: rgba(255, 255, 255, 0.045);
+  --cp-input: rgba(120, 120, 128, 0.24);
+  --cp-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.07);
+  --cp-shadow-lift: 0 0 0 0.5px rgba(255, 255, 255, 0.12), 0 20px 44px -14px rgba(0, 0, 0, 0.75);
+  --cp-shadow-window: 0 0 0 0.5px rgba(255, 255, 255, 0.1), 0 44px 100px -30px rgba(0, 0, 0, 0.9);
+  --cp-accent: #0091ff;
+  --cp-accent-hover: #1f9dff;
+  --cp-accent-text: #3ba6ff;
+  --cp-action-fill: #0071e3;
+  --cp-action-hover: #0062c9;
+  --cp-accent-tint: rgba(0, 145, 255, 0.18);
+  --cp-red: #ff4245;
+  --cp-red-text: #ff6165;
+  --cp-red-tint: rgba(255, 66, 69, 0.16);
+  --cp-orange: #ff9230;
+  --cp-orange-text: #ffa056;
+  --cp-orange-tint: rgba(255, 146, 48, 0.16);
+  --cp-green: #30d158;
+  --cp-green-text: #65cf7d;
+  --cp-green-tint: rgba(48, 209, 88, 0.16);
+  --cp-indigo-text: #9a98ff;
+  --cp-indigo-tint: rgba(94, 92, 230, 0.22);
+  --cp-teal-text: #5fd4e8;
+  --cp-teal-tint: rgba(64, 200, 224, 0.16);
+  --cp-purple-text: #d08bf7;
+  --cp-purple-tint: rgba(191, 90, 242, 0.18);
+  --cp-pink-text: #ff6b88;
+  --cp-pink-tint: rgba(255, 55, 95, 0.16);
+  --cp-focus: rgba(0, 145, 255, 0.6);
+  --cp-glass-bg: linear-gradient(145deg, rgba(74, 78, 94, 0.68) 0%, rgba(40, 42, 54, 0.58) 55%, rgba(54, 57, 70, 0.72) 100%);
+  --cp-glass-line: rgba(255, 255, 255, 0.12);
+  --cp-glass-edge: linear-gradient(135deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.06) 42%, rgba(255, 255, 255, 0.02) 64%, rgba(255, 255, 255, 0.28));
+  --cp-glass-shadow: 0 10px 26px -10px rgba(0, 0, 0, 0.7), 0 2px 6px -3px rgba(0, 0, 0, 0.5);
+  --cp-glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --cp-glass-ink: rgba(255, 255, 255, 0.92);
+  --cp-glass-hover: rgba(255, 255, 255, 0.1);
+  --cp-lens: rgba(255, 255, 255, 0.14);
+  --cp-seg: #636366;
+  --cp-seg-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  --cp-frost: rgba(34, 34, 38, 0.84);
+  --cp-frost-group: rgba(255, 255, 255, 0.07);
+  --cp-sheet-shadow: 0 30px 80px -24px rgba(0, 0, 0, 0.85), 0 0 0 0.5px rgba(255, 255, 255, 0.1);
 }
+
+/* Without JavaScript the head script cannot pick a theme: follow the OS. */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) {
+    color-scheme: dark;
+    --cp-canvas: #000000;
+    --cp-card: #1c1c1e;
+    --cp-card-pressed: #2c2c2e;
+    --cp-card-line: rgba(255, 255, 255, 0.07);
+    --cp-label: #f5f5f7;
+    --cp-secondary: #98989f;
+    --cp-tertiary: #636366;
+    --cp-separator: rgba(84, 84, 88, 0.55);
+    --cp-fill: rgba(120, 120, 128, 0.24);
+    --cp-fill-strong: rgba(120, 120, 128, 0.34);
+    --cp-input: rgba(120, 120, 128, 0.24);
+    --cp-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.07);
+    --cp-shadow-lift: 0 0 0 0.5px rgba(255, 255, 255, 0.12), 0 20px 44px -14px rgba(0, 0, 0, 0.75);
+    --cp-accent-text: #3ba6ff;
+    --cp-accent-tint: rgba(0, 145, 255, 0.18);
+    --cp-green-text: #65cf7d;
+    --cp-orange-text: #ffa056;
+    --cp-red-text: #ff6165;
+    --cp-glass-bg: linear-gradient(145deg, rgba(74, 78, 94, 0.68) 0%, rgba(40, 42, 54, 0.58) 55%, rgba(54, 57, 70, 0.72) 100%);
+    --cp-glass-line: rgba(255, 255, 255, 0.12);
+    --cp-glass-ink: rgba(255, 255, 255, 0.92);
+    --cp-frost: rgba(34, 34, 38, 0.84);
+    --cp-frost-group: rgba(255, 255, 255, 0.07);
+  }
+}
+
+/* The names the reading pages and the game were written against. Declared
+   wherever the palette changes, so a dark island recomputes them too. */
+:root,
+.o-dark,
+html.on-stage .g-nav,
+html.on-stage .g-menu {
+  --g-bg: var(--cp-canvas);
+  --g-ink: var(--cp-label);
+  --g-dim: var(--cp-secondary);
+  --g-hair: var(--cp-separator);
+  --g-orange: var(--cp-accent-text);
+  --g-peach: var(--cp-accent-text);
+  --g-ember: var(--cp-action-fill);
+  --g-glass: var(--cp-card);
+  --g-glass-bd: var(--cp-card-line);
+  --g-edge: transparent;
+  --g-glare: transparent;
+  --g-fill: var(--cp-fill);
+  --g-fill-2: var(--cp-fill-strong);
+  --g-orb: var(--cp-card);
+  --g-shadow: rgba(0, 0, 0, 0.12);
+  --g-shine: rgba(255, 255, 255, 0.55);
+  /* text on an ink-coloured fill: the inverse of --g-ink in either theme */
+  --g-on-ink: var(--cp-card);
+}
+
+.o-dark {
+  color: var(--cp-label);
+}
+
+/* --------------------------------------------------------------- base */
 
 * {
   margin: 0;
@@ -68,21 +221,26 @@ html[data-theme='light'] .g-glow {
 
 html {
   scroll-behavior: auto;
-  scroll-padding-top: 88px;
+  scroll-padding-top: 96px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body.g {
   font-family: var(--g-sans);
-  font-size: 17px;
-  line-height: 1.6;
-  background: var(--g-bg);
-  color: var(--g-ink);
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: -0.011em;
+  background: var(--cp-canvas);
+  color: var(--cp-label);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
 
 body.g ::selection {
-  background: rgba(242, 148, 46, 0.45);
+  background: rgba(0, 136, 255, 0.26);
 }
 
 a {
@@ -90,312 +248,525 @@ a {
   text-decoration: none;
 }
 
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--cp-focus);
+  outline-offset: 2px;
+}
+
 .g-wrap {
   width: 100%;
-  max-width: 1160px;
+  max-width: var(--g-max);
   margin: 0 auto;
-  padding: 0 var(--g-pad);
+  padding: 0 var(--g-gutter);
 }
 
-/* gradient accent text */
-.g-grad {
-  background: linear-gradient(95deg, var(--g-peach), var(--g-orange) 45%, var(--g-ember));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.g-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 
-/* ------------------------------------------------- liquid glass system */
+.g-i {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
+/* The film grain belonged to the old dark look. */
+.g-grain {
+  display: none;
+}
+
+/* Every line that names the founding cohort's deadline. Past the date the
+   <head> script sets html.cohort-closed and they go — each one is written so
+   its sentence still reads without it. */
+html.cohort-closed .g-deadline {
+  display: none;
+}
+
+/* ------------------------------------------------------------ surfaces */
+
+/* .lg is the content material: an opaque card with a hairline. Glass is
+   reserved for floating controls (nav, menu, dock, segmented controls). */
 .lg {
   position: relative;
-  isolation: isolate;
-  background: var(--g-glass);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid var(--g-glass-bd);
-  box-shadow:
-    inset 0 1px 0 var(--g-edge),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
-    0 18px 50px var(--g-shadow);
+  background: var(--cp-card);
+  border: 1px solid var(--cp-card-line);
   border-radius: 26px;
+  box-shadow: var(--cp-shadow);
 }
 
-/* pointer-tracked specular highlight */
+/* The pointer glare of the old glass look is retired; the class stays
+   harmless where pages still carry it. */
 .glare::after {
+  content: none;
+}
+
+/* Category plates: a tinted rounded square around one symbol. */
+[data-tint] {
+  --tint-bg: var(--cp-accent-tint);
+  --tint-fg: var(--cp-accent-text);
+}
+[data-tint='green'] {
+  --tint-bg: var(--cp-green-tint);
+  --tint-fg: var(--cp-green-text);
+}
+[data-tint='orange'] {
+  --tint-bg: var(--cp-orange-tint);
+  --tint-fg: var(--cp-orange-text);
+}
+[data-tint='indigo'] {
+  --tint-bg: var(--cp-indigo-tint);
+  --tint-fg: var(--cp-indigo-text);
+}
+[data-tint='teal'] {
+  --tint-bg: var(--cp-teal-tint);
+  --tint-fg: var(--cp-teal-text);
+}
+[data-tint='purple'] {
+  --tint-bg: var(--cp-purple-tint);
+  --tint-fg: var(--cp-purple-text);
+}
+[data-tint='pink'] {
+  --tint-bg: var(--cp-pink-tint);
+  --tint-fg: var(--cp-pink-text);
+}
+
+.g-ico {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 13px;
+  background: var(--tint-bg, var(--cp-accent-tint));
+  color: var(--tint-fg, var(--cp-accent-text));
+}
+
+.g-ico .g-i {
+  width: 22px;
+  height: 22px;
+}
+
+/* A small live dot; blue by default, its context recolours it. */
+.g-kdot {
+  position: relative;
+  flex: none;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cp-accent);
+}
+
+html.motion .g-kdot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: g-ping 2.4s var(--cp-ease) infinite;
+}
+
+@keyframes g-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------- buttons */
+
+.g-btn {
+  --g-btn-h: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--g-btn-h);
+  padding: 10px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--cp-action-fill);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 8px 18px -10px rgba(0, 136, 255, 0.8);
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    box-shadow 200ms ease,
+    transform 220ms var(--cp-spring);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.g-btn:hover {
+  background: var(--cp-action-hover);
+}
+
+.g-btn:active {
+  transform: scale(0.96);
+}
+
+/* The quiet second door: a gray capsule with blue text. */
+.g-btn-glass {
+  background: var(--cp-fill);
+  color: var(--cp-accent-text);
+  box-shadow: none;
+}
+
+.g-btn-glass:hover {
+  background: var(--cp-fill-strong);
+}
+
+.g-btn-sm {
+  --g-btn-h: 34px;
+  padding: 6px 15px;
+  font-size: 0.875rem;
+}
+
+.g-btn-lg {
+  --g-btn-h: 54px;
+  padding: 14px 30px;
+  font-size: 1.0625rem;
+}
+
+/* --------------------------------------------- floating navigation */
+
+/* One capsule of liquid glass. The material sits on ::before (fill, frost,
+   lift) and ::after (the bright edge), so the controls stay crisp. */
+.g-nav {
+  position: fixed;
+  top: 12px;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: max-content;
+  max-width: calc(100% - 24px);
+  height: 52px;
+  margin: 0 auto;
+  padding: 6px 6px 6px 16px;
+  border-radius: 999px;
+  isolation: isolate;
+  white-space: nowrap;
+  color: var(--cp-glass-ink);
+  transition: transform 500ms var(--cp-spring);
+}
+
+.g-nav::before,
+.g-menu::before,
+.g-dock::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  background: radial-gradient(320px circle at var(--gx, 50%) var(--gy, -40%), var(--g-glare), transparent 62%);
-  opacity: 0.6;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
+  border: 1px solid var(--cp-glass-line);
+  background: var(--cp-glass-bg);
+  -webkit-backdrop-filter: var(--cp-glass-blur);
+  backdrop-filter: var(--cp-glass-blur);
+  box-shadow: var(--cp-glass-shadow), var(--cp-glass-inset);
+  transition: box-shadow 260ms ease;
 }
 
-.glare:hover::after {
-  opacity: 1;
-}
-
-/* ambient glow meshes the glass refracts */
-.g-glow {
+.g-nav::after,
+.g-dock::after {
+  content: '';
   position: absolute;
-  border-radius: 50%;
-  filter: blur(70px);
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--cp-glass-edge);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0.8;
   pointer-events: none;
-  will-change: transform;
 }
 
-.g-glow-hero {
-  top: -14vh;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(1100px, 110vw);
-  aspect-ratio: 1.6;
-  background:
-    radial-gradient(closest-side at 38% 42%, rgba(242, 148, 46, 0.4), transparent 70%),
-    radial-gradient(closest-side at 64% 52%, rgba(255, 120, 73, 0.26), transparent 72%),
-    radial-gradient(closest-side at 52% 30%, rgba(255, 198, 128, 0.2), transparent 70%);
-}
-
-.g-glow-demo {
-  top: 8%;
-  right: -18vw;
-  width: 52vw;
-  aspect-ratio: 1;
-  background: radial-gradient(closest-side, rgba(242, 148, 46, 0.26), transparent 72%);
-}
-
-.g-glow-os {
-  top: 10%;
-  right: -14vw;
-  width: 48vw;
-  aspect-ratio: 1;
-  background: radial-gradient(closest-side, rgba(255, 198, 128, 0.16), transparent 72%);
-}
-
-.g-glow-bento {
-  top: 16%;
-  left: -16vw;
-  width: 46vw;
-  aspect-ratio: 1;
-  background: radial-gradient(closest-side, rgba(255, 120, 73, 0.18), transparent 72%);
-}
-
-.g-glow-price {
-  top: 22%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(880px, 90vw);
-  aspect-ratio: 1.4;
-  background: radial-gradient(closest-side, rgba(242, 148, 46, 0.22), transparent 70%);
-}
-
-.g-glow-final {
-  bottom: -30%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(1000px, 110vw);
-  aspect-ratio: 1.5;
-  background: radial-gradient(closest-side, rgba(242, 148, 46, 0.3), transparent 70%);
-}
-
-/* film grain — kept faint on dark */
-.g-grain {
-  position: fixed;
-  inset: -50%;
-  z-index: 999;
-  pointer-events: none;
-  opacity: var(--g-grain-o);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* custom cursor */
-.g-cursor {
-  display: none;
-}
-
-html.motion .g-cursor {
-  display: block;
-}
-
-@media (pointer: coarse) {
-  html.motion .g-cursor {
-    display: none;
-  }
-}
-
-.g-cursor-dot,
-.g-cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1001;
-  pointer-events: none;
-  border-radius: 50%;
-  translate: -50% -50%;
-}
-
-.g-cursor-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--g-orange);
-}
-
-.g-cursor-ring {
-  width: 34px;
-  height: 34px;
-  border: 1.5px solid rgba(242, 148, 46, 0.5);
-  transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease;
-}
-
-.g-cursor.is-link .g-cursor-ring {
-  width: 54px;
-  height: 54px;
-  border-color: var(--g-orange);
-}
-
-/* ----------------------------------------------- floating glass nav */
-
-.g-nav {
-  position: fixed;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  gap: clamp(14px, 2.4vw, 28px);
-  padding: 9px 10px 9px 20px;
-  border-radius: 999px;
-  white-space: nowrap;
-  transition: box-shadow 0.3s ease;
-}
-
-.g-nav.is-stuck {
-  box-shadow:
-    inset 0 1px 0 var(--g-edge),
-    0 22px 60px var(--g-shadow),
-    0 0 50px rgba(242, 148, 46, 0.1);
+html.is-scrolled .g-nav::before {
+  box-shadow: 0 14px 32px -14px rgba(22, 32, 60, 0.34), 0 2px 6px -3px rgba(22, 32, 60, 0.2), var(--cp-glass-inset);
 }
 
 .g-brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
+  margin-right: 10px;
+  font-family: var(--g-display);
+  font-size: 1.0625rem;
   font-weight: 700;
-  font-size: 18px;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  color: var(--cp-label);
 }
 
 .g-brand img {
-  width: 25px;
+  width: 24px;
   height: auto;
 }
 
 .g-links {
+  position: relative;
   display: flex;
-  gap: clamp(12px, 1.8vw, 22px);
+  align-items: center;
+  height: 40px;
+  padding: 3px;
 }
 
 .g-links a {
-  font-size: 13.5px;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.875rem;
   font-weight: 500;
-  color: var(--g-dim);
-  transition: color 0.2s ease;
+  color: var(--cp-glass-ink);
+  transition:
+    color 220ms ease,
+    background-color 160ms ease;
 }
 
 .g-links a:hover {
-  color: var(--g-ink);
+  background: var(--cp-glass-hover);
 }
 
-/* the way in for people who already have an account — a quiet link next
-   to the loud "Start free" */
+.g-links a[aria-current='true'] {
+  color: var(--cp-accent-text);
+}
+
+.g-links a[aria-current='true']:hover {
+  background: none;
+}
+
+/* on the reading pages the current page keeps the lens */
+.g-links a[aria-current='page'] {
+  background: var(--cp-lens);
+  color: var(--cp-accent-text);
+}
+
+/* The lens: lighter glass that slides to the section on screen. */
+.g-lens {
+  position: absolute;
+  z-index: 0;
+  top: 3px;
+  left: 0;
+  width: 0;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--cp-lens);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 480ms var(--cp-spring),
+    width 480ms var(--cp-spring),
+    opacity 240ms ease;
+}
+
+.g-links.has-lens .g-lens {
+  opacity: 1;
+}
+
+/* the way in for people who already have an account */
 .g-login {
-  font-size: 13.5px;
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.875rem;
   font-weight: 500;
-  color: var(--g-dim);
-  transition: color 0.2s ease;
+  color: var(--cp-glass-ink);
+  transition: background-color 160ms ease;
 }
 
 .g-login:hover {
-  color: var(--g-ink);
+  background: var(--cp-glass-hover);
 }
 
-/* -------------------------------------------------------- phone menu */
+/* EN | DE: a small segmented control */
+.g-lang {
+  display: flex;
+  padding: 2px;
+  border-radius: 999px;
+  background: var(--cp-fill);
+}
 
-/* the burger: two bars that become a cross; only exists below 880px */
-.g-burger {
-  display: none;
-  flex: 0 0 auto;
-  width: 36px;
-  height: 36px;
+.g-lang a {
+  display: grid;
   place-items: center;
-  border: 1px solid var(--g-hair);
+  min-width: 34px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--cp-secondary);
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+.g-lang a:hover {
+  color: var(--cp-label);
+}
+
+.g-lang a.on {
+  background: var(--cp-seg);
+  color: var(--cp-label);
+  box-shadow: var(--cp-seg-shadow);
+}
+
+.g-theme {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
   border-radius: 50%;
   background: none;
+  color: var(--cp-glass-ink);
   cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    transform 220ms var(--cp-spring);
+}
+
+.g-theme:hover {
+  background: var(--cp-glass-hover);
+}
+
+.g-theme:active {
+  transform: scale(0.9);
+}
+
+.g-theme svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.g-nav .g-btn-sm {
+  margin-left: 2px;
+}
+
+.g-nav .g-lang,
+.g-nav .g-theme {
+  margin-left: 2px;
+}
+
+/* the burger: two bars that become a cross; narrow windows only */
+.g-burger {
+  display: none;
   position: relative;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--cp-fill);
+  cursor: pointer;
 }
 
 .g-burger span {
   position: absolute;
-  left: 10px;
+  left: 12px;
   width: 16px;
   height: 2px;
   border-radius: 2px;
-  background: var(--g-ink);
-  transition: transform 0.25s ease, top 0.25s ease;
+  background: var(--cp-label);
+  transition:
+    transform 320ms var(--cp-spring),
+    top 320ms var(--cp-spring);
 }
 
 .g-burger span:first-child {
-  top: 13px;
+  top: 15px;
 }
 
 .g-burger span:last-child {
-  top: 21px;
+  top: 23px;
 }
 
 .g-burger[aria-expanded='true'] span:first-child {
-  top: 17px;
+  top: 19px;
   transform: rotate(45deg);
 }
 
 .g-burger[aria-expanded='true'] span:last-child {
-  top: 17px;
+  top: 19px;
   transform: rotate(-45deg);
 }
 
-/* the sheet under the nav: links, both doors, the language switch */
+/* The phone menu: a frosted sheet under the nav with a grouped list. */
 .g-menu {
   position: fixed;
-  top: 86px;
-  left: 16px;
-  right: 16px;
+  top: 74px;
+  left: 12px;
+  right: 12px;
   z-index: 99;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 18px 18px 20px;
-  border-radius: 26px;
-  animation: g-menu-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  gap: 12px;
+  max-height: calc(100svh - 90px);
+  overflow-y: auto;
+  padding: 10px;
+  border-radius: 30px;
+  isolation: isolate;
+  color: var(--cp-label);
+  animation: g-menu-in 420ms var(--cp-spring) both;
+}
+
+.g-menu::before {
+  background: var(--cp-frost);
+  -webkit-backdrop-filter: var(--cp-frost-blur);
+  backdrop-filter: var(--cp-frost-blur);
+  box-shadow: var(--cp-sheet-shadow);
 }
 
 .g-menu[hidden] {
   display: none;
 }
 
-@media (min-width: 1101px) {
-  .g-menu {
-    display: none;
-  }
-}
-
 @keyframes g-menu-in {
   from {
     opacity: 0;
-    transform: translateY(-10px) scale(0.985);
+    transform: translateY(-8px) scale(0.98);
   }
   to {
     opacity: 1;
@@ -406,30 +777,31 @@ html.motion .g-cursor {
 .g-menu-links {
   display: flex;
   flex-direction: column;
+  padding: 4px 0;
+  border-radius: 22px;
+  background: var(--cp-frost-group);
 }
 
 .g-menu-links a {
-  font-size: 17px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  padding: 12px 6px;
-  border-bottom: 1px solid var(--g-hair);
+  padding: 12px 18px;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
 }
 
-.g-menu-links a:last-child {
-  border-bottom: 0;
+.g-menu-links a + a {
+  background: linear-gradient(var(--cp-separator), var(--cp-separator)) no-repeat 18px 0 / calc(100% - 18px) 1px;
 }
 
 .g-menu-ctas {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 8px;
 }
 
 .g-menu-ctas .g-btn {
-  text-align: center;
-  padding: 13px 16px;
-  font-size: 15px;
+  --g-btn-h: 48px;
+  font-size: 0.9375rem;
 }
 
 .g-menu-ctas .g-menu-apply,
@@ -440,345 +812,421 @@ html.motion .g-cursor {
 .g-menu-foot {
   display: flex;
   justify-content: center;
+  padding-bottom: 4px;
 }
 
 html.menu-open {
   overflow: hidden;
 }
 
-/* ----------------------------------------- nav language + theme toggles */
-
-.g-lang {
-  display: flex;
-  gap: 2px;
-  padding: 3px;
-  border: 1px solid var(--g-hair);
-  border-radius: 999px;
+/* The scroll edge: content passing under the floating nav softens into the
+   canvas, keeping the controls legible without a dividing line. */
+body.g::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  height: 86px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--cp-canvas) 0%, var(--cp-canvas) 30%, color-mix(in srgb, var(--cp-canvas) 70%, transparent) 62%, transparent 100%);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  opacity: 0;
+  transition: opacity 240ms ease;
 }
 
-.g-lang a {
-  font-family: var(--g-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--g-dim);
-  border-radius: 999px;
-  padding: 4px 9px;
-  transition: color 0.2s ease, background 0.2s ease;
+html.is-scrolled:not(.on-stage) body.g::before {
+  opacity: 1;
 }
 
-.g-lang a:hover {
-  color: var(--g-ink);
-}
+/* -------------------------------------------------- section language */
 
-.g-lang a.on {
-  color: var(--g-on-ink);
-  background: var(--g-orange);
-}
-
-.g-theme {
-  flex: 0 0 auto;
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  font-size: 15px;
-  line-height: 1;
-  color: var(--g-dim);
-  background: none;
-  border: 1px solid var(--g-hair);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-
-.g-theme:hover {
-  color: var(--g-ink);
-  border-color: var(--g-orange);
-}
-
-/* ----------------------------------------------------------- buttons */
-
-.g-btn {
-  display: inline-block;
-  background: var(--g-ink);
-  color: var(--g-on-ink);
-  font-weight: 600;
-  font-size: 15.5px;
-  padding: 14px 30px;
-  border-radius: 999px;
-  transition: box-shadow 0.25s ease, background 0.25s ease;
-  will-change: transform;
-}
-
-.g-btn:hover {
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25), 0 14px 44px rgba(242, 148, 46, 0.35);
-}
-
-.g-btn-sm {
-  padding: 9px 20px;
-  font-size: 13.5px;
-}
-
-.g-btn-lg {
-  padding: 17px 38px;
-  font-size: 17px;
-}
-
-.g-btn-glass {
-  background: none;
-  color: var(--g-ink);
-  border-radius: 999px;
-}
-
-.g-btn-glass:hover {
-  box-shadow:
-    inset 0 1px 0 var(--g-edge),
-    0 14px 44px var(--g-shadow),
-    0 0 40px rgba(242, 148, 46, 0.18);
-}
-
-/* the nav's second door — "Start free" (solo, open to everyone) as a quiet
-   glass pill beside the application. Flat (no drop shadow) so it sits inside
-   the nav's own glass instead of floating above it; hidden on narrower
-   screens, where the nav pill has no room for two buttons. */
-.g-nav-free {
-  box-shadow: inset 0 1px 0 var(--g-edge);
-}
-
-/* --------------------------------------------------------------- hero */
-
-.g-hero {
-  position: relative;
-  min-height: 100svh;
+.oc-chapter {
   display: flex;
   align-items: center;
-  text-align: center;
-  padding: 170px 0 80px;
-  overflow: hidden;
-}
-
-.g-kicker {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 10px;
-  font-family: var(--g-mono);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--g-peach);
-  margin-bottom: 28px;
+  margin-bottom: 22px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: var(--cp-accent-text);
 }
 
-.g-kdot {
-  flex: 0 0 auto;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--g-orange);
-  box-shadow: 0 0 14px rgba(242, 148, 46, 0.8);
-  animation: g-beat 2.4s ease-in-out infinite;
-}
-
-@keyframes g-beat {
-  0%,
-  48%,
-  100% {
-    transform: scale(1);
-  }
-  12% {
-    transform: scale(1.5);
-  }
-  24% {
-    transform: scale(1);
-  }
-  36% {
-    transform: scale(1.3);
-  }
-}
-
-.g-h1 {
-  font-weight: 700;
-  font-size: clamp(46px, 7.6vw, 108px);
-  line-height: 1.02;
-  letter-spacing: -0.04em;
-}
-
-.g-sub {
-  max-width: 540px;
-  margin: 28px auto 0;
-  font-size: clamp(17px, 1.9vw, 20px);
-  color: var(--g-dim);
-}
-
-.g-ctas {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-top: 38px;
-}
-
-.g-micro {
-  margin-top: 18px;
-  font-size: 13.5px;
-  color: var(--g-dim);
-}
-
-.g-desktop-download {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 4px 14px;
-  margin-top: 16px;
-  font-size: 0.875rem;
-}
-
-.g-desktop-download a {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 36px;
-  color: var(--g-ink);
-  text-underline-offset: 4px;
-}
-
-.g-desktop-download a:hover { color: var(--g-orange); text-decoration: underline; }
-.g-desktop-platforms { color: var(--g-dim); }
-
-/* solo is open to everyone — the quiet way in beside the application */
-.g-solo {
-  margin-top: 12px;
-  font-size: 14px;
-  color: var(--g-dim);
-}
-
-.g-solo a {
-  color: var(--g-ink);
-  border-bottom: 1px solid var(--g-hair);
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-
-.g-solo a:hover {
-  color: var(--g-orange);
-  border-color: var(--g-orange);
-}
-
-/* Every line that names the founding cohort's deadline. Past the date the
-   <head> script sets html.cohort-closed and they go — each one is written so
-   its sentence still reads without it. */
-html.cohort-closed .g-deadline {
-  display: none;
-}
-
-.g-stats {
-  display: flex;
-  justify-content: center;
-  gap: clamp(30px, 6vw, 80px);
-  margin-top: 64px;
-  padding-top: 30px;
-  border-top: 1px solid var(--g-hair);
-}
-
-.g-stat strong {
-  display: block;
-  font-weight: 700;
-  font-size: clamp(26px, 3.4vw, 40px);
-  line-height: 1;
-  letter-spacing: -0.02em;
+.oc-chapter > span:first-child {
+  display: inline-grid;
+  place-items: center;
+  min-width: 30px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--cp-accent-tint);
+  font-size: 0.75rem;
+  font-weight: 650;
   font-variant-numeric: tabular-nums;
 }
 
-.g-stat span {
-  font-size: 13px;
-  color: var(--g-dim);
+.g-h2 {
+  font-family: var(--g-display);
+  font-size: clamp(2.25rem, 1.2rem + 3.8vw, 4.75rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.042em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  margin-bottom: clamp(20px, 2.4vw, 32px);
 }
 
-html.motion .g-kicker,
-html.motion .g-sub,
-html.motion .g-ctas,
-html.motion .g-micro,
-html.motion .g-solo,
-html.motion .g-desktop-download,
-html.motion .g-stats {
-  opacity: 0;
+.g-h2 .g-grad {
+  display: block;
 }
 
-/* ----------------------------------------------------- connector row */
+/* the second voice of a headline: quieter, never a gradient on the canvas */
+.g-grad {
+  color: var(--cp-secondary);
+}
+
+/* On the film's stage the second voice is brushed metal. */
+.oc-welcome em,
+.g-final-card .g-grad {
+  font-style: normal;
+  background: linear-gradient(180deg, #ffffff 8%, #8e8e96 108%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.g-lead,
+.g-start-sub,
+.g-price-lede,
+.g-cohort-sub,
+.g-logos-sub {
+  font-size: clamp(1.0625rem, 0.98rem + 0.36vw, 1.25rem);
+  line-height: 1.55;
+  letter-spacing: -0.014em;
+  color: var(--cp-secondary);
+  text-wrap: pretty;
+}
+
+.g-os,
+.g-features,
+.g-start,
+.g-pricing,
+.g-cohort,
+.g-faq-sec {
+  position: relative;
+  padding: var(--g-section) 0;
+}
+
+/* Masked headline lines (SplitText) never clip descenders. */
+.g-line-mask {
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+/* ------------------------------------------------ the welcome (stage) */
+
+.oc-welcome {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  padding: 120px 20px 104px;
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
+  background: var(--stage);
+  color: var(--stage-ink);
+  scroll-margin-top: 0;
+  --hero-p: 0;
+}
+
+/* The dust of the opening film, settled into a quiet field. */
+.oc-welcome::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -10% -5%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0.7px, transparent 1.2px) 50% 0 / 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 58% 52% at 50% 50%, transparent 30%, #000 64%, transparent 92%);
+  mask-image: radial-gradient(ellipse 58% 52% at 50% 50%, transparent 30%, #000 64%, transparent 92%);
+  opacity: 0.5;
+  transform: translateY(calc(var(--hero-p) * -90px));
+  pointer-events: none;
+}
+
+/* One orbit and a cool light behind the promise. */
+.oc-welcome::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  width: min(1180px, 130vw);
+  aspect-ratio: 1.85;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 113, 227, 0.16), rgba(0, 113, 227, 0.04) 55%, transparent 80%);
+  transform: translate(-50%, -50%) rotate(calc(-14deg + var(--hero-p) * 10deg)) scale(calc(1 + var(--hero-p) * 0.08));
+  pointer-events: none;
+}
+
+.oc-welcome-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1120px;
+  transform-origin: 50% 40%;
+}
+
+.oc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 30px;
+  padding: 7px 15px 7px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--stage-dim);
+}
+
+.oc-eyebrow::before {
+  content: '';
+  width: 19px;
+  height: 16px;
+  background: url('/logo.svg') center / contain no-repeat;
+}
+
+.oc-welcome h2 {
+  font-family: var(--g-display);
+  font-size: clamp(3rem, 1.1rem + 7.4vw, 7.75rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.052em;
+  color: var(--stage-ink);
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+.oc-description {
+  max-width: 35rem;
+  margin: 30px auto 0;
+  font-size: clamp(1.0625rem, 0.98rem + 0.45vw, 1.3125rem);
+  line-height: 1.5;
+  letter-spacing: -0.015em;
+  color: var(--stage-dim);
+  text-wrap: pretty;
+}
+
+.oc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.oc-primary,
+.oc-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 26px;
+  border-radius: 999px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  transition:
+    background-color 160ms ease,
+    transform 220ms var(--cp-spring);
+}
+
+.oc-primary {
+  background: var(--cp-action-fill);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 12px 30px -12px rgba(0, 136, 255, 0.9);
+}
+
+.oc-primary:hover {
+  background: var(--cp-action-hover);
+}
+
+.oc-secondary {
+  background: rgba(120, 120, 128, 0.24);
+  color: var(--stage-ink);
+}
+
+.oc-secondary:hover {
+  background: rgba(120, 120, 128, 0.34);
+}
+
+.oc-primary:active,
+.oc-secondary:active {
+  transform: scale(0.96);
+}
+
+.oc-primary span,
+.oc-secondary span {
+  font-size: 0.95em;
+  opacity: 0.85;
+}
+
+.oc-invitation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 18px;
+  margin-top: 26px;
+  font-size: 0.875rem;
+  color: var(--stage-faint);
+}
+
+.oc-invitation a {
+  font-weight: 600;
+  color: #3ba6ff;
+}
+
+.oc-invitation a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.oc-welcome :is(a, button):focus-visible {
+  outline-color: rgba(0, 145, 255, 0.7);
+}
+
+/* With motion, the welcome holds still while the page rises over it —
+   only where the whole of it fits, so nothing hides under the sheet. */
+@media (min-height: 700px) {
+  html.motion .oc-welcome {
+    position: sticky;
+    top: 0;
+  }
+}
+
+/* --------------------------------------------------------- the sheet */
+
+.o-sheet {
+  position: relative;
+  z-index: 2;
+  background: var(--cp-canvas);
+  border-radius: clamp(28px, 3.6vw, 48px) clamp(28px, 3.6vw, 48px) 0 0;
+  box-shadow: 0 -30px 70px -24px rgba(0, 0, 0, 0.7);
+}
+
+html[data-theme='dark'] .o-sheet {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 -30px 70px -24px rgba(0, 0, 0, 0.9);
+}
+
+/* --------------------------------------------------------- connectors */
 
 .g-logos {
-  padding: clamp(60px, 9vh, 110px) 0;
-  border-top: 1px solid var(--g-hair);
+  padding: clamp(80px, 10vw, 140px) 0 clamp(40px, 6vw, 80px);
+}
+
+.g-logos .g-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 80px);
 }
 
 .g-logos-label {
-  text-align: center;
-  font-family: var(--g-mono);
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--g-dim);
-  margin-bottom: 26px;
+  font-family: var(--g-display);
+  font-size: clamp(2.1rem, 1.2rem + 2.8vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
 }
 
-/* connector solar system — Ocur at the centre, logos in two
-   counter-rotating orbits, plus a free "+" slot for ones you build */
+.g-logos-sub {
+  max-width: 30rem;
+  margin-top: 22px;
+}
+
+/* Ocur at the centre, the tools in two counter-rotating orbits. The radii
+   follow the system's own size, so the planets stay inside at any width. */
 .g-system {
+  --sys: min(540px, calc(100vw - 2 * var(--g-gutter)));
+  --r2: calc(var(--sys) / 2 - 34px);
+  --r1: calc(var(--r2) * 0.58);
   position: relative;
-  width: min(560px, 92vw);
+  width: var(--sys);
   aspect-ratio: 1;
-  margin: 44px auto 0;
-  --r1: clamp(88px, 21vw, 128px);
-  --r2: clamp(110px, 36vw, 216px);
+  margin: 0 auto;
 }
 
+.g-system::before {
+  content: '';
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(242, 148, 46, 0.18), rgba(242, 148, 46, 0.05) 55%, transparent 75%);
+  pointer-events: none;
+}
+
+/* centred with margins, not transforms, so the entrance can scale them */
 .g-orbit {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px dashed rgba(242, 148, 46, 0.22);
+  width: calc(var(--ring) * 2);
+  height: calc(var(--ring) * 2);
+  margin: calc(var(--ring) * -1) 0 0 calc(var(--ring) * -1);
+  border: 1px solid var(--cp-separator);
   border-radius: 50%;
 }
 
 .g-orbit-inner {
-  width: calc(var(--r1) * 2);
-  height: calc(var(--r1) * 2);
+  --ring: var(--r1);
 }
 
 .g-orbit-outer {
-  width: calc(var(--r2) * 2);
-  height: calc(var(--r2) * 2);
+  --ring: var(--r2);
+  border-style: dashed;
 }
 
 .g-sun {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   z-index: 2;
-  width: 108px;
-  height: 108px;
-  border-radius: 50%;
   display: grid;
   place-items: center;
-  background: var(--g-glass), var(--g-orb);
-  border: 1px solid var(--g-glass-bd);
+  width: 112px;
+  height: 112px;
+  margin: -56px 0 0 -56px;
+  border-radius: 50%;
+  background: var(--cp-card);
+  border: 1px solid var(--cp-card-line);
   box-shadow:
-    inset 0 1px 0 var(--g-edge),
-    0 0 50px rgba(242, 148, 46, 0.4),
-    0 0 120px rgba(242, 148, 46, 0.2);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  backdrop-filter: blur(18px) saturate(160%);
+    0 0 0 10px color-mix(in srgb, var(--cp-card) 55%, transparent),
+    0 24px 50px -18px rgba(201, 108, 8, 0.45),
+    var(--cp-shadow);
 }
 
 .g-sun img {
-  width: 60px;
+  width: 58px;
   height: auto;
-  filter: drop-shadow(0 0 18px rgba(242, 148, 46, 0.55));
+}
+
+.g-planets {
+  position: absolute;
+  inset: 0;
 }
 
 @keyframes g-orbit-spin {
@@ -790,141 +1238,219 @@ html.motion .g-stats {
   }
 }
 
-/* orbiting glass discs — solid --g-orb base (no backdrop-filter while
-   moving) under the glass sheen, so 12 planets stay cheap to animate */
 .g-planet {
   position: absolute;
   top: 50%;
   left: 50%;
   z-index: 1;
+  display: grid;
+  place-items: center;
   width: 56px;
   height: 56px;
   margin: -28px;
   border-radius: 50%;
-  display: grid;
-  place-items: center;
-  color: var(--g-ink);
-  background: var(--g-glass), var(--g-orb);
-  border: 1px solid var(--g-glass-bd);
-  box-shadow:
-    inset 0 1px 0 var(--g-edge),
-    0 10px 28px var(--g-shadow);
+  background: var(--cp-card);
+  border: 1px solid var(--cp-card-line);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 26px -12px rgba(18, 24, 40, 0.3);
+  color: var(--cp-label);
   transform: rotate(var(--a)) translateX(var(--r)) rotate(calc(var(--a) * -1));
   animation: g-orbit-spin var(--t, 80s) linear infinite;
 }
 
 .g-planet svg {
-  width: 27px;
-  height: 27px;
+  width: 26px;
+  height: 26px;
 }
 
 .g-p-inner {
   --r: var(--r1);
-  --t: 54s;
+  --t: 56s;
 }
 
 .g-p-outer {
   --r: var(--r2);
-  --t: 90s;
+  --t: 92s;
   animation-direction: reverse;
 }
 
-.g-p-emoji {
-  font-size: 24px;
+.g-p-icon .g-i {
+  width: 24px;
+  height: 24px;
+  color: var(--cp-secondary);
 }
 
 /* the open slot — bring your own apps */
 .g-p-add {
-  border-style: dashed;
-  border-color: rgba(242, 148, 46, 0.5);
-  color: var(--g-orange);
-  font-size: 26px;
-  font-weight: 500;
-  background: rgba(242, 148, 46, 0.12);
+  border: 1.5px dashed color-mix(in srgb, var(--cp-accent) 55%, transparent);
+  background: var(--cp-accent-tint);
+  color: var(--cp-accent-text);
+  box-shadow: none;
 }
 
-.g-logos-sub {
-  text-align: center;
-  max-width: 560px;
-  margin: 26px auto 0;
-  font-size: 14px;
-  color: var(--g-dim);
+.g-p-add .g-i {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.2;
 }
 
-/* ------------------------------------------------- pinned product demo */
+/* ------------------------------------------- the pinned product demo */
 
 .g-demo {
   position: relative;
-  overflow: hidden;
 }
 
 .g-demo-stage {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
   align-items: center;
-  justify-content: center;
-  gap: clamp(26px, 4vh, 44px);
-  padding: 90px var(--g-pad) 40px;
-}
-
-.g-h2 {
-  font-weight: 700;
-  font-size: clamp(32px, 4.6vw, 60px);
-  line-height: 1.05;
-  letter-spacing: -0.035em;
-  text-align: center;
-  margin-bottom: clamp(34px, 6vh, 64px);
+  gap: clamp(32px, 5vw, 80px);
+  width: 100%;
+  max-width: var(--g-max);
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: 96px var(--g-gutter) 40px;
 }
 
 .g-demo .g-h2 {
+  font-size: clamp(2.25rem, 1.1rem + 2.9vw, 4rem);
   margin-bottom: 0;
 }
 
+/* the story beside the window: four steps on a rail that fills with progress */
+.g-caps {
+  --demo-rail: 0;
+  position: relative;
+  display: grid;
+  gap: 2px;
+  margin-top: clamp(28px, 4vh, 44px);
+  list-style: none;
+  counter-reset: g-cap;
+}
+
+.g-caps::before,
+.g-caps::after {
+  content: '';
+  position: absolute;
+  left: 15.5px;
+  top: 30px;
+  bottom: 30px;
+  width: 1px;
+  background: var(--cp-separator);
+}
+
+.g-caps::after {
+  background: var(--cp-accent);
+  transform-origin: top;
+  transform: scaleY(var(--demo-p, 0));
+}
+
+.g-cap {
+  counter-increment: g-cap;
+  position: relative;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+  padding: 12px 0;
+  font-size: 1.0625rem;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  color: var(--cp-secondary);
+  transition: color 400ms ease;
+}
+
+.g-cap::before {
+  content: counter(g-cap);
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--cp-canvas);
+  box-shadow: inset 0 0 0 1px var(--cp-separator);
+  font-size: 0.8125rem;
+  font-weight: 650;
+  color: var(--cp-secondary);
+  transition:
+    background-color 400ms ease,
+    color 400ms ease,
+    box-shadow 400ms ease,
+    transform 500ms var(--cp-spring);
+}
+
+.g-demo[data-scene='1'] .g-cap-1,
+.g-demo[data-scene='2'] .g-cap-2,
+.g-demo[data-scene='3'] .g-cap-3,
+.g-demo[data-scene='4'] .g-cap-4 {
+  color: var(--cp-label);
+}
+
+.g-demo[data-scene='1'] .g-cap-1::before,
+.g-demo[data-scene='2'] .g-cap-2::before,
+.g-demo[data-scene='3'] .g-cap-3::before,
+.g-demo[data-scene='4'] .g-cap-4::before {
+  background: var(--cp-action-fill);
+  box-shadow: 0 6px 16px -6px rgba(0, 136, 255, 0.8);
+  color: #fff;
+  transform: scale(1.08);
+}
+
+/* the window: an Ocur desk window, the way the app draws one */
 .g-win {
-  width: min(760px, 94vw);
-  border-radius: 28px;
+  position: relative;
+  width: 100%;
+  max-width: 780px;
+  justify-self: end;
   overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid var(--cp-card-line);
+  background: var(--cp-card);
+  box-shadow: var(--cp-shadow-window);
 }
 
 .g-win-bar {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--g-hair);
+  gap: 12px;
+  height: 52px;
+  padding: 0 14px 0 18px;
+  border-bottom: 1px solid var(--cp-separator);
 }
 
 .g-win-dots {
   display: flex;
-  gap: 6px;
+  gap: 8px;
 }
 
 .g-win-dots i {
-  width: 11px;
-  height: 11px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: var(--g-fill-2);
-}
-
-.g-win-dots i:first-child {
-  background: rgba(255, 95, 86, 0.8);
+  background: #ff5f57;
 }
 
 .g-win-dots i:nth-child(2) {
-  background: rgba(255, 189, 46, 0.8);
+  background: #febc2e;
 }
 
 .g-win-dots i:nth-child(3) {
-  background: rgba(39, 201, 63, 0.8);
+  background: #28c840;
 }
 
 .g-win-title {
+  position: absolute;
+  left: 50%;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 13.5px;
+  gap: 7px;
+  font-size: 0.875rem;
   font-weight: 600;
+  letter-spacing: -0.015em;
+  transform: translateX(-50%);
 }
 
 .g-win-title img {
@@ -933,36 +1459,81 @@ html.motion .g-stats {
 }
 
 .g-win-pill {
-  margin-left: auto;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-family: var(--g-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--g-peach);
-  border: 1px solid rgba(255, 198, 128, 0.3);
+  margin-left: auto;
+  padding: 5px 11px;
   border-radius: 999px;
-  padding: 5px 12px;
+  background: var(--cp-green-tint);
+  color: var(--cp-green-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.g-win-pill .g-kdot {
+  width: 7px;
+  height: 7px;
+  background: var(--cp-green);
 }
 
 .g-win-body {
   position: relative;
-  height: clamp(300px, 40vh, 380px);
-  padding: 26px;
+  height: clamp(340px, 46vh, 420px);
+  background: var(--cp-canvas);
+}
+
+.g-win-compose {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 64px;
+  padding: 0 14px 0 18px;
+  border-top: 1px solid var(--cp-separator);
+  background: var(--cp-card);
+}
+
+.g-win-compose > span {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: var(--cp-input);
+  font-size: 0.875rem;
+  color: var(--cp-secondary);
+}
+
+.g-win-compose > i {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--cp-action-fill);
+  color: #fff;
+}
+
+.g-win-compose .g-i {
+  width: 17px;
+  height: 17px;
+  stroke-width: 2.4;
 }
 
 .g-scene {
   position: absolute;
-  inset: 26px;
+  inset: 24px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   opacity: 0;
-  translate: 0 16px;
-  transition: opacity 0.45s ease, translate 0.45s ease;
+  translate: 0 18px;
+  transition:
+    opacity 450ms ease,
+    translate 650ms var(--cp-spring);
   pointer-events: none;
 }
 
@@ -974,43 +1545,31 @@ html.motion .g-stats {
   translate: 0 0;
 }
 
-.g-s2 {
-  gap: 9px;
-}
-
 .g-bubble {
-  max-width: 430px;
-  padding: 16px 20px;
-  border-radius: 20px;
-  font-size: 15.5px;
-  line-height: 1.5;
+  max-width: min(440px, 86%);
+  padding: 13px 17px;
+  border-radius: 22px;
+  font-size: 0.9375rem;
+  line-height: 1.45;
 }
 
 .g-bubble-you {
   align-self: flex-end;
-  background: linear-gradient(135deg, var(--g-orange), var(--g-ember));
-  color: #14100b;
-  font-weight: 600;
-  border-bottom-right-radius: 6px;
+  background: var(--cp-action-fill);
+  color: #fff;
+  font-weight: 500;
+  border-bottom-right-radius: 7px;
+  box-shadow: 0 10px 24px -14px rgba(0, 113, 227, 0.9);
 }
 
-.g-bubble-ocur {
-  align-self: flex-start;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background: var(--g-fill);
-  border: 1px solid var(--g-hair);
-  border-bottom-left-radius: 6px;
-}
-
-/* scene 1 — the typed ask. main.js types the chars in; the caret blinks. */
+/* scene 1 — the typed ask; main.js types the chars in, the caret blinks */
 .g-caret {
   display: inline-block;
   width: 2px;
   height: 1.05em;
   margin-left: 3px;
   vertical-align: -0.15em;
+  border-radius: 1px;
   background: currentColor;
 }
 
@@ -1024,27 +1583,72 @@ html.motion .g-caret {
   }
 }
 
-/* scene 2 — the fan-out: one activity card per surface, cascading in */
+.g-stamp {
+  font-size: 0.75rem;
+  color: var(--cp-secondary);
+  font-variant-numeric: tabular-nums;
+  align-self: center;
+}
+
+.g-s1 .g-stamp {
+  align-self: flex-end;
+  margin-right: 6px;
+}
+
+/* scene 2 — the work, as one grouped list */
+.g-s2 {
+  gap: 0;
+}
+
 .g-fan {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 0.9375rem;
   font-weight: 600;
-  font-size: 14.5px;
+  letter-spacing: -0.015em;
+}
+
+.g-fan-mark {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--cp-card);
+  box-shadow: var(--cp-shadow);
+}
+
+.g-fan-mark img {
+  width: 16px;
+  height: auto;
 }
 
 .g-act {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 9px 12px;
-  font-size: 13px;
-  background: var(--g-fill);
-  border: 1px solid var(--g-hair);
-  border-radius: 14px;
+  gap: 12px;
+  padding: 11px 14px;
+  background: var(--cp-card);
+  font-size: 0.875rem;
   opacity: 0;
   translate: 0 10px;
-  transition: opacity 0.4s ease var(--sd, 0s), translate 0.4s ease var(--sd, 0s);
+  transition:
+    opacity 400ms ease var(--sd, 0s),
+    translate 500ms var(--cp-spring) var(--sd, 0s);
+}
+
+.g-fan + .g-act {
+  border-radius: 18px 18px 0 0;
+}
+
+.g-act + .g-act {
+  box-shadow: inset 0 1px 0 var(--cp-separator);
+}
+
+.g-act-quote {
+  border-radius: 0 0 18px 18px;
 }
 
 .g-demo[data-scene='2'] .g-act {
@@ -1053,36 +1657,36 @@ html.motion .g-caret {
 }
 
 .g-act-tag {
-  flex: 0 0 auto;
-  font-family: var(--g-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--g-peach);
-  border: 1px solid rgba(255, 198, 128, 0.25);
-  border-radius: 999px;
+  flex: none;
+  min-width: 56px;
   padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--cp-fill);
+  color: var(--cp-secondary);
+  font-size: 0.6875rem;
+  font-weight: 650;
+  text-align: center;
 }
 
 .g-act-txt {
   flex: 1 1 auto;
   min-width: 0;
-  color: var(--g-dim);
-}
-
-.g-act-txt strong {
-  color: var(--g-ink);
+  color: var(--cp-label);
 }
 
 .g-act-ok {
-  flex: 0 0 auto;
-  font-family: var(--g-mono);
-  font-size: 11px;
-  color: var(--g-orange);
+  flex: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--cp-green-text);
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
-/* the live-call badge breathes while the call runs */
+.g-act-live {
+  color: var(--cp-red-text);
+}
+
 html.motion .g-act-live {
   animation: g-live 1.5s ease-in-out infinite;
 }
@@ -1097,37 +1701,91 @@ html.motion .g-act-live {
   }
 }
 
-/* the line quoted from the call — spoken words, set apart from the log */
 .g-act-quote .g-act-txt {
   font-style: italic;
-  color: var(--g-ink);
 }
 
-/* scene 3 — the Approve button "presses itself" (your tap), then the receipt */
+.g-act-quote .g-act-ok {
+  color: var(--cp-secondary);
+}
+
+.g-s2 .g-stamp {
+  align-self: flex-start;
+  margin: 12px 0 0 4px;
+}
+
+/* scene 3 — the decision waits for you */
+.g-approve {
+  align-self: stretch;
+  padding: 24px;
+  border-radius: 24px;
+  border: 1px solid var(--cp-card-line);
+  background: color-mix(in srgb, var(--cp-accent) 4%, var(--cp-card));
+  box-shadow: var(--cp-shadow);
+}
+
+.g-approve p {
+  margin-bottom: 18px;
+  font-size: 1.0625rem;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  color: var(--cp-label);
+}
+
+.g-approve p strong {
+  font-weight: 650;
+}
+
+.g-approve-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.g-approve-btns span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 7px 18px;
+  border-radius: 999px;
+  background: var(--cp-fill);
+  color: var(--cp-accent-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.g-approve-btns .yes {
+  background: var(--cp-action-fill);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 8px 18px -10px rgba(0, 136, 255, 0.8);
+}
+
+/* the Approve button "presses itself" (your tap), then the receipt */
 html.motion .g-demo[data-scene='3'] .g-approve-btns .yes {
-  animation: g-press 0.55s ease 0.75s both;
+  animation: g-press 0.6s var(--cp-ease) 0.75s both;
 }
 
 @keyframes g-press {
   0%,
   100% {
     transform: scale(1);
-    box-shadow: 0 0 0 rgba(242, 148, 46, 0);
   }
   45% {
-    transform: scale(0.92);
-    box-shadow: 0 0 34px rgba(242, 148, 46, 0.55);
+    transform: scale(0.9);
   }
 }
 
 .g-sent {
-  align-self: center;
-  font-size: 13.5px;
+  align-self: flex-start;
+  margin-left: 4px;
+  font-size: 0.875rem;
   font-weight: 600;
-  color: var(--g-orange);
+  color: var(--cp-green-text);
   opacity: 0;
   translate: 0 8px;
-  transition: opacity 0.4s ease var(--sd, 0s), translate 0.4s ease var(--sd, 0s);
+  transition:
+    opacity 400ms ease var(--sd, 0s),
+    translate 500ms var(--cp-spring) var(--sd, 0s);
 }
 
 .g-demo[data-scene='3'] .g-sent {
@@ -1137,54 +1795,70 @@ html.motion .g-demo[data-scene='3'] .g-approve-btns .yes {
 
 /* scene 4 — the payoff report; the € total counts up (main.js) */
 .g-report {
-  align-self: center;
-  text-align: center;
+  align-self: stretch;
+  padding: 24px 26px;
+  border-radius: 24px;
+  border: 1px solid var(--cp-card-line);
+  background: var(--cp-card);
+  box-shadow: var(--cp-shadow);
 }
 
 .g-report-kicker {
-  font-family: var(--g-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--g-dim);
-  margin-bottom: 8px;
+  font-size: 0.8125rem;
+  font-weight: 550;
+  color: var(--cp-secondary);
 }
 
 .g-report-big {
-  font-size: clamp(32px, 4vw, 44px);
+  margin: 6px 0 16px;
+  font-family: var(--g-display);
+  font-size: clamp(2.25rem, 1.6rem + 1.8vw, 3.25rem);
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  margin-bottom: 14px;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+}
+
+.g-report-big .g-grad {
+  color: var(--cp-label);
 }
 
 .g-report-big span {
-  font-size: 0.5em;
+  font-size: 0.45em;
   font-weight: 600;
-  color: var(--g-dim);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  color: var(--cp-secondary);
 }
 
 .g-report-lines {
-  list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  font-size: 14px;
-  color: var(--g-dim);
+  gap: 9px;
+  list-style: none;
+  font-size: 0.875rem;
+  color: var(--cp-label);
 }
 
 .g-report-lines li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   opacity: 0;
   translate: 0 8px;
-  transition: opacity 0.4s ease var(--sd, 0s), translate 0.4s ease var(--sd, 0s);
+  transition:
+    opacity 400ms ease var(--sd, 0s),
+    translate 500ms var(--cp-spring) var(--sd, 0s);
 }
 
 .g-report-lines li::before {
-  content: '✓';
-  color: var(--g-orange);
-  font-weight: 700;
-  margin-right: 9px;
+  content: '';
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 11px no-repeat,
+    var(--cp-green);
 }
 
 .g-demo[data-scene='4'] .g-report-lines li {
@@ -1192,235 +1866,243 @@ html.motion .g-demo[data-scene='3'] .g-approve-btns .yes {
   translate: 0 0;
 }
 
-.g-stamp {
-  font-family: var(--g-mono);
-  font-size: 11.5px;
-  color: var(--g-dim);
-  align-self: center;
-}
-
-.g-s1 .g-stamp {
-  align-self: flex-end;
-}
-
-.g-s2 .g-stamp {
-  align-self: flex-start;
-}
-
-.g-approve {
-  align-self: center;
-  max-width: 420px;
-  padding: 24px 26px;
-  text-align: center;
-  border-radius: 22px;
-}
-
-.g-approve p {
-  font-size: 15.5px;
-  margin-bottom: 16px;
-}
-
-.g-approve-btns {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.g-approve-btns span {
-  font-size: 14px;
-  font-weight: 600;
-  padding: 10px 22px;
-  border-radius: 999px;
-  border: 1px solid var(--g-hair);
-  color: var(--g-dim);
-}
-
-.g-approve-btns .yes {
-  background: var(--g-ink);
-  border-color: var(--g-ink);
-  color: var(--g-on-ink);
-}
-
-.g-caps {
-  position: relative;
-  height: 56px;
-  width: min(620px, 92vw);
-}
-
-.g-cap {
-  position: absolute;
-  inset: 0;
-  text-align: center;
-  font-size: clamp(15px, 1.8vw, 18px);
-  color: var(--g-dim);
+/* Without JavaScript nobody turns the scenes: show the story's end state —
+   the payoff report and its step — as the reduced-motion page does. */
+html:not(.js) .g-demo .g-s1 {
   opacity: 0;
-  translate: 0 10px;
-  transition: opacity 0.45s ease, translate 0.45s ease;
 }
 
-.g-demo[data-scene='1'] .g-cap-1,
-.g-demo[data-scene='2'] .g-cap-2,
-.g-demo[data-scene='3'] .g-cap-3,
-.g-demo[data-scene='4'] .g-cap-4 {
+html:not(.js) .g-demo .g-s4,
+html:not(.js) .g-demo .g-report-lines li {
   opacity: 1;
   translate: 0 0;
 }
 
-/* ------------------------------------------------------ bento features */
-
-/* ------------------------------------------- the ledgers ("the system") */
-
-.g-os {
-  position: relative;
-  padding: clamp(100px, 15vh, 170px) 0;
-  border-top: 1px solid var(--g-hair);
-  overflow: hidden;
+html:not(.js) .g-demo .g-cap-1 {
+  color: var(--cp-secondary);
 }
 
+html:not(.js) .g-demo .g-cap-1::before {
+  background: var(--cp-canvas);
+  box-shadow: inset 0 0 0 1px var(--cp-separator);
+  color: var(--cp-secondary);
+  transform: none;
+}
+
+html:not(.js) .g-demo .g-cap-4 {
+  color: var(--cp-label);
+}
+
+html:not(.js) .g-demo .g-cap-4::before {
+  background: var(--cp-action-fill);
+  color: #fff;
+}
+
+/* -------------------------------------------------------- the ledgers */
+
+/* The statement: large, calm, and lit word by word as you read it. */
 .g-os-sub {
-  max-width: 620px;
-  margin: -26px auto 46px;
-  text-align: center;
-  color: var(--g-dim);
-  font-size: 16.5px;
+  max-width: 58rem;
+  margin: clamp(28px, 4vw, 52px) 0 clamp(52px, 7vw, 96px);
+  font-family: var(--g-display);
+  font-size: clamp(1.5rem, 0.95rem + 2.1vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.24;
+  letter-spacing: -0.03em;
+  color: var(--cp-label);
+  text-wrap: pretty;
 }
 
 .g-os-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
 }
 
 .g-os-card {
-  padding: 28px 26px;
-  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+}
+
+.g-os-card .g-ico {
+  margin-bottom: 26px;
 }
 
 .g-os-tag {
-  font-family: var(--g-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--g-peach);
-  margin-bottom: 12px;
+  margin-bottom: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--tint-fg, var(--cp-accent-text));
 }
 
 .g-os-card h3 {
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  font-size: 1.3125rem;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.024em;
 }
 
 .g-os-card p:not(.g-os-tag) {
-  font-size: 14.5px;
-  color: var(--g-dim);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--cp-secondary);
 }
 
 .g-os-note {
-  max-width: 640px;
-  margin: 40px auto 0;
+  max-width: 44rem;
+  margin: 44px auto 0;
   text-align: center;
-  color: var(--g-dim);
-  font-size: 14.5px;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--cp-secondary);
+  text-wrap: pretty;
 }
 
-.g-features {
-  position: relative;
-  padding: clamp(100px, 15vh, 170px) 0;
-  border-top: 1px solid var(--g-hair);
-  overflow: hidden;
+/* Cards that lead somewhere, or just invite a closer look, lift a little. */
+@media (hover: hover) and (pointer: fine) {
+  .g-os-card,
+  .g-tile,
+  .g-perk,
+  .g-step,
+  .g-card,
+  .g-extra {
+    transition:
+      transform 420ms var(--cp-spring),
+      box-shadow 420ms var(--cp-spring);
+  }
+
+  .g-os-card:hover,
+  .g-tile:hover,
+  .g-perk:hover,
+  .g-step:hover,
+  .g-card:hover,
+  .g-extra:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--cp-shadow-lift);
+  }
 }
+
+/* ------------------------------------------------------- the features */
 
 .g-bento {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-areas:
     'pilot pilot mail'
     'pilot pilot voice'
     'phone work  skill'
     'mem   comp  ctrl'
     'apps  dept  dept';
-  gap: 16px;
+  gap: 18px;
+  margin-top: clamp(36px, 5vw, 64px);
 }
 
 .g-tile {
-  padding: 28px 26px;
-  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
 }
 
 .g-tile h3 {
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
+  margin: 22px 0 8px;
+  font-size: 1.25rem;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.022em;
 }
 
 .g-tile p {
-  font-size: 14.5px;
-  color: var(--g-dim);
-}
-
-.g-tile-auto {
-  grid-area: pilot;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
-}
-
-.g-tile-auto h3 {
-  font-size: clamp(24px, 2.6vw, 32px);
-}
-
-.g-tile-auto p {
-  font-size: 16px;
-  max-width: 40ch;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--cp-secondary);
 }
 
 .g-tile-mail {
   grid-area: mail;
 }
-
 .g-tile-voice {
   grid-area: voice;
 }
-
 .g-tile-phone {
   grid-area: phone;
 }
-
 .g-tile-work {
   grid-area: work;
 }
-
 .g-tile-skill {
   grid-area: skill;
 }
-
 .g-tile-mem {
   grid-area: mem;
 }
-
 .g-tile-comp {
   grid-area: comp;
 }
-
 .g-tile-ctrl {
   grid-area: ctrl;
 }
-
 .g-tile-apps {
   grid-area: apps;
 }
-
 .g-tile-dept {
   grid-area: dept;
 }
 
+/* Autopilot: the one dark tile, with a heartbeat of blue light. */
+.g-tile-auto {
+  grid-area: pilot;
+  justify-content: flex-end;
+  min-height: 440px;
+  padding: clamp(28px, 3.4vw, 44px);
+  overflow: hidden;
+  isolation: isolate;
+  border-color: rgba(255, 255, 255, 0.06);
+  background:
+    radial-gradient(ellipse 80% 60% at 12% 0%, rgba(0, 113, 227, 0.42), transparent 62%),
+    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(88, 86, 214, 0.22), transparent 70%),
+    #0b0c10;
+}
+
+.g-tile-auto::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.14) 0.7px, transparent 1.2px) 0 0 / 20px 20px;
+  -webkit-mask-image: linear-gradient(160deg, #000, transparent 60%);
+  mask-image: linear-gradient(160deg, #000, transparent 60%);
+  opacity: 0.5;
+}
+
+.g-tile-auto h3 {
+  margin-top: 0;
+  font-family: var(--g-display);
+  font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.g-tile-auto p {
+  max-width: 34rem;
+  font-size: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+  color: var(--stage-dim);
+}
+
 .g-ekg {
-  width: min(280px, 80%);
-  margin-bottom: 18px;
+  width: min(420px, 100%);
+  height: auto;
+  margin-bottom: auto;
+  padding-bottom: 36px;
+  overflow: visible;
+}
+
+.g-ekg polyline {
+  stroke: #3ba6ff;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(0, 145, 255, 0.85));
 }
 
 html.motion .g-ekg polyline {
@@ -1439,50 +2121,38 @@ html.motion .g-ekg polyline {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 20px;
+  margin-top: 22px;
 }
 
 .g-times span {
-  font-family: var(--g-mono);
-  font-size: 11.5px;
-  color: var(--g-peach);
-  border: 1px solid rgba(255, 198, 128, 0.25);
+  padding: 6px 12px;
   border-radius: 999px;
-  padding: 5px 11px;
-}
-
-.g-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 14px;
-}
-
-.g-chips span {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--g-ink);
-  background: var(--g-fill);
-  border: 1px solid var(--g-hair);
-  border-radius: 999px;
-  padding: 5px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(235, 235, 245, 0.82);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
 }
 
 .g-eq {
   display: flex;
   align-items: flex-end;
   gap: 4px;
-  height: 26px;
-  margin-bottom: 16px;
+  height: 44px;
+  padding: 9px 10px;
+  width: max-content;
+  border-radius: 13px;
+  background: var(--tint-bg);
 }
 
 .g-eq i {
-  width: 5px;
-  border-radius: 3px;
-  background: var(--g-orange);
+  width: 4px;
   height: 100%;
+  border-radius: 3px;
+  background: var(--tint-fg);
   transform-origin: bottom;
-  transform: scaleY(0.3);
+  transform: scaleY(0.35);
 }
 
 html.motion .g-eq i {
@@ -1492,15 +2162,12 @@ html.motion .g-eq i {
 .g-eq i:nth-child(2) {
   animation-delay: 0.15s;
 }
-
 .g-eq i:nth-child(3) {
   animation-delay: 0.3s;
 }
-
 .g-eq i:nth-child(4) {
   animation-delay: 0.45s;
 }
-
 .g-eq i:nth-child(5) {
   animation-delay: 0.6s;
 }
@@ -1514,254 +2181,153 @@ html.motion .g-eq i {
   }
 }
 
+.g-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 18px;
+}
+
+.g-chips span {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--cp-fill);
+  color: var(--cp-label);
+  font-size: 0.8125rem;
+  font-weight: 550;
+}
+
 /* ------------------------------------------------- the first ten minutes */
 
-.g-start {
-  position: relative;
-  padding: clamp(100px, 15vh, 170px) 0;
-  border-top: 1px solid var(--g-hair);
-  text-align: center;
-}
-
 .g-start-sub {
-  max-width: 620px;
-  margin: -6px auto 46px;
-  font-size: clamp(16px, 1.8vw, 19px);
-  line-height: 1.6;
-  color: var(--g-dim);
+  max-width: 40rem;
 }
 
+/* A timeline: four stops on one line that draws itself as you arrive. */
 .g-steps {
-  list-style: none;
+  --line: 1;
+  position: relative;
+  isolation: isolate;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 18px;
-  text-align: left;
+  margin-top: clamp(44px, 6vw, 72px);
+  padding-top: 58px;
+  list-style: none;
+}
+
+.g-steps::before,
+.g-steps::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--cp-separator);
+}
+
+.g-steps::after {
+  background: linear-gradient(90deg, var(--cp-accent), #5e5ce6);
+  transform-origin: left;
+  transform: scaleX(var(--line));
 }
 
 .g-step {
-  position: relative;
+  display: flex;
+  flex-direction: column;
   padding: 26px 24px 28px;
-  border-radius: 22px;
 }
 
 .g-step-n {
-  display: block;
-  font-family: var(--g-mono);
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  color: var(--g-orange);
-  margin-bottom: 16px;
+  position: absolute;
+  top: -58px;
+  left: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--cp-canvas);
+  box-shadow: inset 0 0 0 2px var(--cp-accent);
+  color: var(--cp-accent-text);
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
 .g-step h3 {
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
   margin-bottom: 10px;
+  font-size: 1.1875rem;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
 }
 
 .g-step p {
-  font-size: 14.5px;
-  line-height: 1.6;
-  color: var(--g-dim);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--cp-secondary);
 }
 
 .g-start-note {
-  margin-top: 28px;
-  font-size: 14px;
-  color: var(--g-dim);
+  margin-top: 32px;
+  font-size: 0.9375rem;
+  color: var(--cp-secondary);
 }
 
-/* ----------------------------------------------------------- pricing */
+/* ------------------------------------------------------------ pricing */
 
-.g-pricing {
-  position: relative;
-  padding: clamp(100px, 15vh, 170px) 0;
-  border-top: 1px solid var(--g-hair);
-  overflow: hidden;
+.g-pricing .g-wrap > .oc-chapter {
+  justify-content: center;
 }
 
-.g-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  align-items: stretch;
-}
-
-.g-card {
-  display: flex;
-  flex-direction: column;
-  padding: 32px 28px 28px;
-}
-
-.g-card-hot {
-  border-color: rgba(242, 148, 46, 0.45);
-  box-shadow:
-    inset 0 1px 0 var(--g-edge),
-    0 18px 50px var(--g-shadow),
-    0 0 70px rgba(242, 148, 46, 0.22);
-}
-
-.g-badge {
-  position: absolute;
-  top: -13px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(95deg, var(--g-orange), var(--g-ember));
-  color: #14100b;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 5px 14px;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-
-.g-eyebrow {
-  font-family: var(--g-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--g-dim);
-  margin-bottom: 10px;
-}
-
-.g-card h3 {
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.g-price {
-  font-size: 46px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  margin: 8px 0 6px;
-}
-
-.g-price span {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--g-dim);
-  margin-left: 5px;
-  letter-spacing: 0;
-}
-
-.g-card ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-  color: var(--g-dim);
-  font-size: 14.5px;
-}
-
-.g-card li {
-  position: relative;
-  padding-left: 22px;
-}
-
-.g-card li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--g-orange);
-  font-weight: 700;
-}
-
-.g-meta {
-  font-size: 12.5px;
-  color: var(--g-dim);
-  margin: auto 0 18px;
-  padding-top: 16px;
-}
-
-.g-card .g-btn,
-.g-card .g-btn-glass {
+.g-pricing .g-h2,
+.g-cohort .g-h2 {
   text-align: center;
 }
 
-.g-note {
-  text-align: center;
-  margin-top: 30px;
-  color: var(--g-dim);
-  font-size: 14px;
-  max-width: 620px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.g-price-alt {
-  margin: 0 0 18px;
-  font-size: 12.5px;
-  color: var(--g-dim);
-}
-
-.g-company-interval {
-  display: flex;
-  width: fit-content;
-  max-width: 100%;
+.g-price-lede,
+.g-cohort-sub {
+  max-width: 44rem;
   margin: 0 auto;
-  padding: 5px;
-  gap: 3px;
-  border: 1px solid var(--g-hair);
-  border-radius: 999px;
-  background: var(--g-fill);
-}
-.g-company-interval button {
-  min-height: 44px;
-  padding: 8px 16px;
-  border: 0;
-  border-radius: 999px;
-  font: inherit;
-  font-size: 13px;
-  color: var(--g-dim);
-  background: transparent;
-  cursor: pointer;
-}
-.g-company-interval button[aria-pressed="true"] {
-  background: var(--g-ink);
-  color: var(--g-bg);
-}
-.g-company-interval button:focus-visible { outline: 2px solid var(--g-orange); outline-offset: 3px; }
-.g-billing-note { text-align: center; margin: 12px 0 24px; font-size: 13px; color: var(--g-dim); }
-.g-price-saving { min-height: 20px; margin: -8px 0 14px; font-size: 12.5px; color: var(--g-orange); }
-.g-tiers[data-aud="company"] .g-price-alt { min-height: 38px; line-height: 1.5; }
-.g-tiers[data-aud="company"] .g-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px; }
-@media (max-width: 400px) {
-  .g-company-interval button { padding: 8px 10px; font-size: 12px; }
-}
-
-/* ------------------------------------------- the two pricing ladders */
-/* Solo and company are priced on different units — one Ocur for you, vs.
-   a shared pool where humans are free and AI workers are the meter — so
-   they get their own ladders instead of one confusing row of seven cards.
-   Both live in the DOM (crawlable, and the German prerender bakes both);
-   the switch only decides which one is on screen. Without JS they simply
-   stack, so the page still sells both. */
-
-.g-price-lede {
-  max-width: 660px;
-  margin: 20px auto 0;
   text-align: center;
-  color: var(--g-dim);
-  font-size: 16.5px;
+}
+
+/* Segmented controls with a sliding selection, as in the app. */
+.g-seg,
+.g-company-interval {
+  --seg-i: 0;
+  --seg-n: 2;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--seg-n), minmax(0, 1fr));
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--cp-fill);
+}
+
+.g-seg::before,
+.g-company-interval::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc((100% - 8px) / var(--seg-n));
+  border-radius: 999px;
+  background: var(--cp-seg);
+  box-shadow: var(--cp-seg-shadow);
+  transform: translateX(calc(100% * var(--seg-i)));
+  transition: transform 480ms var(--cp-spring);
 }
 
 .g-seg {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  width: max-content;
-  max-width: 100%;
-  margin: 32px auto 0;
-  padding: 6px;
-  border-radius: 999px;
-  background: var(--g-fill);
-  border: 1px solid var(--g-hair);
+  width: min(100%, 26rem);
+  margin: 40px auto 0;
 }
 
 /* the switch only appears once main.js has wired it — if the bundle never
@@ -1771,63 +2337,53 @@ html.motion .g-eq i {
 }
 
 .g-seg-btn {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1px;
-  padding: 10px 28px;
+  padding: 9px 12px;
   border: 0;
   border-radius: 999px;
   background: none;
-  color: var(--g-dim);
-  font-family: inherit;
+  color: var(--cp-secondary);
   cursor: pointer;
-  transition:
-    color 0.25s ease,
-    background 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-.g-seg-t {
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.g-seg-s {
-  font-family: var(--g-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
-.g-seg-btn:hover {
-  color: var(--g-ink);
+  transition: color 220ms ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .g-seg-btn.on {
-  color: #14100b;
-  background: linear-gradient(95deg, var(--g-orange), var(--g-ember));
-  box-shadow: 0 10px 30px rgba(242, 148, 46, 0.28);
+  color: var(--cp-label);
+}
+
+.g-seg-t {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+
+.g-seg-s {
+  font-size: 0.75rem;
+  color: var(--cp-secondary);
 }
 
 .g-worker-note {
-  max-width: 620px;
-  margin: 20px auto 0;
+  max-width: 40rem;
+  margin: 22px auto 0;
   text-align: center;
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: var(--g-dim);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--cp-secondary);
 }
 
 .g-worker-note strong {
-  color: var(--g-ink);
   font-weight: 600;
+  color: var(--cp-label);
 }
 
 .g-tiers {
-  margin-top: 46px;
+  margin-top: 48px;
 }
 
 .seg-ready .g-tiers:not(.on) {
@@ -1839,234 +2395,754 @@ html.motion .g-eq i {
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  max-width: 740px;
-  margin: 0 auto 28px;
+  max-width: 46rem;
+  margin: 0 auto 30px;
   text-align: center;
-  font-size: 15px;
-  color: var(--g-dim);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--cp-secondary);
 }
 
 .g-tier-tag {
-  font-family: var(--g-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 5px 12px;
+  padding: 4px 12px;
   border-radius: 999px;
-  color: var(--g-ink);
-  background: var(--g-fill);
-  border: 1px solid var(--g-hair);
+  background: var(--cp-fill);
+  color: var(--cp-label);
+  font-size: 0.75rem;
+  font-weight: 650;
 }
 
 .g-tier-tag-hot {
-  color: #14100b;
-  background: linear-gradient(95deg, var(--g-orange), var(--g-ember));
-  border-color: transparent;
+  background: var(--cp-accent-tint);
+  color: var(--cp-accent-text);
 }
 
-/* the founding offer, on the ladder it applies to — between the business
-   lede and its cards, with the way to the application */
+.g-company-interval {
+  --seg-n: 3;
+  width: min(100%, 30rem);
+  margin: 0 auto;
+}
+
+.g-company-interval button {
+  position: relative;
+  z-index: 1;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--cp-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 220ms ease;
+}
+
+.g-company-interval button[aria-pressed='true'] {
+  color: var(--cp-label);
+}
+
+.g-billing-note {
+  margin: 12px 0 26px;
+  text-align: center;
+  font-size: 0.8125rem;
+  color: var(--cp-secondary);
+}
+
+/* the founding offer, on the ladder it applies to */
 .g-founding {
   display: flex;
   align-items: center;
-  gap: 12px;
-  max-width: 820px;
-  margin: -6px auto 30px;
-  padding: 14px 20px;
-  border-radius: 18px;
-  border-color: rgba(242, 148, 46, 0.4);
-  font-size: 14.5px;
-  line-height: 1.55;
-  color: var(--g-dim);
+  gap: 14px;
+  max-width: 52rem;
+  margin: 0 auto 30px;
+  padding: 16px 22px;
+  border-radius: 22px;
+  border: 1px solid color-mix(in srgb, var(--cp-orange) 26%, transparent);
+  background: color-mix(in srgb, var(--cp-orange) 7%, var(--cp-card));
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--cp-secondary);
+}
+
+.g-founding .g-kdot,
+.g-cohort-kicker .g-kdot,
+.g-dock .g-kdot {
+  background: var(--cp-orange);
+}
+
+.g-cohort-kicker .g-kdot {
+  margin: 0 9px 1px 0;
+  vertical-align: middle;
 }
 
 .g-founding strong {
-  color: var(--g-ink);
-  font-weight: 600;
+  font-weight: 650;
+  color: var(--cp-label);
 }
 
 .g-founding a {
-  color: var(--g-ink);
   font-weight: 600;
   white-space: nowrap;
-  border-bottom: 1px solid var(--g-hair);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  color: var(--cp-accent-text);
 }
 
 .g-founding a:hover {
-  color: var(--g-orange);
-  border-color: var(--g-orange);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-/* four rungs on the solo ladder — tighter cards than the three-up grid */
+.g-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 18px;
+}
+
 .g-cards-4 {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
 }
 
-.g-cards-4 .g-card {
-  padding: 28px 22px 24px;
+.g-card {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px 24px;
+}
+
+.g-card-hot {
+  border-color: transparent;
+  box-shadow:
+    0 0 0 2px var(--cp-accent),
+    0 24px 50px -24px rgba(0, 113, 227, 0.55);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .g-card-hot:hover {
+    box-shadow:
+      0 0 0 2px var(--cp-accent),
+      0 28px 56px -22px rgba(0, 113, 227, 0.6);
+  }
+}
+
+.g-badge {
+  position: absolute;
+  top: 22px;
+  right: 20px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--cp-accent-tint);
+  color: var(--cp-accent-text);
+  font-size: 0.75rem;
+  font-weight: 650;
+}
+
+.g-eyebrow {
+  margin-bottom: 4px;
+  padding-right: 92px;
+  font-size: 0.8125rem;
+  font-weight: 550;
+  color: var(--cp-secondary);
+}
+
+.g-card:not(.g-card-hot) .g-eyebrow {
+  padding-right: 0;
+}
+
+.g-card h3 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.026em;
+}
+
+.g-price {
+  margin: 18px 0 6px;
+  font-family: var(--g-display);
+  font-size: clamp(2.25rem, 1.7rem + 1.2vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+}
+
+.g-price span {
+  margin-left: 4px;
+  font-family: var(--g-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--cp-secondary);
 }
 
 .g-cards-4 .g-price {
-  font-size: 38px;
+  font-size: clamp(2rem, 1.6rem + 0.9vw, 2.625rem);
 }
 
-.g-cards-4 .g-card ul {
-  font-size: 14px;
+.g-price-alt {
+  margin-bottom: 20px;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--cp-secondary);
 }
 
-/* the company cards carry a warm rail, so the two ladders never blur
-   together in a screenshot or a scroll-past */
-.g-tiers[data-aud='company'] .g-card::before {
+.g-price-saving {
+  min-height: 20px;
+  margin: -12px 0 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--cp-green-text);
+}
+
+.g-tiers[data-aud='company'] .g-price-alt {
+  min-height: 38px;
+}
+
+.g-tiers[data-aud='company'] .g-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+}
+
+/* the price text changes when the billing interval does */
+html.motion .g-price.is-flipping {
+  animation: g-flip 520ms var(--cp-spring);
+}
+
+@keyframes g-flip {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.g-card ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid var(--cp-separator);
+  list-style: none;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--cp-label);
+}
+
+.g-card li {
+  position: relative;
+  padding-left: 26px;
+}
+
+.g-card li::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 26px;
-  right: 26px;
-  height: 3px;
-  border-radius: 0 0 3px 3px;
-  background: linear-gradient(90deg, transparent, var(--g-orange), transparent);
-  box-shadow: 0 0 18px rgba(242, 148, 46, 0.45);
+  left: 0;
+  top: 1px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 10px no-repeat,
+    var(--cp-accent);
+}
+
+.g-card li a {
+  color: var(--cp-accent-text);
+}
+
+.g-card li a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.g-meta {
+  margin: auto 0 16px;
+  padding-top: 22px;
+  font-size: 0.8125rem;
+  font-weight: 550;
+  color: var(--cp-secondary);
+}
+
+.g-card .g-btn {
+  width: 100%;
+}
+
+.g-card-talk {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--cp-accent-text);
+}
+
+.g-card-talk:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* what a company buys on top of a plan: workers, top-ups, enterprise */
 .g-extras {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
-  margin-top: 22px;
+  margin-top: 18px;
 }
 
 .g-extra {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 18px 20px;
-  border-radius: 20px;
+  padding: 20px 22px;
+  border-radius: 22px;
 }
 
 .g-extra strong {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 0.9375rem;
+  font-weight: 650;
 }
 
 .g-extra span {
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.5;
-  color: var(--g-dim);
+  color: var(--cp-secondary);
 }
 
-/* the Enterprise extra's door to the founder — same booking page, quieter */
 .g-extra-link {
   margin-top: 6px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--g-ink);
-  transition: color 0.2s ease;
+  color: var(--cp-accent-text);
 }
 
 .g-extra-link:hover {
-  color: var(--g-orange);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-/* ------------------------------------------------- book a demo band */
-/* The founder's booking page (Ocur's own calendar link, served by the app
-   backend) — the one CTA on the page that doesn't lead to sign-up. Sits
-   below both ladders, so it's on screen whichever audience the switch
-   shows: copy on the left, the button and its small print on the right. */
-.g-book {
+.g-note {
+  max-width: 44rem;
+  margin: 30px auto 0;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--cp-secondary);
+}
+
+/* ------------------------------------------------- the founding cohort */
+
+.g-cohort .g-wrap > .oc-chapter {
+  justify-content: center;
+}
+
+/* text, not flex: on a phone the deadline wraps as a sentence, not a column */
+.g-cohort-kicker {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 22px;
+  padding: 7px 16px 7px 14px;
+  border-radius: 20px;
+  background: var(--cp-orange-tint);
+  color: var(--cp-orange-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.g-perks {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: clamp(40px, 5vw, 64px);
+  list-style: none;
+}
+
+.g-perk {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 32px;
-  max-width: 920px;
-  margin: 56px auto 0;
-  padding: 30px 36px;
-  border-radius: 24px;
+  flex-direction: column;
+  padding: 26px 24px;
 }
 
-.g-book-kicker,
-.g-talk-kicker {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-  font-family: var(--g-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--g-peach);
+.g-perk .g-ico {
+  margin-bottom: 22px;
 }
 
-.g-book h3 {
-  font-size: clamp(22px, 2.4vw, 26px);
-  font-weight: 700;
-  line-height: 1.15;
+.g-perk-tag {
+  margin-bottom: 6px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--tint-fg, var(--cp-accent-text));
+}
+
+.g-perk h3 {
+  margin-bottom: 8px;
+  font-size: 1.1875rem;
+  font-weight: 650;
+  line-height: 1.3;
   letter-spacing: -0.02em;
 }
 
+.g-perk p:not(.g-perk-tag) {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--cp-secondary);
+}
+
+/* the application beside what happens next and the booking page */
+.g-doors {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 18px;
+  max-width: 68rem;
+  margin: 18px auto 0;
+  scroll-margin-top: 96px;
+}
+
+.g-doors-side {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.g-talk-kicker,
+.g-next-kicker,
+.g-book-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--cp-accent-text);
+}
+
+.g-book-kicker .g-kdot {
+  background: var(--cp-green);
+}
+
+.g-book-kicker {
+  color: var(--cp-green-text);
+}
+
+.g-talk {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 3vw, 36px);
+  border-radius: 28px;
+}
+
+.g-talk h3,
+.g-book h3 {
+  font-family: var(--g-display);
+  font-size: clamp(1.5rem, 1.25rem + 0.8vw, 1.875rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.g-talk-text,
 .g-book-text {
-  max-width: 520px;
   margin-top: 8px;
-  font-size: 15px;
-  color: var(--g-dim);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--cp-secondary);
+}
+
+.g-talk-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.g-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.g-field-wide {
+  grid-column: 1 / -1;
+}
+
+.g-field > span {
+  font-size: 0.8125rem;
+  font-weight: 550;
+  color: var(--cp-secondary);
+}
+
+.g-field em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--cp-secondary);
+  opacity: 0.8;
+}
+
+.g-field input,
+.g-field select,
+.g-field textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 14px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background-color: var(--cp-input);
+  color: var(--cp-label);
+  font: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.g-field input:hover,
+.g-field select:hover,
+.g-field textarea:hover {
+  background-color: var(--cp-fill-strong);
+}
+
+.g-field input:focus,
+.g-field select:focus,
+.g-field textarea:focus {
+  background-color: var(--cp-card);
+  border-color: var(--cp-accent);
+  box-shadow: 0 0 0 4px var(--cp-accent-tint);
+}
+
+.g-field input::placeholder,
+.g-field textarea::placeholder {
+  color: var(--cp-secondary);
+  opacity: 0.7;
+}
+
+/* the team size: a native select with its own chevron; dim until chosen */
+.g-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 40px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%238e8e93' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 12px 8px;
+}
+
+.g-field select:invalid {
+  color: var(--cp-secondary);
+}
+
+.g-field textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+/* the honeypot: out of sight, out of the tab order, in the markup */
+.g-hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.g-talk-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 18px;
+  margin-top: 22px;
+}
+
+.g-talk-foot .g-btn {
+  --g-btn-h: 48px;
+  padding-inline: 26px;
+}
+
+.g-talk-foot .g-btn:disabled {
+  opacity: 0.45;
+  cursor: progress;
+  transform: none;
+}
+
+.g-talk-sub {
+  font-size: 0.8125rem;
+  color: var(--cp-secondary);
+}
+
+.g-talk-sub a,
+.g-talk-noscript a {
+  color: var(--cp-accent-text);
+}
+
+.g-talk-noscript {
+  margin-top: 14px;
+  font-size: 0.875rem;
+  color: var(--cp-secondary);
+}
+
+.g-talk-status {
+  margin-top: 14px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--cp-accent-text);
+}
+
+.g-talk-status:empty {
+  display: none;
+}
+
+.g-talk.is-sent .g-talk-grid,
+.g-talk.is-sent .g-talk-foot {
+  display: none;
+}
+
+.g-talk.is-sent .g-talk-status {
+  margin-top: 22px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--cp-green-tint);
+  color: var(--cp-green-text);
+  font-size: 1rem;
+}
+
+.g-next {
+  padding: 28px;
+  border-radius: 26px;
+}
+
+.g-next-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 4px;
+  list-style: none;
+  counter-reset: g-next;
+}
+
+.g-next-steps li {
+  position: relative;
+  padding-left: 40px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--cp-secondary);
+  counter-increment: g-next;
+}
+
+.g-next-steps li::before {
+  content: counter(g-next);
+  position: absolute;
+  left: 0;
+  top: -2px;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--cp-accent-tint);
+  color: var(--cp-accent-text);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.g-next-steps strong {
+  font-weight: 600;
+  color: var(--cp-label);
+}
+
+.g-book {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px;
+  border-radius: 26px;
+  background: color-mix(in srgb, var(--cp-green) 5%, var(--cp-card));
 }
 
 .g-book-cta {
-  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
 }
 
 .g-book-sub {
-  font-size: 12.5px;
-  color: var(--g-dim);
-  white-space: nowrap;
+  font-size: 0.8125rem;
+  color: var(--cp-secondary);
 }
 
-@media (max-width: 1080px) {
-  .g-cards-4 {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-  }
+.g-cohort-solo {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.9375rem;
+  color: var(--cp-secondary);
+}
 
-  .g-steps {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.g-cohort-solo a {
+  font-weight: 600;
+  color: var(--cp-accent-text);
+}
+
+.g-cohort-solo a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* --------------------------------------------------------------- faq */
 
-.g-faq-sec {
-  padding: clamp(100px, 15vh, 170px) 0;
-  border-top: 1px solid var(--g-hair);
+.g-faq-sec > .g-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  align-items: start;
+  gap: clamp(32px, 6vw, 96px);
 }
 
+.oc-faq-head {
+  position: sticky;
+  top: 112px;
+}
+
+.g-faq-sec .g-h2 {
+  font-size: clamp(2.25rem, 1.3rem + 2.6vw, 3.75rem);
+}
+
+/* One grouped list, the way Settings shows its rows. */
 .g-faq {
-  max-width: 720px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  padding: 6px 0;
+  border-radius: 26px;
+  border: 1px solid var(--cp-card-line);
+  background: var(--cp-card);
+  box-shadow: var(--cp-shadow);
 }
 
 .g-faq details {
   padding: 0 26px;
-  border-radius: 20px;
+}
+
+.g-faq details + details {
+  background: linear-gradient(var(--cp-separator), var(--cp-separator)) no-repeat 26px 0 / calc(100% - 52px) 1px;
 }
 
 .g-faq summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
+  gap: 16px;
   padding: 20px 0;
-  font-size: 16px;
+  font-size: 1.0625rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  line-height: 1.35;
+  letter-spacing: -0.016em;
   cursor: pointer;
   list-style: none;
 }
@@ -2076,88 +3152,197 @@ html.motion .g-eq i {
 }
 
 .g-faq summary::after {
-  content: '+';
-  flex: 0 0 auto;
+  content: '';
+  flex: none;
   width: 28px;
   height: 28px;
-  display: grid;
-  place-items: center;
   border-radius: 50%;
-  border: 1px solid var(--g-hair);
-  color: var(--g-peach);
-  font-size: 18px;
-  transition: transform 0.3s ease;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238e8e93' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center / 15px no-repeat,
+    var(--cp-fill);
+  transition: transform 420ms var(--cp-spring);
 }
 
 .g-faq details[open] summary::after {
-  transform: rotate(45deg);
+  transform: rotate(180deg);
+}
+
+.g-faq summary:hover {
+  color: var(--cp-accent-text);
 }
 
 .g-faq details p {
+  max-width: 44rem;
   padding: 0 0 22px;
-  font-size: 15px;
-  color: var(--g-dim);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--cp-secondary);
 }
 
-/* inline links inside an answer (the privacy policy, the demo booking) */
 .g-faq details p a {
-  color: var(--g-ink);
-  border-bottom: 1px solid var(--g-hair);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  font-weight: 500;
+  color: var(--cp-accent-text);
 }
 
 .g-faq details p a:hover {
-  color: var(--g-orange);
-  border-color: var(--g-orange);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-/* ------------------------------------------------------------- final */
+/* Where the browser can animate to auto height, answers unfold. */
+@supports (interpolate-size: allow-keywords) {
+  html.motion .g-faq {
+    interpolate-size: allow-keywords;
+  }
+
+  html.motion .g-faq details::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size 460ms var(--cp-spring),
+      content-visibility 460ms allow-discrete;
+  }
+
+  html.motion .g-faq details[open]::details-content {
+    block-size: auto;
+  }
+}
+
+/* -------------------------------------------------- final + footer */
 
 .g-final {
   position: relative;
-  text-align: center;
-  padding: clamp(130px, 20vh, 220px) 0 40px;
-  border-top: 1px solid var(--g-hair);
+  padding: clamp(24px, 5vw, 72px) 0 0;
+}
+
+.g-final-card {
+  position: relative;
   overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(72px, 10vw, 150px) clamp(20px, 5vw, 64px) clamp(64px, 8vw, 120px);
+  border-radius: clamp(28px, 4vw, 48px);
+  background: var(--stage);
+  text-align: center;
+  transform-origin: 50% 100%;
+}
+
+.g-final-card::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.18) 0.7px, transparent 1.2px) 50% 0 / 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000, transparent 75%);
+  opacity: 0.45;
+}
+
+.g-final-card::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 46%;
+  width: min(1200px, 150%);
+  aspect-ratio: 2;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(242, 148, 46, 0.14), rgba(0, 113, 227, 0.08) 50%, transparent 80%);
+  transform: translate(-50%, -50%) rotate(-16deg);
+}
+
+.g-final-mark {
+  width: 72px;
+  height: auto;
+  margin-bottom: 30px;
+  filter: drop-shadow(0 10px 40px rgba(242, 148, 46, 0.55));
 }
 
 .g-final-h {
+  font-family: var(--g-display);
+  font-size: clamp(2.75rem, 1.1rem + 6.4vw, 7rem);
   font-weight: 700;
-  font-size: clamp(44px, 7vw, 100px);
-  line-height: 1.02;
-  letter-spacing: -0.04em;
-  margin-bottom: 44px;
+  line-height: 0.99;
+  letter-spacing: -0.052em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  margin-bottom: 40px;
 }
 
-/* the quieter second door under the last "Start free" */
+.g-final-card .g-final-h {
+  color: var(--stage-ink);
+}
+
+.g-micro {
+  margin-top: 20px;
+  font-size: 0.875rem;
+  color: var(--cp-secondary);
+}
+
+.g-final-card .g-micro {
+  color: var(--stage-faint);
+}
+
 .g-final-alt {
-  margin-top: 26px;
-  font-size: 14px;
-  color: var(--g-dim);
+  margin-top: 10px;
+  font-size: 0.875rem;
+  color: var(--cp-secondary);
+}
+
+.g-final-card .g-final-alt {
+  color: var(--stage-faint);
 }
 
 .g-final-alt a {
-  color: var(--g-ink);
-  border-bottom: 1px solid var(--g-hair);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  font-weight: 600;
+  color: var(--cp-accent-text);
 }
 
 .g-final-alt a:hover {
-  color: var(--g-orange);
-  border-color: var(--g-orange);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .g-foot {
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-top: clamp(90px, 15vh, 150px);
-  padding-top: 24px;
-  border-top: 1px solid var(--g-hair);
-  font-size: 13.5px;
-  color: var(--g-dim);
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+  margin-top: clamp(40px, 6vw, 72px);
+  padding: 32px 0 calc(32px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--cp-separator);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--cp-secondary);
+}
+
+.g-foot > span:first-child {
+  order: 3;
+}
+
+.d-resource-links {
+  order: 1;
+}
+
+.g-foot-links {
+  order: 2;
+}
+
+.g-foot-tag {
+  order: -1;
+  padding-right: 56px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.016em;
+  color: var(--cp-label);
+}
+
+.g-foot-tag em {
+  font-style: normal;
 }
 
 /* legal links — every page has to carry these: the privacy policy has to be
@@ -2166,29 +3351,39 @@ html.motion .g-eq i {
 .g-foot-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 20px;
+  gap: 8px 22px;
 }
 
-.g-foot-links a {
-  color: var(--g-dim);
-  transition: color 0.2s ease;
+.g-foot-links a,
+.d-resource-links a {
+  color: var(--cp-secondary);
+  transition: color 160ms ease;
 }
 
-.g-foot-links a:hover {
-  color: var(--g-orange);
+.g-foot-links a:hover,
+.d-resource-links a:hover {
+  color: var(--cp-label);
 }
 
-/* social icon button — same hairline-circle language as the nav theme toggle */
+/* social icon button — the same circle as the nav's theme button */
 .g-social {
-  flex: 0 0 auto;
+  position: absolute;
+  top: 26px;
+  right: 0;
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
-  color: var(--g-dim);
-  border: 1px solid var(--g-hair);
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.25s ease;
+  background: var(--cp-fill);
+  color: var(--cp-label);
+  transition:
+    background-color 160ms ease,
+    transform 220ms var(--cp-spring);
+}
+
+.g-social:hover {
+  background: var(--cp-fill-strong);
 }
 
 .g-social svg {
@@ -2196,41 +3391,39 @@ html.motion .g-eq i {
   height: 14px;
 }
 
-.g-social:hover {
-  color: var(--g-ink);
-  border-color: var(--g-orange);
-  box-shadow: 0 0 26px rgba(242, 148, 46, 0.2);
-}
-
 /* ------------------------------------------------- floating CTA dock */
 
 .g-dock {
   position: fixed;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  left: 0;
+  right: 0;
   z-index: 200;
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 13px 26px;
+  width: max-content;
+  max-width: calc(100% - 24px);
+  height: 52px;
+  margin: 0 auto;
+  padding: 0 22px 0 18px;
   border-radius: 999px;
-  font-size: 15px;
-  /* one line: pinned at left: 50%, the dock would otherwise only get half
-     the screen to wrap into */
+  isolation: isolate;
+  font-size: 0.9375rem;
   white-space: nowrap;
+  color: var(--cp-label);
   opacity: 0;
   visibility: hidden;
-  overflow: hidden;
 }
 
 .g-dock strong {
-  font-weight: 700;
+  font-weight: 650;
+  color: var(--cp-accent-text);
 }
 
 .g-dock-sub {
-  font-size: 12.5px;
-  color: var(--g-dim);
+  font-size: 0.8125rem;
+  color: var(--cp-secondary);
 }
 
 /* the smallest phones keep the button and the name, not the date */
@@ -2240,30 +3433,101 @@ html.motion .g-eq i {
   }
 }
 
-html.motion .g-dock::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 60px;
-  background: linear-gradient(105deg, transparent, var(--g-shine), transparent);
-  animation: g-shine 4.5s ease-in-out infinite;
+@media (max-width: 420px) {
+  .g-company-interval button {
+    padding-inline: 6px;
+    font-size: 0.8125rem;
+  }
 }
 
-@keyframes g-shine {
-  0%,
-  55% {
-    left: -80px;
-  }
-  85%,
-  100% {
-    left: calc(100% + 20px);
-  }
+/* ---------------------------------------- shared pieces for other pages */
+
+/* The game page still composes its own hero and closing with these. */
+.g-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100svh;
+  padding: 150px 0 80px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.g-h1 {
+  font-family: var(--g-display);
+  font-size: clamp(3rem, 1.4rem + 6.6vw, 7rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+}
+
+.g-sub {
+  max-width: 36rem;
+  margin: 26px auto 0;
+  font-size: clamp(1.0625rem, 0.98rem + 0.4vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--cp-secondary);
+}
+
+.g-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.g-kicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-bottom: 26px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--cp-accent-text);
+}
+
+/* Soft light behind a hero: a whisper of the accent, never a mesh. */
+.g-glow {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.g-glow-hero {
+  top: -18vh;
+  left: 50%;
+  width: min(1000px, 110vw);
+  aspect-ratio: 1.6;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(0, 136, 255, 0.16), transparent 70%);
+}
+
+.g-glow-demo,
+.g-glow-final {
+  left: 50%;
+  width: min(900px, 100vw);
+  aspect-ratio: 1.5;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(0, 136, 255, 0.12), transparent 70%);
+}
+
+.g-glow-demo {
+  top: 10%;
+}
+
+.g-glow-final {
+  bottom: -30%;
 }
 
 /* -------------------------------------------------------- responsive */
 
-/* two buttons don't fit the nav pill beside the links at tablet widths */
+/* two buttons don't fit the nav capsule beside the links at laptop widths */
 @media (max-width: 1280px) {
   .g-nav-free {
     display: none;
@@ -2282,19 +3546,180 @@ html.motion .g-dock::before {
   }
 
   .g-nav {
+    width: calc(100% - 24px);
+    justify-content: space-between;
+    padding-left: 18px;
+  }
+
+  .g-nav .g-theme {
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 1101px) {
+  .g-menu {
+    display: none;
+  }
+}
+
+@media (max-width: 1080px) {
+  .g-cards-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .g-perks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .g-bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      'pilot pilot'
+      'mail  voice'
+      'phone work'
+      'skill mem'
+      'comp  ctrl'
+      'apps  dept';
+  }
+
+  .g-tile-auto {
+    min-height: 400px;
+  }
+
+  .g-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 76px;
+  }
+
+  .g-steps::before,
+  .g-steps::after {
+    display: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .g-logos .g-wrap {
+    grid-template-columns: minmax(0, 1fr);
+    text-align: center;
+  }
+
+  .g-logos-sub {
+    margin-inline: auto;
+  }
+
+  .g-system {
+    --sys: min(500px, calc(100vw - 2 * var(--g-gutter)));
+  }
+
+  .g-demo-stage {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'chapter'
+      'head'
+      'win'
+      'caps';
+    justify-items: center;
+    align-content: center;
+    gap: 0;
+    padding-top: 92px;
+    text-align: center;
+  }
+
+  .g-demo-copy {
+    display: contents;
+  }
+
+  .g-demo .oc-chapter {
+    grid-area: chapter;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+
+  .g-demo .g-h2 {
+    grid-area: head;
+    margin-bottom: 22px;
+    font-size: clamp(2rem, 1.2rem + 3.4vw, 3rem);
+  }
+
+  .g-win {
+    grid-area: win;
+    justify-self: center;
+    max-width: 680px;
+    text-align: left;
+  }
+
+  /* one caption at a time under the window, numbered like the steps */
+  .g-caps {
+    grid-area: caps;
+    width: 100%;
+    max-width: 560px;
+    height: 70px;
+    margin-top: 18px;
+  }
+
+  .g-caps::before,
+  .g-caps::after {
+    display: none;
+  }
+
+  .g-cap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
     gap: 10px;
-    padding-right: 8px;
+    padding: 0;
+    font-size: 0.9375rem;
+    color: var(--cp-label);
+    text-align: left;
+    opacity: 0;
+    translate: 0 8px;
+    transition:
+      opacity 400ms ease,
+      translate 500ms var(--cp-spring);
+  }
+
+  .g-cap::before {
+    width: 26px;
+    height: 26px;
+    margin-top: -2px;
+    font-size: 0.75rem;
+  }
+
+  .g-demo[data-scene='1'] .g-cap-1,
+  .g-demo[data-scene='2'] .g-cap-2,
+  .g-demo[data-scene='3'] .g-cap-3,
+  .g-demo[data-scene='4'] .g-cap-4,
+  html:not(.js) .g-demo .g-cap-4 {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  html:not(.js) .g-demo .g-cap-1 {
+    opacity: 0;
+  }
+
+  .g-os-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .g-doors {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 40rem;
+  }
+
+  .g-faq-sec > .g-wrap {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .oc-faq-head {
+    position: static;
   }
 }
 
 @media (max-width: 880px) {
-
-  .g-steps {
-    grid-template-columns: 1fr;
-    max-width: 460px;
-    margin: 0 auto;
-  }
-
   /* one screen at a time on a phone: no switch, both ladders in a row,
      each under its own lede */
   .g-seg {
@@ -2306,35 +3731,37 @@ html.motion .g-dock::before {
   }
 
   .g-tiers + .g-tiers {
-    margin-top: 56px;
-    padding-top: 48px;
-    border-top: 1px solid var(--g-hair);
+    margin-top: 64px;
+    padding-top: 56px;
+    border-top: 1px solid var(--cp-separator);
   }
 
-  .g-book {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 22px;
-    max-width: 460px;
-    margin-top: 40px;
-    padding: 26px 24px;
+  .g-cards {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 30rem;
+    margin: 0 auto;
+    gap: 18px;
   }
 
-  .g-book-cta {
-    align-items: stretch;
+  .g-card-hot {
+    order: -1;
   }
 
-  .g-book-cta .g-btn {
-    text-align: center;
+  .g-extras {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 30rem;
+    margin-inline: auto;
   }
+}
 
-  .g-book-sub {
-    white-space: normal;
-    text-align: center;
+@media (max-width: 700px) {
+  .g-os-grid,
+  .g-perks {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .g-bento {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
       'pilot'
       'mail'
@@ -2347,76 +3774,206 @@ html.motion .g-dock::before {
       'ctrl'
       'apps'
       'dept';
+    gap: 14px;
   }
 
-  .g-os-grid {
-    grid-template-columns: 1fr;
+  .g-tile-auto {
+    min-height: 380px;
   }
 
-  .g-os-sub {
-    margin-top: -10px;
+  /* the timeline turns vertical: stops on the left, cards beside them */
+  .g-steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+    padding: 0 0 0 52px;
   }
 
-  .g-cards {
-    grid-template-columns: 1fr;
-    max-width: 460px;
-    margin: 0 auto;
-    gap: 26px;
+  .g-steps::before,
+  .g-steps::after {
+    display: block;
+    top: 22px;
+    bottom: 22px;
+    left: 16px;
+    right: auto;
+    width: 2px;
+    height: auto;
   }
 
-  .g-card-hot {
-    order: -1;
+  .g-steps::after {
+    background: linear-gradient(180deg, var(--cp-accent), #5e5ce6);
+    transform-origin: top;
+    transform: scaleY(var(--line));
   }
 
-  .g-extras {
-    grid-template-columns: 1fr;
-    max-width: 460px;
-    margin-left: auto;
-    margin-right: auto;
+  .g-step-n {
+    top: 22px;
+    left: -52px;
   }
 
-  .g-tier-lede {
-    margin-bottom: 38px;
+  .g-os-card,
+  .g-tile,
+  .g-perk,
+  .g-step {
+    padding: 24px;
   }
 
-  .g-seg {
+  .g-founding {
+    align-items: flex-start;
+  }
+
+  .g-founding .g-kdot {
+    margin-top: 7px;
+  }
+
+  .g-foot-tag {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 599px) {
+  .oc-welcome {
+    padding: 104px 16px 84px;
+  }
+
+  .oc-eyebrow {
+    margin-bottom: 24px;
+    font-size: 0.8125rem;
+  }
+
+  .oc-description {
+    margin-top: 22px;
+  }
+
+  .oc-actions {
     width: 100%;
+    max-width: 22rem;
+    flex-direction: column;
+    margin-top: 32px;
   }
 
-  .g-seg-btn {
-    flex: 1;
-    padding: 10px 12px;
+  .g-demo-stage {
+    padding: 84px 16px 16px;
+  }
+
+  .g-win-bar {
+    height: 46px;
+    padding: 0 10px 0 14px;
+    gap: 10px;
+  }
+
+  .g-win-dots {
+    gap: 6px;
+  }
+
+  .g-win-dots i {
+    width: 10px;
+    height: 10px;
+  }
+
+  .g-win-title {
+    display: none;
+  }
+
+  .g-win-pill {
+    padding: 4px 9px;
+    font-size: 0.6875rem;
   }
 
   .g-win-body {
-    height: 372px;
+    height: 384px;
   }
 
   .g-scene {
-    inset: 18px;
+    inset: 14px;
+  }
+
+  .g-bubble {
+    font-size: 0.875rem;
+  }
+
+  .g-fan {
+    font-size: 0.875rem;
+    margin-bottom: 10px;
   }
 
   .g-act {
-    gap: 8px;
-    padding: 8px 10px;
-    font-size: 12px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 8px;
+    padding: 9px 11px;
+    font-size: 0.8125rem;
+    line-height: 1.4;
   }
 
   .g-act-tag {
-    font-size: 9px;
-    padding: 3px 7px;
+    justify-self: start;
+    min-width: 0;
   }
 
   .g-act-ok {
-    font-size: 10px;
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 0.6875rem;
+  }
+
+  .g-act-txt {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .g-stamp {
+    font-size: 0.6875rem;
+  }
+
+  .g-approve,
+  .g-report {
+    padding: 20px;
+  }
+
+  .g-approve p {
+    font-size: 0.9375rem;
+  }
+
+  .g-report-lines {
+    font-size: 0.8125rem;
   }
 
   .g-caps {
     height: 76px;
   }
 
+  .g-cap {
+    font-size: 0.875rem;
+  }
+
+  .g-talk-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .g-talk-foot .g-btn {
+    width: 100%;
+  }
+
+  /* a long label wraps inside its capsule rather than past the card */
+  .g-btn-lg {
+    max-width: 100%;
+    padding-inline: 24px;
+    font-size: 1rem;
+    white-space: normal;
+  }
+
   .g-faq details {
-    padding: 0 18px;
+    padding: 0 20px;
+  }
+
+  .g-faq details + details {
+    background-position: 20px 0;
+    background-size: calc(100% - 40px) 1px;
+  }
+
+  .g-faq summary {
+    font-size: 1rem;
+    padding: 18px 0;
   }
 
   .g-planet {
@@ -2426,442 +3983,121 @@ html.motion .g-dock::before {
   }
 
   .g-planet svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  .g-p-emoji {
-    font-size: 20px;
+    width: 21px;
+    height: 21px;
   }
 
   .g-sun {
     width: 88px;
     height: 88px;
+    margin: -44px 0 0 -44px;
   }
 
   .g-sun img {
-    width: 48px;
+    width: 46px;
+  }
+
+  .g-system {
+    --r2: calc(var(--sys) / 2 - 28px);
+  }
+
+  .g-dock {
+    gap: 8px;
+    padding: 0 18px 0 16px;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .oc-eyebrow {
+    gap: 7px;
+    padding: 6px 12px 6px 9px;
+    font-size: 0.75rem;
+  }
+
+  .g-nav {
+    padding-left: 14px;
+    gap: 2px;
+  }
+
+  .g-nav .g-brand {
+    font-size: 1rem;
+    gap: 6px;
+    margin-right: 4px;
+  }
+
+  .g-nav .g-brand img {
+    width: 22px;
+  }
+
+  .g-nav > .g-btn {
+    padding-inline: 12px;
+    font-size: 0.8125rem;
+  }
+}
+
+/* -------------------------------------------------------- preferences */
+
+@media (pointer: coarse) {
+  .g-company-interval button {
+    min-height: 44px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .g-kdot,
+  .g-kdot::after,
   .g-eq i,
   .g-ekg polyline,
-  .g-planet {
-    animation: none;
+  .g-planet,
+  .g-act-live {
+    animation: none !important;
+  }
+
+  .g-lens,
+  .g-seg::before,
+  .g-company-interval::before,
+  .g-scene,
+  .g-act,
+  .g-sent,
+  .g-report-lines li,
+  .g-cap {
+    transition: none;
   }
 
   .g-dock {
     opacity: 1;
     visibility: visible;
   }
-}
 
-/* ------------------------------------------- the founding cohort */
-/* The offer and the application: a kicker that carries the deadline, the
-   promise, four glass perks (the ledger cards' tag / title / text rhythm),
-   then the application beside the founder's booking page. */
-.g-cohort {
-  position: relative;
-  padding: clamp(100px, 15vh, 170px) 0;
-  border-top: 1px solid var(--g-hair);
-  overflow: hidden;
-}
-
-.g-glow-cohort {
-  top: 2%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(980px, 100vw);
-  aspect-ratio: 1.5;
-  background:
-    radial-gradient(closest-side at 40% 45%, rgba(242, 148, 46, 0.24), transparent 70%),
-    radial-gradient(closest-side at 62% 55%, rgba(255, 120, 73, 0.16), transparent 72%);
-}
-
-.g-cohort-kicker {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 4px 10px;
-  margin-bottom: 22px;
-  font-family: var(--g-mono);
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  text-align: center;
-  color: var(--g-peach);
-}
-
-.g-cohort-sub {
-  max-width: 620px;
-  margin: -26px auto 46px;
-  text-align: center;
-  color: var(--g-dim);
-  font-size: 16.5px;
-}
-
-.g-perks {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-
-.g-perk {
-  padding: 26px 24px;
-  border-radius: 22px;
-}
-
-.g-perk-tag {
-  font-family: var(--g-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--g-peach);
-  margin-bottom: 12px;
-}
-
-.g-perk h3 {
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
-}
-
-.g-perk p:not(.g-perk-tag) {
-  font-size: 14.5px;
-  color: var(--g-dim);
-}
-
-.g-cohort-solo {
-  margin-top: 30px;
-  text-align: center;
-  font-size: 14px;
-  color: var(--g-dim);
-}
-
-.g-cohort-solo a {
-  color: var(--g-ink);
-  border-bottom: 1px solid var(--g-hair);
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-
-.g-cohort-solo a:hover {
-  color: var(--g-orange);
-  border-color: var(--g-orange);
-}
-
-@media (max-width: 1080px) {
-  .g-perks {
-    grid-template-columns: repeat(2, 1fr);
+  html.on-stage .g-dock {
+    opacity: 0;
+    visibility: hidden;
   }
 }
 
-@media (max-width: 560px) {
-  .g-perks {
-    grid-template-columns: 1fr;
+/* Reduced transparency: the glass turns frosted solid. */
+@media (prefers-reduced-transparency: reduce) {
+  .g-nav::before,
+  .g-menu::before,
+  .g-dock::before,
+  body.g::before {
+    background: var(--cp-card);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }
 
-/* ---------------------- the application (and the booking page beside it) */
-/* The site's lead form, now the founding-cohort application: first and
-   widest on wide screens, the founder's booking page beside it; stacked on
-   phones, application first. Inputs in the glass language; the labels in the
-   page's mono eyebrow style; optional fields say so. On success the fields
-   give way to the thank-you line. */
-.g-doors {
-  display: grid;
-  grid-template-columns: minmax(0, 1.28fr) minmax(0, 1fr);
-  gap: 22px;
-  max-width: 1080px;
-  margin: 46px auto 0;
-  scroll-margin-top: 96px;
-}
-
-/* beside the application: what happens after it, then the founder's
-   booking page for anyone who'd rather see Ocur first */
-.g-doors-side {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  min-width: 0;
-}
-
-.g-next {
-  padding: 30px 36px;
-  border-radius: 24px;
-}
-
-.g-next-kicker {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-  font-family: var(--g-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--g-peach);
-}
-
-.g-next-steps {
-  list-style: none;
-  counter-reset: g-next;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.g-next-steps li {
-  position: relative;
-  padding-left: 36px;
-  font-size: 14.5px;
-  line-height: 1.5;
-  color: var(--g-dim);
-  counter-increment: g-next;
-}
-
-.g-next-steps li::before {
-  content: counter(g-next, decimal-leading-zero);
-  position: absolute;
-  left: 0;
-  top: 2px;
-  font-family: var(--g-mono);
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  color: var(--g-orange);
-}
-
-.g-next-steps strong {
-  color: var(--g-ink);
-  font-weight: 600;
-}
-
-.g-doors .g-book {
-  flex: 1;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 26px;
-  max-width: none;
-  margin: 0;
-}
-
-.g-doors .g-book-cta {
-  align-items: flex-start;
-}
-
-.g-doors .g-book-sub {
-  white-space: normal;
-}
-
-.g-talk {
-  display: flex;
-  flex-direction: column;
-  padding: 30px 36px;
-  border-radius: 24px;
-}
-
-.g-talk h3 {
-  font-size: clamp(22px, 2.4vw, 26px);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-}
-
-.g-talk-text {
-  margin-top: 8px;
-  font-size: 15px;
-  color: var(--g-dim);
-}
-
-.g-talk-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px 14px;
-  /* a label that wraps (the optional phone's) must not push its input out
-     of line with its neighbour's */
-  align-items: end;
-  margin-top: 20px;
-}
-
-.g-field {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  min-width: 0;
-}
-
-.g-field-wide {
-  grid-column: 1 / -1;
-}
-
-.g-field > span {
-  font-family: var(--g-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--g-dim);
-}
-
-.g-field em {
-  font-style: normal;
-  text-transform: none;
-  letter-spacing: 0.02em;
-  color: var(--g-peach);
-}
-
-.g-field input,
-.g-field select,
-.g-field textarea {
-  width: 100%;
-  padding: 11px 13px;
-  border-radius: 12px;
-  border: 1px solid var(--g-glass-bd);
-  background-color: rgba(255, 255, 255, 0.05);
-  color: var(--g-ink);
-  font: inherit;
-  font-size: 14.5px;
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-html[data-theme='light'] .g-field input,
-html[data-theme='light'] .g-field select,
-html[data-theme='light'] .g-field textarea {
-  background-color: rgba(255, 255, 255, 0.72);
-}
-
-.g-field input:focus,
-.g-field select:focus,
-.g-field textarea:focus {
-  border-color: rgba(242, 148, 46, 0.7);
-  box-shadow: 0 0 0 3px rgba(242, 148, 46, 0.18);
-}
-
-.g-field input::placeholder,
-.g-field textarea::placeholder {
-  color: var(--g-dim);
-  opacity: 0.7;
-}
-
-/* the team size: a native select in the inputs' glass, with its own chevron;
-   dim until something's chosen */
-.g-field select {
-  appearance: none;
-  -webkit-appearance: none;
-  padding-right: 38px;
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%238a8a94' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  background-size: 12px 8px;
-}
-
-.g-field select:invalid {
-  color: var(--g-dim);
-}
-
-.g-field textarea {
-  resize: vertical;
-  min-height: 84px;
-}
-
-/* the honeypot: out of sight, out of the tab order, in the markup */
-.g-hp {
-  position: absolute;
-  left: -10000px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-.g-talk-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-
-.g-talk-foot .g-btn {
-  border: 0;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.g-talk-foot .g-btn:disabled {
-  opacity: 0.6;
-  cursor: progress;
-}
-
-.g-talk-sub {
-  font-size: 12.5px;
-  color: var(--g-dim);
-}
-
-.g-talk-sub a {
-  color: var(--g-ink);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.g-talk-status {
-  margin-top: 12px;
-  font-size: 14px;
-  color: var(--g-peach);
-}
-
-.g-talk-status:empty {
-  display: none;
-}
-
-.g-talk.is-sent .g-talk-grid,
-.g-talk.is-sent .g-talk-foot {
-  display: none;
-}
-
-.g-talk.is-sent .g-talk-status {
-  margin-top: 18px;
-  font-size: 16px;
-  color: var(--g-ink);
-}
-
-/* the business tiers' quiet second door, under each Apply button: the
-   same plan, today, at list price */
-.g-card-talk {
-  display: block;
-  margin-top: 12px;
-  text-align: center;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--g-dim);
-  transition: color 0.2s ease;
-}
-
-.g-card-talk:hover {
-  color: var(--g-ink);
-}
-
-@media (max-width: 1000px) {
-  .g-doors {
-    grid-template-columns: 1fr;
-    max-width: 560px;
-    margin-top: 40px;
+@media (prefers-contrast: more) {
+  :root {
+    --cp-secondary: #48484c;
+    --cp-separator: rgba(60, 60, 67, 0.4);
+    --cp-card-line: rgba(0, 0, 0, 0.3);
   }
 
-  .g-talk,
-  .g-next {
-    padding: 26px 24px;
-  }
-}
-
-@media (max-width: 560px) {
-  .g-talk-grid {
-    grid-template-columns: 1fr;
+  html[data-theme='dark'],
+  .o-dark {
+    --cp-secondary: #c7c7cc;
+    --cp-separator: rgba(235, 235, 245, 0.35);
+    --cp-card-line: rgba(255, 255, 255, 0.3);
   }
 }

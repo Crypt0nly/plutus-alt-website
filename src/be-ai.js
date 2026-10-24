@@ -16,8 +16,8 @@
 import './style.css';
 import './discovery.css';
 import './be-ai.css';
-import './cinematic.css';
 import { initThemeToggle } from './theme.js';
+import { initChrome } from './chrome.js';
 import { initAnalytics, track } from './analytics.js';
 import { DrawPad, INK_COLORS, BRUSH_SIZES } from './be-ai-draw.js';
 import { ShapeChallenge } from './be-ai-shapes.js';
@@ -32,6 +32,7 @@ const WORD_LIMIT = 10;
 
 initAnalytics();
 initThemeToggle();
+initChrome();
 const yearEl = document.getElementById('g-year');
 if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 

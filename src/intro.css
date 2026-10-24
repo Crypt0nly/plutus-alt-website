@@ -1,5 +1,7 @@
-/* A quiet, full-screen stage; site chrome lives after the introduction. */
-.oc-intro { position: relative; z-index: 1100; color: #f4eadb; background: #080a0e; }
+/* A quiet, full-screen stage; site chrome lives after the introduction.
+   The film keeps its own type (the particles sample Inter) whatever the
+   site around it uses. */
+.oc-intro { --g-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; position: relative; z-index: 1100; color: #f4eadb; background: #080a0e; font-family: var(--g-sans); line-height: 1.6; letter-spacing: normal; }
 .oc-stage { position: relative; height: 100svh; min-height: 480px; overflow: hidden; isolation: isolate; background: #080a0e; contain: paint; }
 .oc-art, .oc-webgl { position: absolute; inset: 0; }
 .oc-poster { position: absolute; width: min(80vw, 70svh); height: min(80vw, 70svh); left: 50%; top: 47%; transform: translate(-50%, -50%); object-fit: contain; }
@@ -12,6 +14,7 @@
 .oc-caption { display: none; }
 .oc-scroll { position: absolute; z-index: 2; bottom: max(12px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); font: 400 .6875rem/1.5 var(--g-sans); color: #c3b7a7; white-space: nowrap; display: flex; align-items: center; gap: 10px; padding: 10px 20px; }
 .oc-scroll span { font-size: 1rem; }
+.oc-scroll:focus-visible { outline: 2px solid #d8ad76; outline-offset: 6px; }
 .oc-skip { position: absolute; z-index: 5; top: 18px; left: 18px; padding: 12px 20px; background: #f4eadb; color: #171410; border-radius: 8px; transform: translateY(-200%); }
 .oc-skip:focus { transform: none; outline: 2px solid #f2942e; outline-offset: 4px; }
 .oc-intro.is-scroll { height: 400svh; }
@@ -24,29 +27,8 @@
 .oc-caption span:first-child { opacity: 1; }
 .intro-focused .g-grain { display: none; }
 .g-nav:focus-within { z-index: 1200; }
-.oc-welcome { position: relative; padding: clamp(100px, 12vw, 170px) 24px 64px; text-align: center; scroll-margin-top: 70px; }
-.oc-eyebrow { font-size: .6875rem; font-weight: 500; text-transform: uppercase; letter-spacing: .13em; color: var(--g-dim); margin-bottom: 28px; }
-.oc-welcome h2 { font-size: clamp(2.25rem, 6vw, 5.5rem); line-height: 1.07; font-weight: 500; letter-spacing: -.05em; overflow-wrap: anywhere; }
-.oc-welcome em { font-style: normal; color: var(--g-orange); }
-.oc-description { max-width: 510px; margin: 28px auto 0; color: var(--g-dim); font-size: 1.125rem; line-height: 1.75; text-wrap: pretty; }
-.oc-actions { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 18px 30px; margin-top: 34px; }
-.oc-primary, .oc-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; gap: 24px; font-size: .875rem; font-weight: 600; border-radius: 9px; }
-.oc-primary { padding: 0 22px; background: var(--g-ink); color: var(--g-bg); }
-.oc-primary:hover { background: var(--g-orange); color: #080a0e; }
-.oc-secondary { gap: 10px; border-bottom: 1px solid var(--g-hair); border-radius: 0; }
-.oc-secondary:hover { color: var(--g-orange); }
-.oc-invitation { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px 20px; font-size: .75rem; color: var(--g-dim); margin-top: 22px; }
-.oc-invitation a { color: var(--g-ink); text-decoration: underline; text-underline-offset: 5px; text-decoration-color: var(--g-hair); }
-.oc-welcome :is(a, button):focus-visible, .oc-scroll:focus-visible { outline: 2px solid var(--g-orange); outline-offset: 6px; }
 @media (max-width: 599px) {
   .oc-intro.is-scroll { height: 360svh; }
   .oc-intro.is-cinematic .oc-caption { bottom: 17%; }
 }
 @media (prefers-reduced-motion: reduce) { .oc-scroll { display: none; } }
-@media (max-width: 380px) {
-  .g-nav { width: calc(100% - 24px); padding: 8px 10px; gap: 6px; justify-content: space-between; }
-  .g-nav .g-brand { font-size: 16px; gap: 5px; }
-  .g-nav .g-brand img { width: 22px; }
-  .g-nav > .g-btn { font-size: 11px; padding-inline: 11px; }
-  .g-nav .g-theme { width: 28px; min-width: 28px; }
-}

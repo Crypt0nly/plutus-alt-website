@@ -1,9 +1,13 @@
 # Ocur — the AI operating system for companies
 
-The Ocur marketing site: an Apple-keynote-style page in the **"Obsidian
-Glass"** direction — a near-black canvas, fox-orange glow meshes, true
-liquid-glass surfaces everywhere, and GSAP/Lenis scroll choreography. Built
-with Vite, vanilla JS, and vanilla CSS.
+The Ocur marketing site. A scroll-driven particle film opens it
+([docs/scroll-intro.md](docs/scroll-intro.md)); the page then rises over the
+film's dark stage in the **Ocur app language** — the design approved for
+plutus-cloud's apps (`skills/ocur-design-language`): neutral reading
+surfaces, restrained blue actions, floating glass controls and calm, large
+type — with GSAP scroll choreography on top
+([docs/site-design.md](docs/site-design.md)). Built with Vite, vanilla JS,
+and vanilla CSS.
 
 > The product: *Ocur — the AI operating system for companies.* It plugs
 > into the platforms a company already runs on (email, calendar, files,
@@ -23,21 +27,28 @@ with Vite, vanilla JS, and vanilla CSS.
 
 ## Page tour
 
-1. **Hero** — kicker "The AI operating system for companies", then "What if
-   your company *ran itself?*", **Apply for the founding cohort** beside
-   *Watch it work*, the application's microcopy (two-minute application ·
-   answer within two business days · closes on the deadline), a quiet
-   *Just you? Start free* line for solo, and three count-up stats that are
-   the founding offer (seats, the founding discount, 1:1 setup) — see
-   [Founding cohort](#founding-cohort-the-application).
-2. **Connector solar system** — Ocur as a glowing glass sun, the connectors
-   orbiting in two counter-rotating rings (Gmail, Google Calendar, Drive,
-   Notion, GitHub inner; Telegram, WhatsApp, Slack, Discord, email, your
-   computer, the web outer) plus a dashed **"+"** slot for connectors you
-   build yourself. CSS-only orbits; GitHub's mark uses `currentColor` to
-   follow the theme.
+1. **The opening film and the welcome** — the particle sequence (orbit →
+   "Your business. In motion." → globe → "You set direction. Ocur takes
+   action." → the Ocur fox), then the welcome on the film's dark stage: the
+   eyebrow "The AI operating system for companies", "Less busywork. *More
+   business.*", **Start free** beside *See it in action*, and the
+   founding-cohort invitation — see
+   [Founding cohort](#founding-cohort-the-application). With motion the
+   welcome holds still and dims while the rest of the page rises over it as
+   one rounded sheet.
+2. **Connectors** — "Works inside the tools your company already runs on."
+   beside a small solar system: Ocur at the centre, the connectors in two
+   counter-rotating orbits (Gmail, Google Calendar, Drive, Notion, GitHub
+   inner; Telegram, WhatsApp, Slack, Discord, email, your computer, the web
+   outer) plus a dashed **"+"** slot for connectors you build yourself. The
+   rings, the sun and the planets assemble as the section enters; the orbits
+   are CSS. GitHub's mark uses `currentColor` to follow the theme.
 3. **Pinned product demo** — "Delegate it. *Watch it happen.*": a pinned
-   glass app window plays a four-scene story as you scroll, built around
+   Ocur window, drawn in the app's own language (a blue message bubble,
+   grouped activity rows, a focus card for the decision, the report with
+   green checks, the composer underneath), plays a four-scene story as you
+   scroll — its four steps beside it on a rail that fills with progress
+   (one caption under the window on phones) — built around
    the "no way" capability — Ocur makes a real phone call. The ask ("40
    units short — sort it out with the supplier", typed out live with a
    blinking caret) → the facts, then the call (stock ledger vs. delivery
@@ -51,16 +62,20 @@ with Vite, vanilla JS, and vanilla CSS.
    Outbound calling is a real shipped capability (see plutus-cloud's
    `phone_service.py` — outbound-call intents, transcripts).
 4. **The ledgers** (`#system`) — "Other AI answers. *Ocur keeps the
-   books.*": six glass cards that make the "operating system" claim
+   books.*": a statement that lights up word by word as it is read, then six
+   cards with category symbols that make the "operating system" claim
    literal — commitments, money, the self-updating CRM, stock, the
    agent-designed business database, and the Command Center — closed by
    the one-graph line (a won deal books its receivable, a promise is
    already a commitment).
-5. **Bento features** — "One system. *Every job.*": eleven liquid-glass
-   tiles (autopilot heartbeat, answers its own email, talk to it, answers
-   the phone, parallel workers, record-a-skill, company memory, drives
-   your computer, built for control, builds its own tools/Live Apps, every
-   department), each with a pointer-tracked glare.
+5. **Bento features** — "One system. *Every job.*": eleven tiles
+   (autopilot heartbeat, answers its own email, talk to it, answers the
+   phone, parallel workers, record-a-skill, company memory, drives your
+   computer, built for control, builds its own tools/Live Apps, every
+   department). The autopilot tile is the one dark tile, with a blue
+   heartbeat; the others carry a symbol plate and lift a little on hover.
+   "Your first ten minutes" (`#start`) follows as a timeline whose line
+   draws itself as you arrive.
 6. **Pricing** — two ladders behind one switch ("Just me" / "My company"),
    because the two are priced on different units. **Solo**: Free (1.5M
    credits, 2 Drops) / Starter $29 (3M, 10 Drops) / Pro $149 (16M, 50 Drops,
@@ -85,7 +100,7 @@ with Vite, vanilla JS, and vanilla CSS.
    (to the application, with the plan picked) over a quiet *or start today
    at list price →* (sign-up with the plan).
 7. **Founding cohort** (`#apply`) — "*N* companies first. *Set up by
-   hand.*": four glass perks (founding price, setup with the founder, a
+   hand.*": four perks (founding price, setup with the founder, a
    direct line, early access), then the application beside *What happens
    next* and the founder's booking page — see
    [Founding cohort](#founding-cohort-the-application).
@@ -94,13 +109,15 @@ with Vite, vanilla JS, and vanilla CSS.
    then the classic objections: vs. a chat assistant?, install?,
    autonomy/approval, what if it's wrong?, integrations, privacy,
    company-wide use, pay-per-person?, rollout time, a demo first?
-9. **Final CTA** — "Run the company. *Not the busywork.*" → **Apply for the
-   founding cohort**, with *Book a live demo* and *Just you? Start free*
-   beneath it.
+9. **Final CTA** — the film's stage returns as a card that opens up as you
+   reach it, the fox above "Run the company. *Not the busywork.*" →
+   **Apply for the founding cohort**, with *Book a live demo* and *Just you?
+   Start free* beneath it.
 
 A persistent floating glass **CTA dock** — *Apply now · Founding cohort ·
-closes …* — rides along from just past the hero until the final section,
-and steps aside while the application itself is on screen.
+closes …* — rides along once the page has risen over the welcome, until the
+final section, and steps aside during the pinned demo and while the
+application itself is on screen.
 
 ## Book a demo
 
@@ -227,9 +244,12 @@ page.
 ## Tech notes
 
 - **Vite** build, single page; **vanilla JS** + a motion stack of
-  **GSAP + ScrollTrigger + SplitText + Lenis** (~59 KB gz). Vanilla CSS,
-  with the liquid-glass and theme tokens at the top of `src/style.css`.
-- Fonts: Inter (body) + JetBrains Mono (labels), via Google Fonts.
+  **GSAP + ScrollTrigger + SplitText**, plus the intro's lazily loaded
+  Three.js chunk. Vanilla CSS, with the design tokens (the app's `--cp-*`
+  palette) at the top of `src/style.css`.
+- Fonts: the system stack first (SF Pro on Apple devices, as in the app),
+  Inter from Google Fonts elsewhere; the intro keeps Inter for the words its
+  particles draw. JetBrains Mono remains for the game's small print.
 - **Analytics & ads**: PostHog product analytics, lazy-loaded and env-gated
   (`VITE_POSTHOG_KEY`, see `src/analytics.js`), cookie-free with memory-only
   persistence. The **X Ads conversion pixel** (`reji3`) sits inline in every
@@ -250,17 +270,24 @@ page.
   Both legs stay dormant until the `X_EVENT_ID_*`/`VITE_X_EVENT_ID_*` vars in
   `.env.example` are set with real event ids from X Events Manager.
 - **Motion gates behind `html.motion`** (set in `<head>` unless the visitor
-  prefers reduced motion), so the page reads fine without JS or with
-  reduced motion. The pinned demo falls back to its end state; the connector
-  orbits stop; counters show their final values.
-- Liquid-glass system: pointer-tracked specular glare on every `.glare`
-  surface, magnetic buttons, a custom cursor (fine pointers only), and the
-  counter-rotating connector orbits.
-- **Themes**: dark is the default; a sun/moon toggle in the nav switches to
-  a frosted-white light mode, persisted in localStorage (`ocur-theme`), with
-  `prefers-color-scheme` as the first-visit default. Every colour flows
-  through the `--g-*` token block — retint by editing the
-  `html[data-theme='light']` block only.
+  prefers reduced motion), and every hidden starting state is set by GSAP,
+  never by CSS, so the page reads fine without JS or with reduced motion.
+  The pinned demo falls back to its end state (with or without JS); the
+  connector orbits stop; counters show their final values; the welcome
+  stops holding still under the sheet.
+- **Glass for controls, cards for content** (the app's rule): the nav
+  capsule — whose lens slides to the chapter on screen (`src/chrome.js`) —
+  the phone menu, the dock and the segmented controls use the app's glass
+  recipe; everything you read sits on opaque cards.
+- **Themes**: a sun/moon toggle in the nav switches between the app's
+  light (white cards on `#f2f2f7`) and dark (charcoal on black) palettes,
+  persisted in localStorage (`ocur-theme`), with `prefers-color-scheme` as
+  the first-visit default. Colours flow through the `--cp-*` tokens at the
+  top of `src/style.css`, copied from plutus-cloud's
+  `skills/ocur-design-language/references/reading-tokens.css`; the older
+  `--g-*` names remain as aliases for the reading pages and the game. The
+  welcome, the closing card and the autopilot tile are dark islands
+  (`.o-dark`) in either theme.
 - **Localisation**: the German page is a real prerendered URL — `npm run
   build` runs `scripts/prerender-de.mjs`, which applies the dictionary in
   `src/strings.de.js` (CSS selector → replacement HTML) to the built page
@@ -287,7 +314,7 @@ image, `og:url`, `og:site_name` and `og:locale`:
 | `ocur.ai/be-ai` | `public/be-ai-og.png` |
 
 The cards are rendered from HTML through Playwright's Chromium — the real
-Obsidian-Glass look, not a hand-rolled bitmap — and the outputs are committed,
+film-stage-and-app look, not a hand-rolled bitmap — and the outputs are committed,
 so the production build never touches them:
 
 ```bash
@@ -410,7 +437,7 @@ the house player. Two roles:
 - **Spot the AI** — ask a prompt, read the answers, and pick the real Ocur
   hiding among the humans.
 
-The look is a **blend**: the Obsidian Glass design system plus hand-drawn
+The look is a **blend**: the Ocur app language plus hand-drawn
 accents (a Caveat marker font, wobbly `.ba-sketch` borders, offset marker
 shadows, a scribble underline). Anonymous by design — a client-generated player
 id in `localStorage` is the only identity; login is a later conversion step.
@@ -474,7 +501,7 @@ screen, and the items that have to be set outside this repo.
 ## Nav, phone menu and the doors into the app
 
 - **The nav's two pills**: *Apply now* (the founding-cohort application,
-  `#apply`) and, beside it, *Start free* as the quiet glass one — solo is
+  `#apply`) and, beside it, *Start free* as the quiet gray one — solo is
   open to everyone. *Start free* leaves the bar below 1280px, where one
   button is all the pill has room for.
 - **Log in** sits next to them: `app.ocur.ai/?auth=sign-in`. Every
@@ -487,7 +514,7 @@ screen, and the items that have to be set outside this repo.
   app keeps the `plan` through sign-up and opens its plan picker on that
   plan.
 - **Below 1100px** the nav links, the *Log in* link and the language switch
-  leave the pill and a burger opens a glass sheet (`#g-menu`): the section
+  leave the capsule and a burger opens a frosted sheet (`#g-menu`): the section
   links, the application across the top of its buttons, *Log in* and
   *Start free* side by side, *Book a demo*, and the EN | DE switch (cloned
   in by `src/i18n.js`). `mobile_menu_open` is tracked.
@@ -530,9 +557,10 @@ terms/index.html   # the terms of service (ocur.ai/terms)
 de/privacy/, de/terms/   # their German twins (/de/privacy, /de/terms)
 de/impressum/      # Anbieterkennzeichnung § 5 DDG (German pages only)
 src/
-  main.js          # GSAP/Lenis choreography, pinned demo, the application form, micro-interactions
+  main.js          # GSAP choreography (reveals, the rising sheet, the pinned demo), the application form
+  chrome.js        # nav state over the film's stage, the scroll edge, the section lens, the reading pages' TOC
   cohort.js        # the founding cohort's promises: seats, founding price, deadline, answer time
-  style.css        # the liquid-glass design system (theme tokens at the top)
+  style.css        # the design system: app tokens, glass controls, cards, every home-page section
   legal.js         # entry for the legal pages — theme + EN|DE chrome, no GSAP
   legal.css        # long-form reading layout: sticky TOC, prose, data tables
   i18n.js          # language routing + EN|DE toggle
@@ -541,7 +569,7 @@ src/
   analytics.js     # PostHog (lazy, env-gated) + a small track() helper
   xads.js          # X Ads conversions: twclid capture + CTA dual-fire
   be-ai.js         # /be-ai live game: WebSocket client + view state machine
-  be-ai.css        # /be-ai styling — Ocur glass + hand-drawn "sketch" accents
+  be-ai.css        # /be-ai styling — the app language + hand-drawn "sketch" accents
   be-ai-draw.js    # /be-ai drawing pad (answer a prompt with a scribble)
   be-ai-share.js   # /be-ai share card (canvas) + native share / modal
 api/

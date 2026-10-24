@@ -1,8 +1,9 @@
-/* Ocur — /be-ai live multiplayer game. Blended aesthetic: the Obsidian Glass
-   design system from style.css (dark canvas, fox-orange glow, glass surfaces,
-   the --g-* tokens) with hand-drawn accents borrowed from the "anti-slop"
+/* Ocur — /be-ai live multiplayer game. Blended aesthetic: the Ocur app
+   language from style.css (neutral surfaces, blue actions, the --cp-* and
+   --g-* tokens) with hand-drawn accents borrowed from the "anti-slop"
    reference — a marker accent font (Caveat), wobbly sketch borders and offset
-   marker drop-shadows. style.css is imported first in be-ai.js. */
+   marker drop-shadows. Blue marks interaction and selection; Ocur's own fox
+   orange marks only the real Ocur. style.css is imported first in be-ai.js. */
 
 /* the homepage gates .g-ctas to opacity:0 for its GSAP timeline; this page has
    no GSAP, so keep it visible. */
@@ -38,7 +39,7 @@ html.motion body.ba .g-ctas {
   bottom: 0.04em;
   height: 0.5em;
   z-index: -1;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 18' preserveAspectRatio='none'%3E%3Cpath d='M2 12c20-8 60-9 116-4' fill='none' stroke='%23f2942e' stroke-width='5' stroke-linecap='round' opacity='0.55'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 18' preserveAspectRatio='none'%3E%3Cpath d='M2 12c20-8 60-9 116-4' fill='none' stroke='%230a84ff' stroke-width='5' stroke-linecap='round' opacity='0.42'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -52,12 +53,24 @@ html.motion body.ba .g-ctas {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--g-mono);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--g-peach);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: var(--cp-accent-text);
   margin-bottom: 22px;
+}
+
+/* The game's headlines stay one line with an inline, marked accent. */
+body.ba .g-h2 {
+  text-align: center;
+}
+
+body.ba .g-h1 .g-grad,
+body.ba .g-h2 .g-grad,
+body.ba .g-final-h .g-grad,
+body.ba .ba-cta-h .g-grad {
+  display: inline;
+  color: var(--cp-accent-text);
 }
 .ba-hero .g-h1 {
   font-size: clamp(64px, 12vw, 150px);
@@ -96,8 +109,8 @@ html.motion body.ba .g-ctas {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--g-orange);
-  box-shadow: 0 0 12px rgba(242, 148, 46, 0.8);
+  background: var(--cp-green);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--cp-green) 70%, transparent);
 }
 html.motion .ba-hero .ba-kicker,
 html.motion .ba-hero .g-h1,
@@ -470,8 +483,8 @@ html.motion .ba-msg {
   background: var(--g-fill);
 }
 .ba-msg-out .ba-msg-body {
-  background: var(--g-ink);
-  color: var(--g-on-ink);
+  background: var(--cp-action-fill);
+  color: #fff;
   border-color: transparent;
   border-bottom-right-radius: 5px;
 }
@@ -501,11 +514,11 @@ html.motion .ba-msg {
 }
 /* reveal states on the answer bubbles */
 .ba-msg.is-ai .ba-msg-body {
-  border-color: rgba(242, 148, 46, 0.6);
-  background: linear-gradient(155deg, rgba(242, 148, 46, 0.16), rgba(242, 148, 46, 0.03));
+  border-color: color-mix(in srgb, var(--cp-orange) 55%, transparent);
+  background: color-mix(in srgb, var(--cp-orange) 9%, var(--cp-card));
 }
 .ba-msg.is-ai .ba-msg-label {
-  color: var(--g-orange);
+  color: var(--cp-orange-text);
 }
 .ba-msg.is-human .ba-msg-body {
   border-style: dashed;
@@ -635,8 +648,8 @@ html.motion .ba-msg {
   font-family: var(--g-sans);
   font-weight: 600;
   font-size: 14px;
-  color: var(--g-on-ink);
-  background: var(--g-ink);
+  color: #fff;
+  background: var(--cp-action-fill);
   border: none;
   border-radius: 999px;
   padding: 9px 16px;
@@ -644,7 +657,7 @@ html.motion .ba-msg {
   transition: box-shadow 0.2s ease;
 }
 .ba-pickbtn:hover {
-  box-shadow: 0 8px 26px rgba(242, 148, 46, 0.4);
+  box-shadow: 0 8px 22px -8px rgba(0, 113, 227, 0.7);
 }
 .ba-votes {
   display: flex;
@@ -666,8 +679,8 @@ html.motion .ba-msg {
 
 /* reveal-specific answer states */
 .ba-answer.is-ai {
-  border-color: rgba(242, 148, 46, 0.6);
-  background: linear-gradient(155deg, rgba(242, 148, 46, 0.14), rgba(242, 148, 46, 0.03));
+  border-color: color-mix(in srgb, var(--cp-orange) 55%, transparent);
+  background: color-mix(in srgb, var(--cp-orange) 8%, var(--cp-card));
 }
 .ba-answer.is-human {
   border-style: dashed;
@@ -687,7 +700,7 @@ html.motion .ba-msg {
   padding: 3px 8px;
 }
 .ba-answer.is-ai .ba-answer-label {
-  color: var(--g-orange);
+  color: var(--cp-orange-text);
 }
 .ba-answer.is-human .ba-answer-label {
   color: var(--g-dim);
@@ -711,7 +724,7 @@ html.motion .ba-msg {
   padding: 26px;
   margin: 6px 0 20px;
   text-align: center;
-  background: linear-gradient(155deg, rgba(242, 148, 46, 0.1), rgba(255, 255, 255, 0.03));
+  background: color-mix(in srgb, var(--cp-accent) 5%, var(--cp-card));
 }
 .ba-cta-h {
   font-size: clamp(21px, 3vw, 28px);
@@ -1240,4 +1253,14 @@ html.motion .ba-msg {
 }
 .ba-board-toggle:hover {
   border-color: var(--g-orange);
+}
+
+/* The closing call, without the home page's stage card. */
+body.ba .g-final {
+  padding-top: clamp(96px, 14vw, 180px);
+  text-align: center;
+}
+
+body.ba .g-final .g-btn {
+  margin-top: 4px;
 }
