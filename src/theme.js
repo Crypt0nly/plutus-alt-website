@@ -5,7 +5,7 @@
 
 import { currentLang } from './i18n.js';
 
-// The browser chrome follows what is under it: the film's stage at the top
+// The browser chrome follows what is under it: the opening's stage at the top
 // of the home page, otherwise the canvas of the current theme.
 const STAGE = '#080a0e';
 const CANVAS = { dark: '#000000', light: '#f2f2f7' };

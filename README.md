@@ -1,13 +1,13 @@
 # Ocur — the AI operating system for companies
 
-The Ocur marketing site. A scroll-driven particle film opens it
-([docs/scroll-intro.md](docs/scroll-intro.md)); the page then rises over the
-film's dark stage in the **Ocur app language** — the design approved for
-plutus-cloud's apps (`skills/ocur-design-language`): neutral reading
-surfaces, restrained blue actions, floating glass controls and calm, large
-type — with GSAP scroll choreography on top
-([docs/site-design.md](docs/site-design.md)). Built with Vite, vanilla JS,
-and vanilla CSS.
+The Ocur marketing site. It opens on what Ocur is, both doors in, and Ocur
+visibly at work — a live deck of real jobs, no scrolling needed
+([docs/hero.md](docs/hero.md)); the page then rises over that dark stage in
+the **Ocur app language** — the design approved for plutus-cloud's apps
+(`skills/ocur-design-language`): neutral reading surfaces, restrained blue
+actions, floating glass controls and calm, large type — with GSAP scroll
+choreography on top ([docs/site-design.md](docs/site-design.md)). Built with
+Vite, vanilla JS, and vanilla CSS.
 
 > The product: *Ocur — the AI operating system for companies.* It plugs
 > into the platforms a company already runs on (email, calendar, files,
@@ -27,15 +27,19 @@ and vanilla CSS.
 
 ## Page tour
 
-1. **The opening film and the welcome** — the particle sequence (orbit →
-   "Your business. In motion." → globe → "You set direction. Ocur takes
-   action." → the Ocur fox), then the welcome on the film's dark stage: the
-   eyebrow "The AI operating system for companies", "Less busywork. *More
-   business.*", **Start free** beside *See it in action*, and the
-   founding-cohort invitation — see
-   [Founding cohort](#founding-cohort-the-application). With motion the
-   welcome holds still and dims while the rest of the page rises over it as
-   one rounded sheet.
+1. **The opening** — on a dark stage, readable from the first frame: the
+   founding-cohort offer as a small pill, "Less busywork. *More business.*",
+   one sentence on what Ocur is, **Apply for the founding cohort** beside
+   *Start free*, and three plain facts (two-minute application, the answer
+   time, no credit card) — see
+   [Founding cohort](#founding-cohort-the-application). Beside it, Ocur at
+   work: a deck of Ocur windows, one real job each — chasing overdue
+   invoices, answering leads, taking calls, a weekday autopilot. The job in
+   front plays out (the ask typed, the steps landing, the result), then the
+   next window comes forward; chips pick a job and a round button pauses
+   the deck ([docs/hero.md](docs/hero.md)). With motion the opening holds
+   still and dims while the rest of the page rises over it as one rounded
+   sheet.
 2. **Connectors** — "Works inside the tools your company already runs on."
    beside a small solar system: Ocur at the centre, the connectors in two
    counter-rotating orbits (Gmail, Google Calendar, Drive, Notion, GitHub
@@ -109,13 +113,13 @@ and vanilla CSS.
    then the classic objections: vs. a chat assistant?, install?,
    autonomy/approval, what if it's wrong?, integrations, privacy,
    company-wide use, pay-per-person?, rollout time, a demo first?
-9. **Final CTA** — the film's stage returns as a card that opens up as you
+9. **Final CTA** — the opening's stage returns as a card that opens up as you
    reach it, the fox above "Run the company. *Not the busywork.*" →
    **Apply for the founding cohort**, with *Book a live demo* and *Just you?
    Start free* beneath it.
 
 A persistent floating glass **CTA dock** — *Apply now · Founding cohort ·
-closes …* — rides along once the page has risen over the welcome, until the
+closes …* — rides along once the page has risen over the opening, until the
 final section, and steps aside during the pinned demo and while the
 application itself is on screen.
 
@@ -168,7 +172,7 @@ and stay true. The answer time is also in the app's owner notification
 
 **When the deadline passes**, the inline script in `<head>` sets
 `html.cohort-closed` from `<html data-closes>` and every `.g-deadline`
-goes: the hero and final micro lines, the cohort kicker, the pricing
+goes: the opening's offer pill, the final micro line, the cohort kicker, the pricing
 ribbon's *by …*, the dock's *closes …* and the FAQ clause. Each is written
 so its sentence still reads without it — the page never promises a date
 that has gone — and the build warns until a new `CLOSES_AT` is set. When
@@ -176,7 +180,7 @@ the cohort is full, set `CLOSES_AT` to now.
 
 **Where it's asked for** — every Apply carries `data-apply="<placement>"`
 and glides to `#apply`: the nav's primary pill (`nav`), the phone menu
-(`menu`), the hero (`hero`), the company ladder's ribbon (`pricing`), the
+(`menu`), the opening's button and its offer pill (`hero`, `hero-pill`), the company ladder's ribbon (`pricing`), the
 dock (`dock`) and the final call (`final`). The company cards' *Apply for
 the founding price* and the Enterprise extra's *Talk to us* go straight to
 the form (`#talk`) with their plan in the hidden field.
@@ -244,12 +248,11 @@ page.
 ## Tech notes
 
 - **Vite** build, single page; **vanilla JS** + a motion stack of
-  **GSAP + ScrollTrigger + SplitText**, plus the intro's lazily loaded
-  Three.js chunk. Vanilla CSS, with the design tokens (the app's `--cp-*`
-  palette) at the top of `src/style.css`.
+  **GSAP + ScrollTrigger + SplitText**. Vanilla CSS, with the design tokens
+  (the app's `--cp-*` palette) at the top of `src/style.css`.
 - Fonts: the system stack first (SF Pro on Apple devices, as in the app),
-  Inter from Google Fonts elsewhere; the intro keeps Inter for the words its
-  particles draw. JetBrains Mono remains for the game's small print.
+  Inter from Google Fonts elsewhere. JetBrains Mono remains for the game's
+  small print.
 - **Analytics & ads**: PostHog product analytics, lazy-loaded and env-gated
   (`VITE_POSTHOG_KEY`, see `src/analytics.js`), cookie-free with memory-only
   persistence. The **X Ads conversion pixel** (`reji3`) sits inline in every
@@ -270,11 +273,14 @@ page.
   Both legs stay dormant until the `X_EVENT_ID_*`/`VITE_X_EVENT_ID_*` vars in
   `.env.example` are set with real event ids from X Events Manager.
 - **Motion gates behind `html.motion`** (set in `<head>` unless the visitor
-  prefers reduced motion), and every hidden starting state is set by GSAP,
-  never by CSS, so the page reads fine without JS or with reduced motion.
-  The pinned demo falls back to its end state (with or without JS); the
-  connector orbits stop; counters show their final values; the welcome
-  stops holding still under the sheet.
+  prefers reduced motion), and every hidden starting state below the
+  opening is set by GSAP, never by CSS, so the page reads fine without JS or
+  with reduced motion. The opening's own entrance is paint-time CSS that
+  never hides its headline. The opening's deck holds its first job,
+  finished (the chips still switch jobs without motion); the pinned demo
+  falls back to its end state (with or without JS); the connector orbits
+  stop; counters show their final values; the opening stops holding still
+  under the sheet.
 - **Glass for controls, cards for content** (the app's rule): the nav
   capsule — whose lens slides to the chapter on screen (`src/chrome.js`) —
   the phone menu, the dock and the segmented controls use the app's glass
@@ -286,7 +292,7 @@ page.
   top of `src/style.css`, copied from plutus-cloud's
   `skills/ocur-design-language/references/reading-tokens.css`; the older
   `--g-*` names remain as aliases for the reading pages and the game. The
-  welcome, the closing card and the autopilot tile are dark islands
+  opening, the closing card and the autopilot tile are dark islands
   (`.o-dark`) in either theme.
 - **Localisation**: the German page is a real prerendered URL — `npm run
   build` runs `scripts/prerender-de.mjs`, which applies the dictionary in
@@ -314,7 +320,7 @@ image, `og:url`, `og:site_name` and `og:locale`:
 | `ocur.ai/be-ai` | `public/be-ai-og.png` |
 
 The cards are rendered from HTML through Playwright's Chromium — the real
-film-stage-and-app look, not a hand-rolled bitmap — and the outputs are committed,
+stage-and-app look, not a hand-rolled bitmap — and the outputs are committed,
 so the production build never touches them:
 
 ```bash
@@ -558,7 +564,8 @@ de/privacy/, de/terms/   # their German twins (/de/privacy, /de/terms)
 de/impressum/      # Anbieterkennzeichnung § 5 DDG (German pages only)
 src/
   main.js          # GSAP choreography (reveals, the rising sheet, the pinned demo), the application form
-  chrome.js        # nav state over the film's stage, the scroll edge, the section lens, the reading pages' TOC
+  hero.js          # the opening's deck: four live jobs, the chips, pause, the pointer lean
+  chrome.js        # nav state over the opening's stage, the scroll edge, the section lens, the reading pages' TOC
   cohort.js        # the founding cohort's promises: seats, founding price, deadline, answer time
   style.css        # the design system: app tokens, glass controls, cards, every home-page section
   legal.js         # entry for the legal pages — theme + EN|DE chrome, no GSAP

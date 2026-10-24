@@ -7,7 +7,7 @@
 //   public/be-ai-og.png   → ocur.ai/be-ai   (the reverse Turing test game)
 //
 // Rendered through Playwright's Chromium so the cards carry the site's real
-// look — the film's stage and the Ocur app language — rather than a
+// look — the opening's dark stage and the Ocur app language — rather than a
 // hand-rolled bitmap.
 //
 //   npm i -D playwright   (one-off; not a shipped dep, to keep installs +
@@ -41,7 +41,7 @@ const FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com" />
 const LOGO = `<svg viewBox="1088.71 900.58 822.58 698.84" xmlns="http://www.w3.org/2000/svg"><path fill="#F2942E" d="M1794.42,1331.64c-21.619-26.497-19.012-48.249,0.209-77.807c63.9-98.279,142.451-330.969,108.449-352.047c-7.186-4.452-22.26,4.341-29.537,11.457c-66.975,65.529-133.088,131.948-199.34,198.214c-33.447,33.453-72.611,50.322-120.957,49.696c-20.16-0.257-37.654-0.243-53.243-0.194c-15.59-0.049-33.085-0.063-53.244,0.194c-48.347,0.626-87.511-16.243-120.957-49.696c-66.252-66.266-132.365-132.685-199.341-198.214c-7.276-7.116-22.351-15.909-29.537-11.457c-34.002,21.078,44.549,253.768,108.45,352.047c19.22,29.558,21.828,51.31,0.208,77.807c-7.388,9.05-12.925,19.985-17.593,30.796c-11.45,26.489-1.203,49.8,25.537,60.354c1.092,0.424,2.281,0.723,3.45,0.82c111.295,9.962,186.451,78.495,254.248,158.063c10.288,12.076,19.512,18.344,28.778,17.703c9.265,0.641,18.489-5.627,28.778-17.703c67.795-79.567,142.951-148.101,254.246-158.063c1.17-0.098,2.359-0.396,3.451-0.82c26.74-10.554,36.986-33.864,25.537-60.354C1807.346,1351.625,1801.809,1340.689,1794.42,1331.64z M1393.151,1381.628l-29.829-49.418l50.754,23.596l2.226,35.172L1393.151,1381.628z M1606.85,1381.628l-23.15,9.35l2.227-35.172l50.752-23.596L1606.85,1381.628z"/></svg>`;
 
 // ── the home card ────────────────────────────────────────────────────────────
-// The welcome on the film's stage — the eyebrow, the two-line promise with its
+// The opening's promise on its dark stage — the eyebrow, the two-line promise with its
 // brushed-metal second voice — beside one Ocur window in the app's dark
 // reading language: the ask, then the report (the supplier-call story).
 const homeCard = (c) => `<!doctype html><html><head><meta charset="utf-8" />${FONTS}
@@ -124,7 +124,7 @@ const homeCard = (c) => `<!doctype html><html><head><meta charset="utf-8" />${FO
   </div>
 </body></html>`;
 
-// Copy mirrors the live welcome + pinned demo on each page (see index.html /
+// Copy mirrors the opening + pinned demo on each page (see index.html /
 // src/strings.de.js): the supplier-call story — Ocur really phones.
 const HOME_EN = homeCard({
   kicker: 'The AI operating system for companies',

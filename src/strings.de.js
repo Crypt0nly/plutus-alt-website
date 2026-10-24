@@ -41,19 +41,93 @@ export const DE = [
   ['.g-menu-links a', ['In Aktion', 'Das System', 'Funktionen', 'Deine ersten zehn Minuten', 'Preise', 'Pilotprogramm', 'FAQ', 'Desktop-App herunterladen']],
   ['.g-menu-ctas a', ['Fürs Pilotprogramm bewerben', 'Anmelden', 'Kostenlos starten', 'Demo buchen']],
 
-  // The GPU text is sampled from these same accessible, prerendered words.
-  ['#oc-title', '<span>Dein Unternehmen.</span><span>In Bewegung.</span>'],
-  ['.oc-message', '<span>Du gibst die Richtung.</span><span>Ocur legt los.</span>'],
-  ['.oc-caption span', ['Unternehmen führen. Neu gedacht.', 'Alle Teile arbeiten zusammen.', 'Das ist Ocur.']],
-  ['.oc-scroll', 'Scrollen zum Entdecken <span aria-hidden="true">↓</span>'],
-  ['.oc-skip', 'Einführung überspringen'],
-  ['.oc-eyebrow', 'Das KI-Betriebssystem für Unternehmen'],
-  ['#oc-welcome-title', 'Weniger Routine.<br /><em>Mehr Unternehmen.</em>'],
-  ['.oc-description', 'Ocur beantwortet E-Mails und Anrufe, verbindet deine Tools und bringt die Arbeit zu Ende. Du setzt die Grenzen.'],
-  ['.oc-primary', 'Kostenlos starten <span aria-hidden="true">↗</span>'],
-  ['.oc-secondary', 'In Aktion ansehen <span aria-hidden="true">↓</span>'],
-  ['.oc-invitation a', 'Am Pilotprogramm teilnehmen <span aria-hidden="true">↗</span>'],
-  ['.oc-invitation > span', 'Ohne Kreditkarte starten.'],
+  // the opening: the offer, the promise, both doors
+  ['.hx-pill strong', 'Pilotprogramm'],
+  [
+    '.hx-pill-offer',
+    `${PCT} Rabatt<span class="hx-pill-more"> für ${DISCOUNT_MONTHS} Monate</span><span class="g-deadline"> · bis ${CLOSES.deShort}</span>`,
+  ],
+  ['#hx-title', '<span class="hx-line"><span>Weniger Routine.</span></span> <span class="hx-line"><em>Mehr Unternehmen.</em></span>'],
+  [
+    '.hx-sub',
+    'Das KI-Betriebssystem für Unternehmen. Ocur beantwortet E-Mails und Anrufe, mahnt offene Rechnungen an und erledigt die Arbeit in den Tools, die du schon nutzt — in den Grenzen, die du setzt.',
+  ],
+  ['.hx-apply', 'Fürs Pilotprogramm bewerben <svg class="g-i" aria-hidden="true"><use href="#i-arrow-right" /></svg>'],
+  ['.hx-free', 'Kostenlos starten'],
+  ['.hx-trust li', ['Bewerbung in zwei Minuten', `Antwort ${ANSWER.de}`, 'Kostenloser Plan ohne Kreditkarte']],
+
+  // the opening's deck: four jobs, one window each (src/hero.js)
+  ['.hx-bar-title > span', ['Rechnungen', 'Leads', 'Anrufe', 'Autopilot']],
+  ['.hx-state-run', '<i class="g-kdot"></i>Arbeitet'],
+  ['.hx-state-done', '<svg class="g-i"><use href="#i-check" /></svg>Erledigt'],
+  [
+    '.hx-ask-t',
+    [
+      'Mahn alle Rechnungen an, die seit über 30 Tagen offen sind.',
+      'Beantworte neue Leads innerhalb von fünf Minuten — und buch die guten.',
+      'Nimm heute Nachmittag meine Anrufe an — ich bin in der Werkstatt.',
+      'Jeden Werktag um 6: Posteingang leeren, Rechnungen verschicken, mich auf WhatsApp briefen.',
+    ],
+  ],
+  [
+    '.hx-reply-t',
+    [
+      'Mach ich — erst die Zahlen, dann die Erinnerungen.',
+      'Mach ich — ich antworte, sobald sie reinkommen.',
+      'Alles klar — ich gehe ran.',
+      'Läuft — jeden Werktag um 06:00.',
+    ],
+  ],
+  [
+    '.hx-txt strong',
+    [
+      '4 überfällige Rechnungen · 9.850&nbsp;€',
+      'Erinnerungen verschickt — in deinem Ton',
+      'Ruft Weber &amp; Co. an — Rechnung #1043',
+      '3 neue Leads über deine Website',
+      'Geprüft · 2 passen zu euch',
+      'Demo gebucht · Nordwerk GmbH',
+      'Bäckerei Schmidt · Bestellung für Samstag',
+      '200 Brötchen gegen den Bestand geprüft',
+      'Zusammenfassung an dich geschickt',
+      'Posteingang: 38 erledigt · 3 brauchen dich',
+      '7 Rechnungen verschickt · 12.640&nbsp;€',
+      'Morgen-Briefing gesendet',
+    ],
+  ],
+  [
+    '.hx-txt > span',
+    [
+      'Aus deinen Büchern',
+      '4 E-Mails · Gmail',
+      '45 Tage überfällig',
+      'Posteingang',
+      'Pipeline aktualisiert',
+      'Di. 14:00',
+      'Angenommen · 01:42',
+      'Vorrätig · reserviert',
+      'WhatsApp',
+      '06:02',
+      '06:09',
+      '06:12',
+    ],
+  ],
+  ['.hx-done-k', ['Heute eingegangen', 'Erste Antwort nach', 'Heute Nachmittag', 'Bevor du wach warst']],
+  [
+    '.hx-done-v',
+    ['<span data-count="3200" data-suffix="&nbsp;€">3.200&nbsp;€</span>', '<span>4 Min.</span>', '<span>4 Anrufe</span>', '<span>06:12</span>'],
+  ],
+  [
+    '.hx-done-l',
+    [
+      'Weber zahlt Freitag — Erinnerung steht im Kalender',
+      '3 Leads beantwortet · 1 Demo gebucht',
+      '1 Bestellung gebucht · 3 Nachrichten notiert',
+      'Erledigt — jeden Werktag, auf Autopilot',
+    ],
+  ],
+  ['.hx-compose > span', 'Sag Ocur, was zu tun ist …'],
+  ['.hx-chip', ['Rechnungen', 'Leads', 'Anrufe', 'Autopilot']],
 
   // The same story continues through the rest of the landing page.
   ['#demo .oc-chapter-label', 'Vom Vorhaben zur Tat'],
@@ -64,23 +138,8 @@ export const DE = [
   ['#apply .oc-chapter-label', 'Gemeinsam aufgebaut'],
   ['#faq .oc-chapter-label', 'Noch ein paar Details'],
 
-  // hero
-  ['.g-kicker', '<span class="g-kdot" aria-hidden="true"></span>Das KI-Betriebssystem für Unternehmen'],
-  ['.g-h1', 'Deine KI redet nicht.<br /><span class="g-grad">Sie erledigt.</span>'],
-  [
-    '.g-sub',
-    'Ocur beantwortet deine E-Mails und geht ans Telefon, mahnt offene Rechnungen an, vergisst kein Versprechen — und erledigt die Arbeit direkt in deinen Tools. Auf Zuruf oder komplett auf Autopilot.',
-  ],
-  ['.g-ctas a', ['Fürs Pilotprogramm bewerben', 'Demo ansehen']],
-  ['.g-desktop-download a', 'Ocur Desktop herunterladen <span aria-hidden="true">↗</span>'],
   // the closing card's small print (the page's only .g-micro)
   ['.g-micro', `${SEATS} Plätze&nbsp;&nbsp;·&nbsp;&nbsp;Antwort ${ANSWER.de}<span class="g-deadline">&nbsp;&nbsp;·&nbsp;&nbsp;Bewerbungsschluss ${CLOSES.de}</span>`],
-  [
-    '.g-solo',
-    'Nur für dich? <a href="https://app.ocur.ai/?auth=sign-up">Kostenlos starten</a> — ohne Bewerbung, ohne Kreditkarte.',
-  ],
-  ['.g-stat strong', [String(SEATS), PCT, '1:1']],
-  ['.g-stat span', ['Plätze im Pilotprogramm', `Rabatt in den ersten ${DISCOUNT_MONTHS} Monaten`, 'Einrichtung mit dem Gründer']],
 
   // connector strip
   ['.g-logos-label', 'Arbeitet in den Tools, die dein Team längst nutzt.'],
@@ -515,6 +574,8 @@ export const DE = [
 // selector → [attribute, value]
 export const DE_ATTRS = [
   ['.g-links', 'aria-label', 'Hauptnavigation'],
+  ['.hx-demo', 'aria-label', 'Ocur bei der Arbeit: vier Beispiele'],
+  ['.hx-play', 'aria-label', 'Beispiele anhalten'],
   ['.g-menu-links', 'aria-label', 'Menü'],
   ['.g-burger', 'aria-label', 'Menü'],
   [
@@ -527,8 +588,6 @@ export const DE_ATTRS = [
   ['.g-talk textarea[name="message"]', 'placeholder', 'Die 200 Lieferanten-Mails, die wir jede Woche beantworten.'],
   // the no-JS post tells the backend which language to send the visitor back in
   ['.g-talk input[name="locale"]', 'value', 'de'],
-  // the count-up keeps German typesetting: "30 %", not "30%"
-  ['.g-stat strong[data-suffix="%"]', 'data-suffix', ' %'],
   ['.g-social-x', 'aria-label', 'Ocur auf X'],
   ['.g-social-x', 'title', 'Ocur auf X'],
   // the German page points at the German legal pages (/de/privacy, /de/terms);
