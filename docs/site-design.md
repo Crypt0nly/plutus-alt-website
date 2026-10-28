@@ -11,21 +11,25 @@ CRM). Source of truth, in the plutus-cloud repository:
 - `frontend/src/components/competitors/competitors.css` — the reference
   implementation of the glass capsule, tab lens, buttons and sheets.
 
-Change the site's palette by updating those tokens there first, then the
-`--cp-*` block at the top of `src/style.css`.
+The `--cp-*` block at the top of `src/style.css` matches that palette. Keep
+the CSS-only dark fallback in sync too. Follow the app guide when reviewing
+this site; the desktop shell's Prism/Pulse styling is not the public site's
+design authority.
 
 ## Structure of the page
 
 1. **The opening** (`.hx`, `#top`): what Ocur is, both doors, and Ocur at
-   work. It sits on the stage colour (`--stage: #080a0e`) in both themes;
+   work. It uses the current theme's neutral canvas;
    see [hero.md](hero.md).
 2. **The sheet** (`.o-sheet`): everything else, on the app's canvas, rising
    over the opening with rounded top corners.
-3. **The closing card** (`.g-final-card`): the stage once more, as a card,
-   above the footer.
+3. **The closing card** (`.g-final-card`): an opaque reading card above the
+   footer, with the same 26px corners and restrained shadow as other content.
 
-The opening, the closing card and the autopilot tile are dark islands: the
-`.o-dark` class redefines the tokens for its subtree, in either theme.
+The opening, closing card, autopilot tile and game all follow the selected
+theme. Do not restore forced dark islands, decorative background auras,
+metallic headline gradients or hand-drawn interface fonts. Existing brand
+marks and the game's drawing-paper colours retain their own identity.
 
 ## Rules carried over from the app guide
 
@@ -39,8 +43,8 @@ The opening, the closing card and the autopilot tile are dark islands: the
   and live status; small category symbols carry the other colours.
 - **Sentence case, calm type.** The system stack first (SF Pro on Apple
   devices), Inter elsewhere. Headlines are 700 with tight tracking; the
-  second voice of a headline is the secondary label colour on the canvas and
-  brushed metal on the stage.
+  second voice of a headline uses the secondary label colour. Reading-page
+  headings use the guide's 2.125rem title and prose is bounded to 46rem.
 - **One selection lens.** The nav's lens slides to the chapter on screen
   (`src/chrome.js`); the segmented controls slide theirs the same way.
 - **Geometry.** 26px cards, 22px tiles, 999px capsules, 18px gaps; the
@@ -48,14 +52,15 @@ The opening, the closing card and the autopilot tile are dark islands: the
 
 ## Motion
 
-Scroll motion lives in `src/main.js`, inside `gsap.matchMedia()` for
-`(prefers-reduced-motion: no-preference)`. It reverts completely when that
-preference changes. The opening's deck is `src/hero.js`, started from the
-same place.
+Scroll motion lives in a reversible GSAP context in `src/main.js`. It only
+runs without a system reduced-motion preference or `data-motion="reduced"`.
+Changing either preference reverts pins, inline styles and split text. The
+opening's deck is `src/hero.js`, started from the same place. Its copy and
+actions are immediately readable; do not reintroduce a blurred entrance.
 
 | Moment | What happens |
 | --- | --- |
-| The opening | paint-time CSS: the headline and its sentence settle out of a soft blur, a light passes over "More business.", the deck lands in front of its light and starts dealing jobs. As the sheet rises, the opening scales back and dims, and the deck rests |
+| The opening | the copy and actions are immediately readable; the example deck deals jobs and rests when the sheet covers it |
 | Navigation | the lens follows the chapter; the nav turns from dark to light glass when the sheet reaches it |
 | Connectors | the rings expand, the sun pops, the planets swirl out to their orbits |
 | Demo | the window tips up out of the page; the ask types itself; four scenes over one pinned stretch, with the step rail filling toward the next step |
@@ -65,20 +70,28 @@ same place.
 | First ten minutes | the timeline's line draws itself with the scroll |
 | Pricing | the selection slides; prices re-set themselves when the billing interval changes |
 | FAQ | answers unfold to their height where the browser supports `interpolate-size` |
-| Closing card | the card opens up to full size; the fox and the headline rise |
+| Closing card | a neutral card with the same type and material roles as the main content |
 | Dock | appears once the sheet has risen; steps aside for the demo, the application and the close |
 
 Guard rails:
 
 - Hidden starting states are set by GSAP, never by CSS, so the page reads
   with JavaScript off. Without JavaScript the demo shows its end state. The
-  one exception is the opening's entrance: it is CSS so it starts with the
-  first paint, and it never hides the headline (see [hero.md](hero.md)).
+  opening's copy and actions have no entrance delay.
 - Elements GSAP moves have their CSS transitions held off during the reveal
   and handed back afterwards (`transition: none`, then `clearProps`), so the
   two never ease the same property.
 - Reveals use opacity, never `visibility`, so keyboard focus can reach
   content that has not been revealed yet.
+
+## Navigation and accessibility
+
+`src/mobile-menu.js` controls the shared narrow-screen menu on the homepage,
+reading pages and game. It moves focus into the dialog, traps Tab/Shift+Tab,
+supports Escape, makes the background inert, and restores focus on close.
+Language links only appear when a translation exists. Touch controls have
+a 44px minimum target. Keep high-contrast glass solid and remove backdrop
+blur for reduced-transparency preferences.
 
 ## Checking a change
 

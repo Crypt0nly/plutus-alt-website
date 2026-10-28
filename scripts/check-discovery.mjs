@@ -41,7 +41,10 @@ for (const file of walk('dist')) {
     assert.equal($('.g-nav > .g-lang').length, 1, `${file}: one static desktop switch`);
     assert.equal($(`.g-nav > .g-lang a[lang="${language}"]`).attr('href'), new URL(alternate).pathname, `${file}: real language link`);
   }
-  if ($('#g-menu').length) assert.equal($('#g-menu .g-lang').length, 1, `${file}: one static mobile switch`);
+  if ($('#g-menu').length) {
+    const bilingual = Boolean($('link[hreflang="en"]').length && $('link[hreflang="de"]').length);
+    assert.equal($('#g-menu .g-lang').length, bilingual ? 1 : 0, `${file}: mobile languages match available translations`);
+  }
   const md = `dist${markdownPath(url.pathname)}`;
   assert.ok(existsSync(md), `${file}: Markdown copy`);
   assert.ok(readFileSync(md, 'utf8').includes(url.href), `${file}: Markdown source attribution`);

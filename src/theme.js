@@ -5,9 +5,7 @@
 
 import { currentLang } from './i18n.js';
 
-// The browser chrome follows what is under it: the opening's stage at the top
-// of the home page, otherwise the canvas of the current theme.
-const STAGE = '#080a0e';
+// Browser chrome follows the same neutral canvas as every page.
 const CANVAS = { dark: '#000000', light: '#f2f2f7' };
 const LABEL = {
   en: { toLight: 'Switch to light mode', toDark: 'Switch to dark mode' },
@@ -23,8 +21,7 @@ const currentTheme = () => (document.documentElement.dataset.theme === 'light' ?
 export function syncThemeColor() {
   const meta = document.querySelector('meta[name="theme-color"]');
   if (!meta) return;
-  const onStage = document.documentElement.classList.contains('on-stage');
-  meta.setAttribute('content', onStage ? STAGE : CANVAS[currentTheme()]);
+  meta.setAttribute('content', CANVAS[currentTheme()]);
 }
 
 export function initThemeToggle() {

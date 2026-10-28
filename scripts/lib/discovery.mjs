@@ -49,6 +49,11 @@ export function enrichPage(html) {
   const en = $('link[rel="alternate"][hreflang="en"]').attr('href');
   const de = $('link[rel="alternate"][hreflang="de"]').attr('href');
   const nav = $('.g-nav');
+  nav.removeClass('lg glare');
+  if (nav.length && !$('#g-menu').length) {
+    nav.append(`<button class="g-burger" type="button" aria-label="${lang === 'de' ? 'Menü' : 'Menu'}" aria-expanded="false" aria-controls="g-menu"><span aria-hidden="true"></span><span aria-hidden="true"></span></button>`);
+    nav.after(`<div class="g-menu" id="g-menu" hidden><nav class="g-menu-links" aria-label="${lang === 'de' ? 'Menü' : 'Menu'}">${nav.find('.g-links').html() || ''}</nav><div class="g-menu-foot"></div></div>`);
+  }
   if (en && de && nav.length) {
     nav.children('.g-lang').remove();
     nav.find('.g-btn-sm').first().before(languageLinks(en, de, lang));

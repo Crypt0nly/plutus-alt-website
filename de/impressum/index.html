@@ -24,7 +24,7 @@
     <link rel="canonical" href="https://ocur.ai/de/impressum" />
     <script>
       document.documentElement.classList.add('js');
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (document.documentElement.dataset.motion !== 'reduced' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         document.documentElement.classList.add('motion');
       }
       // Theme vor dem ersten Paint auflösen: gespeicherte Wahl, dann OS-Einstellung
