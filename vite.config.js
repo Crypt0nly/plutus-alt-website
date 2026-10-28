@@ -111,6 +111,7 @@ export default defineConfig({
   },
   server: {
     host: true,
+    allowedHosts: ['terminal.local'],
     port: 5173,
     proxy: {
       '/leads/api': {

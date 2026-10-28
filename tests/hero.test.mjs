@@ -31,7 +31,7 @@ test('the opening says what Ocur is and opens both doors — and the film is gon
   assert.equal($('.hx-apply').attr('href'), '#apply');
   assert.equal($('.hx-apply').attr('data-apply'), 'hero');
   assert.equal($('.hx-free').attr('href'), 'https://app.ocur.ai/?auth=sign-up');
-  assert.equal($('.hx-pill').attr('href'), '#apply');
+  assert.equal($('.hx-pill, .hx-trust').length, 0, 'the opening has no promotional pill or checklist');
   assert.equal($('.oc-intro, .oc-stage, .oc-webgl, .oc-skip, #oc-next, .oc-welcome').length, 0);
 });
 
@@ -71,7 +71,7 @@ test('the German opening reads German, and each count-up ends on what the page s
   const en = english();
   const de = german();
   assert.match(de('#hx-title').text(), /^Weniger Routine\. Mehr Unternehmen\.$/);
-  const translated = ['.hx-pill strong', '.hx-sub', '.hx-apply', '.hx-free', '.hx-trust li', '.hx-ask-t', '.hx-reply-t', '.hx-done-k', '.hx-done-l', '.hx-compose > span'];
+  const translated = ['.hx-sub', '.hx-apply', '.hx-free', '.hx-ask-t', '.hx-reply-t', '.hx-done-k', '.hx-done-l', '.hx-compose > span'];
   for (const selector of translated) {
     de(selector).each((index, element) => {
       assert.notEqual(de(element).text(), en(selector).eq(index).text(), `${selector} #${index + 1} is still English`);

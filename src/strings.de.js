@@ -41,20 +41,14 @@ export const DE = [
   ['.g-menu-links a', ['In Aktion', 'Das System', 'Funktionen', 'Deine ersten zehn Minuten', 'Preise', 'Pilotprogramm', 'FAQ', 'Desktop-App herunterladen']],
   ['.g-menu-ctas a', ['Fürs Pilotprogramm bewerben', 'Anmelden', 'Kostenlos starten', 'Demo buchen']],
 
-  // the opening: the offer, the promise, both doors
-  ['.hx-pill strong', 'Pilotprogramm'],
-  [
-    '.hx-pill-offer',
-    `${PCT} Rabatt<span class="hx-pill-more"> für ${DISCOUNT_MONTHS} Monate</span><span class="g-deadline"> · bis ${CLOSES.deShort}</span>`,
-  ],
+  // the opening: one promise and two compact actions
   ['#hx-title', '<span class="hx-line"><span>Weniger Routine.</span></span> <span class="hx-line"><em>Mehr Unternehmen.</em></span>'],
   [
     '.hx-sub',
-    'Das KI-Betriebssystem für Unternehmen. Ocur beantwortet E-Mails und Anrufe, mahnt offene Rechnungen an und erledigt die Arbeit in den Tools, die du schon nutzt — in den Grenzen, die du setzt.',
+    'Das KI-Betriebssystem, das dein Unternehmen voranbringt.',
   ],
-  ['.hx-apply', 'Fürs Pilotprogramm bewerben <svg class="g-i" aria-hidden="true"><use href="#i-arrow-right" /></svg>'],
-  ['.hx-free', 'Kostenlos starten'],
-  ['.hx-trust li', ['Bewerbung in zwei Minuten', `Antwort ${ANSWER.de}`, 'Kostenloser Plan ohne Kreditkarte']],
+  ['.hx-apply', 'Jetzt bewerben'],
+  ['.hx-free', 'Kostenlos starten <span aria-hidden="true">›</span>'],
 
   // the opening's deck: four jobs, one window each (src/hero.js)
   ['.hx-bar-title > span', ['Rechnungen', 'Leads', 'Anrufe', 'Autopilot']],
