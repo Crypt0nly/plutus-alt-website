@@ -8,6 +8,7 @@
 import './style.css';
 import './discovery.css';
 import { initHero } from './hero.js';
+import { initProductShowcase } from './product-showcase.js';
 import { initLangRouting, applyLang, initLangToggle, currentLang } from './i18n.js';
 import { initCompanyPricing } from './company-pricing.js';
 import { initThemeToggle } from './theme.js';
@@ -27,6 +28,7 @@ initLangRouting();
 initAnalytics();
 initXAds();
 applyLang();
+initProductShowcase({ onLayout: () => ScrollTrigger.refresh() });
 initLangToggle();
 initThemeToggle();
 initChrome();

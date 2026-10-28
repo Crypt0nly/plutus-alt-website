@@ -183,7 +183,7 @@
     <header class="g-nav" id="g-nav">
       <a class="g-brand" href="/"><img src="/logo.svg" alt="" width="24" height="20" /> Ocur</a>
       <nav class="g-links" aria-label="Primary">
-        <a href="#demo">See it work</a>
+        <a href="#experience">Explore</a>
         <a href="#system">The system</a>
         <a href="#features">Features</a>
         <a href="#pricing">Pricing</a>
@@ -205,7 +205,7 @@
          the founder's booking page, the language switch -->
     <div class="g-menu" id="g-menu" hidden>
       <nav class="g-menu-links" aria-label="Menu">
-        <a href="#demo">See it work</a>
+        <a href="#experience">Explore</a>
         <a href="#system">The system</a>
         <a href="#features">Features</a>
         <a href="#start">Your first ten minutes</a>
@@ -355,6 +355,81 @@
       </section>
 
       <div class="o-sheet">
+        <section class="ps-section" id="experience" aria-labelledby="ps-title">
+          <div class="g-wrap">
+            <div class="ps-heading">
+              <p class="ps-eyebrow">The Ocur family</p>
+              <h2 class="g-h2" id="ps-title">Your work. <span class="g-grad">Your way.</span></h2>
+            </div>
+            <div class="ps-tabs" role="tablist" aria-label="Explore the Ocur products">
+              <button type="button" id="ps-tab-ocur" role="tab" aria-selected="true" aria-controls="ps-ocur" data-product="ocur">Ocur</button>
+              <button type="button" id="ps-tab-drops" role="tab" aria-selected="false" aria-controls="ps-drops" tabindex="-1" data-product="drops">oDrops</button>
+              <button type="button" id="ps-tab-world" role="tab" aria-selected="false" aria-controls="ps-world" tabindex="-1" data-product="world">oWorlds</button>
+            </div>
+            <div class="ps-gallery">
+              <div class="ps-panel" id="ps-ocur" role="tabpanel" aria-labelledby="ps-tab-ocur" data-product-panel="ocur" data-active>
+                <div class="ps-stage ps-desktop">
+                  <div class="ps-ribbon" aria-hidden="true"></div>
+                  <div class="ps-desk-top"><img src="/logo.svg" width="21" height="19" alt=""><span>Ocur</span><span class="ps-desk-meta">Your workspace</span></div>
+                  <div class="ps-home">
+                    <p class="ps-clock" aria-hidden="true">09:41</p>
+                    <p class="ps-greeting">A little more space to think.</p>
+                    <div class="ps-composer"><img src="/logo.svg" width="26" height="24" alt=""><span>What would you like to move forward?</span><svg class="g-i" aria-hidden="true"><use href="#i-arrow-up"/></svg></div>
+                  </div>
+                  <div class="ps-app-window">
+                    <div class="ps-window-bar"><span class="ps-window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span data-desk-heading>Calendar</span><svg class="g-i" aria-hidden="true"><use href="#i-calendar-check"/></svg></div>
+                    <div class="ps-desk-view" data-desk-view="calendar">
+                      <div class="ps-calendar-head"><div><span class="ps-small ps-today">Today</span><h3 class="ps-calendar-title">Your day, in view.</h3></div><span class="ps-date">28</span></div>
+                      <div class="ps-calendar"><div class="ps-hours"><span>09:00</span><span>10:00</span><span>11:00</span></div><div class="ps-calendar-events"><div class="ps-event ps-event-blue"><strong class="ps-event-one">Team catch-up</strong><span>09:00 — 09:30</span></div><div class="ps-event ps-event-lilac"><strong class="ps-event-two">Space for your next idea</strong><span>10:00 — 11:00</span></div></div></div>
+                    </div>
+                    <div class="ps-desk-view" data-desk-view="files" hidden>
+                      <div class="ps-calendar-head"><div><span class="ps-small ps-files-kicker">Files</span><h3 class="ps-files-title">Everything in its place.</h3></div><svg class="g-i" aria-hidden="true"><use href="#i-database"/></svg></div>
+                      <div class="ps-files"><div><span class="ps-folder ps-folder-blue"></span><strong class="ps-folder-one">Projects</strong></div><div><span class="ps-folder ps-folder-lilac"></span><strong class="ps-folder-two">Research</strong></div><div><span class="ps-folder ps-folder-peach"></span><strong class="ps-folder-three">Brand</strong></div></div>
+                    </div>
+                    <div class="ps-desk-view" data-desk-view="automations" hidden>
+                      <div class="ps-calendar-head"><div><span class="ps-small ps-routines-kicker">Automations</span><h3 class="ps-routines-title">Already taken care of.</h3></div><span class="ps-running-dot" aria-hidden="true"></span></div>
+                      <div class="ps-routine"><span class="ps-routine-symbol"><svg class="g-i" aria-hidden="true"><use href="#i-sparkles"/></svg></span><div><strong class="ps-routine-one">Your morning briefing</strong><span class="ps-routine-time">Every weekday · 08:00</span></div><span class="ps-switch" aria-hidden="true"></span></div>
+                      <div class="ps-routine"><span class="ps-routine-symbol"><svg class="g-i" aria-hidden="true"><use href="#i-mail"/></svg></span><div><strong class="ps-routine-two">Keep the inbox clear</strong><span class="ps-routine-time-two">Working in the background</span></div><span class="ps-switch" aria-hidden="true"></span></div>
+                    </div>
+                  </div>
+                  <div class="ps-dock" role="group" aria-label="Preview an Ocur app">
+                    <button type="button" data-desk="calendar" aria-pressed="true" aria-label="Preview Calendar"><svg class="g-i" aria-hidden="true"><use href="#i-calendar-check"/></svg><span class="ps-dock-label-calendar">Calendar</span></button>
+                    <button type="button" data-desk="files" aria-pressed="false" aria-label="Preview Files"><svg class="g-i" aria-hidden="true"><use href="#i-database"/></svg><span class="ps-dock-label-files">Files</span></button>
+                    <button type="button" data-desk="automations" aria-pressed="false" aria-label="Preview Automations"><svg class="g-i" aria-hidden="true"><use href="#i-sparkles"/></svg><span class="ps-dock-label-routines">Automations</span></button>
+                  </div>
+                </div>
+                <div class="ps-caption"><div><h3>Ocur</h3><p class="ps-ocur-copy">Your work, connected. Your whole day, in one place.</p></div><a href="https://app.ocur.ai" class="ps-product-link ps-ocur-link">Explore Ocur <span aria-hidden="true">↗</span></a></div>
+              </div>
+              <div class="ps-panel" id="ps-drops" role="tabpanel" aria-labelledby="ps-tab-drops" data-product-panel="drops">
+                <div class="ps-stage ps-drops">
+                  <div class="ps-drop-halo" aria-hidden="true"></div>
+                  <div class="ps-drop-intro"><p class="ps-small ps-drops-kicker">A little personality. A lot of possibility.</p><h3 class="ps-drops-title">Meet your team.</h3></div>
+                  <div class="ps-drop-roster" role="group" aria-label="Meet an example Drop">
+                    <button type="button" class="ps-drop" data-drop="milo" aria-pressed="true"><img src="/product/drop-lilac.svg" alt="" width="150" height="150" loading="lazy"><strong>Milo</strong><span class="ps-drop-milo-role">Everyday momentum</span></button>
+                    <button type="button" class="ps-drop" data-drop="sage" aria-pressed="false"><img src="/product/drop-mint.svg" alt="" width="150" height="150" loading="lazy"><strong>Sage</strong><span class="ps-drop-sage-role">Curiosity, organised</span></button>
+                    <button type="button" class="ps-drop" data-drop="lumi" aria-pressed="false"><img src="/product/drop-peach.svg" alt="" width="150" height="150" loading="lazy"><strong>Lumi</strong><span class="ps-drop-lumi-role">A fresh perspective</span></button>
+                  </div>
+                  <div class="ps-drop-conversation" aria-live="polite">
+                    <div data-drop-chat="milo"><img src="/product/drop-lilac.svg" alt="" width="44" height="44" loading="lazy"><div><strong>Milo</strong><p class="ps-chat-milo">Your week is organised. Shall we make room for that big idea?</p></div><svg class="g-i" aria-hidden="true"><use href="#i-message"/></svg></div>
+                    <div data-drop-chat="sage" hidden><img src="/product/drop-mint.svg" alt="" width="44" height="44" loading="lazy"><div><strong>Sage</strong><p class="ps-chat-sage">I’ve gathered the research. Let’s find what matters.</p></div><svg class="g-i" aria-hidden="true"><use href="#i-message"/></svg></div>
+                    <div data-drop-chat="lumi" hidden><img src="/product/drop-peach.svg" alt="" width="44" height="44" loading="lazy"><div><strong>Lumi</strong><p class="ps-chat-lumi">Three directions for your next campaign. Which feels like you?</p></div><svg class="g-i" aria-hidden="true"><use href="#i-message"/></svg></div>
+                  </div>
+                </div>
+                <div class="ps-caption"><div><h3>oDrops</h3><p class="ps-drops-copy">AI teammates with their own personality. Made yours.</p></div><a href="https://odrops.ai" class="ps-product-link ps-drops-link">Meet your Drops <span aria-hidden="true">↗</span></a></div>
+              </div>
+              <div class="ps-panel" id="ps-world" role="tabpanel" aria-labelledby="ps-tab-world" data-product-panel="world">
+                <div class="ps-stage ps-world">
+                  <div class="ps-world-heading"><span class="ps-small ps-world-kicker">Your headquarters</span><h3 class="ps-world-title">See the bigger picture.</h3></div>
+                  <div class="ps-world-art"><img src="/product/oworld-office.svg" width="2270" height="1290" alt="An isometric oWorld office with research, sales, creative and operations rooms and colourful Drop teammates" loading="lazy" decoding="async"><button type="button" class="ps-world-spot ps-spot-research" data-world="research" aria-pressed="true" aria-label="Explore the research room"><span></span></button><button type="button" class="ps-world-spot ps-spot-sales" data-world="sales" aria-pressed="false" aria-label="Explore the sales room"><span></span></button><button type="button" class="ps-world-spot ps-spot-studio" data-world="studio" aria-pressed="false" aria-label="Explore the creative studio"><span></span></button></div>
+                  <div class="ps-world-note" aria-live="polite"><div data-world-note="research"><img src="/product/drop-mint.svg" alt="" width="38" height="38" loading="lazy"><div><strong class="ps-world-research">Research lab</strong><span class="ps-world-research-copy">Olive is connecting the dots.</span></div></div><div data-world-note="sales" hidden><img src="/product/drop-peach.svg" alt="" width="38" height="38" loading="lazy"><div><strong class="ps-world-sales">Sales office</strong><span class="ps-world-sales-copy">Milo has your next introduction ready.</span></div></div><div data-world-note="studio" hidden><img src="/product/drop-lilac.svg" alt="" width="38" height="38" loading="lazy"><div><strong class="ps-world-studio">Creative studio</strong><span class="ps-world-studio-copy">Luna is shaping your next big idea.</span></div></div></div>
+                </div>
+                <div class="ps-caption"><div><h3>oWorlds</h3><p class="ps-world-copy">A living headquarters for your Drops and everything they do.</p></div><a href="https://app.ocur.ai/worlds" class="ps-product-link ps-world-link">Explore your world <span aria-hidden="true">↗</span></a></div>
+              </div>
+            </div>
+            <p class="ps-example-note">Illustrative product views. Select a product to explore.</p>
+          </div>
+        </section>
+
         <!-- connectors: Ocur at the centre, the tools it works in around it -->
         <section class="g-logos" aria-labelledby="g-logos-title">
           <div class="g-wrap">
