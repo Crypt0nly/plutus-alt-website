@@ -42,7 +42,7 @@
     <link rel="canonical" href="https://ocur.ai/be-ai" />
     <script>
       document.documentElement.classList.add('js');
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (document.documentElement.dataset.motion !== 'reduced' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         document.documentElement.classList.add('motion');
       }
       try {
@@ -61,7 +61,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Caveat:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"
       rel="stylesheet"
     />
     <!-- X conversion tracking base code — X Ads pixel "reji3". The base pixel

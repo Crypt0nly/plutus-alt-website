@@ -85,12 +85,10 @@ forward from the stack behind it.
 
 ## Speed
 
-- **Paint-time entrance.** The entrance is CSS keyed on `html.motion`, so
-  it starts with the first paint and never waits for the script.
-- **Largest paint stays early.** The headline and its sentence settle out
-  of a soft blur instead of starting hidden, so the browser counts them as
-  the largest paint the moment they appear. Starting hidden would let a
-  later line of demo text become the page's largest paint seconds in.
+- **Immediate reading.** The headline, explanation and actions do not wait
+  for an entrance animation or script.
+- **Largest paint stays early.** The headline and explanation render without
+  a blur or hidden starting state.
 - **Cheap motion.** The light behind the deck is three soft gradients moved
   by transform, not a blur filter.
 - **No WebGL.** Three.js is gone from the site, so the 3D engine no longer

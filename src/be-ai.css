@@ -1,9 +1,7 @@
-/* Ocur — /be-ai live multiplayer game. Blended aesthetic: the Ocur app
-   language from style.css (neutral surfaces, blue actions, the --cp-* and
-   --g-* tokens) with hand-drawn accents borrowed from the "anti-slop"
-   reference — a marker accent font (Caveat), wobbly sketch borders and offset
-   marker drop-shadows. Blue marks interaction and selection; Ocur's own fox
-   orange marks only the real Ocur. style.css is imported first in be-ai.js. */
+/* Ocur — /be-ai live multiplayer game. Uses the shared neutral reading
+   surfaces, system typography and blue controls from style.css. Class names
+   used by the game stay stable. The drawing canvas retains its own paper
+   colours so players see the same marks in either theme. */
 
 /* the homepage gates .g-ctas to opacity:0 for its GSAP timeline; this page has
    no GSAP, so keep it visible. */
@@ -11,18 +9,18 @@ html.motion body.ba .g-ctas {
   opacity: 1;
 }
 
-/* ── hand-drawn accents (the "blend") ────────────────────────────────────── */
+/* Typography and opaque surfaces follow the shared reading guide. */
 .ba-hand {
-  font-family: 'Caveat', 'Comic Sans MS', cursive;
+  font-family: var(--g-sans);
   font-weight: 700;
-  letter-spacing: 0.01em;
+  letter-spacing: -.012em;
 }
 
-/* a wobbly, marker-shadowed box — the sketch look on top of the glass theme */
+/* Existing class names retain the game hooks; materials match other pages. */
 .ba-sketch {
-  border: 2px solid var(--g-glass-bd);
-  border-radius: 18px 13px 20px 12px / 13px 19px 12px 20px;
-  box-shadow: 5px 5px 0 var(--g-shadow);
+  border: 1px solid var(--cp-card-line);
+  border-radius: 26px;
+  box-shadow: var(--cp-shadow);
   background: var(--g-fill);
 }
 
@@ -32,6 +30,7 @@ html.motion body.ba .g-ctas {
   white-space: nowrap;
 }
 .ba-scribble::after {
+  display: none;
   content: '';
   position: absolute;
   left: -4%;
@@ -73,8 +72,8 @@ body.ba .ba-cta-h .g-grad {
   color: var(--cp-accent-text);
 }
 .ba-hero .g-h1 {
-  font-size: clamp(64px, 12vw, 150px);
-  line-height: 0.95;
+  font-size: clamp(2.125rem, 1.6rem + 2.2vw, 3.5rem);
+  line-height: 1.15;
 }
 .ba-sub {
   max-width: 600px;
@@ -301,7 +300,7 @@ html.motion .ba-view:not([hidden]) {
 }
 .ba-role:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0 var(--g-shadow);
+  box-shadow: var(--cp-shadow);
   border-color: var(--g-orange);
 }
 .ba-role-emoji {
@@ -346,7 +345,7 @@ html.motion .ba-view:not([hidden]) {
 }
 .ba-input:focus {
   border-color: var(--g-orange);
-  box-shadow: 5px 5px 0 var(--g-shadow), 0 0 0 1px var(--g-orange);
+  box-shadow: 0 0 0 3px var(--cp-focus);
 }
 .ba-ask-row {
   display: flex;
@@ -1167,10 +1166,10 @@ html.motion .ba-msg {
   align-items: flex-end;
   gap: 1px;
   padding: 6px 11px;
-  border-radius: 13px 10px 13px 9px;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.9);
   border: 2px solid #1a1a1e;
-  box-shadow: 3px 3px 0 rgba(38, 34, 28, 0.22);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
   animation: ba-shapegame-pop 0.3s ease both;
 }
 @keyframes ba-shapegame-pop {

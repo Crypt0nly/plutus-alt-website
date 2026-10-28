@@ -100,7 +100,7 @@
     </script>
     <script>
       document.documentElement.classList.add('js');
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (document.documentElement.dataset.motion !== 'reduced' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         document.documentElement.classList.add('motion');
       }
       // resolve the theme before first paint: stored choice, then OS preference
@@ -231,7 +231,7 @@
            work, readable from the first frame. The deck deals four real jobs
            (src/hero.js); without JavaScript or motion it holds the first one,
            finished, exactly as written here. The page (.o-sheet) rises over it. -->
-      <section class="hx o-dark" id="top" aria-labelledby="hx-title">
+      <section class="hx" id="top" aria-labelledby="hx-title">
         <div class="hx-inner">
           <div class="hx-copy">
             <a class="hx-pill" href="#apply" data-apply="hero-pill">
@@ -538,7 +538,7 @@
             <p class="oc-chapter"><span>03</span><span class="oc-chapter-label">Built to follow through</span></p>
             <h2 class="g-h2">One system. <span class="g-grad">Every job.</span></h2>
             <div class="g-bento">
-              <article class="g-tile g-tile-auto lg o-dark">
+              <article class="g-tile g-tile-auto lg">
                 <svg class="g-ekg" viewBox="0 0 220 40" aria-hidden="true"><polyline points="0,20 60,20 74,6 88,34 102,20 220,20" fill="none" stroke="#0a84ff" stroke-width="2" stroke-linejoin="round" /></svg>
                 <h3>Autopilot, with a heartbeat</h3>
                 <p>A heartbeat wakes Ocur through the day. Ocur checks what needs doing, does it, writes every step down — you wake up to a report, not a backlog.</p>
@@ -1028,7 +1028,7 @@
         <!-- final: the opening's stage once more, as a card -->
         <section class="g-final">
           <div class="g-wrap">
-            <div class="g-final-card o-dark">
+            <div class="g-final-card">
               <img class="g-final-mark" src="/logo.svg" alt="" width="72" height="61" />
               <h2 class="g-final-h">Run the company.<br /><span class="g-grad">Not the busywork.</span></h2>
               <a class="g-btn g-btn-lg" href="#apply" data-apply="final">Apply for the founding cohort</a>

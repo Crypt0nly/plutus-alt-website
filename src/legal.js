@@ -12,11 +12,13 @@ import './discovery.css';
 import { initLangToggle } from './i18n.js';
 import { initThemeToggle } from './theme.js';
 import { initChrome } from './chrome.js';
+import { initMobileMenu } from './mobile-menu.js';
 import { initAnalytics } from './analytics.js';
 
 initAnalytics();
 initThemeToggle();
 initChrome();
+initMobileMenu();
 
 // The EN | DE switch points at *this* page's translation, not the home
 // page — the hreflang alternates in <head> already carry both URLs, so the

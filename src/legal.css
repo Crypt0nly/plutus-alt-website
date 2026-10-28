@@ -33,10 +33,10 @@
 .l-h1 {
   margin-bottom: 20px;
   font-family: var(--g-display);
-  font-size: clamp(2.6rem, 1.4rem + 4.4vw, 5rem);
+  font-size: 2.125rem;
   font-weight: 700;
-  line-height: 1.02;
-  letter-spacing: -0.048em;
+  line-height: 1.15;
+  letter-spacing: -0.026em;
   text-wrap: balance;
   overflow-wrap: break-word;
 }
@@ -222,20 +222,17 @@
 /* One opaque reading sheet, the content layer of the app. */
 .l-prose {
   min-width: 0;
-  max-width: 50rem;
-  padding: clamp(8px, 2vw, 16px) clamp(22px, 4.4vw, 56px) clamp(28px, 4vw, 48px);
-  border-radius: 28px;
+  max-width: 46rem;
+  padding: 0 clamp(22px, 3vw, 28px) 28px;
+  border-radius: 26px;
   border: 1px solid var(--cp-card-line);
   background: var(--cp-card);
   box-shadow: var(--cp-shadow);
-  font-size: 1.03125rem;
+  font-size: .9375rem;
   line-height: 1.7;
-  color: var(--l-ink, #2c2c2e);
+  color: var(--cp-label);
 }
 
-html[data-theme='dark'] .l-prose {
-  --l-ink: #d1d1d6;
-}
 
 .l-prose > section {
   scroll-margin-top: 96px;

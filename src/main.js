@@ -12,6 +12,7 @@ import { initLangRouting, applyLang, initLangToggle, currentLang } from './i18n.
 import { initCompanyPricing } from './company-pricing.js';
 import { initThemeToggle } from './theme.js';
 import { initChrome } from './chrome.js';
+import { initMobileMenu } from './mobile-menu.js';
 import { initAnalytics, track } from './analytics.js';
 import { initXAds, trackXConversion, LEAD_EVENT_ID } from './xads.js';
 import { ANSWER } from './cohort.js';
@@ -47,26 +48,7 @@ const slideTo = (group, index) => group?.style.setProperty('--seg-i', String(ind
 // Below 1100px the nav links move into the menu (see style.css); the burger opens a
 // glass sheet under the nav with the links, both doors into the app and
 // the language switch (i18n.js clones it in). A tap on any link closes it.
-const burger = document.querySelector('.g-burger');
-const menu = document.getElementById('g-menu');
-if (burger && menu) {
-  const setOpen = (open) => {
-    menu.hidden = !open;
-    burger.setAttribute('aria-expanded', String(open));
-    document.documentElement.classList.toggle('menu-open', open);
-    if (open) track('mobile_menu_open');
-  };
-  burger.addEventListener('click', () => setOpen(menu.hidden));
-  menu.addEventListener('click', (e) => {
-    if (e.target.closest('a')) setOpen(false);
-  });
-  addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !menu.hidden) setOpen(false);
-  });
-  matchMedia('(min-width: 1101px)').addEventListener('change', (e) => {
-    if (e.matches) setOpen(false);
-  });
-}
+initMobileMenu({ onOpen: () => track('mobile_menu_open') });
 
 // --------------------------------------------- pricing audience switch
 // Solo and company are priced on different units, so the section carries two
@@ -274,13 +256,14 @@ if (talk) {
 
 // ================================================================ motion
 // Scroll choreography. Everything here runs only without a reduced-motion
-// preference; gsap.matchMedia reverts it all (inline styles, splits, pins)
-// the moment that preference changes.
+// preference; its context reverts all inline styles, splits and pins when
+// either the system preference or the saved data-motion attribute changes.
 gsap.registerPlugin(ScrollTrigger, SplitText);
 const EASE = 'expo.out';
-const motionMedia = gsap.matchMedia();
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+let motionContext;
 
-motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
+function animatePage() {
   motion = true;
   root.classList.add('motion');
   demo.dataset.scene = '1';
@@ -580,16 +563,26 @@ motionMedia.add('(prefers-reduced-motion: no-preference)', () => {
     typeSplit.revert();
     splits.forEach((split) => split.revert());
   };
-});
+}
 
-motionMedia.add('(prefers-reduced-motion: reduce)', () => {
+function staticPage() {
   motion = false;
   root.classList.remove('motion');
   demo.dataset.scene = '4';
   // the jobs stay finished; the chips switch them in place
   const opening = initHero({ motion: false });
   return () => opening?.dispose();
-});
+}
+
+function syncMotion() {
+  motionContext?.revert();
+  motion = !reducedMotion.matches && root.dataset.motion !== 'reduced';
+  root.classList.toggle('motion', motion);
+  motionContext = gsap.context(() => motion ? animatePage() : staticPage());
+}
+syncMotion();
+reducedMotion.addEventListener('change', syncMotion);
+new MutationObserver(syncMotion).observe(root, { attributes: true, attributeFilter: ['data-motion'] });
 
 // Late fonts change line lengths; every trigger re-measures once they land.
 document.fonts?.ready.then(() => ScrollTrigger.refresh());
