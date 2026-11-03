@@ -1,6 +1,6 @@
 // Dark/light theme. The inline <head> script resolves the theme before
 // first paint (stored choice → OS preference → dark); this module renders
-// the nav toggle and keeps the browser's theme colour in step. The choice
+// the toggle and keeps the browser's theme colour in step. The choice
 // persists in localStorage under the ocur-theme key.
 
 import { currentLang } from './i18n.js';
@@ -24,35 +24,45 @@ export function syncThemeColor() {
   meta.setAttribute('content', CANVAS[currentTheme()]);
 }
 
+// The toggle sits with the language switch in each .g-prefs group (the
+// footer and the phone menu); a page without one (the game) keeps it in
+// its nav. Every copy shows the same state.
 export function initThemeToggle() {
-  const nav = document.querySelector('.g-nav');
-  if (!nav) return;
   const labels = LABEL[currentLang] || LABEL.en;
+  const groups = [...document.querySelectorAll('.g-prefs')];
+  const nav = document.querySelector('.g-nav');
+  if (!groups.length && !nav) return;
 
-  const btn = document.createElement('button');
-  btn.type = 'button';
-  btn.className = 'g-theme';
-
+  const buttons = [];
   const render = () => {
     const theme = currentTheme();
-    // moon in dark mode (tap → light), sun in light mode
-    btn.innerHTML = theme === 'light' ? SUN : MOON;
-    btn.setAttribute('aria-label', theme === 'light' ? labels.toDark : labels.toLight);
-    btn.title = btn.getAttribute('aria-label');
+    buttons.forEach((btn) => {
+      // moon in dark mode (tap → light), sun in light mode
+      btn.innerHTML = theme === 'light' ? SUN : MOON;
+      btn.setAttribute('aria-label', theme === 'light' ? labels.toDark : labels.toLight);
+      btn.title = btn.getAttribute('aria-label');
+    });
     syncThemeColor();
   };
+  const make = () => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'g-theme';
+    btn.addEventListener('click', () => {
+      const next = currentTheme() === 'light' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = next;
+      try {
+        localStorage.setItem('ocur-theme', next);
+      } catch {
+        /* ignore */
+      }
+      render();
+    });
+    buttons.push(btn);
+    return btn;
+  };
 
-  btn.addEventListener('click', () => {
-    const next = currentTheme() === 'light' ? 'dark' : 'light';
-    document.documentElement.dataset.theme = next;
-    try {
-      localStorage.setItem('ocur-theme', next);
-    } catch {
-      /* ignore */
-    }
-    render();
-  });
-
+  if (groups.length) groups.forEach((group) => group.append(make()));
+  else nav.insertBefore(make(), nav.querySelector('.g-btn-sm'));
   render();
-  nav.insertBefore(btn, nav.querySelector('.g-btn-sm'));
 }

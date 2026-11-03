@@ -69,17 +69,8 @@
   <body class="g">
     <div class="g-grain" aria-hidden="true"></div>
 
-    <header class="g-nav lg glare" id="g-nav">
-      <a class="g-brand" href="/"><img src="/logo.svg" alt="" /> Ocur</a>
-      <nav class="g-links" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/#features">Features</a>
-        <a href="/#pricing">Pricing</a>
-        <a href="/privacy" aria-current="page">Privacy</a>
-        <a href="/terms">Terms</a>
-      </nav>
-      <a class="g-btn g-btn-sm magnetic" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
-    </header>
+    <!-- The nav, phone menu and footer come from scripts/lib/chrome.mjs. -->
+    <header class="g-nav" id="g-nav"></header>
 
     <main class="l-page">
       <div class="l-glow" aria-hidden="true"></div>
@@ -832,16 +823,10 @@
           </article>
         </div>
 
-        <footer class="l-foot">
-          <span>Ocur © <span id="g-year">2026</span> · a product of OcurAI, Inc.</span>
-          <a href="/privacy">Privacy</a>
-          <a href="/terms">Terms</a>
-          <a href="/">Home</a>
-          <span class="l-foot-sep"></span>
-          <a href="https://x.com/ocur_ai" target="_blank" rel="noopener">Ocur on X</a>
-        </footer>
       </div>
     </main>
+
+    <footer class="g-foot" data-site-footer></footer>
 
     <script type="module" src="/src/legal.js"></script>
   </body>

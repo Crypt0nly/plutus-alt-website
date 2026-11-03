@@ -3,33 +3,52 @@
 // (scripts/prerender-de.mjs) that bakes dist/de/index.html. No browser
 // APIs in this file. Written as native, conversion-focused German — not a
 // literal translation of the English page.
-//
-// The founding cohort is "das Pilotprogramm" here (its members Pilotkunden,
-// its price der Pilotpreis) — the term German B2B buyers already use for
-// exactly this. Its numbers come from src/cohort.js, like the English page's.
 
-import { SEATS, DISCOUNT_PERCENT, DISCOUNT_MONTHS, CLOSES, ANSWER } from './cohort.js';
-
-export const TITLE_DE = 'Ocur — das KI-Betriebssystem für Unternehmen | Pilotprogramm';
+export const TITLE_DE = 'Ocur — das KI-Betriebssystem für Unternehmen';
 export const OG_TITLE_DE = 'Ocur — das KI-Betriebssystem für Unternehmen';
 export const DESC_DE =
-  'Das KI-Betriebssystem für Unternehmen: Ocur beantwortet E-Mails und Anrufe, erledigt die Arbeit direkt in deinen Tools und führt Versprechen, Geld und Pipeline als lebende Register. Jetzt fürs Pilotprogramm bewerben.';
+  'Das KI-Betriebssystem für Unternehmen: Ocur beantwortet E-Mails und Anrufe, erledigt die Arbeit direkt in deinen Tools und führt Versprechen, Geld und Pipeline als lebende Register. Kostenlos starten.';
 
 // Link-Vorschau (X, WhatsApp, iMessage, LinkedIn). Kürzer als DESC_DE, weil X
 // die Beschreibung in der Karte hart abschneidet. Das Kartenbild dazu ist
 // public/og-de.jpg (siehe scripts/gen-og.mjs).
 export const TWITTER_DESC_DE =
-  'Ocur beantwortet E-Mails und Anrufe, erledigt die Arbeit direkt in deinen Tools und führt Versprechen, Geld und Pipeline als lebende Register. Das Pilotprogramm ist offen.';
+  'Ocur beantwortet E-Mails und Anrufe, erledigt die Arbeit direkt in deinen Tools und führt Versprechen, Geld und Pipeline als lebende Register. Kostenlos starten — ohne Kreditkarte.';
 
-// The discount as German typesetting writes it ("30 %", non-breaking).
-const PCT = `${DISCOUNT_PERCENT}&nbsp;%`;
 export const OG_ALT_DE =
   'Ocur — „Weniger Routine. Mehr Unternehmen.“ Ein Ocur-Fenster: In der Freitagslieferung fehlen 40 Stück, klär das mit dem Lieferanten — Lieferant angerufen, €312 zurückgeholt, Nachlieferung im Kalender.';
 
-// The founder's booking page — the same href every data-book link in
-// index.html carries. Only the FAQ answer needs it here (its link is inline
-// in the sentence); the other German labels swap text inside existing links.
+// The founder's booking page — the same href every data-book link carries
+// (src/site.js). Only inline sentence links need it here; the other German
+// labels swap text inside existing links.
 const BOOK_URL = 'https://api.ocur.ai/api/book/gJM0Hx8-5SY';
+
+// Each marketing page's German title and description, keyed by its English
+// path (scripts/prerender-de.mjs writes them into /de, /de/product …). The
+// home page keeps the constants above for its link preview.
+export const PAGES_DE = {
+  '/': { title: TITLE_DE, description: DESC_DE },
+  '/product': {
+    title: 'Ocur — so funktioniert das KI-Betriebssystem',
+    description:
+      'Sieh zu, wie Ocur einen Job vom ersten Satz bis zum Ergebnis erledigt: Fakten prüfen, in deinen Tools arbeiten, anrufen und berichten — mit lebenden Registern und deiner Freigabe bei allem Wichtigen.',
+  },
+  '/pricing': {
+    title: 'Ocur Preise — Pläne für dich und dein Unternehmen',
+    description:
+      'Allein kostenlos starten oder das ganze Unternehmen auf ein Ocur bringen: unbegrenzt viele Menschen, ein gemeinsamer Credit-Pool und KI-Worker. Solo ab 0 €, Business ab 399 € im Monat.',
+  },
+  '/faq': {
+    title: 'Ocur FAQ — Fragen, beantwortet',
+    description:
+      'Klare Antworten zu Ocur: der kostenlose Plan, unterstützte Tools, Freigaben, was bei Fehlern passiert, deine Daten und die Abrechnung.',
+  },
+  '/contact': {
+    title: 'Kontakt — sprich mit Ocur oder buch eine Demo',
+    description:
+      'Frag nach einem Plan, einer Einrichtung für dein Team oder dem ersten Job für Ocur — der Gründer liest jede Nachricht persönlich. Oder buch eine 30-minütige Live-Führung.',
+  },
+};
 
 // selector → replacement innerHTML. A string applies to every match; an
 // array applies element-by-element in DOM order.
@@ -83,12 +102,24 @@ export const DE = [
   [".ps-world-link", "Deine Welt entdecken <span aria-hidden=\"true\">↗</span>"],
   [".ps-example-note", "Produktansichten mit Beispieldaten. Wähle ein Produkt zum Entdecken."],
 
-  // nav ("Start free", then "Apply now") + the phone menu
-  ['header .g-btn-sm', ['Kostenlos starten', 'Jetzt bewerben']],
+  // The nav, phone menu and footer are drawn in German at build time
+  // (scripts/lib/chrome.mjs); these lines only serve the dev ?lang=de view.
+  ['header .g-btn-sm', ['Demo buchen', 'Kostenlos starten']],
   ['.g-login', 'Anmelden'],
-  ['.g-links a', ['Entdecken', 'Das System', 'Funktionen', 'Preise', 'Pilotprogramm', 'FAQ', 'Download']],
-  ['.g-menu-links a', ['Entdecken', 'Das System', 'Funktionen', 'Deine ersten zehn Minuten', 'Preise', 'Pilotprogramm', 'FAQ', 'Desktop-App herunterladen']],
-  ['.g-menu-ctas a', ['Fürs Pilotprogramm bewerben', 'Anmelden', 'Kostenlos starten', 'Demo buchen']],
+  ['.g-links a > span:last-child', ['Produkt', 'Preise', 'FAQ']],
+  ['.g-menu-links a', ['Startseite', 'Produkt', 'Preise', 'FAQ', 'Kontakt']],
+  ['.g-menu-ctas a', ['Kostenlos starten', 'Anmelden', 'Demo buchen']],
+
+  // page heads (product, pricing, FAQ; the others carry their own kickers)
+  ['.p-product .pg-kicker', 'Produkt'],
+  ['.p-product .pg-title', 'Ein Ocur für die Arbeit <span class="g-grad">im ganzen Unternehmen.</span>'],
+  [
+    '.p-product .pg-lede',
+    'Sag die Aufgabe in ganz normaler Sprache. Ocur prüft die Fakten, arbeitet in den Tools, die du verbindest, und meldet sich zurück — und fragt, bevor etwas Wichtiges passiert.',
+  ],
+  ['.p-pricing .pg-kicker', 'Preise'],
+  ['.p-faq .pg-kicker', 'FAQ'],
+  ['.p-contact .pg-kicker', 'Kontakt'],
 
   // the opening: one promise and two compact actions
   ['#hx-title', '<span class="hx-line"><span>Weniger Routine.</span></span> <span class="hx-line"><em>Mehr Unternehmen.</em></span>'],
@@ -96,8 +127,8 @@ export const DE = [
     '.hx-sub',
     'Das KI-Betriebssystem, das dein Unternehmen voranbringt.',
   ],
-  ['.hx-apply', 'Jetzt bewerben'],
-  ['.hx-free', 'Kostenlos starten <span aria-hidden="true">›</span>'],
+  ['.hx-primary', 'Kostenlos starten'],
+  ['.hx-secondary', 'Demo buchen <span aria-hidden="true">›</span>'],
 
   // the opening's deck: four jobs, one window each (src/hero.js)
   ['.hx-bar-title > span', ['Rechnungen', 'Leads', 'Anrufe', 'Autopilot']],
@@ -172,23 +203,38 @@ export const DE = [
   ['.hx-compose > span', 'Sag Ocur, was zu tun ist …'],
   ['.hx-chip', ['Rechnungen', 'Leads', 'Anrufe', 'Autopilot']],
 
-  // The same story continues through the rest of the landing page.
+  // The product page's chapters.
   ['#demo .oc-chapter-label', 'Vom Vorhaben zur Tat'],
   ['#system .oc-chapter-label', 'Das ganze Bild'],
   ['#features .oc-chapter-label', 'Arbeit, die weitergeht'],
   ['#start .oc-chapter-label', 'Ein kleiner erster Schritt'],
-  ['#pricing .oc-chapter-label', 'Raum zum Wachsen'],
-  ['#apply .oc-chapter-label', 'Gemeinsam aufgebaut'],
-  ['#faq .oc-chapter-label', 'Noch ein paar Details'],
-
-  // the closing card's small print (the page's only .g-micro)
-  ['.g-micro', `${SEATS} Plätze&nbsp;&nbsp;·&nbsp;&nbsp;Antwort ${ANSWER.de}<span class="g-deadline">&nbsp;&nbsp;·&nbsp;&nbsp;Bewerbungsschluss ${CLOSES.de}</span>`],
 
   // connector strip
   ['.g-logos-label', 'Arbeitet in den Tools, die dein Team längst nutzt.'],
   [
     '.g-logos-sub',
     '…und allem, was eine API hat. Keine API? Dann steuert Ocur die App direkt auf deinem Rechner — wie ein Mensch.',
+  ],
+  ['.g-logos-more', 'Integrationen ansehen <span aria-hidden="true">→</span>'],
+
+  // where to next: one card per page
+  ['.g-paths .g-h2', 'Lust auf einen genaueren Blick? <span class="g-grad">Fang an, wo du magst.</span>'],
+  ['.g-path h3', ['So funktioniert’s', 'Für dich allein oder fürs ganze Team', 'Fragen, beantwortet']],
+  [
+    '.g-path p',
+    [
+      'Verfolge einen Job vom ersten Satz bis zum Ergebnis — und sieh, was Ocur dabei alles im Blick behält.',
+      'Allein kostenlos starten. Als Unternehmen kommen alle Menschen kostenlos dazu — bezahlt werden die KI-Worker und ihre Arbeit.',
+      'Womit Ocur arbeitet, wann es vorher fragt und was mit deinen Daten passiert.',
+    ],
+  ],
+  [
+    '.g-path-go',
+    [
+      'Produkt entdecken <span aria-hidden="true">→</span>',
+      'Preise ansehen <span aria-hidden="true">→</span>',
+      'Zur FAQ <span aria-hidden="true">→</span>',
+    ],
   ],
 
   // pinned demo (four scenes: ask → facts + the call → the deal → payoff)
@@ -354,13 +400,9 @@ export const DE = [
   [
     '.g-tier-lede',
     [
-      '<span class="g-tier-tag">Solo</span> Ocur Desktop und oDrops, ein Abo und ein gemeinsames monatliches Credit-Kontingent. Offen für alle, ohne Bewerbung.',
+      '<span class="g-tier-tag">Solo</span> Ocur Desktop und oDrops, ein Abo und ein gemeinsames monatliches Credit-Kontingent. Offen für alle.',
       '<span class="g-tier-tag g-tier-tag-hot">Business</span> Das ganze Unternehmen auf einem Ocur: ein gemeinsamer Pool, ein gemeinsames Gedächtnis — und unbegrenzt viele Menschen, immer kostenlos.',
     ],
-  ],
-  [
-    '.g-founding-text',
-    `<strong>Pilotprogramm:</strong> ${PCT} Rabatt auf jeden Business-Plan in den ersten ${DISCOUNT_MONTHS} Monaten — und der Gründer richtet euch persönlich ein. <a href="#apply" data-apply="pricing">Bewerben<span class="g-deadline"> bis ${CLOSES.de}</span> →</a>`,
   ],
   [
     '.g-eyebrow',
@@ -464,9 +506,9 @@ export const DE = [
       'Starter holen',
       'Pro holen',
       'Pro Plus holen',
-      'Zum Pilotpreis bewerben',
-      'Zum Pilotpreis bewerben',
-      'Zum Pilotpreis bewerben',
+      'Team holen',
+      'Growth holen',
+      'Scale holen',
     ],
   ],
   ['.g-extra strong', ['+1 KI-Worker', 'Top-up', 'Enterprise']],
@@ -490,68 +532,51 @@ export const DE = [
     'Dein Credit-Kontingent wird zwischen Ocur und oDrops geteilt. Teurere Modelle, Ausgaben und Medien verbrauchen mehr Credits; zwischengespeicherte Eingaben weniger. Dein Kontingent erneuert sich monatlich, auch bei halbjährlicher und jährlicher Abrechnung.',
   ],
   ['.g-extra-link', 'Sprich mit uns →'],
-  ['.g-card-talk', 'oder heute zum Listenpreis starten →'],
+  [
+    '.g-price-help',
+    'Fragen zu Plänen oder zur Abrechnung? <a href="/faq">Lies die FAQ</a> oder <a href="/contact#talk">sprich mit uns</a>.',
+  ],
+  ['.g-card-talk', 'oder erst mit uns sprechen →'],
 
-  // the founding cohort — das Pilotprogramm: the offer, then the application
-  // (the site's lead form — labels and copy; the status lines live in
-  // main.js) beside the founder's booking page
+  // contact: "Talk to us" (the site's lead form — labels and copy; the
+  // status lines live in contact-form.js) beside the founder's booking page
+  ['#contact .g-h2', 'Sprich mit uns. <span class="g-grad">Oder sieh es dir erst live an.</span>'],
   [
-    '.g-cohort-kicker',
-    `<span class="g-kdot" aria-hidden="true"></span>Pilotprogramm<span class="g-deadline"> · Bewerbungsschluss ${CLOSES.de}</span>`,
+    '.g-contact-sub',
+    'Frag nach einem Plan, einer Einrichtung für dein Team oder dem ersten Job für Ocur — oder buch eine 30-minütige Führung mit dem Gründer.',
   ],
-  ['#apply .g-h2', `${SEATS} Unternehmen zuerst. <span class="g-grad">Persönlich eingerichtet.</span>`],
-  [
-    '.g-cohort-sub',
-    `Vor dem Launch richtet der Gründer Ocur für ${SEATS} Unternehmen persönlich ein — zum Pilotpreis. Die Bewerbung dauert zwei Minuten, und du hast ${ANSWER.de} eine Antwort.`,
-  ],
-  ['.g-perk-tag', ['Pilotpreis', 'Einrichtung', 'Direkter Draht', 'Früher Zugang']],
-  [
-    '.g-perk h3',
-    [`${PCT} Rabatt für ${DISCOUNT_MONTHS} Monate`, 'Eingerichtet mit dem Gründer', 'Direkt zum Gründer', 'Alles Neue zuerst'],
-  ],
-  [
-    '.g-perk p:not(.g-perk-tag)',
-    [
-      'Auf jeden Business-Plan, den ihr wählt — Team, Growth oder Scale.',
-      'Ein 30-minütiges Gespräch: eure Tools verbunden, und Ocur arbeitet schon am ersten Job, den ihr genannt habt.',
-      'Fragen und Feedback gehen an den, der Ocur baut — und fließen in das, was als Nächstes kommt.',
-      'Neue Konnektoren und Autopiloten bekommen Pilotkunden vor allen anderen.',
-    ],
-  ],
-  ['.g-talk-kicker', '<span class="g-kdot" aria-hidden="true"></span>Bewerbung'],
-  ['.g-talk h3', 'Fürs Pilotprogramm bewerben.'],
+  ['.g-talk-kicker', '<span class="g-kdot" aria-hidden="true"></span>Nachricht'],
+  ['.g-talk-h', 'Schreib uns.'],
   [
     '.g-talk-text',
-    `Der Gründer liest jede Bewerbung persönlich — du hast ${ANSWER.de} eine Antwort, per E-Mail oder per Anruf, wenn du eine Nummer dalässt.`,
+    'Der Gründer liest jede Nachricht persönlich und meldet sich per E-Mail bei dir — oder per Anruf, wenn du eine Nummer dalässt.',
   ],
   [
     '.g-talk .g-field > span',
     [
       'Geschäftliche E-Mail',
-      'Unternehmen',
       'Name',
-      'Rolle <em>optional</em>',
-      'Teamgröße',
+      'Unternehmen <em>optional</em>',
+      'Teamgröße <em>optional</em>',
       'Telefon <em>optional — damit wir dich anrufen können</em>',
-      'Der erste Job für Ocur',
+      'Wobei können wir helfen?',
     ],
   ],
   ['.g-talk select option', ['Bitte wählen…', 'Nur ich', '2–10 Personen', '11–50 Personen', '51–200 Personen', '201+ Personen']],
-  ['.g-talk button[type="submit"]', 'Bewerbung abschicken'],
-  ['.g-talk-sub', 'Liest der Gründer persönlich — auch Fragen sind willkommen. <a href="/de/privacy">Datenschutz</a>'],
-  ['.g-talk noscript', '<p class="g-talk-noscript">Bitte aktiviere JavaScript, um deine Bewerbung abzuschicken, oder <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener">buch ein Gespräch mit dem Gründer</a>.</p>'],
+  ['.g-talk button[type="submit"]', 'Nachricht senden'],
+  ['.g-talk-sub', 'Liest der Gründer persönlich. <a href="/de/privacy">Datenschutz</a>'],
+  ['.g-talk noscript', `<p class="g-talk-noscript">Bitte aktiviere JavaScript, um deine Nachricht zu senden, oder <a href="${BOOK_URL}" target="_blank" rel="noopener">buch ein Gespräch mit dem Gründer</a>.</p>`],
   ['.g-next-kicker', '<span class="g-kdot" aria-hidden="true"></span>Wie es weitergeht'],
   [
     '.g-next-steps li',
     [
-      '<strong>Du bewirbst dich.</strong> Zwei Minuten, direkt hier.',
-      `<strong>Der Gründer antwortet</strong> ${ANSWER.de}.`,
-      '<strong>Du bist dabei: 30 Minuten Einrichtung.</strong> Deine Tools verbunden, und Ocur am ersten Job, den du genannt hast.',
-      `<strong>Der Pilotpreis.</strong> ${PCT} Rabatt auf deinen Plan in den ersten ${DISCOUNT_MONTHS} Monaten.`,
+      '<strong>Du schreibst.</strong> Ein, zwei Zeilen reichen.',
+      '<strong>Der Gründer liest es</strong> — persönlich, kein Bot.',
+      '<strong>Du hörst von uns</strong> per E-Mail, oder per Anruf, wenn du eine Nummer dagelassen hast.',
     ],
   ],
   ['.g-book-kicker', '<span class="g-kdot" aria-hidden="true"></span>Live-Demo'],
-  ['.g-book h3', 'Lieber erst mal ansehen?'],
+  ['.g-book-h', 'Lieber erst mal ansehen?'],
   [
     '.g-book-text',
     'Buch dir 30 Minuten mit dem Gründer — eine Live-Führung durch Ocur an der Arbeit deines eigenen Unternehmens, und klare Antworten auf die harten Fragen.',
@@ -559,59 +584,57 @@ export const DE = [
   ['.g-book .g-btn', 'Demo buchen'],
   ['.g-book-sub', '30 Minuten · Videocall · Termin frei wählbar'],
   [
-    '.g-cohort-solo',
-    'Nur für dich? Der Free-Plan steht allen offen — <a href="https://app.ocur.ai/?auth=sign-up">kostenlos starten</a>, ohne Bewerbung.',
+    '.g-contact-solo',
+    'Nur für dich? Der Free-Plan steht allen offen — <a href="https://app.ocur.ai/?auth=sign-up">kostenlos starten</a>, ohne Formular.',
   ],
 
   // FAQ
   ['#faq .g-h2', 'Fragen, <span class="g-grad">beantwortet.</span>'],
+  ['.faq-lede', 'Klare Antworten zum Einstieg, zur Arbeitsweise von Ocur und dazu, was mit deinen Daten und deiner Rechnung passiert.'],
+  ['.faq-ask-h', 'Noch eine Frage offen?'],
+  ['.faq-ask-text', 'Frag den Gründer in einem 30-minütigen Gespräch — live, an der Arbeit deines eigenen Unternehmens — oder schreib uns.'],
+  ['.faq-ask .g-btn', 'Demo buchen'],
+  ['.faq-ask .g-more', 'Sprich mit uns <span aria-hidden="true">→</span>'],
+  ['.faq-group-title', ['Der Einstieg', 'So arbeitet Ocur', 'Dein Unternehmen und deine Daten']],
   [
     '.g-faq summary',
     [
-      'Was ist das Pilotprogramm?',
-      'Wer kommt rein — und wie schnell?',
-      'Muss ich mich bewerben, um Ocur zu nutzen?',
-      'Was unterscheidet Ocur von einem Chat-Assistenten?',
+      'Gibt es einen kostenlosen Plan?',
       'Muss ich etwas installieren?',
+      'Wie schnell sind wir startklar?',
+      'Kann ich vorher eine Demo bekommen?',
+      'Was unterscheidet Ocur von einem Chat-Assistenten?',
       'Macht Ocur etwas ohne mein Okay?',
       'Und wenn es einen Fehler macht?',
       'Mit welchen Tools funktioniert es?',
       'Sind unsere Daten sicher?',
       'Kann das ganze Unternehmen mitmachen?',
       'Zahlen wir pro Person?',
-      'Wie schnell sind wir startklar?',
-      'Kann ich vorher eine Demo bekommen?',
     ],
   ],
   [
     '.g-faq p',
     [
-      `Die ersten ${SEATS} Unternehmen auf Ocur — vor dem Launch persönlich vom Gründer eingerichtet. Pilotkunden bekommen ${PCT} Rabatt auf ihren Plan in den ersten ${DISCOUNT_MONTHS} Monaten, ein Einrichtungsgespräch, in dem Ocur mit dem ersten genannten Job loslegt, einen direkten Draht zum Gründer und alles Neue vor allen anderen. <a href="#apply">Die Bewerbung</a> dauert zwei Minuten.`,
-      `Unternehmen mit einem echten ersten Job für Ocur und jemandem, der entscheiden kann. Der Gründer liest jede Bewerbung und antwortet ${ANSWER.de}. Die Plätze gehen mit den Antworten raus, bis alle ${SEATS} vergeben sind<span class="g-deadline"> oder die Bewerbungsphase am ${CLOSES.de} endet — je nachdem, was zuerst kommt</span>. Passt es noch nicht? Dann sagen wir dir das auch — und du kannst trotzdem allein kostenlos starten.`,
-      'Nein. Für dich allein steht der Free-Plan allen offen: Ocur Desktop und oDrops mit 1,5M Credits jeden Monat und Zugang zum Erstellen von 2 Drops mit den Modellen deiner Wahl. Keine Kreditkarte, keine Frist. Die Bewerbung ist für Unternehmen, die den Pilotpreis und die Einrichtung mit dem Gründer wollen.',
-      'Ein Chat-Assistent gibt dir eine Antwort — die Arbeit bleibt trotzdem bei dir. Ocur macht den Job fertig, dort, wo er hingehört: mit eigenem Postfach und eigener Telefonnummer, auf Autopilot auch wenn du weg bist, mit lebenden Registern für Versprechen, Geld, Pipeline und Lager. Das Ergebnis landet in deinen Tools — nicht in deiner Zwischenablage.',
+      'Ja. Für dich allein steht der Free-Plan allen offen: Ocur Desktop und oDrops mit 1,5M Credits jeden Monat und Zugang zum Erstellen von 2 Drops mit den Modellen deiner Wahl. Keine Kreditkarte, keine Frist. <a href="/pricing">Alle Pläne ansehen</a>.',
       'Nein — Ocur läuft im Browser. Lieber eine eigene App? <a href="https://app.ocur.ai/download" data-download="faq">Lade Ocur Desktop für Windows, macOS oder Linux herunter</a> und melde dich im selben Workspace an. Eine Internetverbindung ist erforderlich. Die Desktop-App enthält Ocur Companion und richtet diesen Computer nach der Anmeldung ein. Über Bildschirmzugriff und Computersteuerung entscheidest du selbst.',
+      'Minuten, nicht Monate. Ocur läuft im Browser, verbindet sich Login für Login mit deinen Tools und braucht kein IT-Projekt. Die meisten Teams geben ihm schon am ersten Tag echte Arbeit.',
+      `Ja. <a href="${BOOK_URL}" target="_blank" rel="noopener" data-book="faq">Buch ein 30-minütiges Gespräch</a> — der Gründer führt dich live durch Ocur, an der Arbeit deines eigenen Unternehmens. Bring deine Fragen mit. Oder <a href="https://app.ocur.ai/?auth=sign-up">starte kostenlos</a> und probier es erst selbst aus.`,
+      'Ein Chat-Assistent gibt dir eine Antwort — die Arbeit bleibt trotzdem bei dir. Ocur macht den Job fertig, dort, wo er hingehört: mit eigenem Postfach und eigener Telefonnummer, auf Autopilot auch wenn du weg bist, mit lebenden Registern für Versprechen, Geld, Pipeline und Lager. Das Ergebnis landet in deinen Tools — nicht in deiner Zwischenablage.',
       'Nur, wo du es erlaubst. Standardmäßig wartet alles Wichtige auf deine Freigabe. Erst auf Autopilot erledigt Ocur ganze Abläufe von selbst — jeder Schritt protokolliert. Was allein laufen darf, bestimmst du jederzeit, Ruhezeiten inklusive.',
       'Dann siehst du ihn — jede Aktion steht im Protokoll, mit dem Was und dem Warum. Alles Wichtige hat ohnehin auf deine Freigabe gewartet. Korrigier es in ganz normaler Sprache — Ocur merkt sich die Korrektur, und derselbe Fehler passiert kein zweites Mal.',
       'Gmail, Google Kalender &amp; Drive, Notion und GitHub — dazu das Web und auf Wunsch deinen eigenen Rechner. Kostenpflichtige Tarife enthalten Ocur in WhatsApp, iMessage, Telegram, Slack, Teams und E-Mail. Konten verbindest du einzeln und trennst sie jederzeit wieder.',
       'Dein Workspace ist strikt von jedem anderen Kunden getrennt. Ocur sieht nur die Konten, die du verbindest — und jede Verbindung kappst du mit einem Klick. Wir verkaufen deine Daten nie und trainieren keine Modelle damit — die <a href="/de/privacy">Datenschutzerklärung</a> sagt genau, was mit allem passiert, was Ocur anfasst, Google Workspace inklusive. Welcher Dienst was bekommt, und wann, steht in <a href="/de/data">Wohin deine Daten gehen</a>.',
       'Ja — genau dafür ist es gemacht. Alle delegieren an ein gemeinsames Ocur mit geteiltem Wissen. Admins regeln, wer was darf, und an einem Ort siehst du, was erledigt wurde.',
       'Nein. Jeder Business-Plan enthält unbegrenzt viele menschliche Mitglieder — eine Kollegin einzuladen kostet nichts. Das Unternehmen bezahlt einen gemeinsamen monatlichen Credit-Pool und KI-Worker mit echten Aufgaben und Zeitplänen. Zusätzliche KI-Worker kosten je €199 im Monat. Credit-Aufladungen ergänzen 10M Credits für €100 und verfallen beim nächsten monatlichen Reset.',
-      'Minuten, nicht Monate. Ocur läuft im Browser, verbindet sich Login für Login mit deinen Tools und braucht kein IT-Projekt. Die meisten Teams geben ihm schon am ersten Tag echte Arbeit.',
-      `Ja. <a href="${BOOK_URL}" target="_blank" rel="noopener" data-book="faq">Buch ein 30-minütiges Gespräch</a> — der Gründer führt dich live durch Ocur, an der Arbeit deines eigenen Unternehmens. Bring deine Fragen mit. Oder <a href="#apply">bewirb dich direkt</a>: Die Bewerbung dauert zwei Minuten, und jeder Pilotkunde bekommt sein Einrichtungsgespräch mit dem Gründer ohnehin.`,
     ],
   ],
 
-  // final + dock
+  // the closing card
   ['.g-final-h', 'Führ dein Unternehmen —<br /><span class="g-grad">nicht deinen Posteingang.</span>'],
-  ['.g-final .g-btn', 'Fürs Pilotprogramm bewerben'],
-  ['.g-final-alt span', ['Lieber erst eine Führung?', 'Nur für dich?']],
-  ['.g-final-alt a', ['Live-Demo buchen', 'Kostenlos starten']],
-  ['.g-foot em', 'Sag es — oder nicht. Es passiert. Du behältst die Kontrolle.'],
-  ['.g-foot-links a', ['Datenschutz', 'AGB', 'Wohin deine Daten gehen', 'Sei die KI — das Spiel', 'Kontakt', 'Desktop-App herunterladen']],
-  ['.g-foot-org', 'ein Produkt der OcurAI, Inc.'],
-  ['#g-dock strong', 'Jetzt bewerben'],
-  ['.g-dock-sub', `Pilotprogramm<span class="g-deadline"> · bis ${CLOSES.deShort}</span>`],
+  ['.g-final .g-btn', 'Kostenlos starten'],
+  ['.g-micro', 'Free-Plan&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte&nbsp;&nbsp;·&nbsp;&nbsp;Keine Frist'],
+  ['.g-final-alt span', ['Lieber erst eine Führung?', 'Fragen?']],
+  ['.g-final-alt a', ['Live-Demo buchen', 'Sprich mit uns']],
 ];
 
 // selector → [attribute, value]
@@ -637,17 +660,7 @@ export const DE_ATTRS = [
     'aria-label',
     'Ocur im Zentrum eines Sonnensystems, umkreist von Gmail, Google Kalender, Google Drive, Notion, GitHub, Telegram, WhatsApp, Slack, Discord, E-Mail, deinem Rechner und dem Web — plus ein freier Platz für Konnektoren, die du selbst baust',
   ],
-  ['.g-talk', 'aria-label', 'Fürs Pilotprogramm bewerben'],
-  ['.g-talk input[name="role"]', 'placeholder', 'Gründerin, Leitung Betrieb…'],
-  ['.g-talk textarea[name="message"]', 'placeholder', 'Die 200 Lieferanten-Mails, die wir jede Woche beantworten.'],
+  ['.g-talk textarea[name="message"]', 'placeholder', 'Ocur soll die 200 Lieferanten-Mails beantworten, die wir jede Woche bekommen.'],
   // the no-JS post tells the backend which language to send the visitor back in
   ['.g-talk input[name="locale"]', 'value', 'de'],
-  ['.g-social-x', 'aria-label', 'Ocur auf X'],
-  ['.g-social-x', 'title', 'Ocur auf X'],
-  // the German page points at the German legal pages (/de/privacy, /de/terms);
-  // matched on the English href, so this stays correct however the footer moves
-  ['.g-foot-links', 'aria-label', 'Weiterführende Links'],
-  ['.g-foot-links a[href="/privacy"]', 'href', '/de/privacy'],
-  ['.g-foot-links a[href="/terms"]', 'href', '/de/terms'],
-  ['.g-foot-links a[href="/data"]', 'href', '/de/data'],
 ];

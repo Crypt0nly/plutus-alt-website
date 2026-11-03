@@ -5,6 +5,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { load } from 'cheerio';
 import { ORIGIN, contentRoutes, htmlPath, markdownPath } from './lib/discovery.mjs';
+import { NAV, PAGES, localize } from '../src/site.js';
 
 const walk = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((entry) => entry.isDirectory() ? walk(join(dir, entry.name)) : entry.name.endsWith('.html') ? [join(dir, entry.name)] : []);
 const pages = new Map();
@@ -38,8 +39,18 @@ for (const file of walk('dist')) {
   for (const language of ['en', 'de']) {
     const alternate = $(`link[hreflang="${language}"]`).attr('href');
     if (!alternate) continue;
-    assert.equal($('.g-nav > .g-lang').length, 1, `${file}: one static desktop switch`);
-    assert.equal($(`.g-nav > .g-lang a[lang="${language}"]`).attr('href'), new URL(alternate).pathname, `${file}: real language link`);
+    assert.equal($('footer.g-foot .g-lang').length, 1, `${file}: one static language switch in the footer`);
+    assert.equal($(`footer.g-foot .g-lang a[lang="${language}"]`).attr('href'), new URL(alternate).pathname, `${file}: real language link`);
+  }
+  // Every page but the game shares one nav: the same destinations, the
+  // current one marked, and Start free in reach.
+  if ($('.g-nav').attr('data-nav') !== 'own') {
+    const links = $('.g-nav .g-links a').toArray().map((node) => $(node).attr('href'));
+    const de = $('html').attr('lang') === 'de';
+    assert.deepEqual(links, NAV.map((item) => localize(item.path, de ? 'de' : 'en')), `${file}: shared navigation`);
+    assert.ok($('.g-nav .g-links a[aria-current="page"]').length <= 1, `${file}: at most one current page`);
+    assert.equal($('.g-nav .g-nav-free').length, 1, `${file}: Start free in the nav`);
+    assert.equal($('footer.g-foot[data-site-footer] .g-foot-cols').length, 1, `${file}: shared footer`);
   }
   if ($('#g-menu').length) {
     const bilingual = Boolean($('link[hreflang="en"]').length && $('link[hreflang="de"]').length);
@@ -87,6 +98,12 @@ for (const node of sitemap('url').toArray()) {
   }
 }
 for (const page of contentRoutes) assert.ok(pages.has(ORIGIN + page.path), `${page.path}: product page was generated`);
+for (const path of PAGES) {
+  for (const lang of ['en', 'de']) {
+    const url = ORIGIN + (lang === 'de' ? (path === '/' ? '/de' : `/de${path}`) : path);
+    assert.ok(pages.has(url), `${url}: marketing page was built`);
+  }
+}
 const index = readFileSync('dist/llms.txt', 'utf8');
 const full = readFileSync('dist/llms-full.txt', 'utf8');
 for (const url of pages.keys()) {

@@ -317,13 +317,6 @@ button {
   display: none;
 }
 
-/* Every line that names the founding cohort's deadline. Past the date the
-   <head> script sets html.cohort-closed and they go — each one is written so
-   its sentence still reads without it. */
-html.cohort-closed .g-deadline {
-  display: none;
-}
-
 /* ------------------------------------------------------------ surfaces */
 
 /* .lg is the content material: an opaque card with a hairline. Glass is
@@ -509,8 +502,7 @@ html.motion .g-kdot::after {
 }
 
 .g-nav::before,
-.g-menu::before,
-.g-dock::before {
+.g-menu::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -524,8 +516,7 @@ html.motion .g-kdot::after {
   transition: box-shadow 260ms ease;
 }
 
-.g-nav::after,
-.g-dock::after {
+.g-nav::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -834,8 +825,7 @@ html.is-scrolled .g-nav::before {
   font-size: 0.9375rem;
 }
 
-.g-menu-ctas .g-menu-apply,
-.g-menu-ctas .g-menu-book {
+.g-menu-ctas .g-menu-free {
   grid-column: 1 / -1;
 }
 
@@ -932,7 +922,7 @@ html.is-scrolled:not(.on-stage) body.g::before {
 .g-lead,
 .g-start-sub,
 .g-price-lede,
-.g-cohort-sub,
+.g-contact-sub,
 .g-logos-sub {
   font-size: clamp(1.0625rem, 0.98rem + 0.36vw, 1.25rem);
   line-height: 1.55;
@@ -945,7 +935,7 @@ html.is-scrolled:not(.on-stage) body.g::before {
 .g-features,
 .g-start,
 .g-pricing,
-.g-cohort,
+.g-contact,
 .g-faq-sec {
   position: relative;
   padding: var(--g-section) 0;
@@ -1054,26 +1044,26 @@ html.is-scrolled:not(.on-stage) body.g::before {
   max-width: 100%;
 }
 
-.hx-free {
+.hx-secondary {
   padding-inline: 16px;
   background: transparent;
   color: var(--cp-accent-text);
 }
 
-.hx-free:hover {
+.hx-secondary:hover {
   background: var(--cp-fill);
 }
 
-.hx-free > span {
+.hx-secondary > span {
   font-size: 1.35em;
   line-height: 1;
 }
 
-.hx-apply {
+.hx-primary {
   box-shadow: none;
 }
 
-.hx-apply .g-i {
+.hx-primary .g-i {
   width: 18px;
   height: 18px;
   margin-right: -4px;
@@ -1081,7 +1071,7 @@ html.is-scrolled:not(.on-stage) body.g::before {
   transition: transform 320ms var(--cp-spring);
 }
 
-.hx-apply:hover .g-i {
+.hx-primary:hover .g-i {
   transform: translateX(3px);
 }
 
@@ -2742,7 +2732,6 @@ html:not(.js) .g-demo .g-cap-4::before {
 @media (hover: hover) and (pointer: fine) {
   .g-os-card,
   .g-tile,
-  .g-perk,
   .g-step,
   .g-card,
   .g-extra {
@@ -2753,7 +2742,6 @@ html:not(.js) .g-demo .g-cap-4::before {
 
   .g-os-card:hover,
   .g-tile:hover,
-  .g-perk:hover,
   .g-step:hover,
   .g-card:hover,
   .g-extra:hover {
@@ -3055,12 +3043,12 @@ html.motion .g-eq i {
 }
 
 .g-pricing .g-h2,
-.g-cohort .g-h2 {
+.g-contact .g-h2 {
   text-align: center;
 }
 
 .g-price-lede,
-.g-cohort-sub {
+.g-contact-sub {
   max-width: 44rem;
   margin: 0 auto;
   text-align: center;
@@ -3216,49 +3204,6 @@ html.motion .g-eq i {
   text-align: center;
   font-size: 0.8125rem;
   color: var(--cp-secondary);
-}
-
-/* the founding offer, on the ladder it applies to */
-.g-founding {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  max-width: 52rem;
-  margin: 0 auto 30px;
-  padding: 16px 22px;
-  border-radius: 22px;
-  border: 1px solid color-mix(in srgb, var(--cp-orange) 26%, transparent);
-  background: color-mix(in srgb, var(--cp-orange) 7%, var(--cp-card));
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  color: var(--cp-secondary);
-}
-
-.g-founding .g-kdot,
-.g-cohort-kicker .g-kdot,
-.g-dock .g-kdot {
-  background: var(--cp-orange);
-}
-
-.g-cohort-kicker .g-kdot {
-  margin: 0 9px 1px 0;
-  vertical-align: middle;
-}
-
-.g-founding strong {
-  font-weight: 650;
-  color: var(--cp-label);
-}
-
-.g-founding a {
-  font-weight: 600;
-  white-space: nowrap;
-  color: var(--cp-accent-text);
-}
-
-.g-founding a:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 .g-cards {
@@ -3498,67 +3443,9 @@ html.motion .g-price.is-flipping {
   color: var(--cp-secondary);
 }
 
-/* ------------------------------------------------- the founding cohort */
+/* ------------------------------------------------------------ contact */
 
-.g-cohort .g-wrap > .oc-chapter {
-  justify-content: center;
-}
-
-/* text, not flex: on a phone the deadline wraps as a sentence, not a column */
-.g-cohort-kicker {
-  display: block;
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto 22px;
-  padding: 7px 16px 7px 14px;
-  border-radius: 20px;
-  background: var(--cp-orange-tint);
-  color: var(--cp-orange-text);
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-align: center;
-}
-
-.g-perks {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: clamp(40px, 5vw, 64px);
-  list-style: none;
-}
-
-.g-perk {
-  display: flex;
-  flex-direction: column;
-  padding: 26px 24px;
-}
-
-.g-perk .g-ico {
-  margin-bottom: 22px;
-}
-
-.g-perk-tag {
-  margin-bottom: 6px;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--tint-fg, var(--cp-accent-text));
-}
-
-.g-perk h3 {
-  margin-bottom: 8px;
-  font-size: 1.1875rem;
-  font-weight: 650;
-  line-height: 1.3;
-  letter-spacing: -0.02em;
-}
-
-.g-perk p:not(.g-perk-tag) {
-  font-size: 0.9375rem;
-  line-height: 1.55;
-  color: var(--cp-secondary);
-}
-
-/* the application beside what happens next and the booking page */
+/* the form beside what happens next and the booking page */
 .g-doors {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
@@ -3602,8 +3489,8 @@ html.motion .g-price.is-flipping {
   border-radius: 28px;
 }
 
-.g-talk h3,
-.g-book h3 {
+.g-talk-h,
+.g-book-h {
   font-family: var(--g-display);
   font-size: clamp(1.5rem, 1.25rem + 0.8vw, 1.875rem);
   font-weight: 700;
@@ -3848,19 +3735,19 @@ html.motion .g-price.is-flipping {
   color: var(--cp-secondary);
 }
 
-.g-cohort-solo {
+.g-contact-solo {
   margin-top: 30px;
   text-align: center;
   font-size: 0.9375rem;
   color: var(--cp-secondary);
 }
 
-.g-cohort-solo a {
+.g-contact-solo a {
   font-weight: 600;
   color: var(--cp-accent-text);
 }
 
-.g-cohort-solo a:hover {
+.g-contact-solo a:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -4145,48 +4032,6 @@ html.motion .g-price.is-flipping {
   height: 14px;
 }
 
-/* ------------------------------------------------- floating CTA dock */
-
-.g-dock {
-  position: fixed;
-  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-  left: 0;
-  right: 0;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: max-content;
-  max-width: calc(100% - 24px);
-  height: 52px;
-  margin: 0 auto;
-  padding: 0 22px 0 18px;
-  border-radius: 999px;
-  isolation: isolate;
-  font-size: 0.9375rem;
-  white-space: nowrap;
-  color: var(--cp-label);
-  opacity: 0;
-  visibility: hidden;
-}
-
-.g-dock strong {
-  font-weight: 650;
-  color: var(--cp-accent-text);
-}
-
-.g-dock-sub {
-  font-size: 0.8125rem;
-  color: var(--cp-secondary);
-}
-
-/* the smallest phones keep the button and the name, not the date */
-@media (max-width: 380px) {
-  .g-dock-sub .g-deadline {
-    display: none;
-  }
-}
-
 @media (max-width: 420px) {
   .g-company-interval button {
     padding-inline: 6px;
@@ -4276,22 +4121,25 @@ html.motion .g-price.is-flipping {
 
 /* -------------------------------------------------------- responsive */
 
-/* two buttons don't fit the nav capsule beside the links at laptop widths */
-@media (max-width: 1280px) {
-  .g-nav-free {
+/* Three page links leave room for both doors down to small laptops; below
+   900px the links move into the phone menu and Start free stays. */
+@media (max-width: 979px) {
+  .g-nav-book {
     display: none;
   }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 899px) {
   .g-links,
   .g-login,
+  .g-nav-book,
   .g-nav > .g-lang {
     display: none;
   }
 
   .g-burger {
     display: grid;
+    margin-left: 6px;
   }
 
   .g-nav {
@@ -4300,12 +4148,13 @@ html.motion .g-price.is-flipping {
     padding-left: 18px;
   }
 
+  .g-nav .g-nav-free,
   .g-nav .g-theme {
     margin-left: auto;
   }
 }
 
-@media (min-width: 1101px) {
+@media (min-width: 900px) {
   .g-menu {
     display: none;
     top: 12px;
@@ -4412,10 +4261,6 @@ html[lang='de'] .hx-title {
   .g-cards-4 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
-  }
-
-  .g-perks {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .g-bento {
@@ -4597,8 +4442,7 @@ html[lang='de'] .hx-title {
 }
 
 @media (max-width: 700px) {
-  .g-os-grid,
-  .g-perks {
+  .g-os-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -4650,17 +4494,8 @@ html[lang='de'] .hx-title {
 
   .g-os-card,
   .g-tile,
-  .g-perk,
   .g-step {
     padding: 24px;
-  }
-
-  .g-founding {
-    align-items: flex-start;
-  }
-
-  .g-founding .g-kdot {
-    margin-top: 7px;
   }
 
   .g-foot-tag {
@@ -4690,7 +4525,7 @@ html[lang='de'] .hx-title {
     padding-inline: 20px;
   }
 
-  .hx-ctas .hx-free {
+  .hx-ctas .hx-secondary {
     padding-inline: 12px;
   }
 
@@ -4937,12 +4772,6 @@ html[lang='de'] .hx-title {
   .g-system {
     --r2: calc(var(--sys) / 2 - 28px);
   }
-
-  .g-dock {
-    gap: 8px;
-    padding: 0 18px 0 16px;
-    font-size: 0.875rem;
-  }
 }
 
 @media (max-width: 380px) {
@@ -5009,23 +4838,12 @@ html[lang='de'] .hx-title {
   .g-cap {
     transition: none;
   }
-
-  .g-dock {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  html.on-stage .g-dock {
-    opacity: 0;
-    visibility: hidden;
-  }
 }
 
 /* Reduced transparency: the glass turns frosted solid. */
 @media (prefers-reduced-transparency: reduce) {
   .g-nav::before,
   .g-menu::before,
-  .g-dock::before,
   body.g::before {
     background: var(--cp-card);
     -webkit-backdrop-filter: none;
@@ -5070,7 +4888,7 @@ html[lang='de'] .hx-title {
 }
 .g-menu-close:hover { background: var(--cp-fill-strong); }
 
-@media (max-width: 1100px), (pointer: coarse) {
+@media (max-width: 899px), (pointer: coarse) {
   .g-theme, .g-burger, .hx-play { width: 44px; height: 44px; }
   .g-lang a { min-width: 44px; height: 44px; }
   .hx-chip, .g-btn-sm, .g-company-interval button, .l-toc a {
@@ -5133,6 +4951,508 @@ html[data-motion='reduced'] *::after {
 }
 
 .g-nav .g-links a, .g-login, .g-lang a, .hx-chip { height: auto; min-height: 34px; }
-@media (max-width: 1100px), (pointer: coarse) {
+@media (max-width: 899px), (pointer: coarse) {
   .g-nav .g-links a, .g-login, .g-lang a, .hx-chip { min-height: 44px; }
+}
+
+/* ===================================================== the page family
+   Five marketing pages share one nav (four destinations, the current one
+   wearing the lens), one closing card and one footer. Language and theme
+   are secondary settings, so they sit in the footer and the phone menu. */
+
+/* The current page: blue text on the lens. The pill is its own element so
+   a cross-page view transition can slide it to the next page's link. */
+.g-links a > span:not(.g-here) {
+  position: relative;
+  z-index: 1;
+}
+
+.g-here {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 999px;
+  background: var(--cp-lens);
+  view-transition-name: g-here;
+}
+
+.g-links a[aria-current='page'],
+.g-links a[aria-current='page']:hover {
+  background: none;
+  color: var(--cp-accent-text);
+}
+
+.g-menu-links a[aria-current='page'] {
+  color: var(--cp-accent-text);
+  font-weight: 600;
+}
+
+.g-menu-foot .g-prefs {
+  gap: 8px;
+}
+
+/* Moving between pages: the browser crossfades the page (the nav is the
+   same on both, so it holds still) while the lens slides to the new page's
+   link. Only the pill is named — a named nav would become a backdrop root
+   and lose its glass blur. Browsers without cross-document view
+   transitions simply load the next page. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+::view-transition-group(g-here) {
+  animation-duration: 380ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ------------------------------------------------------- page heads */
+
+.pg-head {
+  padding: clamp(124px, 13vw, 172px) 0 clamp(8px, 2vw, 24px);
+  text-align: center;
+}
+
+.pg-head .g-wrap {
+  max-width: 54rem;
+}
+
+.pg-top {
+  padding-top: clamp(124px, 13vw, 172px);
+}
+
+.pg-kicker {
+  margin-bottom: 18px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: var(--cp-accent-text);
+}
+
+.g-pricing .pg-kicker {
+  text-align: center;
+}
+
+.pg-title,
+.g-pricing .pg-title,
+.g-contact .pg-title,
+.g-faq-sec .pg-title {
+  font-family: var(--g-display);
+  font-size: clamp(2.25rem, 1.45rem + 2.3vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+.pg-title .g-grad {
+  display: block;
+}
+
+html[lang='de'] .pg-title {
+  font-size: clamp(2.125rem, 1.4rem + 2vw, 3.125rem);
+}
+
+.pg-lede {
+  max-width: 40rem;
+  margin: 22px auto 0;
+  font-size: clamp(1.0625rem, 0.98rem + 0.36vw, 1.25rem);
+  line-height: 1.55;
+  letter-spacing: -0.014em;
+  color: var(--cp-secondary);
+  text-wrap: pretty;
+}
+
+/* ------------------------------------------ home: where to next */
+
+.g-paths {
+  padding: var(--g-section) 0 0;
+}
+
+.g-paths .g-h2 {
+  max-width: 40rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-paths-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: clamp(28px, 4vw, 44px);
+}
+
+.g-path {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 26px 24px 24px;
+  border-radius: 24px;
+  transition:
+    transform 420ms var(--cp-spring),
+    box-shadow 420ms var(--cp-spring);
+}
+
+.g-path .g-ico {
+  margin-bottom: 8px;
+}
+
+.g-path h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  color: var(--cp-label);
+}
+
+.g-path p {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--cp-secondary);
+}
+
+.g-path-go,
+.g-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--cp-accent-text);
+}
+
+.g-path-go {
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+.g-path-go span,
+.g-more span {
+  transition: transform 220ms var(--cp-spring);
+}
+
+.g-path:hover .g-path-go span,
+.g-path:focus-visible .g-path-go span,
+.g-more:hover span {
+  transform: translateX(3px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .g-path:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--cp-shadow-lift);
+  }
+}
+
+.g-logos-more {
+  margin-top: 22px;
+  min-height: 44px;
+}
+
+@media (max-width: 880px) {
+  .g-paths-grid {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 34rem;
+    margin-inline: auto;
+  }
+}
+
+/* ------------------------------------------------- pricing + application */
+
+.g-price-help {
+  margin-top: clamp(28px, 4vw, 40px);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  text-align: center;
+  color: var(--cp-secondary);
+}
+
+.g-price-help a {
+  font-weight: 600;
+  color: var(--cp-accent-text);
+}
+
+.g-price-help a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.g-talk-plan {
+  display: inline-flex;
+  align-self: flex-start;
+  width: fit-content;
+  margin: 0 0 18px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--cp-accent-tint);
+  color: var(--cp-accent-text);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.g-talk-plan[hidden] {
+  display: none;
+}
+
+/* ---------------------------------------------------------- the FAQ page */
+
+.p-faq .g-faq-sec > .g-wrap {
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.38fr);
+}
+
+.faq-lede {
+  max-width: 26rem;
+  margin-top: 18px;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--cp-secondary);
+  text-wrap: pretty;
+}
+
+.faq-ask {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  max-width: 26rem;
+  margin-top: 28px;
+  padding: 22px;
+  border-radius: 22px;
+}
+
+.faq-ask-h {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--cp-label);
+}
+
+.faq-ask-text {
+  margin-bottom: 10px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--cp-secondary);
+}
+
+.faq-groups {
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-group-title {
+  margin: 0 0 12px 6px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: var(--cp-secondary);
+}
+
+.g-faq + .faq-group-title {
+  margin-top: 36px;
+}
+
+@media (max-width: 960px) {
+  .p-faq .g-faq-sec > .g-wrap {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .faq-ask {
+    display: none;
+  }
+}
+
+/* -------------------------------------------------------- the footer */
+
+.g-foot[data-site-footer] {
+  display: block;
+  margin-top: clamp(48px, 6vw, 88px);
+  padding: 0 0 calc(28px + env(safe-area-inset-bottom, 0px));
+  border-top: 0;
+  background: var(--cp-canvas);
+}
+
+.p-home .g-foot[data-site-footer] {
+  position: relative;
+  z-index: 2;
+  margin-top: 0;
+  padding-top: clamp(48px, 6vw, 88px);
+}
+
+.g-foot-in {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
+  gap: 32px 48px;
+  padding-top: 40px;
+  /* the hairline spans the content, not the wrapper's gutters */
+  background: linear-gradient(var(--cp-separator), var(--cp-separator)) no-repeat top center / calc(100% - 2 * var(--g-gutter)) 1px;
+}
+
+.g-foot-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.g-foot-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--g-display);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--cp-label);
+}
+
+.g-foot-brand img {
+  width: 22px;
+  height: auto;
+}
+
+.g-foot-in .g-foot-tag {
+  max-width: 20rem;
+  padding: 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--cp-secondary);
+}
+
+.g-foot-cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px 32px;
+}
+
+.g-foot-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.g-foot-h {
+  margin-bottom: 2px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--cp-label);
+}
+
+.g-foot-col a {
+  color: var(--cp-secondary);
+  transition: color 160ms ease;
+}
+
+.g-foot-col a:hover {
+  color: var(--cp-label);
+}
+
+.g-foot-base {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--cp-separator);
+}
+
+.g-foot-copy {
+  margin-right: auto;
+}
+
+.g-foot-base .g-social {
+  position: static;
+}
+
+.g-prefs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.g-prefs .g-theme {
+  width: 34px;
+  height: 34px;
+  background: var(--cp-fill);
+  color: var(--cp-label);
+}
+
+.g-prefs .g-theme:hover {
+  background: var(--cp-fill-strong);
+}
+
+@media (max-width: 760px) {
+  .g-foot-in {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .g-foot-cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (pointer: coarse) {
+  .g-foot-col {
+    gap: 0;
+  }
+
+  .g-foot-col a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .g-prefs .g-theme,
+  .g-foot-base .g-social {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* On the product page the pinned demo follows the page head directly: its
+   stage centres itself in a full screen, so it tucks up into its own empty
+   top rather than leaving a gap under the lede. */
+.p-product .pg-head {
+  padding-bottom: 0;
+}
+
+.p-product .g-demo {
+  margin-top: calc(-1 * min(16svh, 150px));
+}
+
+@media (max-width: 960px) {
+  .p-product .g-demo {
+    margin-top: calc(-1 * min(8svh, 64px));
+  }
+}
+
+.g-foot-in .g-foot-tag {
+  order: 0;
+}
+
+/* three reading pages, three columns */
+@media (min-width: 900px) {
+  .p-product .d-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* the contact page: the form and the booking page under the page head */
+.g-contact .g-doors {
+  margin-top: clamp(36px, 5vw, 56px);
+}
+
+.faq-ask-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+}
+
+.g-contact .pg-kicker {
+  text-align: center;
 }

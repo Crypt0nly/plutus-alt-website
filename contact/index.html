@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f2f2f7" />
+    <title>Contact Ocur — talk to us or book a demo</title>
+    <meta name="application-name" content="Ocur" />
+    <meta name="description" content="Ask about a plan, a setup for your team or the first job you&#39;d hand Ocur — the founder reads every message personally. Or book a 30-minute live walkthrough." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ocur" />
+    <meta property="og:url" content="https://ocur.ai/contact" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:title" content="Contact Ocur — talk to us or book a demo" />
+    <meta property="og:description" content="Ask about a plan, a setup for your team or the first job you&#39;d hand Ocur — the founder reads every message personally. Or book a 30-minute live walkthrough." />
+    <meta property="og:image" content="https://ocur.ai/og.jpg?v=3" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Ocur — “Less busywork. More business.” An Ocur window: Friday's delivery came in 40 units short, sort it out with the supplier — supplier called, €312 recovered, redelivery on the calendar." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ocur_ai" />
+    <meta name="twitter:creator" content="@ocur_ai" />
+    <meta name="twitter:title" content="Contact Ocur — talk to us or book a demo" />
+    <meta name="twitter:description" content="Ask about a plan, a setup for your team or the first job you&#39;d hand Ocur — the founder reads every message personally. Or book a 30-minute live walkthrough." />
+    <meta name="twitter:image" content="https://ocur.ai/og.jpg?v=3" />
+    <meta name="twitter:image:alt" content="Ocur — “Less busywork. More business.” An Ocur window: Friday's delivery came in 40 units short, sort it out with the supplier — supplier called, €312 recovered, redelivery on the calendar." />
+    <link rel="canonical" href="https://ocur.ai/contact" />
+    <link rel="alternate" hreflang="en" href="https://ocur.ai/contact" />
+    <link rel="alternate" hreflang="de" href="https://ocur.ai/de/contact" />
+    <link rel="alternate" hreflang="x-default" href="https://ocur.ai/contact" />
+    <link rel="privacy-policy" href="https://ocur.ai/privacy" />
+    <link rel="terms-of-service" href="https://ocur.ai/terms" />
+    <!-- @include partials/head.html -->
+  </head>
+  <body class="g p-contact">
+    <!-- @include partials/sprite.html -->
+    <!-- The nav, the phone menu and the footer are drawn from src/site.js by
+         scripts/lib/chrome.mjs — the same on every page, in its language. -->
+    <header class="g-nav" id="g-nav"></header>
+
+    <main>
+        <section class="g-contact pg-top" id="contact" aria-labelledby="pg-title">
+          <div class="g-wrap">
+            <p class="pg-kicker">Contact</p>
+            <h1 class="g-h2 pg-title" id="pg-title">Talk to us. <span class="g-grad">Or see it live first.</span></h1>
+            <p class="g-contact-sub">
+              Ask about a plan, a setup for your team or the first job you'd hand Ocur — or book a
+              30-minute walkthrough with the founder.
+            </p>
+
+            <!-- "Talk to us" is the site's lead form: it posts to the app backend's
+                 leads endpoint behind the founder's booking slug and lands in the
+                 founder's Ocur as a lead — contact, fact, notification for personal
+                 review. Each POST carries a fresh browser proof (src/contact-form.js
+                 posts JSON through the same-origin rewrite in vercel.json); with
+                 JavaScript disabled, the visitor can book a call instead. The
+                 business plans and the Enterprise extra on the pricing page link
+                 here with ?plan=…, which goes into the hidden field. -->
+            <div class="g-doors" id="talk">
+              <form class="g-talk lg" id="g-talk" action="https://api.ocur.ai/api/leads/gJM0Hx8-5SY" method="post" data-endpoint="/leads/api/gJM0Hx8-5SY" aria-labelledby="g-talk-title" novalidate>
+                <p class="g-talk-kicker"><span class="g-kdot" aria-hidden="true"></span>Message</p>
+                <h2 class="g-talk-h" id="g-talk-title">Write to us.</h2>
+                <p class="g-talk-text">
+                  The founder reads every message personally and gets back to you by email — or
+                  by phone if you leave a number.
+                </p>
+                <p class="g-talk-plan" hidden></p>
+                <div class="g-talk-grid">
+                  <label class="g-field"><span>Work email</span><input name="email" type="email" required maxlength="320" autocomplete="email" inputmode="email" /></label>
+                  <label class="g-field"><span>Name</span><input name="name" type="text" required maxlength="120" autocomplete="name" /></label>
+                  <label class="g-field"><span>Company <em>optional</em></span><input name="company" type="text" maxlength="160" autocomplete="organization" /></label>
+                  <label class="g-field">
+                    <span>Team size <em>optional</em></span>
+                    <select name="team_size">
+                      <option value="" selected>Choose…</option>
+                      <option value="1">Just me</option>
+                      <option value="2-10">2–10 people</option>
+                      <option value="11-50">11–50 people</option>
+                      <option value="51-200">51–200 people</option>
+                      <option value="201+">201+ people</option>
+                    </select>
+                  </label>
+                  <label class="g-field g-field-wide"><span>Phone <em>optional — so we can call you</em></span><input name="phone" type="tel" maxlength="50" autocomplete="tel" inputmode="tel" /></label>
+                  <label class="g-field g-field-wide"><span>How can we help?</span><textarea name="message" rows="4" required maxlength="2000" placeholder="We'd like Ocur to answer the 200 supplier emails we get every week."></textarea></label>
+                </div>
+                <input type="hidden" name="plan" value="" />
+                <input type="hidden" name="locale" value="en" />
+                <!-- honeypot: people never see it, bots fill it -->
+                <div class="g-hp" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off" /></label></div>
+                <div class="g-talk-foot">
+                  <button class="g-btn" type="submit" disabled>Send message</button>
+                  <p class="g-talk-sub">Read by the founder personally. <a href="/privacy">Privacy</a></p>
+                </div>
+                <noscript><p class="g-talk-noscript">Please enable JavaScript to send your message, or <a href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener">book a call with the founder</a>.</p></noscript>
+                <p class="g-talk-status" role="status" aria-live="polite"></p>
+              </form>
+              <div class="g-doors-side">
+                <div class="g-next lg">
+                  <p class="g-next-kicker"><span class="g-kdot" aria-hidden="true"></span>What happens next</p>
+                  <ol class="g-next-steps">
+                    <li><strong>You write.</strong> A line or two is enough.</li>
+                    <li><strong>The founder reads it</strong> — personally, not a bot.</li>
+                    <li><strong>You hear back</strong> by email, or by phone if you left a number.</li>
+                  </ol>
+                </div>
+                <div class="g-book lg" id="book">
+                  <div class="g-book-copy">
+                    <p class="g-book-kicker"><span class="g-kdot" aria-hidden="true"></span>Live demo</p>
+                    <h2 class="g-book-h">Rather see it first?</h2>
+                    <p class="g-book-text">
+                      Book a 30-minute call with the founder — a live walkthrough of Ocur on your
+                      company's own work, and straight answers to the hard questions.
+                    </p>
+                  </div>
+                  <div class="g-book-cta">
+                    <a class="g-btn g-btn-glass" href="https://api.ocur.ai/api/book/gJM0Hx8-5SY" target="_blank" rel="noopener" data-book="contact">Book a demo</a>
+                    <span class="g-book-sub">30 minutes · video call · pick your slot</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="g-contact-solo">
+              Just you? The free plan is open to everyone —
+              <a href="https://app.ocur.ai/?auth=sign-up">start free</a>, no form needed.
+            </p>
+          </div>
+        </section>
+    </main>
+
+    <footer class="g-foot" data-site-footer></footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -5,11 +5,9 @@ The first screen does three jobs at once, with nothing to scroll first:
 1. **Say what Ocur is.** "Less busywork. More business." and one sentence:
    the AI operating system for companies, what it does, and that you set
    the limits.
-2. **Open both doors.** *Apply for the founding cohort* (the loud one) and
-   *Start free* (the quiet gray one), the same pair as the nav, with the
-   founding offer as a small pill above the headline and three plain facts
-   under the buttons: a two-minute application, the answer time from
-   `src/cohort.js`, and no credit card for the free plan.
+2. **Open both doors.** *Start free* (the blue one, straight to sign-up) and
+   *Book a demo* (the quiet one, the founder's booking page), the same
+   pair as the nav.
 3. **Show Ocur at work.** Beside the copy (below it on narrow screens), a
    deck of Ocur windows deals real jobs: the ask types itself, Ocur answers,
    the steps land one by one, and the result counts up.

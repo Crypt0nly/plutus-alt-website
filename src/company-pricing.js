@@ -37,7 +37,8 @@ export function initCompanyPricing(root, lang) {
         price.append(period);
         card.querySelector('.g-price-alt').textContent = display.note;
         card.querySelector('.g-price-saving').textContent = display.saving;
-        const link = card.querySelector('.g-card-talk');
+        // the card's sign-up opens the app's plan picker on this interval
+        const link = card.querySelector('a[href^="https://app.ocur.ai"]');
         const url = new URL(link.href);
         url.searchParams.set('interval', interval);
         link.href = url.href;

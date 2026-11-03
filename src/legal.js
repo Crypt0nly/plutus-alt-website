@@ -11,13 +11,14 @@ import './legal.css';
 import './discovery.css';
 import { initLangToggle } from './i18n.js';
 import { initThemeToggle } from './theme.js';
-import { initChrome } from './chrome.js';
+import { initChrome, initDoors, setYear } from './chrome.js';
 import { initMobileMenu } from './mobile-menu.js';
 import { initAnalytics } from './analytics.js';
 
 initAnalytics();
 initThemeToggle();
 initChrome();
+initDoors();
 initMobileMenu();
 
 // The EN | DE switch points at *this* page's translation, not the home
@@ -39,5 +40,4 @@ const en = path(alt('en'));
 const de = path(alt('de'));
 if (en && de) initLangToggle({ en, de });
 
-const year = document.getElementById('g-year');
-if (year) year.textContent = String(new Date().getFullYear());
+setYear();

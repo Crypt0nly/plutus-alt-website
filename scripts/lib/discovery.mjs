@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { load } from 'cheerio';
 import { contentPages } from '../../content/pages.js';
+import { renderNav, renderMenu, renderFooter, languageLinks } from './chrome.mjs';
 
 export const ORIGIN = 'https://ocur.ai';
 const sourceHome = load(readFileSync(new URL('../../index.html', import.meta.url), 'utf8'));
@@ -11,15 +12,13 @@ export const contentRoutes = contentPages.flatMap((page) => ['en', 'de'].map((la
 
 const escape = (text) => String(text).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const homePath = (lang) => lang === 'de' ? '/de' : '/';
+const productPath = (lang) => lang === 'de' ? '/de/product' : '/product';
 export const canonicalPath = (path) => path === '/' ? '/' : path.replace(/\/+$/, '');
 export const canonicalUrl = (path) => ORIGIN + canonicalPath(path);
 export const htmlPath = (path) => path === '/' ? 'index.html' : `${canonicalPath(path).slice(1)}/index.html`;
 export const markdownPath = (path) => path === '/' ? '/index.md' : `${canonicalPath(path)}.md`;
 
-export function languageLinks(en, de, lang) {
-  return `<div class="g-lang" role="group" aria-label="${lang === 'de' ? 'Sprache' : 'Language'}">${[['en', en], ['de', de]].map(([code, url]) =>
-    `<a href="${escape(new URL(url, ORIGIN).pathname)}" lang="${code}" hreflang="${code}"${code === lang ? ' class="on" aria-current="true"' : ''}>${code.toUpperCase()}</a>`).join('')}</div>`;
-}
+export { languageLinks };
 
 function resourceLinks(lang) {
   return contentRoutes.filter((page) => page.lang === lang).map((page) => `<a href="${page.path}">${escape(page.label)}</a>`).join('');
@@ -48,18 +47,21 @@ export function enrichPage(html) {
 
   const en = $('link[rel="alternate"][hreflang="en"]').attr('href');
   const de = $('link[rel="alternate"][hreflang="de"]').attr('href');
+  const alternates = en && de ? { en, de } : null;
+  const path = new URL(url).pathname;
   const nav = $('.g-nav');
   nav.removeClass('lg glare');
-  if (nav.length && !$('#g-menu').length) {
+  if (nav.length && nav.attr('data-nav') !== 'own') {
+    // The shared chrome (scripts/lib/chrome.mjs): one nav, one phone menu and
+    // one footer for every page, in the page's language.
+    nav.html(renderNav(lang, path));
+    $('#g-menu').remove();
+    nav.after(renderMenu(lang, path, alternates));
+    $('footer[data-site-footer]').html(renderFooter(lang, alternates));
+  } else if (nav.length && !$('#g-menu').length) {
+    // A page with its own nav (the game) still gets the phone menu.
     nav.append(`<button class="g-burger" type="button" aria-label="${lang === 'de' ? 'Menü' : 'Menu'}" aria-expanded="false" aria-controls="g-menu"><span aria-hidden="true"></span><span aria-hidden="true"></span></button>`);
     nav.after(`<div class="g-menu" id="g-menu" hidden><nav class="g-menu-links" aria-label="${lang === 'de' ? 'Menü' : 'Menu'}">${nav.find('.g-links').html() || ''}</nav><div class="g-menu-foot"></div></div>`);
-  }
-  if (en && de && nav.length) {
-    nav.children('.g-lang').remove();
-    nav.find('.g-btn-sm').first().before(languageLinks(en, de, lang));
-    const mobile = $('#g-menu .g-menu-foot');
-    mobile.children('.g-lang').remove();
-    mobile.append(languageLinks(en, de, lang));
   }
 
   const title = $('title').text();
@@ -75,7 +77,8 @@ export function enrichPage(html) {
   if (route) {
     const breadcrumbs = { '@type': 'BreadcrumbList', '@id': `${url}#breadcrumbs`, itemListElement: [
       { '@type': 'ListItem', position: 1, name: lang === 'de' ? 'Startseite' : 'Home', item: canonicalUrl(homePath(lang)) },
-      { '@type': 'ListItem', position: 2, name: route.label, item: url },
+      { '@type': 'ListItem', position: 2, name: lang === 'de' ? 'Produkt' : 'Product', item: canonicalUrl(productPath(lang)) },
+      { '@type': 'ListItem', position: 3, name: route.label, item: url },
     ] };
     graph.push(breadcrumbs);
     webpage.breadcrumb = { '@id': breadcrumbs['@id'] };
@@ -87,13 +90,15 @@ export function enrichPage(html) {
   });
   $('head').append(`<script type="application/ld+json" data-discovery-schema>${JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c')}</script>`);
 
-  // These are useful navigation for visitors as well as links for crawlers.
+  // A footer of its own (the game) still links the product reading pages;
+  // the shared footer lists them in its first column.
   $('.d-resource-links').remove();
-  $('.g-foot').append(`<nav class="d-resource-links" aria-label="${lang === 'de' ? 'Produkt und Anwendungsfälle' : 'Product and use cases'}">${resourceLinks(lang)}</nav>`);
+  $('.g-foot:not([data-site-footer])').append(`<nav class="d-resource-links" aria-label="${lang === 'de' ? 'Produkt und Anwendungsfälle' : 'Product and use cases'}">${resourceLinks(lang)}</nav>`);
+  // The product page ends with a closer look at specific jobs.
   $('.d-resources').remove();
-  if (new URL(url).pathname === homePath(lang)) {
+  if (path === productPath(lang)) {
     const cards = contentRoutes.filter((page) => page.lang === lang).map((page) => `<a class="d-card lg" href="${page.path}"><h3>${escape(page.label)}</h3><p>${escape(page.description)}</p><span>${lang === 'de' ? 'Mehr erfahren' : 'Explore the workflow'} →</span></a>`).join('');
-    $('.g-final').before(`<section class="d-resources" aria-labelledby="d-resources-title"><div class="g-wrap"><h2 id="d-resources-title">${lang === 'de' ? 'Ein genauerer Blick auf die Arbeit.' : 'A closer look at the work.'}</h2><p>${lang === 'de' ? 'Wie Ocur arbeitet, was du verbinden kannst und wie du mit einer konkreten Aufgabe beginnst.' : 'How Ocur works, what you can connect, and how to start with a specific job.'}</p><div class="d-grid">${cards}</div></div></section>`);
+    $('.g-final').before(`<section class="d-resources" aria-labelledby="d-resources-title"><div class="g-wrap"><h2 id="d-resources-title">${lang === 'de' ? 'Ein genauerer Blick auf die Arbeit.' : 'A closer look at the work.'}</h2><p>${lang === 'de' ? 'Was du verbinden kannst und wie du mit einer konkreten Aufgabe beginnst.' : 'What you can connect, and how to start with a specific job.'}</p><div class="d-grid">${cards}</div></div></section>`);
   }
   return $.html();
 }
@@ -127,18 +132,15 @@ export function renderContentPage(page, assetTags = '<script type="module" src="
     <script>try{var t=localStorage.getItem('ocur-theme');document.documentElement.dataset.theme=t==='light'||t==='dark'?t:matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
     ${assetTags}
   </head><body class="g d-page"><div class="g-grain" aria-hidden="true"></div>
-    <header class="g-nav lg glare" id="g-nav"><a class="g-brand" href="${home}"><img src="/logo.svg" alt="" /> Ocur</a>
-      <nav class="g-links" aria-label="${de ? 'Hauptnavigation' : 'Primary'}"><a href="${home}">${de ? 'Startseite' : 'Home'}</a><a href="${de ? '/de' : ''}/product">${de ? 'Produkt' : 'Product'}</a><a href="${de ? '/de' : ''}/integrations">${de ? 'Integrationen' : 'Integrations'}</a><a href="${home}#pricing">${de ? 'Preise' : 'Pricing'}</a></nav>
-      <a class="g-btn g-btn-sm" href="https://app.ocur.ai/?auth=sign-up">${de ? 'Kostenlos starten' : 'Start free'}</a>
-    </header>
+    <header class="g-nav" id="g-nav"></header>
     <main class="l-page"><div class="l-glow" aria-hidden="true"></div><div class="g-wrap">
-      <nav class="d-breadcrumb" aria-label="${de ? 'Seitenpfad' : 'Breadcrumb'}"><a href="${home}">${de ? 'Startseite' : 'Home'}</a> / <span aria-current="page">${escape(page.label)}</span></nav>
+      <nav class="d-breadcrumb" aria-label="${de ? 'Seitenpfad' : 'Breadcrumb'}"><a href="${home}">${de ? 'Startseite' : 'Home'}</a> / <a href="${productPath(lang)}">${de ? 'Produkt' : 'Product'}</a> / <span aria-current="page">${escape(page.label)}</span></nav>
       <div class="l-head"><p class="l-eyebrow">${escape(page.label)}</p><h1 class="l-h1">${escape(heading)}</h1><p class="l-lede">${escape(intro)}</p></div>
       <div class="l-layout"><nav class="l-toc lg" aria-label="${de ? 'Inhalt' : 'Contents'}"><h2>${de ? 'Inhalt' : 'Contents'}</h2><ol>${sections.map(([label], index) => `<li><a href="#section-${index + 1}">${escape(label)}</a></li>`).join('')}</ol></nav>
       <article class="l-prose">${sections.map(([label, body], index) => `<section id="section-${index + 1}"><h2>${escape(label)}</h2>${body}</section>`).join('')}
       <div class="d-cta lg"><h2>${de ? 'Mit einer Aufgabe beginnen.' : 'Start with one job.'}</h2><p>${de ? 'Der kostenlose Tarif ist für Einzelpersonen ohne Bewerbung und ohne Kreditkarte zugänglich. Geplante Arbeit und Telefonfunktionen benötigen einen passenden kostenpflichtigen Tarif.' : 'The free solo plan is open without an application or credit card. Scheduled work and phone features need a suitable paid plan.'}</p><a class="g-btn" href="https://app.ocur.ai/?auth=sign-up">${de ? 'Kostenlos starten' : 'Start free'}</a></div></article></div>
-      <footer class="g-foot"><span>Ocur © 2026 · OcurAI, Inc.</span><nav class="g-foot-links" aria-label="${de ? 'Weiterführende Links' : 'Footer links'}"><a href="${de ? '/de' : ''}/privacy">${de ? 'Datenschutz' : 'Privacy Policy'}</a><a href="${de ? '/de' : ''}/terms">${de ? 'AGB' : 'Terms of Service'}</a><a href="${de ? '/de' : ''}/data">${de ? 'Wohin deine Daten gehen' : 'Where your data goes'}</a>${de ? '<a href="/de/impressum">Impressum</a>' : ''}</nav></footer>
     </div></main>
+    <footer class="g-foot" data-site-footer></footer>
   </body></html>`);
 }
 
