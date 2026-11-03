@@ -20,7 +20,7 @@ test('company six-month totals, monthly equivalents and savings are accurate in 
 });
 
 test('English and German static pages expose every six-month total and billing control', () => {
-  const $ = cheerio.load(readFileSync(new URL('../index.html', import.meta.url), 'utf8'));
+  const $ = cheerio.load(readFileSync(new URL('../pricing/index.html', import.meta.url), 'utf8'));
   assert.equal($('[data-company-plan]').length, 3);
   assert.equal($('[data-billing-interval="semiannual"]').text(), 'Every 6 months');
   assert.equal($('.g-tiers[data-aud="solo"] [data-billing-interval]').length, 0);

@@ -3,7 +3,7 @@
   "private": true,
   "version": "3.0.0",
   "type": "module",
-  "description": "Ocur — the AI operating system for companies. The public site in the Ocur app language: an opening that shows Ocur at work, the product story, real-product pricing, the founding-cohort application and FAQ. Vite + vanilla JS + GSAP.",
+  "description": "Ocur — the AI operating system for companies. The public site in the Ocur app language: home, product, pricing, FAQ and contact as five short pages with one shared nav, in English and German. Vite + vanilla JS + GSAP.",
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "dev": "vite",

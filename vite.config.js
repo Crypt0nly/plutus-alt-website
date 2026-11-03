@@ -1,8 +1,19 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
 import { existsSync } from 'node:fs';
-import { COHORT_TOKENS, CLOSES_AT } from './src/cohort.js';
+import { fillPartials } from './scripts/lib/partials.mjs';
 import { contentRoutes, renderContentPage, enrichPage, canonicalPath, htmlPath } from './scripts/lib/discovery.mjs';
+
+// <!-- @include partials/… --> → the shared part (scripts/lib/partials.mjs)
+function partials() {
+  return {
+    name: 'ocur-partials',
+    transformIndexHtml: { order: 'pre', handler: (html) => fillPartials(html) },
+    handleHotUpdate({ file, server }) {
+      if (file.includes('/partials/')) server.ws.send({ type: 'full-reload' });
+    },
+  };
+}
 
 function discoveryPages() {
   return {
@@ -10,7 +21,13 @@ function discoveryPages() {
     transformIndexHtml: { order: 'post', handler: enrichPage },
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
-        const pathname = canonicalPath(new URL(req.url, 'http://localhost').pathname);
+        const url = new URL(req.url, 'http://localhost');
+        const pathname = canonicalPath(url.pathname);
+        // /pricing → pricing/index.html, the way Vercel resolves it
+        if (pathname !== '/' && !/\.\w+$/.test(pathname) && existsSync(resolve(__dirname, htmlPath(pathname)))) {
+          req.url = `/${htmlPath(pathname)}${url.search}`;
+          return next();
+        }
         const page = contentRoutes.find((route) => route.path === pathname);
         if (!page) return next();
         try {
@@ -33,39 +50,14 @@ function discoveryPages() {
   };
 }
 
-// The founding cohort's promises (seats, founding price, deadline, answer
-// time) live in src/cohort.js. index.html carries {{COHORT_*}} tokens where
-// they go; this fills them in before anything else reads the page, on the
-// dev server and in the build. An unknown token fails the build rather than
-// ship braces to visitors, and a deadline in the past gets a warning — the
-// page hides its deadline lines by then, but the next date belongs in
-// src/cohort.js.
-function cohortTokens() {
-  return {
-    name: 'ocur-cohort-tokens',
-    buildStart() {
-      if (Date.now() > Date.parse(CLOSES_AT)) {
-        this.warn(`the founding cohort closed at ${CLOSES_AT} — set the next deadline in src/cohort.js`);
-      }
-    },
-    transformIndexHtml: {
-      order: 'pre',
-      handler(html, ctx) {
-        return html.replace(/\{\{(COHORT_[A-Z_]+)\}\}/g, (token, key) => {
-          if (!(key in COHORT_TOKENS)) throw new Error(`${ctx.filename}: unknown token ${token}`);
-          return COHORT_TOKENS[key];
-        });
-      },
-    },
-  };
-}
-
 // OCUR — static site, served from the domain root (ocur.ai). Base must be
 // absolute: the prerendered /de/ page and the /be-ai/ game both live in
 // subdirectories and relative asset paths would break there.
 //
 // Entry points:
-//   index.html          → the marketing home page (ocur.ai/)
+//   index.html          → the home page (ocur.ai/)
+//   product/, pricing/, faq/, contact/ → the other marketing pages,
+//                          each prerendered in German under /de/ as well
 //   be-ai/index.html    → the reverse Turing test game (ocur.ai/be-ai)
 //   privacy/, terms/    → the legal pages (ocur.ai/privacy, ocur.ai/terms)
 //   de/privacy/, de/terms/ → their German twins, plus de/impressum/ (§5 DDG)
@@ -91,13 +83,17 @@ const BE_AI_BACKEND = process.env.VITE_BE_AI_BACKEND || 'https://api.ocur.ai';
 
 export default defineConfig({
   base: '/',
-  plugins: [cohortTokens(), discoveryPages()],
+  plugins: [partials(), discoveryPages()],
   build: {
     target: 'es2020',
     sourcemap: false,
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+        product: resolve(__dirname, 'product/index.html'),
+        pricing: resolve(__dirname, 'pricing/index.html'),
+        contact: resolve(__dirname, 'contact/index.html'),
+        faq: resolve(__dirname, 'faq/index.html'),
         beai: resolve(__dirname, 'be-ai/index.html'),
         privacy: resolve(__dirname, 'privacy/index.html'),
         terms: resolve(__dirname, 'terms/index.html'),

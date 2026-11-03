@@ -1,18 +1,22 @@
-// Language plumbing. The German page is a real prerendered URL (/de/,
-// baked by scripts/prerender-de.mjs from src/strings.de.js), so the URL
-// is the source of truth for content language. This module: redirects
-// German-browser visitors from / to /de/ (honouring an explicit choice),
-// enhances the static EN | DE links, and applies the dictionary
-// client-side as a dev fallback (?lang=de, where /de/ doesn't exist yet).
+// Language plumbing. Every marketing page has a real prerendered German
+// twin (/de, /de/pricing …, baked by scripts/prerender-de.mjs from
+// src/strings.de.js), so the URL is the source of truth for content
+// language. This module: sends German-browser visitors to the twin of the
+// page they opened (honouring an explicit choice), enhances the static
+// EN | DE links, and applies the dictionary client-side as a dev fallback
+// (?lang=de, where /de/… doesn't exist yet).
 
-import { TITLE_DE, DESC_DE, DE, DE_ATTRS } from './strings.de.js';
+import { TITLE_DE, DESC_DE, DE, DE_ATTRS, PAGES_DE } from './strings.de.js';
+import { PAGES, englishPath } from './site.js';
 
 const query = new URLSearchParams(location.search).get('lang');
 const pathLang = /^\/de(\/|$)/.test(location.pathname) ? 'de' : 'en';
 export const currentLang = query === 'de' || query === 'en' ? query : pathLang;
 
-const EN_PATH = '/';
-const DE_PATH = '/de';
+// This page in each language: /pricing ↔ /de/pricing, / ↔ /de.
+const HERE = englishPath(location.pathname);
+const EN_PATH = HERE;
+const DE_PATH = HERE === '/' ? '/de' : `/de${HERE}`;
 
 function readStored() {
   let stored = null;
@@ -42,10 +46,11 @@ export function initLangRouting() {
   if (query) return; // dev override, never redirect
   const stored = readStored();
   const browserDe = (navigator.languages || [navigator.language || 'en']).some((l) => /^de/i.test(l));
+  if (!PAGES.includes(HERE)) return;
   if (pathLang === 'en' && (stored === 'de' || (!stored && browserDe))) {
-    location.replace(DE_PATH + location.hash);
+    location.replace(DE_PATH + location.search + location.hash);
   } else if (pathLang === 'de' && stored === 'en') {
-    location.replace(EN_PATH + location.hash);
+    location.replace(EN_PATH + location.search + location.hash);
   }
 }
 
@@ -55,9 +60,10 @@ export function initLangRouting() {
 export function applyLang() {
   if (currentLang !== 'de' || document.documentElement.lang === 'de') return;
   document.documentElement.lang = 'de';
-  document.title = TITLE_DE;
+  const meta = PAGES_DE[HERE] || { title: TITLE_DE, description: DESC_DE };
+  document.title = meta.title;
   const desc = document.querySelector('meta[name="description"]');
-  if (desc) desc.setAttribute('content', DESC_DE);
+  if (desc) desc.setAttribute('content', meta.description);
 
   DE.forEach(([sel, value]) => {
     document.querySelectorAll(sel).forEach((el, i) => {
@@ -70,19 +76,16 @@ export function applyLang() {
   });
 }
 
-// EN | DE switch in the nav — real links so the choice is shareable;
-// clicking also records the choice so it sticks on future visits. The
-// legal pages pass their own pair of URLs so the switch lands on the
-// translation of the page you're reading, not back on the home page.
+// EN | DE switch — real links (drawn at build time into the footer and the
+// phone menu, scripts/lib/chrome.mjs) so the choice is shareable; clicking
+// also records the choice so it sticks on future visits. Reading pages
+// pass their own pair of URLs; a settings group without a switch gets one.
 export function initLangToggle(paths) {
-  const nav = document.querySelector('.g-nav');
-  if (!nav) return;
   const { en = EN_PATH, de = DE_PATH } = paths || {};
   const build = () => {
     const box = document.createElement('div');
     box.className = 'g-lang';
     box.setAttribute('role', 'group');
-    box.setAttribute('aria-label', currentLang === 'de' ? 'Sprache' : 'Language');
     [
       ['en', en],
       ['de', de],
@@ -92,21 +95,15 @@ export function initLangToggle(paths) {
       a.textContent = lang.toUpperCase();
       a.setAttribute('lang', lang);
       a.setAttribute('hreflang', lang);
-      if (lang === currentLang) {
-        a.classList.add('on');
-        a.setAttribute('aria-current', 'true');
-      }
       box.appendChild(a);
     });
     return box;
   };
-  if (!nav.querySelector('.g-lang')) nav.insertBefore(build(), nav.querySelector('.g-btn-sm'));
-  // The phone menu (home page only) carries its own copy: the nav hides
-  // the switch below 1100px to make room for the burger.
-  const menuFoot = document.querySelector('#g-menu .g-menu-foot');
-  if (menuFoot && !menuFoot.querySelector('.g-lang')) menuFoot.appendChild(build());
-  // The build emits the links as HTML. JS only records the visitor's choice
-  // and updates the dev override; it never duplicates the existing controls.
+  if (paths || PAGES.includes(HERE)) {
+    document.querySelectorAll('.g-prefs').forEach((group) => {
+      if (!group.querySelector('.g-lang')) group.prepend(build());
+    });
+  }
   document.querySelectorAll('.g-lang').forEach((box) => {
     box.setAttribute('aria-label', currentLang === 'de' ? 'Sprache' : 'Language');
     box.querySelectorAll('a[lang]').forEach((a) => {

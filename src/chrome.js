@@ -1,9 +1,13 @@
-// Page chrome shared by Ocur's pages: the floating nav's state, the scroll
-// edge beneath it, and — on the home page — the lens that follows the
-// chapter on screen and the switch to dark glass over the opening's stage.
-// One passive scroll listener, coalesced into a single animation frame.
+// Page chrome shared by Ocur's pages: the floating nav's state and the
+// scroll edge beneath it, the opening's stage on the home page, and the
+// door every page shares (the founder's booking page). The nav
+// itself is drawn at build time (scripts/lib/chrome.mjs), with the current
+// page already marked; a nav of in-page links (the game) gets a lens that
+// follows the section on screen. One passive scroll listener, coalesced
+// into a single animation frame.
 
 import { syncThemeColor } from './theme.js';
+import { track } from './analytics.js';
 
 // The lens: the app tab bar's selection, sliding between section links.
 function createLens(links) {
@@ -104,4 +108,19 @@ export function initChrome() {
   addEventListener('resize', request, { passive: true });
   addEventListener('pageshow', request);
   sync();
+}
+
+// Every Book a demo, on any page, is counted by where it sits (data-book).
+// The X Ads conversion rides in xads.js.
+export function initDoors() {
+  document.querySelectorAll('a[data-book]').forEach((a) => {
+    a.addEventListener('click', () => track('book_demo_click', { placement: a.dataset.book }));
+  });
+}
+
+export function setYear() {
+  const year = String(new Date().getFullYear());
+  document.querySelectorAll('[data-year], #g-year').forEach((el) => {
+    el.textContent = year;
+  });
 }

@@ -64,7 +64,7 @@ export function initMobileMenu({ onOpen = () => {} } = {}) {
       }
     }
   });
-  matchMedia('(min-width: 1101px)').addEventListener('change', (event) => {
+  matchMedia('(min-width: 900px)').addEventListener('change', (event) => {
     if (event.matches) setOpen(false, false);
   });
 }

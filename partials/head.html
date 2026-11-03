@@ -1,0 +1,40 @@
+<!-- Shared by every marketing page's <head>: the pre-paint flags (js,
+     motion, theme), the icons and fonts, and the X Ads
+     base pixel. The page itself carries its title, description, canonical
+     URL, link preview and language alternates. -->
+    <script>
+      document.documentElement.classList.add('js');
+      if (document.documentElement.dataset.motion !== 'reduced' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('motion');
+      }
+      // resolve the theme before first paint: stored choice, then OS preference
+      try {
+        var t = localStorage.getItem('ocur-theme');
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.dataset.theme = t;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    </script>
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- X conversion tracking base code — X Ads pixel "reji3". The base pixel
+         only reports page visits; conversion events are defined on top of it
+         in X Ads Manager. Kept verbatim (no host gating) so X's Pixel Helper
+         and Events Manager can verify the install on any deployment. -->
+    <script>
+      !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+      },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
+      a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+      twq('config','reji3');
+    </script>
+    <!-- End X conversion tracking base code -->

@@ -2,6 +2,7 @@ import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { load } from 'cheerio';
 import { ORIGIN, contentRoutes, renderContentPage, enrichPage, htmlPath, markdownPath, pageMarkdown } from './lib/discovery.mjs';
+import { PAGES } from '../src/site.js';
 
 const dist = 'dist';
 const builtData = load(readFileSync(join(dist, 'data/index.html'), 'utf8'));
@@ -22,8 +23,8 @@ for (const file of walk(dist).sort()) {
 }
 const xml = (text) => text.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[char]));
 write(join(dist, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${pages.map((page) => `  <url>\n    <loc>${xml(page.url)}</loc>\n${page.alternates.map((alt) => `    <xhtml:link rel="alternate" hreflang="${alt.lang}" href="${xml(alt.href)}" />`).join('\n')}\n  </url>`).join('\n')}\n</urlset>\n`);
-const llms = ['# Ocur', '', '> Ocur is the AI operating system for companies: work across connected tools, shared company memory, live ledgers and approval controls.', '', 'This index links to public product and policy pages. Markdown copies are generated from the same HTML at build time. Current prices and plan conditions are on the homepage.'];
-const readingOrder = ['/', ...contentRoutes.filter((page) => page.lang === 'en').map((page) => page.path), '/data', '/privacy', '/terms', '/impressum', '/be-ai'];
+const llms = ['# Ocur', '', '> Ocur is the AI operating system for companies: work across connected tools, shared company memory, live ledgers and approval controls.', '', 'This index links to public product and policy pages. Markdown copies are generated from the same HTML at build time. Current prices and plan conditions are on the pricing page.'];
+const readingOrder = [...PAGES, ...contentRoutes.filter((page) => page.lang === 'en').map((page) => page.path), '/data', '/privacy', '/terms', '/impressum', '/be-ai'];
 const priority = (page) => readingOrder.indexOf(page.path === '/de' ? '/' : page.path.replace(/^\/de\//, '/'));
 for (const lang of ['en', 'de']) {
   llms.push('', `## ${lang === 'en' ? 'English' : 'Deutsch'}`, '');
@@ -32,4 +33,4 @@ for (const lang of ['en', 'de']) {
 llms.push('', '## Full text', '', `- [Full public site text](${ORIGIN}/llms-full.txt): all indexed pages, generated from their HTML.`, '');
 write(join(dist, 'llms.txt'), llms.join('\n'));
 write(join(dist, 'llms-full.txt'), `# Ocur — public site content\n\n${pages.map((page) => `---\n\nSource: ${page.url}\nLanguage: ${page.lang}\n\n${readFileSync(join(dist, page.markdown.slice(1)), 'utf8')}`).join('\n')}`);
-console.log(`✓ ${contentRoutes.length} product pages, ${pages.length} sitemap URLs and Markdown copies; llms.txt + llms-full.txt generated`);
+console.log(`✓ ${contentRoutes.length} reading pages, ${pages.length} sitemap URLs and Markdown copies; llms.txt + llms-full.txt generated`);
