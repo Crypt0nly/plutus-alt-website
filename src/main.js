@@ -18,6 +18,7 @@ import { initChrome, initDoors, setYear } from './chrome.js';
 import { initMobileMenu } from './mobile-menu.js';
 import { initAnalytics, track } from './analytics.js';
 import { initXAds } from './xads.js';
+import { initAttribution } from './attribution.js';
 import { initContactForm } from './contact-form.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -28,6 +29,7 @@ import { SplitText } from 'gsap/SplitText';
 initLangRouting();
 initAnalytics();
 initXAds();
+initAttribution();
 applyLang();
 initProductShowcase({ onLayout: () => ScrollTrigger.refresh() });
 initLangToggle();
@@ -217,6 +219,14 @@ function animatePage() {
     ScrollTrigger.create({ trigger: '.o-sheet', start: 'top 20%', onToggle: (self) => opening?.cover(self.isActive) });
   }
 
+  // ------------------------------------------- you keep the say (home)
+  if (document.querySelector('.g-trust')) {
+    revealLines(document.querySelector('.g-trust .g-h2'));
+    rise('.g-trust-sub', { delay: 0.15 });
+    cascade('.g-trust-card');
+    rise('.g-trust-more');
+  }
+
   // ------------------------------------------------------ connectors (home)
   const system = document.querySelector('.g-system');
   if (system) {
@@ -319,7 +329,7 @@ function animatePage() {
     if (!demo?.contains(chapter)) rise(chapter, { y: 12, duration: 0.9 });
   });
   document
-    .querySelectorAll(':is(.g-os, .g-features, .g-start, .g-pricing, .g-contact, .g-faq-sec) .g-h2:not(.pg-title), .d-resources h2, .faq-group-title')
+    .querySelectorAll(':is(.g-os, .g-features, .g-start, .g-pricing, .g-pfaq, .g-contact, .g-faq-sec) .g-h2:not(.pg-title), .d-resources h2, .faq-group-title')
     .forEach((el) => revealLines(el));
 
   // ---------------------------------------------------- the ledgers
@@ -344,6 +354,7 @@ function animatePage() {
 
   // ---------------------------------------------------- features
   cascade('.g-tile');
+  rise('.g-inline-cta');
 
   // --------------------------------------------- the first ten minutes
   rise('.g-start-sub', { delay: 0.15 });

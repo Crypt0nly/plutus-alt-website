@@ -14,8 +14,10 @@ import { initThemeToggle } from './theme.js';
 import { initChrome, initDoors, setYear } from './chrome.js';
 import { initMobileMenu } from './mobile-menu.js';
 import { initAnalytics } from './analytics.js';
+import { initAttribution } from './attribution.js';
 
 initAnalytics();
+initAttribution();
 initThemeToggle();
 initChrome();
 initDoors();

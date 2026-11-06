@@ -36,8 +36,14 @@ It is now five pages, each with one job; the nav names three of them
    business.*", one sentence on what Ocur is, **Start free** beside *Book a
    demo*, and Ocur at work: a deck of Ocur windows, one real job each —
    chasing overdue invoices, answering leads, taking calls, a weekday
-   autopilot ([docs/hero.md](docs/hero.md)). With motion the page rises over
-   it as one sheet: the product family (Ocur, oDrops, oWorlds), the
+   autopilot ([docs/hero.md](docs/hero.md)). Under the buttons: *Free plan ·
+   No credit card*. With motion the page rises over it as one sheet: *You
+   keep the say* (`#control` — asks before anything important, every action
+   on the record, only what you connect, your data stays yours, with a link
+   to `/data`; each claim is one the FAQ and privacy policy already make),
+   the product family (Ocur, oDrops, oWorlds — the oWorlds view is a render
+   of the current 3D office and links to the public demo world, see
+   [docs/product-visuals.md](docs/product-visuals.md)), the
    connectors ("Works inside the tools your company already runs on.", a
    small solar system of the connectors, with a link to `/integrations`),
    three cards to Product, Pricing and the FAQ, and the closing card.
@@ -49,7 +55,9 @@ It is now five pages, each with one job; the nav names three of them
    recovered). Outbound calling is a real shipped capability (plutus-cloud's
    `phone_service.py`). Without motion it shows the payoff. Then the ledgers
    (`#system`, "Other AI answers. *Ocur keeps the books.*"), the eleven
-   feature tiles (`#features`), "Your first ten minutes" (`#start`), a closer
+   feature tiles (`#features`) — both end in *Start free* and *Book a demo*
+   (`.g-inline-cta`), so the long page has a way in before its end —
+   "Your first ten minutes" (`#start`), a closer
    look at the reading pages (integrations and two use cases, added by the
    build) and the closing card.
 3. **Pricing** (`/pricing`) — two ladders behind one switch ("Just me" /
@@ -63,12 +71,18 @@ It is now five pages, each with one job; the nav names three of them
    per +10M credits, Enterprise). Each company card leads with *Get Team /
    Growth / Scale* (sign-up with the plan and the chosen billing interval)
    over a quiet *or talk to us first →* (the contact form with the plan).
+   The *What's an AI worker?* note and a *Not ready for a company plan?*
+   line (start free, or talk to us about a pilot) sit inside the company
+   ladder. Every card leads with what Ocur does; the oDrops line comes last,
+   as plain text (no link off the page). Under the ladders, five pricing
+   questions (`#pricing-faq`: what a credit is, running out, cancelling,
+   trying before paying, paying per person) answer where people decide.
    Both ladders are in the DOM — the switch only decides which is on screen,
    so crawlers, the German prerender and a page whose bundle never ran all
    still see every price. Prices, credits, Drop limits and benefits mirror
    the Ocur Desktop and oDrops cards in plutus-cloud's
    `frontend/src/lib/plans.ts`, `PricingPlanGrid.tsx` and
-   `odrops/src/Billing.tsx`. Credits are shared across Ocur and oDrops,
+   `odrops/src/Billing.tsx`. Credits are shared across Ocur, oDrops and oWorlds,
    cost-weighted by model and media, and renew monthly even with annual
    billing. When updating pricing, use those cards as the source of truth
    and update both `pricing/index.html` and `src/strings.de.js` together.
@@ -92,7 +106,8 @@ destination: the founder's booking page, which is Ocur's own calendar
 feature served by the app backend (`https://api.ocur.ai/api/book/<slug>` —
 see plutus-cloud's `calendar.py`; the link's title, length and video-call
 location are edited in the app, not here). The doors: the nav (`nav`), the
-phone menu (`menu`), the opening (`hero`), the FAQ's side card and answer
+phone menu (`menu`), the opening (`hero`), the product page's chapter
+ends (`product-system`, `product-features`), the FAQ's side card and answer
 (`faq-side`, `faq`), the contact page (`contact`), the closing card
 (`final`) and the footer (`footer`).
 
@@ -188,7 +203,21 @@ the prerender so a no-JS post comes back to the German page.
   the `X_PIXEL_TOKEN` secret never leaves Vercel). Demo bookings are the
   second conversion: every `data-book` link fires `book_demo` the same way.
   Both legs stay dormant until the `X_EVENT_ID_*`/`VITE_X_EVENT_ID_*` vars in
-  `.env.example` are set with real event ids from X Events Manager.
+  `.env.example` are set with real event ids from X Events Manager. Only
+  links into sign-up (`app.ocur.ai/?auth=sign-up…`) count as the Start-free
+  conversion — *Log in* and the oWorlds demo link carry the twclid but are
+  not conversions.
+- **Sign-up clicks and campaigns**: every link into sign-up fires PostHog's
+  `signup_click` with its `placement` (nav, menu, hero, products,
+  pricing-card, pricing-pilot, pricing-faq, product-system,
+  product-features, final, footer, …), the `plan` and `interval` it carries,
+  and the visit's campaign tags (`src/chrome.js`). `src/attribution.js`
+  keeps `utm_*` tags from the landing URL for the tab (sessionStorage) and
+  adds them to every app.ocur.ai link, so a sign-up keeps the campaign that
+  brought it (the app has to read them to report on them). PostHog's
+  cookieless mode — one visitor counted across pages without storing
+  anything — is opt-in with `VITE_POSTHOG_COOKIELESS=always`, after
+  cookieless tracking is enabled in the PostHog project.
 - **Motion gates behind `html.motion`** (set in `<head>` unless the visitor
   prefers reduced motion), and every hidden starting state below the
   opening is set by GSAP, never by CSS, so the page reads fine without JS or
