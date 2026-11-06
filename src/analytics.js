@@ -6,6 +6,11 @@
 
 const KEY = import.meta.env.VITE_POSTHOG_KEY;
 const HOST = import.meta.env.VITE_POSTHOG_HOST || 'https://eu.i.posthog.com';
+// Opt-in: VITE_POSTHOG_COOKIELESS=always turns on PostHog's cookieless mode,
+// which counts a visitor across pages (home → pricing → sign-up) without
+// storing anything on the device. Turn on cookieless tracking in the
+// PostHog project settings first, or PostHog drops these events.
+const COOKIELESS = import.meta.env.VITE_POSTHOG_COOKIELESS === 'always';
 
 // Once loaded, the live posthog instance; until then, events are queued so a
 // capture fired during page load (e.g. the /be-ai funnel) isn't dropped.
@@ -26,6 +31,7 @@ export function initAnalytics() {
       // and only spin up a person profile once someone is identified, so
       // anonymous visits stay light
       person_profiles: 'identified_only',
+      ...(COOKIELESS ? { cookieless_mode: 'always' } : {}),
     });
     _posthog = posthog;
     _queue.splice(0).forEach(([event, props]) => posthog.capture(event, props));

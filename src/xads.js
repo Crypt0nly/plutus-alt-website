@@ -84,9 +84,11 @@ export function initXAds() {
     if (twclid) localStorage.setItem(TWCLID_KEY, JSON.stringify({ v: twclid, t: Date.now() }));
   } catch {}
 
-  // 2 + 3. app links: pass the twclid through, count the click as a conversion
+  // 2 + 3. app links: pass the twclid through; only the ways into sign-up
+  // count as the conversion (Log in and the oWorlds demo are not sign-ups)
   const twclid = readTwclid();
   document.querySelectorAll('a[href^="https://app.ocur.ai"]').forEach((a) => {
+    const signup = a.getAttribute('href').startsWith('https://app.ocur.ai/?auth=sign-up');
     if (twclid) {
       try {
         const u = new URL(a.href);
@@ -94,7 +96,7 @@ export function initXAds() {
         a.href = u.toString();
       } catch {}
     }
-    a.addEventListener('click', () => trackXConversion('cta_click', CTA_EVENT_ID));
+    if (signup) a.addEventListener('click', () => trackXConversion('cta_click', CTA_EVENT_ID));
   });
 
   // demo bookings are the second conversion. The booking page lives on the

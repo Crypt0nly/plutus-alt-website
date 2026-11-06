@@ -1019,7 +1019,7 @@ html.is-scrolled:not(.on-stage) body.g::before {
 }
 
 .hx-sub {
-  max-width: 25rem;
+  max-width: 29rem;
   margin-top: 22px;
   font-size: clamp(1.0625rem, 0.98rem + 0.36vw, 1.25rem);
   line-height: 1.52;
@@ -5455,4 +5455,163 @@ html[lang='de'] .pg-title {
 
 .g-contact .pg-kicker {
   text-align: center;
+}
+
+
+/* ---------------------------------------- conversion additions (2026-11) */
+
+/* The opening's reassurance: one quiet line under the two doors. */
+.hx-micro {
+  margin-top: 14px;
+  font-size: 0.8125rem;
+  letter-spacing: -0.006em;
+  color: var(--stage-dim);
+}
+
+/* Home: "You keep the say" — the control answer, first on the sheet. */
+.g-trust {
+  padding: clamp(72px, 9vw, 124px) 0 clamp(24px, 4vw, 48px);
+}
+
+.g-trust .g-h2 {
+  max-width: 44rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-trust-sub {
+  max-width: 40rem;
+  margin: 18px auto 0;
+  text-align: center;
+  font-size: clamp(1.0625rem, 0.98rem + 0.36vw, 1.25rem);
+  line-height: 1.55;
+  letter-spacing: -0.014em;
+  color: var(--cp-secondary);
+  text-wrap: pretty;
+}
+
+.g-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: clamp(32px, 4.5vw, 52px);
+}
+
+.g-trust-card {
+  display: flex;
+  flex-direction: column;
+  padding: 26px 24px;
+}
+
+.g-trust-card .g-ico {
+  margin-bottom: 22px;
+}
+
+.g-trust-card h3 {
+  margin-bottom: 8px;
+  font-size: 1.125rem;
+  font-weight: 650;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  color: var(--cp-label);
+}
+
+.g-trust-card p {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--cp-secondary);
+}
+
+.g-trust-more {
+  display: flex;
+  width: fit-content;
+  min-height: 44px;
+  margin: 20px auto 0;
+}
+
+@media (max-width: 1060px) {
+  .g-trust-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 599px) {
+  .g-trust {
+    padding-top: 4.25rem;
+  }
+
+  .g-trust-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .g-trust-grid {
+    gap: 12px;
+  }
+
+  /* on phones the symbol sits beside the words, so four cards stay short */
+  .g-trust-card {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    column-gap: 16px;
+    padding: 20px;
+  }
+
+  .g-trust-card .g-ico {
+    grid-row: span 2;
+    margin-bottom: 0;
+  }
+}
+
+/* Pricing: trying before buying, said above the company cards. */
+.g-pilot {
+  max-width: 40rem;
+  margin: -12px auto 26px;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--cp-secondary);
+  text-wrap: pretty;
+}
+
+.g-pilot a {
+  font-weight: 600;
+  color: var(--cp-accent-text);
+}
+
+.g-pilot a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Pricing: the questions people ask before they pay. */
+.g-pfaq {
+  padding: 0 0 var(--g-section);
+}
+
+.g-pfaq .g-wrap {
+  max-width: 52rem;
+}
+
+.g-pfaq .g-h2 {
+  margin-bottom: clamp(24px, 3.5vw, 36px);
+  text-align: center;
+}
+
+/* Product: a way in between the chapters, not only at the end. */
+.g-inline-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 20px;
+  margin-top: clamp(36px, 5vw, 56px);
+}
+
+.g-inline-cta .g-more {
+  min-height: 44px;
+}
+
+/* The AI-worker note now sits inside the company ladder, under its lede. */
+.g-tiers .g-worker-note {
+  margin: -14px auto 24px;
 }

@@ -22,9 +22,9 @@ Five marketing pages, each with one job, instead of one long page:
 
 | Page | Path | What it holds |
 | --- | --- | --- |
-| Home | `/` (`index.html`) | the opening ([hero.md](hero.md)), the product family, the connectors, three cards to the other pages, the closing card |
-| Product | `/product` | a page head, the pinned demo, the ledgers, the features, the first ten minutes, a closer look at the reading pages, the closing card |
-| Pricing | `/pricing` | both plan ladders behind the *Just me / My company* switch, the extras and notes, the closing card |
+| Home | `/` (`index.html`) | the opening ([hero.md](hero.md)), *You keep the say* (four control and data cards), the product family, the connectors, three cards to the other pages, the closing card |
+| Product | `/product` | a page head, the pinned demo, the ledgers, the features (each of those two ends in *Start free* and *Book a demo*), the first ten minutes, a closer look at the reading pages, the closing card |
+| Pricing | `/pricing` | both plan ladders behind the *Just me / My company* switch, the extras and notes, five pricing questions, the closing card |
 | FAQ | `/faq` | the questions in three groups beside a sticky head with a *Book a demo* card, the closing card |
 | Contact | `/contact` | *Talk to us* (the lead form, `#talk`), what happens next, and the booking page |
 
@@ -99,7 +99,7 @@ actions are immediately readable; do not reintroduce a blurred entrance.
 | Demo | the window tips up out of the page; the ask types itself; four scenes over one pinned stretch, with the step rail filling toward the next step |
 | Headlines | every section headline below the first screen rises line by line out of its own mask (SplitText, re-split on font load and resize); page titles never wait |
 | The ledgers | the statement lights up word by word, scrubbed to the scroll |
-| Cards | ledgers, tiles, steps, prices, the contact form and the resources cascade in row by row as you reach them |
+| Cards | control cards, ledgers, tiles, steps, prices, the contact form and the resources cascade in row by row as you reach them |
 | First ten minutes | the timeline's line draws itself with the scroll |
 | Pricing | the selection slides; prices re-set themselves when the billing interval changes |
 | FAQ | answers unfold to their height where the browser supports `interpolate-size` |

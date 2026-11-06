@@ -3,8 +3,10 @@
 The first screen does three jobs at once, with nothing to scroll first:
 
 1. **Say what Ocur is.** "Less busywork. More business." and one sentence:
-   the AI operating system for companies, what it does, and that you set
-   the limits.
+   the AI operating system for companies, what it does (email, phone, work
+   inside your tools), and that it asks before anything important. A quiet
+   line under the buttons — *Free plan · No credit card* (`.hx-micro`) —
+   answers the first question about *Start free* before it's asked.
 2. **Open both doors.** *Start free* (the blue one, straight to sign-up) and
    *Book a demo* (the quiet one, the founder's booking page), the same
    pair as the nav.

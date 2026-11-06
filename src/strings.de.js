@@ -79,7 +79,7 @@ export const DE = [
   [".ps-dock-label-files", "Dateien"],
   [".ps-dock-label-routines", "Automationen"],
   [".ps-ocur-copy", "Deine Arbeit, verbunden. Dein ganzer Tag an einem Ort."],
-  [".ps-ocur-link", "Ocur entdecken <span aria-hidden=\"true\">↗</span>"],
+  [".ps-ocur-link", "Ocur kostenlos testen <span aria-hidden=\"true\">↗</span>"],
   [".ps-drops-kicker", "Ein eigener Charakter. Viele Möglichkeiten."],
   [".ps-drops-title", "Lerne dein Team kennen."],
   [".ps-drop-milo-role", "Schwung für jeden Tag"],
@@ -90,8 +90,8 @@ export const DE = [
   [".ps-chat-lumi", "Drei Richtungen für deine nächste Kampagne. Welche passt zu dir?"],
   [".ps-drops-copy", "KI-Teammitglieder mit Charakter. Ganz auf dich abgestimmt."],
   [".ps-drops-link", "Deine Drops kennenlernen <span aria-hidden=\"true\">↗</span>"],
-  [".ps-world-kicker", "Deine Zentrale"],
-  [".ps-world-title", "Das große Ganze sehen."],
+  [".ps-world-kicker", "Deine Zentrale, in 3D"],
+  [".ps-world-title", "Sieh deinem Team beim Arbeiten zu."],
   [".ps-world-research", "Recherche-Labor"],
   [".ps-world-research-copy", "Olive verbindet die Punkte."],
   [".ps-world-sales", "Vertrieb"],
@@ -99,7 +99,7 @@ export const DE = [
   [".ps-world-studio", "Kreativstudio"],
   [".ps-world-studio-copy", "Luna arbeitet an deiner nächsten großen Idee."],
   [".ps-world-copy", "Eine lebendige Zentrale für deine Drops und ihre Arbeit."],
-  [".ps-world-link", "Deine Welt entdecken <span aria-hidden=\"true\">↗</span>"],
+  [".ps-world-link", "Durch die Demo-Welt gehen <span aria-hidden=\"true\">↗</span>"],
   [".ps-example-note", "Produktansichten mit Beispieldaten. Wähle ein Produkt zum Entdecken."],
 
   // The nav, phone menu and footer are drawn in German at build time
@@ -118,6 +118,8 @@ export const DE = [
     'Sag die Aufgabe in ganz normaler Sprache. Ocur prüft die Fakten, arbeitet in den Tools, die du verbindest, und meldet sich zurück — und fragt, bevor etwas Wichtiges passiert.',
   ],
   ['.p-pricing .pg-kicker', 'Preise'],
+  ['.g-inline-cta .g-btn', 'Kostenlos starten'],
+  ['.g-inline-cta .g-more', 'Demo buchen <span aria-hidden="true">→</span>'],
   ['.p-faq .pg-kicker', 'FAQ'],
   ['.p-contact .pg-kicker', 'Kontakt'],
 
@@ -125,10 +127,32 @@ export const DE = [
   ['#hx-title', '<span class="hx-line"><span>Weniger Routine.</span></span> <span class="hx-line"><em>Mehr Unternehmen.</em></span>'],
   [
     '.hx-sub',
-    'Das KI-Betriebssystem, das dein Unternehmen voranbringt.',
+    'Das KI-Betriebssystem für Unternehmen. Es beantwortet E-Mails und Anrufe, arbeitet in den Tools, die du schon nutzt — und fragt, bevor etwas Wichtiges passiert.',
   ],
   ['.hx-primary', 'Kostenlos starten'],
   ['.hx-secondary', 'Demo buchen <span aria-hidden="true">›</span>'],
+  ['.hx-micro', 'Free-Plan&nbsp;&nbsp;·&nbsp;&nbsp;Keine Kreditkarte'],
+
+  // you stay in control (home, first on the rising page)
+  ['#g-trust-title', 'Ocur erledigt die Arbeit. <span class="g-grad">Du behältst das Sagen.</span>'],
+  [
+    '.g-trust-sub',
+    'Ocur schreibt E-Mails und telefoniert für dein Unternehmen — also entscheidest du, was es allein tun darf. Alles andere wartet auf dein OK.',
+  ],
+  [
+    '.g-trust-card h3',
+    ['Fragt vor allem Wichtigen', 'Jeder Schritt dokumentiert', 'Nur, was du verbindest', 'Deine Daten bleiben deine'],
+  ],
+  [
+    '.g-trust-card p',
+    [
+      'Ab Werk wartet alles Wichtige auf deine Freigabe. Du legst fest, was allein laufen darf — und kannst es jederzeit wieder einschränken.',
+      'Was Ocur getan hat, wann und warum — bis zum Gesprächsprotokoll. Korrigier es in ganz normaler Sprache, und Ocur merkt es sich.',
+      'Ocur erreicht nur die Konten, die du verbindest. Jedes davon nimmst du mit einem Klick wieder weg.',
+      'Dein Workspace ist von allen anderen Kunden abgeschottet. Wir verkaufen deine Daten nie und trainieren keine Modelle damit.',
+    ],
+  ],
+  ['.g-trust-more', 'Sieh, wohin deine Daten gehen <span aria-hidden="true">→</span>'],
 
   // the opening's deck: four jobs, one window each (src/hero.js)
   ['.hx-bar-title > span', ['Rechnungen', 'Leads', 'Anrufe', 'Autopilot']],
@@ -400,7 +424,7 @@ export const DE = [
   [
     '.g-tier-lede',
     [
-      '<span class="g-tier-tag">Solo</span> Ocur Desktop und oDrops, ein Abo und ein gemeinsames monatliches Credit-Kontingent. Offen für alle.',
+      '<span class="g-tier-tag">Solo</span> Ocur Desktop, oDrops und oWorlds — ein Abo und ein gemeinsames monatliches Credit-Kontingent. Offen für alle.',
       '<span class="g-tier-tag g-tier-tag-hot">Business</span> Das ganze Unternehmen auf einem Ocur: ein gemeinsamer Pool, ein gemeinsames Gedächtnis — und unbegrenzt viele Menschen, immer kostenlos.',
     ],
   ],
@@ -445,46 +469,46 @@ export const DE = [
     '.g-card li',
     [
       // Free
-      '<a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops-Zugang · 2 Drops erstellen</a>',
-      'Ocur Desktop und oDrops',
-      'Deine eigenen Drops mit den Modellen deiner Wahl',
+      'Ocur Desktop — im Browser oder als App',
+      'Gmail, Kalender, Drive, Notion und GitHub verbinden',
+      'oDrops · 2 Drops mit den Modellen deiner Wahl erstellen',
       // Starter
-      '<a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops-Zugang · 10 Drops erstellen</a>',
       'Ocurs eigene WhatsApp- und iMessage-Leitungen, Telefonnummer und E-Mail',
       'Ocur in WhatsApp, iMessage, Telegram, Slack, Teams und E-Mail',
       'Autopilot im Hintergrund: Dashboards und Widgets bleiben aktuell',
-      'Social-Media- und Werbekonten über Zernio',
+      'Deine Social-Media- und Werbekonten, verbunden',
+      'oDrops · 10 Drops erstellen',
       // Pro
-      '<a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops-Zugang · 50 Drops erstellen</a>',
       'Alles aus Starter',
       'Platz für geplante Jobs, Briefings und lange Arbeitssitzungen den ganzen Monat',
       'Live Apps und Workflows, die während deiner Abwesenheit laufen',
+      'oDrops · 50 Drops erstellen',
       // Pro Plus
-      '<a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops-Zugang · 100 Drops erstellen</a>',
       'Alles aus Pro',
       'Für Power-User mit Workflows, KI-Kollegen und Live Apps rund um die Uhr',
       'Priority-Support',
+      'oDrops · 100 Drops erstellen',
       // Team
-      '<a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops-Zugang</a>',
       'Unbegrenzt viele Menschen — Einladungen sind gratis',
       '2 KI-Worker mit echten Aufgaben und Zeitplänen',
       'Ocur in WhatsApp, iMessage, Telegram, Slack, Teams &amp; E-Mail',
       'Jederzeit weitere KI-Worker einstellen — je €199/Monat',
       'Jederzeit aufladen — €100 pro +10M Credits',
+      'oDrops-Zugang',
       // Growth
-      '<a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops-Zugang</a>',
       'Unbegrenzt viele Menschen — Einladungen sind gratis',
       '5 KI-Worker mit echten Aufgaben und Zeitplänen',
       'Firmenweites Gedächtnis, Leitplanken &amp; Governance',
       'Jederzeit weitere KI-Worker einstellen — je €199/Monat',
       'Jederzeit aufladen — €100 pro +10M Credits',
+      'oDrops-Zugang',
       // Scale
-      '<a href="https://odrops.ai" target="_blank" rel="noopener noreferrer">oDrops-Zugang</a>',
       'Unbegrenzt viele Menschen — Einladungen sind gratis',
       '15 KI-Worker über Teams und Abteilungen hinweg',
       'Intelligence-Digest für die Führung',
       'Priority-Support und Onboarding',
       'Individuelle Pool-Größe auf Anfrage',
+      'oDrops-Zugang',
     ],
   ],
   [
@@ -523,20 +547,44 @@ export const DE = [
   [
     '.g-tiers > .g-note',
     [
-      'Jeder kostenpflichtige Tarif enthält das volle Ocur OS, alle verbundenen Kanäle sowie Ocurs eigene Telefonnummer und E-Mail. Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Jährlich zahlen heißt zwei Monate geschenkt. Tarifwechsel und Kündigungen werden über Stripe verwaltet.',
-      'Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Wähle monatliche, halbjährliche oder jährliche Abrechnung. Der angezeigte Preis ist der volle Betrag für diesen Zeitraum. Jährlich zahlen heißt einen Monat geschenkt. Credit-Aufladungen verfallen beim nächsten monatlichen Reset. Teste Ocur mit einem kostenlosen persönlichen Konto und wähle einen Business-Plan, sobald dein Team dazukommt.',
+      'Jeder kostenpflichtige Tarif enthält das volle Ocur OS, alle verbundenen Kanäle sowie Ocurs eigene Telefonnummer und E-Mail. Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Jährlich zahlen heißt zwei Monate geschenkt. Jederzeit kündbar oder wechselbar — direkt in deinen Abrechnungseinstellungen.',
+      'Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Wähle monatliche, halbjährliche oder jährliche Abrechnung. Der angezeigte Preis ist der volle Betrag für diesen Zeitraum. Jährlich zahlen heißt einen Monat geschenkt. Credit-Aufladungen verfallen beim nächsten monatlichen Reset. Jederzeit kündbar oder wechselbar.',
     ],
   ],
   [
     '.g-credit-note',
-    'Dein Credit-Kontingent wird zwischen Ocur und oDrops geteilt. Teurere Modelle, Ausgaben und Medien verbrauchen mehr Credits; zwischengespeicherte Eingaben weniger. Dein Kontingent erneuert sich monatlich, auch bei halbjährlicher und jährlicher Abrechnung.',
+    'Dein Credit-Kontingent wird zwischen Ocur, oDrops und oWorlds geteilt. Teurere Modelle, Ausgaben und Medien verbrauchen mehr Credits; zwischengespeicherte Eingaben weniger. Dein Kontingent erneuert sich monatlich, auch bei halbjährlicher und jährlicher Abrechnung.',
   ],
   ['.g-extra-link', 'Sprich mit uns →'],
-  [
-    '.g-price-help',
-    'Fragen zu Plänen oder zur Abrechnung? <a href="/faq">Lies die FAQ</a> oder <a href="/contact#talk">sprich mit uns</a>.',
-  ],
+  ['.g-price-help', 'Noch Fragen? <a href="/faq">Lies die FAQ</a> oder <a href="/contact#talk">sprich mit uns</a>.'],
   ['.g-card-talk', 'oder erst mit uns sprechen →'],
+  [
+    '.g-pilot',
+    'Noch nicht bereit für einen Business-Plan? <a href="https://app.ocur.ai/?auth=sign-up">Starte kostenlos mit deinem eigenen Konto</a> und wechsle, sobald dein Team dazukommt — oder <a href="/contact#talk" data-talk="pilot">sprich mit uns über einen Pilot</a>.',
+  ],
+
+  // pricing questions, answered where people decide
+  ['#pf-title', 'Bevor du wählst. <span class="g-grad">Klare Antworten.</span>'],
+  [
+    '.p-pricing .g-faq summary',
+    [
+      'Was ist ein Credit?',
+      'Was passiert, wenn meine Credits aufgebraucht sind?',
+      'Kann ich jederzeit kündigen?',
+      'Kann unser Unternehmen Ocur vor dem Kauf testen?',
+      'Zahlen wir pro Person?',
+    ],
+  ],
+  [
+    '.p-pricing .g-faq p',
+    [
+      'Credits messen die KI-Arbeit, die Ocur für dich erledigt — lesen, schreiben, in deinen Tools arbeiten, Bilder erstellen. Größere Modelle, lange Antworten und Medien verbrauchen mehr; zwischengespeicherte Eingaben weniger. Dein Kontingent gilt für Ocur, oDrops und oWorlds, erneuert sich jeden Monat, und die App zeigt dir, wie viel du verbraucht hast.',
+      'Ocur hält an und sagt dir Bescheid — es gibt keine überraschenden Zusatzkosten. Wechsle in einen größeren Plan, lade bei einem Business-Plan auf oder warte, bis sich dein Kontingent im nächsten Monat erneuert.',
+      'Ja. Wechsle oder kündige jederzeit in deinen Abrechnungseinstellungen — ohne Anruf, ohne Formular.',
+      'Ja. <a href="https://app.ocur.ai/?auth=sign-up">Starte mit einem kostenlosen Konto</a> und gib Ocur echte Arbeit. Sobald dein Team dazukommt, wählst du einen Business-Plan — alle Menschen sind kostenlos dabei. Lieber ein begleiteter Pilot? <a href="/contact#talk" data-talk="pilot-faq">Sprich mit uns</a>.',
+      'Nein. Jeder Business-Plan enthält unbegrenzt viele Menschen — Kollegen einzuladen kostet nichts. Ihr zahlt für einen gemeinsamen monatlichen Credit-Pool und die KI-Worker; jeder weitere KI-Worker kostet €199 im Monat.',
+    ],
+  ],
 
   // contact: "Talk to us" (the site's lead form — labels and copy; the
   // status lines live in contact-form.js) beside the founder's booking page
@@ -597,7 +645,7 @@ export const DE = [
   ['.faq-ask .g-more', 'Sprich mit uns <span aria-hidden="true">→</span>'],
   ['.faq-group-title', ['Der Einstieg', 'So arbeitet Ocur', 'Dein Unternehmen und deine Daten']],
   [
-    '.g-faq summary',
+    '.p-faq .g-faq summary',
     [
       'Gibt es einen kostenlosen Plan?',
       'Muss ich etwas installieren?',
@@ -613,7 +661,7 @@ export const DE = [
     ],
   ],
   [
-    '.g-faq p',
+    '.p-faq .g-faq p',
     [
       'Ja. Für dich allein steht der Free-Plan allen offen: Ocur Desktop und oDrops mit 1,5M Credits jeden Monat und Zugang zum Erstellen von 2 Drops mit den Modellen deiner Wahl. Keine Kreditkarte, keine Frist. <a href="/pricing">Alle Pläne ansehen</a>.',
       'Nein — Ocur läuft im Browser. Lieber eine eigene App? <a href="https://app.ocur.ai/download" data-download="faq">Lade Ocur Desktop für Windows, macOS oder Linux herunter</a> und melde dich im selben Workspace an. Eine Internetverbindung ist erforderlich. Die Desktop-App enthält Ocur Companion und richtet diesen Computer nach der Anmeldung ein. Über Bildschirmzugriff und Computersteuerung entscheidest du selbst.',
@@ -648,7 +696,7 @@ export const DE_ATTRS = [
   ["[data-world=\"research\"]", "aria-label", "Das Recherche-Labor entdecken"],
   ["[data-world=\"sales\"]", "aria-label", "Den Vertrieb entdecken"],
   ["[data-world=\"studio\"]", "aria-label", "Das Kreativstudio entdecken"],
-  [".ps-world-art > img", "alt", "Ein isometrisches oWorld Büro mit Räumen für Recherche, Vertrieb, Kreativarbeit und Betrieb sowie bunten Drop-Teammitgliedern"],
+  [".ps-world-art > img", "alt", "Das 3D-Büro in oWorlds: Recherche-Labor, Vertrieb, Kreativstudio, Betrieb und Projektraum mit Drops an ihren Schreibtischen, Ocurs Büro mit dem Fuchs und eine Lounge mit Empfang und Aufzug"],
 
   ['.g-links', 'aria-label', 'Hauptnavigation'],
   ['.hx-demo', 'aria-label', 'Ocur bei der Arbeit: vier Beispiele'],

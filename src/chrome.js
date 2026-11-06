@@ -8,6 +8,7 @@
 
 import { syncThemeColor } from './theme.js';
 import { track } from './analytics.js';
+import { readCampaign } from './attribution.js';
 
 // The lens: the app tab bar's selection, sliding between section links.
 function createLens(links) {
@@ -110,11 +111,48 @@ export function initChrome() {
   sync();
 }
 
+// Where a sign-up link sits, for signup_click. The first match wins, so the
+// phone menu is checked before the nav that holds it.
+const SIGNUP_PLACES = [
+  ['#g-menu', 'menu'],
+  ['.g-nav', 'nav'],
+  ['.hx', 'hero'],
+  ['.ps-section', 'products'],
+  ['.g-pilot', 'pricing-pilot'],
+  ['.g-pfaq', 'pricing-faq'],
+  ['.g-card', 'pricing-card'],
+  ['.g-final', 'final'],
+  ['.g-foot', 'footer'],
+  ['.g-contact', 'contact'],
+  ['.g-faq-sec', 'faq'],
+];
+
+export function signupPlacement(a) {
+  const inline = a.closest('.g-inline-cta');
+  if (inline) return `product-${inline.closest('section')?.id || 'inline'}`;
+  for (const [selector, name] of SIGNUP_PLACES) if (a.closest(selector)) return name;
+  return 'page';
+}
+
 // Every Book a demo, on any page, is counted by where it sits (data-book).
-// The X Ads conversion rides in xads.js.
+// Every way into sign-up (Start free, Get Pro, …) is counted as signup_click,
+// with where it sits, the plan it carries and the visit's campaign tags.
+// The X Ads conversions ride in xads.js.
 export function initDoors() {
   document.querySelectorAll('a[data-book]').forEach((a) => {
     a.addEventListener('click', () => track('book_demo_click', { placement: a.dataset.book }));
+  });
+  document.querySelectorAll('a[href^="https://app.ocur.ai/?auth=sign-up"]').forEach((a) => {
+    a.addEventListener('click', () => {
+      let plan = 'free';
+      let interval;
+      try {
+        const url = new URL(a.href);
+        plan = url.searchParams.get('plan') || 'free';
+        interval = url.searchParams.get('interval') || undefined;
+      } catch {}
+      track('signup_click', { placement: signupPlacement(a), plan, interval, ...readCampaign() });
+    });
   });
 }
 
