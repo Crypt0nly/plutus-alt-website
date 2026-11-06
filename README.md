@@ -63,14 +63,16 @@ It is now five pages, each with one job; the nav names three of them
 3. **Pricing** (`/pricing`) — two ladders behind one switch ("Just me" /
    "My company"), because the two are priced on different units. **Solo**:
    Free (1.5M credits, 2 Drops) / Starter $29 (3M, 10 Drops) / Pro $149
-   (16M, 50 Drops, "most popular") / Pro Plus $299 (32M, 100 Drops), each
-   with its annual price (2 months free). **Company**: Team $399 (48M pooled,
+   (16M, 50 Drops, "most popular") / Pro Plus $299 (32M, 100 Drops), billed
+   monthly or annually (2 months free) behind their own *Monthly / Annually*
+   switch. **Company**: Team $399 (48M pooled,
    2 AI workers) / Growth $1,500 (180M, 5 AI workers, "most popular") /
    Scale $5,000 (600M, 15 AI workers), monthly, every six months or annually,
    unlimited human members, plus an extras row (+1 AI worker $199/mo, $100
-   per +10M credits, Enterprise). Each company card leads with *Get Team /
-   Growth / Scale* (sign-up with the plan and the chosen billing interval)
-   over a quiet *or talk to us first →* (the contact form with the plan).
+   per +10M credits, Enterprise). Every paid card's button buys that plan
+   (see *Pricing buttons buy* below); each company card's *Get Team /
+   Growth / Scale* sits over a quiet *or talk to us first →* (the contact
+   form with the plan).
    The *What's an AI worker?* note and a *Not ready for a company plan?*
    line (start free, or talk to us about a pilot) sit inside the company
    ladder. Every card leads with what Ocur does; the oDrops line comes last,
@@ -463,10 +465,17 @@ screen, and the items that have to be set outside this repo.
 - **Log in** goes to `app.ocur.ai/?auth=sign-in`. Every *Start free* lands on
   the sign-up card (`/?auth=sign-up`) instead of the sign-in card's small
   "Sign up" link.
-- **Pricing links deep-link into sign-up with the plan picked**:
-  `?auth=sign-up&plan=starter|pro|pro-plus|team|growth|scale` (company
-  cards add `&interval=` once a billing interval is chosen). The app keeps
-  the `plan` through sign-up and opens its plan picker on that plan.
+- **Pricing buttons buy**: every paid card links to
+  `?auth=sign-up&plan=starter|pro|pro-plus|team|growth|scale&checkout=1`,
+  and each ladder's billing switch adds `&interval=month|semiannual|year`
+  (`src/pricing.js`). The visitor creates an account or signs in, and the
+  app (plutus-cloud `frontend/src/lib/planIntent.ts`) keeps the choice
+  through sign-up — including a switch to the sign-in card and the Google
+  round trip — then goes straight to Stripe Checkout for that plan and
+  period. A company plan first opens Organization billing on that plan,
+  where the company that pays is named or picked. Someone already on a paid
+  plan, or covered by a company pool, lands on the app's plan picker
+  instead. Without `checkout=1` a `plan` link still just opens the picker.
 - **Below 980px** *Book a demo* leaves the bar; **below 900px** the links
   and *Log in* move into a frosted sheet behind the burger (`#g-menu`):
   Home, the three pages and Contact, then *Start free*, *Log in*, *Book a

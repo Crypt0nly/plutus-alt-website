@@ -84,7 +84,7 @@ test('pricing opens the contact form with its plan; the form is a plain message'
     assert.equal($(`a[data-talk="${plan}"]`).attr('href'), `/contact?plan=${plan}#talk`);
   }
   for (const plan of ['team', 'growth', 'scale']) {
-    assert.equal($(`[data-company-plan="${plan}"] .g-btn`).attr('href'), `https://app.ocur.ai/?auth=sign-up&plan=${plan}`);
+    assert.equal($(`[data-company-plan="${plan}"] .g-btn`).attr('href'), `https://app.ocur.ai/?auth=sign-up&plan=${plan}&checkout=1`);
   }
   const contact = english('/contact');
   assert.equal(contact('#talk form#g-talk').length, 1);

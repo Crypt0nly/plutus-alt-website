@@ -3056,6 +3056,7 @@ html.motion .g-eq i {
 
 /* Segmented controls with a sliding selection, as in the app. */
 .g-seg,
+.g-solo-interval,
 .g-company-interval {
   --seg-i: 0;
   --seg-n: 2;
@@ -3068,6 +3069,7 @@ html.motion .g-eq i {
 }
 
 .g-seg::before,
+.g-solo-interval::before,
 .g-company-interval::before {
   content: '';
   position: absolute;
@@ -3180,6 +3182,13 @@ html.motion .g-eq i {
   margin: 0 auto;
 }
 
+/* Solo plans bill monthly or annually; the switch sits over the cards. */
+.g-solo-interval {
+  width: min(100%, 20rem);
+  margin: 0 auto 26px;
+}
+
+.g-solo-interval button,
 .g-company-interval button {
   position: relative;
   z-index: 1;
@@ -3195,6 +3204,7 @@ html.motion .g-eq i {
   transition: color 220ms ease;
 }
 
+.g-solo-interval button[aria-pressed='true'],
 .g-company-interval button[aria-pressed='true'] {
   color: var(--cp-label);
 }
@@ -3307,11 +3317,12 @@ html.motion .g-eq i {
   color: var(--cp-green-text);
 }
 
-.g-tiers[data-aud='company'] .g-price-alt {
+/* Both ladders keep their cards aligned while a switch rewrites the notes. */
+.g-tiers .g-price-alt {
   min-height: 38px;
 }
 
-.g-tiers[data-aud='company'] .g-price {
+.g-tiers .g-price {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -4033,6 +4044,7 @@ html.motion .g-price.is-flipping {
 }
 
 @media (max-width: 420px) {
+  .g-solo-interval button,
   .g-company-interval button {
     padding-inline: 6px;
     font-size: 0.8125rem;
@@ -4812,6 +4824,7 @@ html[lang='de'] .hx-title {
 /* -------------------------------------------------------- preferences */
 
 @media (pointer: coarse) {
+  .g-solo-interval button,
   .g-company-interval button {
     min-height: 44px;
   }
@@ -4828,6 +4841,7 @@ html[lang='de'] .hx-title {
 
   .g-lens,
   .g-seg::before,
+  .g-solo-interval::before,
   .g-company-interval::before,
   .hx-card,
   .hx-chip,
@@ -4891,7 +4905,7 @@ html[lang='de'] .hx-title {
 @media (max-width: 899px), (pointer: coarse) {
   .g-theme, .g-burger, .hx-play { width: 44px; height: 44px; }
   .g-lang a { min-width: 44px; height: 44px; }
-  .hx-chip, .g-btn-sm, .g-company-interval button, .l-toc a {
+  .hx-chip, .g-btn-sm, .g-solo-interval button, .g-company-interval button, .l-toc a {
     min-height: 44px;
   }
   .g-burger span:first-child { top: 17px; }

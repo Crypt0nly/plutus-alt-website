@@ -12,7 +12,7 @@ import './discovery.css';
 import { initHero } from './hero.js';
 import { initProductShowcase } from './product-showcase.js';
 import { initLangRouting, applyLang, initLangToggle, currentLang } from './i18n.js';
-import { initCompanyPricing } from './company-pricing.js';
+import { initPricing } from './pricing.js';
 import { initThemeToggle } from './theme.js';
 import { initChrome, initDoors, setYear } from './chrome.js';
 import { initMobileMenu } from './mobile-menu.js';
@@ -36,7 +36,7 @@ initLangToggle();
 initThemeToggle();
 initChrome();
 initDoors();
-initCompanyPricing(document, currentLang);
+initPricing(document, currentLang);
 setYear();
 
 const root = document.documentElement;
@@ -96,22 +96,23 @@ if (seg) {
   });
 }
 
-// The business billing interval: the selection slides, and each price
-// re-sets itself (company-pricing.js has already written the new numbers).
-const interval = document.querySelector('.g-company-interval');
-if (interval) {
-  interval.querySelectorAll('[data-billing-interval]').forEach((button, index) => {
+// The billing switches (solo: monthly / annually; business: monthly, six
+// months, annually): the selection slides, and each price in that ladder
+// re-sets itself (pricing.js has already written the new numbers).
+document.querySelectorAll('.g-solo-interval, .g-company-interval').forEach((interval) => {
+  const ladder = interval.closest('.g-tiers');
+  interval.querySelectorAll('button').forEach((button, index) => {
     button.addEventListener('click', () => {
       slideTo(interval, index);
       if (!motion) return;
-      document.querySelectorAll('[data-company-plan] .g-price').forEach((price) => {
+      ladder.querySelectorAll('[data-solo-plan] .g-price, [data-company-plan] .g-price').forEach((price) => {
         price.classList.remove('is-flipping');
         void price.offsetWidth;
         price.classList.add('is-flipping');
       });
     });
   });
-}
+});
 
 // --------------------------------------------------- talk to us
 // The form lives on the contact page (contact-form.js). The pricing links

@@ -415,6 +415,7 @@ export const DE = [
   ],
   ['.g-seg-t', ['Nur ich', 'Mein Unternehmen']],
   ['.g-seg-s', ['Solo-Pläne', 'Business-Pläne']],
+  ['.g-solo-interval button', ['Monatlich', 'Jährlich']],
   ['.g-company-interval button', ['Monatlich', 'Alle 6 Monate', 'Jährlich']],
   ['.g-billing-note', 'Wähle, wann du zahlst. Credits erneuern sich bei jedem Plan monatlich.'],
   [
@@ -547,8 +548,8 @@ export const DE = [
   [
     '.g-tiers > .g-note',
     [
-      'Jeder kostenpflichtige Tarif enthält das volle Ocur OS, alle verbundenen Kanäle sowie Ocurs eigene Telefonnummer und E-Mail. Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Jährlich zahlen heißt zwei Monate geschenkt. Jederzeit kündbar oder wechselbar — direkt in deinen Abrechnungseinstellungen.',
-      'Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Wähle monatliche, halbjährliche oder jährliche Abrechnung. Der angezeigte Preis ist der volle Betrag für diesen Zeitraum. Jährlich zahlen heißt einen Monat geschenkt. Credit-Aufladungen verfallen beim nächsten monatlichen Reset. Jederzeit kündbar oder wechselbar.',
+      'Jeder kostenpflichtige Tarif enthält das volle Ocur OS, alle verbundenen Kanäle sowie Ocurs eigene Telefonnummer und E-Mail. Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Jährlich zahlen heißt zwei Monate geschenkt. Jederzeit kündbar oder wechselbar — direkt in deinen Abrechnungseinstellungen. Wenn du einen Plan wählst, legst du dein Konto an (oder meldest dich an) und gehst direkt zur sicheren Bezahlung mit Stripe.',
+      'Preise in Euro — außerhalb der EU gilt dieselbe Zahl in US-Dollar. Wähle monatliche, halbjährliche oder jährliche Abrechnung. Der angezeigte Preis ist der volle Betrag für diesen Zeitraum. Jährlich zahlen heißt einen Monat geschenkt. Credit-Aufladungen verfallen beim nächsten monatlichen Reset. Jederzeit kündbar oder wechselbar. Wenn du einen Plan wählst, legst du dein Konto an (oder meldest dich an), benennst dein Unternehmen und gehst zur sicheren Bezahlung mit Stripe.',
     ],
   ],
   [
@@ -699,6 +700,8 @@ export const DE_ATTRS = [
   [".ps-world-art > img", "alt", "Das 3D-Büro in oWorlds: Recherche-Labor, Vertrieb, Kreativstudio, Betrieb und Projektraum mit Drops an ihren Schreibtischen, Ocurs Büro mit dem Fuchs und eine Lounge mit Empfang und Aufzug"],
 
   ['.g-links', 'aria-label', 'Hauptnavigation'],
+  ['.g-solo-interval', 'aria-label', 'Abrechnung der Solo-Pläne'],
+  ['.g-company-interval', 'aria-label', 'Abrechnung der Business-Pläne'],
   ['.hx-demo', 'aria-label', 'Ocur bei der Arbeit: vier Beispiele'],
   ['.hx-play', 'aria-label', 'Beispiele anhalten'],
   ['.g-menu-links', 'aria-label', 'Menü'],
