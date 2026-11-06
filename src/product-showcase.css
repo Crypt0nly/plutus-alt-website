@@ -111,3 +111,31 @@ html.product-in-view .g-dock { opacity:0!important;visibility:hidden!important;p
   .ps-world-art { position:relative;top:auto;left:auto;transform:none;width:128%;flex:none; }
   .ps-world-note { position:relative;bottom:auto;left:auto;transform:none;min-width:0;width:100%;max-width:100%; }
 }
+
+/* oWorlds, current version: a render of the 3D office (public/product/
+   oworld-office-3d*.webp, see docs/product-visuals.md). The render fills the
+   stage edge to edge; the art box keeps the image's own proportions so the
+   room markers stay on their rooms, and is centred and cropped to cover. */
+.ps-world { background:#e9eadf; }
+/* 4rem of overscan lets the office sit 2rem low, clear of the heading, with no gap at any width */
+.ps-world-art { top:50%;left:50%;width:max(100%, calc((34.375rem + 4rem) * 2400 / 1364));aspect-ratio:2400/1364;transform:translate(-50%,calc(-50% + 2rem));z-index:0; }
+.ps-world-art > img { object-fit:cover; }
+.ps-spot-research { left:29.8%;top:25.2%; }
+.ps-spot-sales { left:45.4%;top:30.1%; }
+.ps-spot-studio { left:62.3%;top:35.5%; }
+/* a soft patch of light behind the heading, so it reads over the scene */
+.ps-world::before { content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 30rem 8.5rem at 0 0,#f4f5eef2 0,#f4f5eec4 50%,#f4f5ee00 100%); }
+.ps-world-heading { z-index:2;display:flex;align-items:center;gap:14px; }
+.ps-world-heading h3 { margin-top:4px; }
+.ps-world-logo { width:48px;height:48px;flex:none; }
+.ps-world-note { z-index:2; }
+@media(max-width:800px){
+  .ps-world-art { top:50%;width:max(100%, calc((32.5rem + 4rem) * 2400 / 1364)); }
+}
+/* phones: heading, the office as a rounded picture, then the note */
+@media(max-width:599px){
+  .ps-world::before { content:none; }
+  .ps-world-art { top:auto;left:auto;transform:none;width:100%;border-radius:18px;overflow:hidden;box-shadow:0 8px 22px #36473d1f; }
+  .ps-world-heading { gap:12px; }
+  .ps-world-logo { width:40px;height:40px; }
+}
