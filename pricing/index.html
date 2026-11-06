@@ -62,19 +62,26 @@
 
             <!-- Pricing source of truth: plutus-cloud/frontend/src/lib/plans.ts,
                  PricingPlanGrid.tsx and odrops/src/Billing.tsx. Update the German
-                 pricing dictionary in src/strings.de.js alongside these cards. -->
+                 pricing dictionary in src/strings.de.js alongside these cards.
+                 Paid buttons buy: ?plan=…&checkout=1 (plus &interval= from the
+                 switches) sends the app straight on to Stripe Checkout. -->
             <!-- solo ladder -->
             <div class="g-tiers on" data-aud="solo">
               <p class="g-tier-lede">
                 <span class="g-tier-tag">Solo</span> Ocur Desktop, oDrops and oWorlds — one subscription
                 and one monthly credit allowance. Open to everyone.
               </p>
+              <div class="g-solo-interval" role="group" aria-label="Solo billing interval">
+                <button type="button" data-solo-interval="month" aria-pressed="true">Monthly</button>
+                <button type="button" data-solo-interval="year" aria-pressed="false">Annually</button>
+              </div>
               <div class="g-cards g-cards-4">
                 <article class="g-card lg">
                   <p class="g-eyebrow">A little more taken care of</p>
                   <h3>Free</h3>
                   <p class="g-price">$0<span>/month</span></p>
                   <p class="g-price-alt">No credit card. No trial clock.</p>
+                  <p class="g-price-saving"></p>
                   <ul>
                     <li>Ocur Desktop, in your browser or as an app</li>
                     <li>Connect Gmail, Calendar, Drive, Notion and GitHub</li>
@@ -83,11 +90,12 @@
                   <p class="g-meta">1.5M credits every month</p>
                   <a class="g-btn g-btn-glass" href="https://app.ocur.ai/?auth=sign-up">Start free</a>
                 </article>
-                <article class="g-card lg">
+                <article class="g-card lg" data-solo-plan="starter">
                   <p class="g-eyebrow">Ocur, every day</p>
                   <h3>Starter</h3>
                   <p class="g-price">$29<span>/month</span></p>
                   <p class="g-price-alt">or $290 a year — 2 months free</p>
+                  <p class="g-price-saving"></p>
                   <ul>
                     <li>Ocur's own WhatsApp and iMessage lines, call number and email</li>
                     <li>Ocur on WhatsApp, iMessage, Telegram, Slack, Teams and email</li>
@@ -96,14 +104,15 @@
                     <li>oDrops · create 10 Drops</li>
                   </ul>
                   <p class="g-meta">3M credits every month — 2× Free</p>
-                  <a class="g-btn g-btn-glass" href="https://app.ocur.ai/?auth=sign-up&amp;plan=starter">Get Starter</a>
+                  <a class="g-btn g-btn-glass" href="https://app.ocur.ai/?auth=sign-up&amp;plan=starter&amp;checkout=1">Get Starter</a>
                 </article>
-                <article class="g-card g-card-hot lg">
+                <article class="g-card g-card-hot lg" data-solo-plan="pro">
                   <p class="g-badge">Most popular</p>
                   <p class="g-eyebrow">Ocur as your right hand</p>
                   <h3>Pro</h3>
                   <p class="g-price">$149<span>/month</span></p>
                   <p class="g-price-alt">or $1,490 a year — 2 months free</p>
+                  <p class="g-price-saving"></p>
                   <ul>
                     <li>Everything in Starter</li>
                     <li>Room for scheduled jobs, briefs and long working sessions all month</li>
@@ -111,13 +120,14 @@
                     <li>oDrops · create 50 Drops</li>
                   </ul>
                   <p class="g-meta">16M credits every month</p>
-                  <a class="g-btn" href="https://app.ocur.ai/?auth=sign-up&amp;plan=pro">Get Pro</a>
+                  <a class="g-btn" href="https://app.ocur.ai/?auth=sign-up&amp;plan=pro&amp;checkout=1">Get Pro</a>
                 </article>
-                <article class="g-card lg">
+                <article class="g-card lg" data-solo-plan="pro-plus">
                   <p class="g-eyebrow">Ocur running your whole day</p>
                   <h3>Pro Plus</h3>
                   <p class="g-price">$299<span>/month</span></p>
                   <p class="g-price-alt">or $2,990 a year — 2 months free</p>
+                  <p class="g-price-saving"></p>
                   <ul>
                     <li>Everything in Pro</li>
                     <li>For power users with workflows, teammates and live apps around the clock</li>
@@ -125,13 +135,14 @@
                     <li>oDrops · create 100 Drops</li>
                   </ul>
                   <p class="g-meta">32M credits every month — 2× Pro</p>
-                  <a class="g-btn g-btn-glass" href="https://app.ocur.ai/?auth=sign-up&amp;plan=pro-plus">Get Pro Plus</a>
+                  <a class="g-btn g-btn-glass" href="https://app.ocur.ai/?auth=sign-up&amp;plan=pro-plus&amp;checkout=1">Get Pro Plus</a>
                 </article>
               </div>
               <p class="g-note">
                 Every paid plan includes the full Ocur OS, every connected channel, and Ocur's own
                 number and email. Prices in USD — EU customers pay the same number in euro. Annual
                 billing gives you two months free. Cancel or switch plans any time from your billing settings.
+                Choosing a plan signs you up (or in) and takes you straight to secure checkout with Stripe.
               </p>
             </div>
 
@@ -168,7 +179,7 @@
                     <li>oDrops access</li>
                   </ul>
                   <p class="g-meta">48M pooled credits every month</p>
-                  <a class="g-btn g-btn-glass" href="https://app.ocur.ai/?auth=sign-up&amp;plan=team">Get Team</a>
+                  <a class="g-btn g-btn-glass" href="https://app.ocur.ai/?auth=sign-up&amp;plan=team&amp;checkout=1">Get Team</a>
                   <a class="g-card-talk" href="/contact?plan=team#talk" data-talk="team">or talk to us first →</a>
                 </article>
                 <article class="g-card g-card-hot lg" data-company-plan="growth">
@@ -187,7 +198,7 @@
                     <li>oDrops access</li>
                   </ul>
                   <p class="g-meta">180M pooled credits every month</p>
-                  <a class="g-btn" href="https://app.ocur.ai/?auth=sign-up&amp;plan=growth">Get Growth</a>
+                  <a class="g-btn" href="https://app.ocur.ai/?auth=sign-up&amp;plan=growth&amp;checkout=1">Get Growth</a>
                   <a class="g-card-talk" href="/contact?plan=growth#talk" data-talk="growth">or talk to us first →</a>
                 </article>
                 <article class="g-card lg" data-company-plan="scale">
@@ -205,7 +216,7 @@
                     <li>oDrops access</li>
                   </ul>
                   <p class="g-meta">600M pooled credits every month</p>
-                  <a class="g-btn g-btn-glass" href="https://app.ocur.ai/?auth=sign-up&amp;plan=scale">Get Scale</a>
+                  <a class="g-btn g-btn-glass" href="https://app.ocur.ai/?auth=sign-up&amp;plan=scale&amp;checkout=1">Get Scale</a>
                   <a class="g-card-talk" href="/contact?plan=scale#talk" data-talk="scale">or talk to us first →</a>
                 </article>
               </div>
@@ -228,6 +239,7 @@
                 Prices in USD — EU customers pay the same number in euro. Choose monthly, every six months,
                 or annually. The price shown is the full charge for that billing period. Annual billing gives you a
                 month free. Credit top-ups expire at your next monthly reset. Cancel or switch plans any time.
+                Choosing a plan signs you up (or in), lets you name your company and takes you to secure checkout with Stripe.
               </p>
             </div>
             <p class="g-note g-credit-note">
