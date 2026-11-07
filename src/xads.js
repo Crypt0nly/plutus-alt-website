@@ -18,6 +18,8 @@
 // page source on every site that uses them); the relay is gated by its own
 // server-side env and just no-ops with 501 until configured.
 
+import { isSignupHref } from './doors.js';
+
 const CTA_EVENT_ID = import.meta.env.VITE_X_EVENT_ID_CTA_CLICK;
 const BOOK_EVENT_ID = import.meta.env.VITE_X_EVENT_ID_BOOK_DEMO;
 // The third conversion: a sent "Talk to us" form (main.js fires it).
@@ -85,10 +87,11 @@ export function initXAds() {
   } catch {}
 
   // 2 + 3. app links: pass the twclid through; only the ways into sign-up
-  // count as the conversion (Log in and the oWorlds demo are not sign-ups)
+  // count as the conversion (Log in and the oWorlds demo are not sign-ups;
+  // oWorlds' own Start free is)
   const twclid = readTwclid();
   document.querySelectorAll('a[href^="https://app.ocur.ai"]').forEach((a) => {
-    const signup = a.getAttribute('href').startsWith('https://app.ocur.ai/?auth=sign-up');
+    const signup = isSignupHref(a.getAttribute('href'));
     if (twclid) {
       try {
         const u = new URL(a.href);

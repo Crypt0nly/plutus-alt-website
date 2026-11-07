@@ -42,8 +42,10 @@ It is now five pages, each with one job; the nav names three of them
    on the record, only what you connect, your data stays yours, with a link
    to `/data`; each claim is one the FAQ and privacy policy already make),
    the product family (Ocur, oDrops, oWorlds — the oWorlds view is a render
-   of the current 3D office and links to the public demo world, see
-   [docs/product-visuals.md](docs/product-visuals.md)), the
+   of the current 3D office with two doors, *Start free with Olive* into
+   oWorlds sign-up and the public demo world, see
+   [docs/product-visuals.md](docs/product-visuals.md) and *The oWorlds door*
+   below), the
    connectors ("Works inside the tools your company already runs on.", a
    small solar system of the connectors, with a link to `/integrations`),
    three cards to Product, Pricing and the FAQ, and the closing card.
@@ -206,14 +208,17 @@ the prerender so a no-JS post comes back to the German page.
   second conversion: every `data-book` link fires `book_demo` the same way.
   Both legs stay dormant until the `X_EVENT_ID_*`/`VITE_X_EVENT_ID_*` vars in
   `.env.example` are set with real event ids from X Events Manager. Only
-  links into sign-up (`app.ocur.ai/?auth=sign-up…`) count as the Start-free
-  conversion — *Log in* and the oWorlds demo link carry the twclid but are
-  not conversions.
+  links into sign-up (`app.ocur.ai/?auth=sign-up…` and oWorlds'
+  `app.ocur.ai/worlds?auth=sign-up…`, both listed in `src/doors.js`) count
+  as the Start-free conversion — *Log in* and the oWorlds demo link carry the
+  twclid but are not conversions.
 - **Sign-up clicks and campaigns**: every link into sign-up fires PostHog's
   `signup_click` with its `placement` (nav, menu, hero, products,
   pricing-card, pricing-pilot, pricing-faq, product-system,
   product-features, final, footer, …), the `plan` and `interval` it carries,
-  and the visit's campaign tags (`src/chrome.js`). `src/attribution.js`
+  the `product` (`ocur` or `oworlds`, with the `drop` for oWorlds) and the
+  visit's campaign tags (`src/chrome.js`). Demo links (`data-demo`) fire
+  `demo_click` with their product and placement. `src/attribution.js`
   keeps `utm_*` tags from the landing URL for the tab (sessionStorage) and
   adds them to every app.ocur.ai link, so a sign-up keeps the campaign that
   brought it (the app has to read them to report on them). PostHog's
@@ -486,6 +491,23 @@ screen, and the items that have to be set outside this repo.
   the EN | DE switch, the theme button and X along the bottom.
 - **On phones both pricing ladders stack** under their own ledes instead of
   hiding one behind the *Just me / My company* switch.
+
+### The oWorlds door
+
+The oWorlds panel of the product family has two doors: the blue **Start free
+with Olive** and *Walk through the demo world*. The button goes straight to
+oWorlds sign-up, `https://app.ocur.ai/worlds?auth=sign-up&drop=olive`, where
+the form is on the first page. The Drop in it follows the room picked in the
+render (research lab → Olive, sales office → Milo, creative studio → Luna;
+`data-world-drop` on each hotspot, swapped by `setWorldDrop` in
+`src/doors.js`, which keeps the campaign tags already on the link). oWorlds
+greets the visitor with that Drop on its sign-up page ("Milo is ready to work
+for you") and has it chosen when setup reaches *Meet your first Drop*, so the
+character picked here is the one they meet after signing up. The ids are a
+contract with plutus-cloud's `oworld/src/firstRun/dropPresets.ts`
+(`tests/oworlds.test.mjs` lists the ones the app knows); an unknown id is
+ignored by the app. The German page keeps the same link (oWorlds is in
+English).
 
 ## Where your data goes (`/data`, `/de/data`)
 
