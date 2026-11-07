@@ -9,6 +9,7 @@
 import { syncThemeColor } from './theme.js';
 import { track } from './analytics.js';
 import { readCampaign } from './attribution.js';
+import { SIGNUP_LINKS } from './doors.js';
 
 // The lens: the app tab bar's selection, sliding between section links.
 function createLens(links) {
@@ -142,19 +143,29 @@ export function initDoors() {
   document.querySelectorAll('a[data-book]').forEach((a) => {
     a.addEventListener('click', () => track('book_demo_click', { placement: a.dataset.book }));
   });
-  document.querySelectorAll('a[href^="https://app.ocur.ai/?auth=sign-up"]').forEach((a) => {
+  document.querySelectorAll(SIGNUP_LINKS).forEach((a) => {
     a.addEventListener('click', () => {
       let plan = 'free';
       let interval;
+      let product = 'ocur';
+      let drop;
       try {
         const url = new URL(a.href);
         plan = url.searchParams.get('plan') || 'free';
         interval = url.searchParams.get('interval') || undefined;
+        if (url.pathname.startsWith('/worlds')) {
+          product = 'oworlds';
+          drop = url.searchParams.get('drop') || undefined;
+        }
       } catch {}
-      track('signup_click', { placement: signupPlacement(a), plan, interval, ...readCampaign() });
+      track('signup_click', { placement: signupPlacement(a), plan, interval, product, drop, ...readCampaign() });
     });
   });
+  document.querySelectorAll('a[data-demo]').forEach((a) => {
+    a.addEventListener('click', () => track('demo_click', { product: a.dataset.demo, placement: signupPlacement(a), ...readCampaign() }));
+  });
 }
+
 
 export function setYear() {
   const year = String(new Date().getFullYear());

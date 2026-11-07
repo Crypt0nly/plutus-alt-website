@@ -100,6 +100,7 @@ export const DE = [
   [".ps-world-studio-copy", "Luna arbeitet an deiner nächsten großen Idee."],
   [".ps-world-copy", "Eine lebendige Zentrale für deine Drops und ihre Arbeit."],
   [".ps-world-link", "Durch die Demo-Welt gehen <span aria-hidden=\"true\">↗</span>"],
+  [".ps-world-start", "<span>Kostenlos starten mit <span data-world-drop-name>Olive</span></span>"],
   [".ps-example-note", "Produktansichten mit Beispieldaten. Wähle ein Produkt zum Entdecken."],
 
   // The nav, phone menu and footer are drawn in German at build time

@@ -1,4 +1,5 @@
 import './product-showcase.css';
+import { setWorldDrop } from './doors.js';
 
 // Local product illustrations only: these controls never submit real work.
 export function initProductShowcase({ onLayout = () => {} } = {}) {
@@ -41,6 +42,15 @@ export function initProductShowcase({ onLayout = () => {} } = {}) {
   bindPreview('[data-desk]', '[data-desk-view]', 'desk', 'deskView');
   bindPreview('[data-drop]', '[data-drop-chat]', 'drop', 'dropChat');
   bindPreview('[data-world]', '[data-world-note]', 'world', 'worldNote');
+
+  // The oWorlds door follows the room you look at: pick the research lab and
+  // you start with Olive, the sales office and you start with Milo. The Drop
+  // travels to the app as ?drop=<id> and waits for you after sign-up.
+  const start = root.querySelector('[data-world-start]');
+  root.querySelectorAll('[data-world-drop]').forEach((spot) => spot.addEventListener('click', () => {
+    if (!start) return;
+    setWorldDrop(start, spot.dataset.worldDrop, spot.dataset.worldName);
+  }));
 
   // Keep the existing sales dock from covering the product demonstration.
   if ('IntersectionObserver' in window) {
