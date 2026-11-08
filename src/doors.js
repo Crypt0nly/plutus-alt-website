@@ -1,14 +1,8 @@
 // The ways into sign-up the site counts: Ocur's own (app.ocur.ai/?auth=sign-up,
-// with or without a plan), oWorlds' (app.ocur.ai/worlds?auth=sign-up,
-// optionally with the Drop the visitor picked) and oDrops'
-// (app.ocur.ai/drops?auth=sign-up). Each opens its product's sign-up form
-// directly. Kept in one place so the analytics (chrome.js) and the X Ads
-// conversion (xads.js) agree.
-export const SIGNUP_PREFIXES = [
-  'https://app.ocur.ai/?auth=sign-up',
-  'https://app.ocur.ai/worlds?auth=sign-up',
-  'https://app.ocur.ai/drops?auth=sign-up',
-];
+// with or without a plan) and oWorlds' (app.ocur.ai/worlds?auth=sign-up,
+// optionally with the Drop the visitor picked). Kept in one place so the
+// analytics (chrome.js) and the X Ads conversion (xads.js) agree.
+export const SIGNUP_PREFIXES = ['https://app.ocur.ai/?auth=sign-up', 'https://app.ocur.ai/worlds?auth=sign-up'];
 
 export const SIGNUP_LINKS = SIGNUP_PREFIXES.map((prefix) => `a[href^="${prefix}"]`).join(', ');
 

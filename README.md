@@ -492,22 +492,6 @@ screen, and the items that have to be set outside this repo.
 - **On phones both pricing ladders stack** under their own ledes instead of
   hiding one behind the *Just me / My company* switch.
 
-### The product doors
-
-Every product lives on Ocur's own host with one Ocur account: Ocur at
-`app.ocur.ai`, oDrops at `app.ocur.ai/drops`, oWorlds at `app.ocur.ai/worlds`
-(odrops.ai and oworlds.ai forward there). Each panel of the product family
-opens its product's sign-up form directly, with no page in between, and the
-note under the panels says the account is shared. `tests/product-doors.test.mjs`
-checks that every door opens on `app.ocur.ai`.
-
-- **Ocur**: *Try Ocur free* → `https://app.ocur.ai/?auth=sign-up`.
-- **oDrops**: the blue **Start free with oDrops** →
-  `https://app.ocur.ai/drops?auth=sign-up`, and *Explore an example* →
-  `https://app.ocur.ai/drops?preview=1` (opens the example without an account;
-  counted as `demo_click` with product `odrops`).
-- **oWorlds**: see below.
-
 ### The oWorlds door
 
 The oWorlds panel of the product family has two doors: the blue **Start free

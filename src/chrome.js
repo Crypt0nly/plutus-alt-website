@@ -156,8 +156,6 @@ export function initDoors() {
         if (url.pathname.startsWith('/worlds')) {
           product = 'oworlds';
           drop = url.searchParams.get('drop') || undefined;
-        } else if (url.pathname.startsWith('/drops')) {
-          product = 'odrops';
         }
       } catch {}
       track('signup_click', { placement: signupPlacement(a), plan, interval, product, drop, ...readCampaign() });
