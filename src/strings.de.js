@@ -89,7 +89,8 @@ export const DE = [
   [".ps-chat-sage", "Die Recherche steht. Finden wir heraus, worauf es ankommt."],
   [".ps-chat-lumi", "Drei Richtungen für deine nächste Kampagne. Welche passt zu dir?"],
   [".ps-drops-copy", "KI-Teammitglieder mit Charakter. Ganz auf dich abgestimmt."],
-  [".ps-drops-link", "Deine Drops kennenlernen <span aria-hidden=\"true\">↗</span>"],
+  [".ps-drops-start", "Kostenlos starten mit oDrops"],
+  [".ps-drops-link", "Ein Beispiel ansehen <span aria-hidden=\"true\">↗</span>"],
   [".ps-world-kicker", "Deine Zentrale, in 3D"],
   [".ps-world-title", "Sieh deinem Team beim Arbeiten zu."],
   [".ps-world-research", "Recherche-Labor"],
@@ -101,7 +102,7 @@ export const DE = [
   [".ps-world-copy", "Eine lebendige Zentrale für deine Drops und ihre Arbeit."],
   [".ps-world-link", "Durch die Demo-Welt gehen <span aria-hidden=\"true\">↗</span>"],
   [".ps-world-start", "<span>Kostenlos starten mit <span data-world-drop-name>Olive</span></span>"],
-  [".ps-example-note", "Produktansichten mit Beispieldaten. Wähle ein Produkt zum Entdecken."],
+  [".ps-example-note", "Ein Ocur-Konto für Ocur, oDrops und oWorlds. Produktansichten mit Beispieldaten."],
 
   // The nav, phone menu and footer are drawn in German at build time
   // (scripts/lib/chrome.mjs); these lines only serve the dev ?lang=de view.

@@ -16,7 +16,7 @@
 .ps-product-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 /* oWorlds has two doors: start free with the Drop from the room you picked, or walk through the demo. */
 .ps-world-doors { flex: none; display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 6px 22px; }
-.ps-world-start { white-space: nowrap; }
+.ps-world-start, .ps-drops-start { white-space: nowrap; }
 .ps-small { display: block; font-size: .75rem; font-weight: 550; color: var(--ps-muted, #627084); }
 .ps-example-note { text-align: center; margin: 24px 0 0; color: var(--cp-secondary); font-size: .75rem; }
 .ps-desktop { --ps-paper:#f6f9ff; --ps-ink:#233043; --ps-muted:#627084; --ps-line:#c4cee0; --ps-control:#ffffffd9; background: linear-gradient(120deg,#dfeaf6,#d7def2 60%,#eee1f1); color: var(--ps-ink); }
