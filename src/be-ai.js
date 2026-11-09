@@ -16,6 +16,7 @@
 import './style.css';
 import './discovery.css';
 import './be-ai.css';
+import { createGalleryCard, safeDrawingUrl } from './be-ai-media.js';
 import { initThemeToggle } from './theme.js';
 import { initChrome } from './chrome.js';
 import { initMobileMenu } from './mobile-menu.js';
@@ -123,7 +124,7 @@ function addMsg(c, side, opts = {}) {
   if (opts.label) {
     const l = document.createElement('div');
     l.className = 'ba-msg-label ba-hand';
-    l.innerHTML = opts.label;
+    l.textContent = opts.label;
     el.appendChild(l);
   }
   const body = document.createElement('div');
@@ -131,7 +132,7 @@ function addMsg(c, side, opts = {}) {
   if (opts.drawing) {
     const img = document.createElement('img');
     img.className = 'ba-msg-img';
-    img.src = opts.drawing;
+    img.src = safeDrawingUrl(opts.drawing) || '';
     img.alt = 'a hand-drawn answer';
     body.appendChild(img);
   } else {
@@ -707,17 +708,7 @@ async function loadGallery() {
     if (!items || !items.length) return;
     grid.innerHTML = '';
     items.slice(0, 24).forEach((it) => {
-      const card = document.createElement('figure');
-      card.className = 'ba-gal ba-sketch';
-      const body =
-        it.kind === 'drawing'
-          ? `<img src="${it.drawing}" alt="a hand-drawn answer" />`
-          : `<p class="ba-answer-text"></p>`;
-      card.innerHTML = `${body}<figcaption class="ba-hand">“${escapeHtml(it.question)}”${
-        it.pickedAsAi ? ' · fooled them 🏆' : ''
-      }</figcaption>`;
-      if (it.kind !== 'drawing') card.querySelector('.ba-answer-text').textContent = it.text;
-      grid.appendChild(card);
+      grid.appendChild(createGalleryCard(document, it));
     });
     $('#ba-gallery').hidden = false;
   } catch {
@@ -775,13 +766,6 @@ function renderGlobalStat(stats) {
   ).toLocaleString()}×</strong> into thinking they were the AI`;
   el.hidden = false;
 }
-function escapeHtml(s) {
-  return String(s).replace(
-    /[&<>"']/g,
-    (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]
-  );
-}
-
 // ── transient toast ──────────────────────────────────────────────────────────
 let toastTimer = null;
 function flash(text) {

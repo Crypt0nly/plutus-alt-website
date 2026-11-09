@@ -18,42 +18,110 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www\\.ocur\\.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www\\.ocur\\.ai"
+        }
+      ],
       "destination": "https://ocur.ai/:path*",
       "permanent": true
     },
     {
       "source": "/",
-      "has": [{ "type": "cookie", "key": "ocur-lang", "value": "de" }],
+      "has": [
+        {
+          "type": "cookie",
+          "key": "ocur-lang",
+          "value": "de"
+        }
+      ],
       "destination": "/de",
       "permanent": false
     },
     {
       "source": "/de",
-      "has": [{ "type": "cookie", "key": "ocur-lang", "value": "en" }],
+      "has": [
+        {
+          "type": "cookie",
+          "key": "ocur-lang",
+          "value": "en"
+        }
+      ],
       "destination": "/",
       "permanent": false
     },
     {
       "source": "/",
-      "missing": [{ "type": "cookie", "key": "ocur-lang" }],
-      "has": [{ "type": "header", "key": "accept-language", "value": "de.*" }],
+      "missing": [
+        {
+          "type": "cookie",
+          "key": "ocur-lang"
+        }
+      ],
+      "has": [
+        {
+          "type": "header",
+          "key": "accept-language",
+          "value": "de.*"
+        }
+      ],
       "destination": "/de",
       "permanent": false
     }
   ],
   "headers": [
     {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "base-uri 'self'; object-src 'none'; frame-ancestors 'none'"
+        }
+      ]
+    },
+    {
       "source": "/be-ai/api/:path*",
-      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
     },
     {
       "source": "/leads/api/:path*",
-      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
     },
     {
       "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ]
 }

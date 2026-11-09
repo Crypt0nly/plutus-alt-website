@@ -21,21 +21,36 @@
 // (IP + user agent) plus the twclid the client captured from the ad click;
 // X requires twclid or the ip/user-agent pair to attribute.
 
-const ALLOWED_HOSTS = /(^|\.)ocur\.ai$|\.vercel\.app$|^localhost(:\d+)?$/;
+const MAX_BODY_BYTES = 8192;
+
+function allowedOrigin(value) {
+  if (typeof value !== 'string') return false;
+  try {
+    const url = new URL(value);
+    if (url.origin !== value || url.username || url.password) return false;
+    const allowed = new Set(['https://ocur.ai', 'https://www.ocur.ai']);
+    for (const host of [process.env.VERCEL_URL, process.env.VERCEL_BRANCH_URL, process.env.VERCEL_PROJECT_PRODUCTION_URL]) {
+      if (host) allowed.add(`https://${host}`);
+    }
+    if (allowed.has(value)) return true;
+    return process.env.NODE_ENV !== 'production'
+      && ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname)
+      && ['http:', 'https:'].includes(url.protocol);
+  } catch { return false; }
+}
 
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'POST only' });
   }
 
   const origin = req.headers.origin;
-  if (origin) {
-    let host = '';
-    try {
-      host = new URL(origin).host;
-    } catch {}
-    if (!ALLOWED_HOSTS.test(host)) return res.status(403).json({ error: 'origin not allowed' });
+  if (!allowedOrigin(origin)) return res.status(403).json({ error: 'origin not allowed' });
+  // Browser metadata is an extra filter, not authentication for this public relay.
+  if (req.headers['sec-fetch-site'] === 'cross-site') {
+    return res.status(403).json({ error: 'cross-site request not allowed' });
   }
 
   const token = process.env.X_PIXEL_TOKEN;
@@ -43,6 +58,12 @@ export default async function handler(req, res) {
 
   // sendBeacon may deliver the JSON as a string, fetch as a parsed object
   let body = req.body;
+  try {
+    const raw = typeof body === 'string' ? body : JSON.stringify(body);
+    if (!raw || Buffer.byteLength(raw) > MAX_BODY_BYTES) {
+      return res.status(413).json({ error: 'body too large' });
+    }
+  } catch { return res.status(400).json({ error: 'invalid body' }); }
   if (typeof body === 'string') {
     try {
       body = JSON.parse(body);
@@ -50,22 +71,23 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'invalid JSON' });
     }
   }
-  if (!body || typeof body !== 'object') return res.status(400).json({ error: 'missing body' });
+  if (!body || typeof body !== 'object' || Array.isArray(body)) return res.status(400).json({ error: 'missing body' });
 
   const eventIds = {
     cta_click: process.env.X_EVENT_ID_CTA_CLICK,
     book_demo: process.env.X_EVENT_ID_BOOK_DEMO,
     lead: process.env.X_EVENT_ID_LEAD,
   };
-  const eventId = eventIds[body.event];
+  const eventId = Object.hasOwn(eventIds, body.event) ? eventIds[body.event] : null;
   if (!eventId) return res.status(400).json({ error: 'unknown or unconfigured event' });
 
   const identifier = {};
   if (typeof body.twclid === 'string' && body.twclid) identifier.twclid = body.twclid.slice(0, 500);
-  const ip = (req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || '')
+  const forwarded = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || '';
+  const ip = (typeof forwarded === 'string' ? forwarded : '')
     .split(',')[0]
     .trim();
-  const ua = req.headers['user-agent'];
+  const ua = typeof req.headers['user-agent'] === 'string' ? req.headers['user-agent'].slice(0, 1024) : '';
   if (ip && ua) {
     identifier.ip_address = ip;
     identifier.user_agent = ua;
@@ -83,7 +105,13 @@ export default async function handler(req, res) {
     conversion.conversion_id = body.conversion_id.slice(0, 200);
   }
   if (typeof body.event_source_url === 'string' && body.event_source_url) {
-    conversion.event_source_url = body.event_source_url.slice(0, 2000);
+    try {
+      const source = new URL(body.event_source_url);
+      if (source.origin === origin) {
+        // Do not forward query parameters, fragments or embedded credentials.
+        conversion.event_source_url = `${source.origin}${source.pathname}`.slice(0, 2000);
+      }
+    } catch { /* Optional attribution must not reject an otherwise valid event. */ }
   }
 
   const pixelId = process.env.X_PIXEL_ID || 'reji3';
@@ -95,11 +123,13 @@ export default async function handler(req, res) {
         method: 'POST',
         headers: { 'X-Pixel-Token': token, 'Content-Type': 'application/json' },
         body: JSON.stringify({ conversions: [conversion] }),
+        signal: AbortSignal.timeout(10_000),
+        redirect: 'error',
       }
     );
-    const text = await upstream.text();
-    res.status(upstream.ok ? 200 : upstream.status);
-    return res.json({ ok: upstream.ok, upstream: text.slice(0, 2000) });
+    // Provider responses can contain account details. The browser only needs status.
+    await upstream.body?.cancel();
+    return res.status(upstream.ok ? 200 : 502).json({ ok: upstream.ok });
   } catch (e) {
     return res.status(502).json({ error: 'upstream unreachable' });
   }
