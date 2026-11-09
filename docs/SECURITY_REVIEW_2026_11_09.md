@@ -8,6 +8,13 @@ queries of its own. Cloud endpoints require a separate backend review.
 
 ## Changes
 
+- High: the game gallery interpolated stored drawing URLs into HTML, while
+  backend validation allowed arbitrary text after a PNG data-URL prefix. An
+  anonymous participant could store an attribute-injection payload that ran
+  script for gallery visitors. Gallery rendering now uses DOM properties and
+  validates PNG data URLs, including for historical records. The companion
+  cloud patch strictly validates drawing encodings/signatures before storage.
+  Regression tests use synthetic payloads; no live exploit was submitted.
 - npm audit originally reported eight affected packages: one critical, five
   high and two moderate. Updated Vite to 6.4.5 and refreshed locked dependencies,
   including DOMPurify, fflate, PostCSS, source-map-js, nanoid and undici.
