@@ -5,6 +5,8 @@
 // from the landing page to pricing but not the visit itself. A newer landing
 // with tags replaces the old ones; a link that already names a tag keeps it.
 
+import { APP_LINKS } from './doors.js';
+
 const KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
 const STORE = 'ocur-utm';
 
@@ -32,7 +34,7 @@ export function initAttribution(root = document) {
 
   const campaign = readCampaign();
   if (!Object.keys(campaign).length) return;
-  root.querySelectorAll('a[href^="https://app.ocur.ai"]').forEach((a) => {
+  root.querySelectorAll(APP_LINKS).forEach((a) => {
     try {
       const url = new URL(a.href);
       for (const [key, value] of Object.entries(campaign)) {

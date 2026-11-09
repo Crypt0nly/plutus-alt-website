@@ -153,7 +153,7 @@ export function initDoors() {
         const url = new URL(a.href);
         plan = url.searchParams.get('plan') || 'free';
         interval = url.searchParams.get('interval') || undefined;
-        if (url.pathname.startsWith('/worlds')) {
+        if (url.host === 'oworlds.ai' || url.pathname.startsWith('/worlds')) {
           product = 'oworlds';
           drop = url.searchParams.get('drop') || undefined;
         }

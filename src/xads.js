@@ -4,8 +4,9 @@
 //  1. Capture the twclid X appends to ad-click landing URLs and keep it for
 //     the 30-day click window, so later conversions can be attributed even
 //     when the pixel's own cookies are blocked.
-//  2. Decorate every app.ocur.ai link with that twclid — the app backend can
-//     then report the real signup conversion server-side with it.
+//  2. Decorate every link into the products (app.ocur.ai, oworlds.ai) with
+//     that twclid — the app backend can then report the real signup
+//     conversion server-side with it.
 //  3. On CTA click, fire the conversion both ways with one conversion_id so
 //     X deduplicates: through the pixel (twq('event'), works while uwt.js
 //     isn't ad-blocked) and through our serverless Conversions API relay
@@ -18,7 +19,7 @@
 // page source on every site that uses them); the relay is gated by its own
 // server-side env and just no-ops with 501 until configured.
 
-import { isSignupHref } from './doors.js';
+import { APP_LINKS, isSignupHref } from './doors.js';
 
 const CTA_EVENT_ID = import.meta.env.VITE_X_EVENT_ID_CTA_CLICK;
 const BOOK_EVENT_ID = import.meta.env.VITE_X_EVENT_ID_BOOK_DEMO;
@@ -90,7 +91,7 @@ export function initXAds() {
   // count as the conversion (Log in and the oWorlds demo are not sign-ups;
   // oWorlds' own Start free is)
   const twclid = readTwclid();
-  document.querySelectorAll('a[href^="https://app.ocur.ai"]').forEach((a) => {
+  document.querySelectorAll(APP_LINKS).forEach((a) => {
     const signup = isSignupHref(a.getAttribute('href'));
     if (twclid) {
       try {

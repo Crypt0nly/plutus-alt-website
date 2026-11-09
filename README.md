@@ -199,7 +199,8 @@ the prerender so a no-JS post comes back to the German page.
   helper report "script detected but no pixel fired" on non-prod hosts).
   The base pixel only reports page visits. Conversions ride on top:
   `src/xads.js` captures the `twclid` from ad-click landings (30-day
-  window), passes it through on every app.ocur.ai link (so the app backend
+  window), passes it through on every link into the products (app.ocur.ai
+  and oworlds.ai; `APP_LINKS` in `src/doors.js`, so the app backend
   can report the real signup conversion later), and on Start-free clicks
   fires the event twice with one `conversion_id` for dedup — through the
   pixel (`twq('event', …)`, blocked by ad blockers) and through the
@@ -209,7 +210,7 @@ the prerender so a no-JS post comes back to the German page.
   Both legs stay dormant until the `X_EVENT_ID_*`/`VITE_X_EVENT_ID_*` vars in
   `.env.example` are set with real event ids from X Events Manager. Only
   links into sign-up (`app.ocur.ai/?auth=sign-up…` and oWorlds'
-  `app.ocur.ai/worlds?auth=sign-up…`, both listed in `src/doors.js`) count
+  `oworlds.ai/?auth=sign-up…`, both listed in `src/doors.js`) count
   as the Start-free conversion — *Log in* and the oWorlds demo link carry the
   twclid but are not conversions.
 - **Sign-up clicks and campaigns**: every link into sign-up fires PostHog's
@@ -220,7 +221,8 @@ the prerender so a no-JS post comes back to the German page.
   visit's campaign tags (`src/chrome.js`). Demo links (`data-demo`) fire
   `demo_click` with their product and placement. `src/attribution.js`
   keeps `utm_*` tags from the landing URL for the tab (sessionStorage) and
-  adds them to every app.ocur.ai link, so a sign-up keeps the campaign that
+  adds them to every link into the products (app.ocur.ai, oworlds.ai), so a
+  sign-up keeps the campaign that
   brought it (the app has to read them to report on them). PostHog's
   cookieless mode — one visitor counted across pages without storing
   anything — is opt-in with `VITE_POSTHOG_COOKIELESS=always`, after
@@ -496,8 +498,10 @@ screen, and the items that have to be set outside this repo.
 
 The oWorlds panel of the product family has two doors: the blue **Start free
 with Olive** and *Walk through the demo world*. The button goes straight to
-oWorlds sign-up, `https://app.ocur.ai/worlds?auth=sign-up&drop=olive`, where
-the form is on the first page. The Drop in it follows the room picked in the
+oWorlds sign-up on its own domain, `https://oworlds.ai/?auth=sign-up&drop=olive`,
+which opens the sign-up form straight away (the demo is
+`https://oworlds.ai/?demo=1`). Each product lives on its own domain while
+they are tested on their own. The Drop in it follows the room picked in the
 render (research lab → Olive, sales office → Milo, creative studio → Luna;
 `data-world-drop` on each hotspot, swapped by `setWorldDrop` in
 `src/doors.js`, which keeps the campaign tags already on the link). oWorlds
